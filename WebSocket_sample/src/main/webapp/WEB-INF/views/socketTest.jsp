@@ -24,7 +24,7 @@
 		$('#message').val('')
 	});
 
-	let sock = new SockJS("http://172.30.1.6:8787/web/echo/");
+	let sock = new SockJS("http://172.30.1.57:8787/web/echo/");
 	sock.onmessage = onMessage;
 	sock.onclose = onClose;
 	// 메시지 전송
