@@ -1,0 +1,40 @@
+#textarea{
+	margin-top: 25%;
+}
+#message{
+
+}
+#localvideo>div>video{
+height:500px; 
+width:500px;
+}
+#remotevideo>div>video{
+height:300px; 
+width:300px;
+}
+#title{
+text-align: left;
+
+}
+#localvideo>div>h2{
+	width: 500px;
+	text-align: center;
+	font-size: 20pt;
+	border: 1px solid black;
+}
+#remotevideo>div>h2{
+	width: 300px;
+	text-align: center;
+	font-size: 20pt;
+	border: 1px solid black;
+}
+#remotevideo>div{
+	margin: 0 auto;
+	float: left;
+}
+#messageArea{
+	border: 1px solid black;
+	width: 500px;
+	height: 50px;
+	overflow: auto;
+}
