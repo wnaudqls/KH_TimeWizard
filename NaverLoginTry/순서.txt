@@ -1,0 +1,20 @@
+CHECKLIST
+	* properties - web project settings - context root
+	* maven - update project
+UPGRADE
+	1. pom.xml
+		java 1.8/spring 5.2.9.RELEASE/servlet-api/jsp-api/maven-compiler-plugin
+	2. properties - project facets - java / (dynamic web module) version check
+	3. update maven projects
+	
+NAVER
+	1. pom.xml
+		scribejava-core 3.3.0
+			API 요청할 시에 code와 state 값을 가져오는데
+				state 함수가 deprecated 되지 않고 남아있을 것
+				OAuthRequest의 생성자 파라미터로 OAuthService가 들어갈 것
+	2. LoginNaverApi.java
+	3. LoginNaverBO.java
+	4. LoginController.java
+	5. index/userlogin/usersignup/naversuccess.jsp
+		
