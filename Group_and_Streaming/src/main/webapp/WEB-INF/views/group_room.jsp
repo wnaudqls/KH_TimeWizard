@@ -28,11 +28,13 @@
 		<input type="text" id="message" onkeyup="enterkey()"placeholder="채팅을 입력하십시오." /> 
 		<input type="button" id="sendBtn"value="submit" /> 
 		<input id="roomid" /> <input type="button" id="btn-open-room" value="방열기">
-
+		
 
 		<!-- 이 부분은 방 만들때 값을 받아서 넣어주면 될 듯함 -->
 
 		<input type="text" id="nickname" placeholder="이름을 입력헤주십시오."> 
+		<input type="button" id="connect" value="접속하기">
+		<input type="button" id="disconnect" value="접속끊기">
 		<input type="number" id="maxClient" hidden="" />
 
 		<div id="messageArea"></div>
@@ -49,23 +51,55 @@
 
 
 <script type="text/javascript">
+
+	var sock;
+	var nickname;
+	$("#connect").click(function() {
+        nickname = document.getElementById("nickname").value;
+        document.getElementById("nickname").style.display="none";
+        document.getElementById("connect").style.display="none";
+        document.getElementById("disconnect").style.display="inline";
+        connect();
+    });
+	$("#disconnect").click(function() {
+       
+        document.getElementById("nickname").style.display="";
+        document.getElementById("connect").style.display="";
+        document.getElementById("disconnect").style.display="none";
+        disconnect();
+    });
+	function disconnect(){
+		sock.send(nickname + "님이 퇴장하셨습니다.")
+		sock.close();
+	}
+	function connect() {
+		sock = new SockJS("/timewizard/webserver/");
+		// sock의 이벤트
+		sock.onopen = onOpen;
+		sock.onmessage = onMessage;
+		sock.onclose = onClose;
+	}
+
 	$("#sendBtn").click(function() {
 		sendMessage();
 		$('#message').val('')
 	});
 
-	let sock = new SockJS("/timewizard/webserver/");
+	function onOpen(){
+		
+		sock.send(nickname + "님이 입장하셨습니다.");
+	}
+	
 	//EchoHandler의 RequestMapping의 주소를 그대로 갖다붙힘
 	//ip로 하는 경우는 웹소켓의 서버 ip가 다를때(별도의 ip를 가진 웹소켓 서버가 존재할 때) 쓰는게 좋은거 같음
 
-	// sock의 이벤트 = 뒤에 지정한 함수
-	sock.onmessage = onMessage;
-	sock.onclose = onClose;
+	
 	// 메시지 전송
 	function sendMessage() {
-		sock.send($("#nickname").val() + ": "+ $("#message").val());
+		sock.send($("#nickname").val() + ": " + $("#message").val());
 		$('#message').val('')
 	}
+
 	// 서버로부터 메시지를 받았을 때
 	function onMessage(msg) {
 		var data = msg.data;
@@ -73,7 +107,8 @@
 	}
 	// 서버와 연결을 끊었을 때
 	function onClose(evt) {
-		$("#messageArea").append("연결 끊김");
+		$("#messageArea").append(nickname + "님이 퇴장하셨습니다.<br/>");
+		sock.close();
 
 	}
 	function enterkey() {

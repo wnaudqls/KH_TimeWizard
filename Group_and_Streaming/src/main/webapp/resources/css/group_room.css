@@ -1,6 +1,9 @@
 #textarea{
 	margin-top: 25%;
 }
+#disconnect{
+	display: none;
+}
 #message{
 	width: 200px;
 }
