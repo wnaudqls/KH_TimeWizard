@@ -4,6 +4,7 @@ import com.github.scribejava.core.builder.api.DefaultApi20;
 
 public class LoginNaverApi extends DefaultApi20 {
 	
+	/* scribejava 용 naver login 구현체 */
 	protected LoginNaverApi() {}
 	
 	private static class InstanceHolder{

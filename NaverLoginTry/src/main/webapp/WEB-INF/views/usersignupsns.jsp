@@ -167,36 +167,23 @@ a {
 	justify-content: center;
 }
 </style>
-<script type="text/javascript">
-
-</script>
 </head>
 <body>
 	<div class="overlay">
-		<div class="sign-in" id="sign-in-info">
-			<h1>Sign In</h1>
-			<div class="sns">
-				<div class="icon">
-					구글
-				</div>
-				<a href="${naver_url}">
-					<div class="icon">
-						네이버
-					</div>
-				</a>
-				<div class="icon">
-					카카오
-				</div>
-			</div>
-			<p class="small"> or user your account:
-			<form id="sign-in-form" action="login/general" method="post">
-				<input type="text" placeholder="Id" name="user_id" />
-				<input type="password" placeholder="Password" name="user_pw" />
-				<p class="forgot-password">Forgot your password?</p>
-				<button class="control-button in">Sign In</button>
-				<a href="signup"><p>sign up</p></a>
+		<div class="sign-up" id="sign-up-info">
+			<h1>Create Account</h1>
+			<p class="small"> check your information:
+			<form id="sign-up-form" action="./signupresult" method="post">
+				<input type="hidden" name="user_id" value="${snsinfo.user_id}" />
+				<input type="hidden" name="user_pw" value="${snsinfo.user_pw}" />
+				<input type="email" placeholder="Email" name="user_email" value="${snsinfo.user_email}" required="required" />
+				<input type="text" placeholder="Name" name="user_name" value="${snsinfo.user_name}" required="required" />
+				<button class="control-button in">Sign Up</button>
 			</form>
 		</div>
 	</div>
+<script type="text/javascript">
+
+</script>
 </body>
 </html>
