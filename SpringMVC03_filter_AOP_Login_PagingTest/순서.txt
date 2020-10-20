@@ -1,0 +1,14 @@
+Paging
+- board-mapper.xml
+- BoardDao, BoardDaoImpl
+- BoardBiz, BoardBiz
+- PagingDto
+- BoardController
+- views(index, mvclist, mvcdetail, mvcinsert, mvcupdate)
+
+
+**위에 써져 있는부분만 paging추가한거예요!! 위에것들만 보면 되용!!
+**디자인은 안했어요..ㅎㅎ
+**프로젝트 명은 다른거예요 ㅠㅠ 원래 쌤이랑 했던 거에서 paging만 추가한거라서...!!
+
+**insert랑 update, delete 다 해보셔도 되용! DB가 다른거라서 상관없습니다~~
