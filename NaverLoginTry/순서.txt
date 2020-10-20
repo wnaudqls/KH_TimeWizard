@@ -17,4 +17,19 @@ NAVER
 	3. LoginNaverBO.java
 	4. LoginController.java
 	5. index/userlogin/usersignup/naversuccess.jsp
-		
+Mybatis
+	* MyBatis Config/Mapper DTD Catalog 등록
+	1. pom.xml
+		ojdbc6/mybatis/mybatis-spring/commons-dbcp/spring-orm
+	2. web.xml
+		root-context.xml/mapping/encoding filter
+	3. /WEB-INF/spring/sqls/user_info.sql
+	4. dto, dao, biz, controller
+	5. src/main/resources/mybatis/board-mapper.xml
+	6. src/main/resources/mybatis/db.properties
+	7. /WEB-INF/spring/sqls/config.xml
+	8. root-context.xml
+		db.properties (org.springframework.factory.config.PropertyPlaceholderConfigurer)
+		dataSource (org.apache.commons.dbp2.BasicDataSource)
+		sqlSession (org.mybatis.spring.SqlSessionFactoryBean)
+		sqlSessionTemplate (org.mybatis.spring.SqlSessionTemplate)

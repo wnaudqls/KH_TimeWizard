@@ -172,42 +172,17 @@ a {
 	<div class="overlay">
 		<div class="sign-up" id="sign-up-info">
 			<h1>Create Account</h1>
-			<div class="sns">
-				<div class="icon">
-					구글
-				</div>
-				<a href="${naver_url}">
-					<div class="icon">
-						네이버
-					</div>
-				</a>
-				<div class="icon">
-					카카오
-				</div>
-			</div>
-			<p class="small"> or user your email for registration:
-			<form id="sign-up-form" action="signupresult" method="post">
-				<input type="text" placeholder="Id" name="user_id" required="required" />
-				<input type="password" placeholder="Password" name="user_pw" required="required" />
-				<input type="password" placeholder="Check Password" name="pw_check" required="required" />
-				<input type="email" placeholder="Email" name="user_email" required="required" />
-				<input type="text" placeholder="Name" name="user_name" required="required" />
+			<p class="small"> check your information:
+			<form id="sign-up-form" action="./signupresult" method="post">
+				<input type="hidden" name="user_id" value="${snsinfo.user_id}" />
+				<input type="hidden" name="user_pw" value="${snsinfo.user_pw}" />
+				<input type="email" placeholder="Email" name="user_email" value="${snsinfo.user_email}" required="required" />
+				<input type="text" placeholder="Name" name="user_name" value="${snsinfo.user_name}" required="required" />
 				<button class="control-button in">Sign Up</button>
 			</form>
 		</div>
 	</div>
 <script type="text/javascript">
-let signupButton = document.getElementsByClassName("control-button")[0];
-signupButton.disabled = "disabled";
-let password = document.getElementsByName("user_pw")[0];
-let checkPassword = document.getElementsByName("pw_check")[0];
-checkPassword.addEventListener("keyup", ()=>{
-	if (checkPassword.value == password.value){
-		signupButton.disabled = "";
-	} else {
-		signupButton.disabled = "disabled";
-	}
-});
 
 </script>
 </body>

@@ -32,30 +32,6 @@ body, html{
   border-radius: 10px;
   margin-top: 50px;
 }
-/* 
-----------------------
-      Overlay
-----------------------
-*/
-/*
-.overlay{
-  width: 100%; 
-  height: 100%;
-  position: absolute;
-  z-index: 100;
-  background-image: linear-gradient(to right, var(--left-color), var(--right-color));
-  border-radius: 10px;
-  color: white;
-  clip: rect(0, 385px, var(--form-height), 0);
-}
-*/
-.open-sign-up{
-    animation: slideleft 1s linear forwards;
-}
-
-.open-sign-in{
-    animation: slideright 1s linear forwards;
-}
 
 .overlay .sign-in, .overlay .sign-up{
   /*  Width is 385px - padding  */
@@ -69,30 +45,6 @@ body, html{
   padding: 0px var(--padding);
   text-align: center;
 }
-
-.overlay .sign-in{
-  float: left;
-}
-
-.overlay-text-left-animation{
-    animation: text-slide-in-left 1s linear;
-}
-.overlay-text-left-animation-out{
-    animation: text-slide-out-left 1s linear;
-}
-
-.overlay .sign-up{
-  float:right;
-}
-
-.overlay-text-right-animation{
-    animation: text-slide-in-right 1s linear;
-}
-
-.overlay-text-right-animation-out{
-    animation: text-slide-out-right 1s linear;
-}
-
 
 .overlay h1{
   margin: 0px 5px;
@@ -141,71 +93,6 @@ body, html{
 
 .control-button.in{
   background-color: var(--right-color);
-}
-
-/* 
---------------------------
-      Forms
---------------------------
-*/
-.form{
-  width: 100%; 
-  height: 100%;
-  position: absolute;
-  border-radius: 10px;
-}
-
-.form .sign-in, .form .sign-up{
-  --padding: 50px;
-  position:absolute;
-    /*  Width is 100% - 385px - padding  */
-  width: calc(var(--form-width) - 385px - var(--padding) * 2);
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  padding: 0px var(--padding);
-  text-align: center;
-}
-
-/* Sign in is initially not displayed */
-.form .sign-in{
-  display: none;
-}
-
-.form .sign-in{
-  left:0;
-}
-
-.form .sign-up{
-  right: 0;
-}
-
-.form-right-slide-in{
-  animation: form-slide-in-right 1s;
-}
-
-.form-right-slide-out{
-  animation: form-slide-out-right 1s;
-}
-
-.form-left-slide-in{
-  animation: form-slide-in-left 1s;
-}
-
-.form-left-slide-out{
-  animation: form-slide-out-left 1s;
-}
-
-.form .sign-in h1{
-  color: var(--right-color);
-  margin: 0;
-}
-
-.form .sign-up h1{
-  color: var(--left-color);
-  margin: 0;
 }
 
 .social-media-buttons{
@@ -266,120 +153,6 @@ body, html{
   cursor: pointer;
 }
 
-/* 
----------------------------
-    Animation
----------------------------
-*/
-@keyframes slideright{
-  0%{
-    clip: rect(0, 385px, var(--form-height), 0);
-  }
-  30%{
-        clip: rect(0, 480px, var(--form-height), 0);
-  }
-  /*  we want the width to be slightly larger here  */
-  50%{
-     clip: rect(0px, calc(var(--form-width) / 2 + 480px / 2), var(--form-height), calc(var(--form-width) / 2 - 480px / 2));
-  }
-  80%{
-         clip: rect(0px, var(--form-width), var(--form-height), calc(var(--form-width) - 480px));
-  }
-  100%{
-     clip: rect(0px, var(--form-width), var(--form-height), calc(var(--form-width) - 385px));
-  }
-}
-
-@keyframes slideleft{
-  100%{
-    clip: rect(0, 385px, var(--form-height), 0);
-  }
-  70%{
-        clip: rect(0, 480px, var(--form-height), 0);
-  }
-  /*  we want the width to be slightly larger here  */
-  50%{
-     clip: rect(0px, calc(var(--form-width) / 2 + 480px / 2), var(--form-height), calc(var(--form-width) / 2 - 480px / 2));
-  }
-  30%{
-         clip: rect(0px, var(--form-width), var(--form-height), calc(var(--form-width) - 480px));
-  }
-  0%{
-     clip: rect(0px, var(--form-width), var(--form-height), calc(var(--form-width) - 385px));
-  }
-}
-
-@keyframes text-slide-in-left{
-  0% {
-    padding-left: 20px;
-  }
-  100% {
-    padding-left: 50px;
-  }
-}
-
-@keyframes text-slide-in-right{
-  0% {
-    padding-right: 20px;
-  }
-  100% {
-    padding-right: 50px;
-  }
-}
-
-@keyframes text-slide-out-left{
-  0% {
-    padding-left: 50px;
-  }
-  100% {
-    padding-left: 20px;
-  }
-}
-
-@keyframes text-slide-out-right{
-  0% {
-    padding-right: 50px;
-  }
-  100% {
-    padding-right: 20px;
-  }
-}
-
-@keyframes form-slide-in-right{
-  0%{
-    padding-right: 100px;
-  }
-  100%{
-    padding-right: 50px;
-  }
-}
-
-@keyframes form-slide-in-left{
-  0%{
-    padding-left: 100px;
-  }
-  100%{
-    padding-left: 50px;
-  }
-}
-
-@keyframes form-slide-out-right{
-  0%{
-    padding-right: 50px;
-  }
-  100%{
-    padding-right: 80px;
-  }
-}
-
-@keyframes form-slide-out-left{
-  0%{
-    padding-left: 50px;
-  }
-  100%{
-    padding-left: 80px;
-  }
-}
 
 .sns {
 	display: flex;
@@ -390,18 +163,18 @@ body, html{
 a {
 	text-decoration: none;
 }
-
+.overlay {
+	justify-content: center;
+}
 </style>
 <script type="text/javascript">
 
 </script>
 </head>
 <body>
-	<h1>USER LOGIN PAGE</h1>
 	<div class="overlay">
 		<div class="sign-in" id="sign-in-info">
-	
-			<h3>Sign In</h3>
+			<h1>Sign In</h1>
 			<div class="sns">
 				<div class="icon">
 					구글
@@ -416,11 +189,12 @@ a {
 				</div>
 			</div>
 			<p class="small"> or user your account:
-			<form id="sign-in-form" action="" method="post">
+			<form id="sign-in-form" action="login/general" method="post">
 				<input type="text" placeholder="Id" name="user_id" />
 				<input type="password" placeholder="Password" name="user_pw" />
 				<p class="forgot-password">Forgot your password?</p>
 				<button class="control-button in">Sign In</button>
+				<a href="login/signup"><p>sign up</p></a>
 			</form>
 		</div>
 	</div>
