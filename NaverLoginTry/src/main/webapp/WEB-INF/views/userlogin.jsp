@@ -194,7 +194,7 @@ a {
 				<input type="password" placeholder="Password" name="user_pw" />
 				<p class="forgot-password">Forgot your password?</p>
 				<button class="control-button in">Sign In</button>
-				<a href="signup"><p>sign up</p></a>
+				<a href="login/signup"><p>sign up</p></a>
 			</form>
 		</div>
 	</div>

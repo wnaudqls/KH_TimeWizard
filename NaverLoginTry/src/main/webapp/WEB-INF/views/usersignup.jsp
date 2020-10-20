@@ -186,7 +186,7 @@ a {
 				</div>
 			</div>
 			<p class="small"> or user your email for registration:
-			<form id="sign-up-form" action="login/signupresult" method="post">
+			<form id="sign-up-form" action="signupresult" method="post">
 				<input type="text" placeholder="Id" name="user_id" required="required" />
 				<input type="password" placeholder="Password" name="user_pw" required="required" />
 				<input type="password" placeholder="Check Password" name="pw_check" required="required" />
@@ -201,7 +201,7 @@ let signupButton = document.getElementsByClassName("control-button")[0];
 signupButton.disabled = "disabled";
 let password = document.getElementsByName("user_pw")[0];
 let checkPassword = document.getElementsByName("pw_check")[0];
-checkPassword.addEventListener("keypress", ()=>{
+checkPassword.addEventListener("keyup", ()=>{
 	if (checkPassword.value == password.value){
 		signupButton.disabled = "";
 	} else {
