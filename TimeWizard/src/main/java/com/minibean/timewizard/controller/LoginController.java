@@ -30,12 +30,12 @@ public class LoginController {
 	private Logger logger = LoggerFactory.getLogger(LoginController.class);
 	
 	@Autowired
-	private LoginNaverVO loginNaverBO;
+	private LoginNaverVO loginNaverVO;
 	private String apiResult = null;
 	
 	@Autowired
-	private void setLoginNaverBO(LoginNaverVO loginNaverBO) {
-		this.loginNaverBO = loginNaverBO;
+	private void setLoginNaverVO(LoginNaverVO loginNaverVO) {
+		this.loginNaverVO = loginNaverVO;
 	}
 	
 	
@@ -44,7 +44,7 @@ public class LoginController {
 	public String loginPage(Model model, HttpSession session) {
 		logger.info(">> [CONTROLLER-USERINFO] move to login page");
 		
-		String naverAuthUrl = loginNaverBO.getAuthorizationUrl(session);
+		String naverAuthUrl = loginNaverVO.getAuthorizationUrl(session);
 		model.addAttribute("naver_url", naverAuthUrl);
 		logger.info("* naver: " + naverAuthUrl);
 //		model.addAttribute("google_url", "");
@@ -76,8 +76,8 @@ public class LoginController {
 		
 		logger.info(">> [CONTROLLER-USERINFO] NAVER callback ");
 		
-		OAuth2AccessToken oauthToken = loginNaverBO.getAccessToken(session, code, state);
-		apiResult = loginNaverBO.getUserProfile(oauthToken);
+		OAuth2AccessToken oauthToken = loginNaverVO.getAccessToken(session, code, state);
+		apiResult = loginNaverVO.getUserProfile(oauthToken);
 		
 		JsonObject object = JsonParser.parseString(apiResult).getAsJsonObject().get("response").getAsJsonObject();
 		
