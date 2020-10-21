@@ -15,6 +15,7 @@ public class UserInfoDto {
 	private Date user_regdate;
 	
 	public UserInfoDto() {}
+	
 	public UserInfoDto(int user_no, String user_id, String user_pw, String user_name, String user_email,
 			String user_role, String user_photo, String user_active, Date user_regdate) {
 		this.user_no = user_no;
@@ -26,6 +27,11 @@ public class UserInfoDto {
 		this.user_photo = user_photo;
 		this.user_active = user_active;
 		this.user_regdate = user_regdate;
+	}
+
+	public UserInfoDto(String user_id, String user_pw) {
+		this.user_id = user_id;
+		this.user_pw = user_pw;
 	}
 
 	public int getUser_no() {
