@@ -3,18 +3,17 @@ package com.minibean.timewizard.websocket;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.websocket.server.ServerEndpoint;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-//import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 //연결할 주소
-@ServerEndpoint("/webserver.do")
+@RequestMapping("/webserver.do")
 public class EchoHandler extends TextWebSocketHandler {
 //TextWebSocketHandler를 상속받아야함
 

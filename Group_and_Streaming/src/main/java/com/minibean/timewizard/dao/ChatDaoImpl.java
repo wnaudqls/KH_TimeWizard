@@ -8,6 +8,8 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
+import org.apache.ibatis.session.SqlSession;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -16,33 +18,43 @@ import com.minibean.timewizard.dto.ChatDto;
 @Repository //Dao
 public class ChatDaoImpl implements ChatDao{
 	
+	@Autowired
+	private SqlSession sqlsession;
+	
+	@Autowired
+	private SqlSessionTemplate sqlSession;
+
 	
 	ChatDto dto;
-	
-	
-	private Map<String, ChatDto> chatmap;
-	
-	@PostConstruct
+
+
+	@Override
 	public void init() {
-		chatmap = new LinkedHashMap<String, ChatDto>();
-	}
-	
-	public List<ChatDto> findAllRoom(){
-		//채팅방 생성순서 최근 순으로 반환
-		List <ChatDto> chatrooms = new ArrayList<ChatDto>(chatmap.values());
-		Collections.reverse(chatrooms);
-		return chatrooms;
-	}
-	
-	public ChatDto findRoomById(String user_id) {
-		return chatmap.get(user_id);
-	}
-	
-	public ChatDto createChatRoom(String user_id) {
-		ChatDto chatroom = ChatDto.create(user_id);
-		chatmap.put(chatroom.getUser_id(),chatroom);
-		return chatroom;
+		// TODO Auto-generated method stub
 		
 	}
+
+
+	@Override
+	public List<ChatDto> selectList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public ChatDto selectOne(String user_id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public ChatDto Insert(String user_id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
 
 }

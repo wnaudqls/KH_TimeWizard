@@ -1,11 +1,11 @@
-package com.minibean.timewizard.dao;
+package com.minibean.timewizard.biz;
 
 import java.util.List;
 
 import com.minibean.timewizard.dto.ChatDto;
 
-public interface ChatDao {
-	public void init();
+public interface ChatBiz {
+public void init();
 	
 	public List<ChatDto> selectList();
 	

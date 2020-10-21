@@ -3,12 +3,15 @@ package com.minibean.timewizard;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.minibean.timewizard.biz.ChatBiz;
+import com.minibean.timewizard.biz.ChatBizImpl;
 import com.minibean.timewizard.dao.ChatDao;
 import com.minibean.timewizard.dao.ChatDaoImpl;
 
@@ -20,6 +23,9 @@ import com.minibean.timewizard.dao.ChatDaoImpl;
 public class ChatController {
 	
 	ChatDao dao = new ChatDaoImpl();
+	
+	@Autowired
+	ChatBiz biz = new ChatBizImpl();
 
 	private static final Logger logger = LoggerFactory.getLogger(ChatController.class);
 	
@@ -33,7 +39,8 @@ public class ChatController {
 	}
 	
 	@RequestMapping("/grouplist.do")
-	public String grouplist() {
+	public String grouplist(Model model) {
+		model.addAttribute((biz.selectList(),"list");
 		return "group_list";
 	}
 	
@@ -54,8 +61,7 @@ public class ChatController {
 	
 	@RequestMapping("/create.do")
 	public String create(Model model, String user_id) {
-		dao.createChatRoom(user_id);
-		return "new";
+		return "redirect:/list.do";
 	}
 	
 	
