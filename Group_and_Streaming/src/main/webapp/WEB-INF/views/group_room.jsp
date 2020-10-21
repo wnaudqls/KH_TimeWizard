@@ -51,7 +51,6 @@
 
 
 <script type="text/javascript">
-
 	var sock;
 	var nickname;
 	$("#connect").click(function() {

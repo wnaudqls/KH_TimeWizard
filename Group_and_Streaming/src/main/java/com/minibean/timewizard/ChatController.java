@@ -40,7 +40,7 @@ public class ChatController {
 	
 	@RequestMapping("/grouplist.do")
 	public String grouplist(Model model) {
-		model.addAttribute((biz.selectList(),"list");
+		model.addAttribute("list", biz.selectList());
 		return "group_list";
 	}
 	
