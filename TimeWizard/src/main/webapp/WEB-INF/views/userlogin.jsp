@@ -5,48 +5,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script type="text/javascript">
-
-	$(function(){
-		$("#loginchk").hide();
-	});
-	
-	function loginPrc(){
-		var user_id = $("#user_id").val().trim();
-		var user_pw = $("#user_pw").val().trim();
-		var loginVal = {
-				"user_id": user_id,
-				"user_pw": user_pw
-		}
-		
-		if (user_id == null || user_id == "" || user_pw == null || user_pw == "" ){
-			alert("ID와 PW를 모두 작성해 주세요");
-		} else {
-			$.ajax({
-				type: "post",
-				url: "ajaxlogin.do",
-				data: JSON.stringify(loginVal),
-				contentType: "application/json",
-				dataType: "json",
-				success: function(msg){
-					if (msg.check == true) {
-						location.href = 'list.do';
-					} else {
-						$("#loginchk").show();
-						$("#loginchk").html("ID 혹은 PW가 잘못 입력 되었습니다.").css("color", "red");
-					}
-				},
-				error: function(){
-					alert("통신 실패");
-				}
-			});
-		}
-	}
-
-</script>
-
 <style type="text/css">
 :root{
   --form-height:550px;
@@ -236,15 +194,11 @@ a {
 			</div>
 			<p class="small"> or user your account:
 			<form id="sign-in-form" action="login/general" method="post">
-				<div>
-					<input type="text" placeholder="Id" name="user_id" />
-					<input type="password" placeholder="Password" name="user_pw" />
-				</div>
-				<div>
-					<p class="forgot-password">Forgot your password?</p>
-					<button class="control-button in" onclick="location.href='loginPrc();'">Sign In</button>
-					<a href="login/signup"><p>sign up</p></a>
-				</div>
+				<input type="text" placeholder="Id" name="user_id" />
+				<input type="password" placeholder="Password" name="user_pw" />
+				<p class="forgot-password">Forgot your password?</p>
+				<button class="control-button in">Sign In</button>
+				<a href="login/signup"><p>sign up</p></a>
 			</form>
 		</div>
 	</div>

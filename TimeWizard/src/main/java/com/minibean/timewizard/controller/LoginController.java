@@ -1,12 +1,9 @@
 package com.minibean.timewizard.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.concurrent.ExecutionException;
 
 import javax.servlet.http.HttpSession;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +18,6 @@ import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.minibean.timewizard.model.biz.UserInfoBiz;
-import com.minibean.timewizard.model.dao.UserInfoDao;
 import com.minibean.timewizard.model.dto.UserInfoDto;
 import com.minibean.timewizard.utils.LoginNaverVO;
 
@@ -62,17 +58,16 @@ public class LoginController {
 	public String generalLogin(UserInfoDto dto, HttpSession session) {
 		logger.info(">> [CONTROLLER-USERINFO] general login");
 		
-		UserInfoDto result = null; 
-		try { 
-		result = userInfoBiz.selectOne(dto); 
-		session.setAttribute("login", result); 
-		return "redirect:../success"; 
-		} catch (Exception e) { 
-		logger.info("[ERROR] CONTROLLER-USERINFO :: general login"); 
-		e.printStackTrace(); 
-		} 
-		return "redirect:../"; 
-
+		UserInfoDto result = null;
+		try {
+			result = userInfoBiz.selectOne(dto);
+			session.setAttribute("login", result);
+			return "redirect:../success";
+		} catch (Exception e) {
+			logger.info("[ERROR] CONTROLLER-USERINFO :: general login");
+			e.printStackTrace();
+		}
+		return "redirect:../";
 	}
 	
 	/* sns 로그인 - NAVER */
@@ -131,13 +126,6 @@ public class LoginController {
 			return "redirect:../login";
 		}
 		
-	}
-	
-	@RequestMapping(value="/logout")
-	public String logout(UserInfoDto dto, HttpSession session){
-		
-		session.invalidate();
-		return "../index.jsp";
 	}
 	
 }
