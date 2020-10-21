@@ -15,6 +15,7 @@
 	<div id="example">
 		
 	</div>
+	<input type="button" value="만들기" onclick="location.href='new.do'">
 	<div id="searchArea">
 		<input type="text" id="search" placeholder="아이디 , 방이름을 입력하십시오." /> 
 		<input type="button" id="searchBtn" value="검색하기" />

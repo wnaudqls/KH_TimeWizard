@@ -73,7 +73,7 @@
 		sock.close();
 	}
 	function connect() {
-		sock = new SockJS("/timewizard/webserver/");
+		sock = new SockJS("/timewizard/webserver.do/");
 		// sock의 이벤트
 		sock.onopen = onOpen;
 		sock.onmessage = onMessage;
@@ -112,7 +112,7 @@
 
 	}
 	function enterkey() {
-		//keyCode: 입력한 코드(13번이 enter)
+		//keyCode: 입력한 코드(13번 == enter)
 		if (window.event.keyCode == 13) {
 			sendMessage();
 		}

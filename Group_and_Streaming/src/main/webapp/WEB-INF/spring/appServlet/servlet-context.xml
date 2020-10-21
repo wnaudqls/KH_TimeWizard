@@ -41,6 +41,11 @@
 
 	<websocket:handlers>
 		<websocket:mapping handler="sockethandler" path="/webserver"/>
+		<!--
+		<websocket:handshake-interceptors>
+			<beans:bean class=""></beans:bean>
+		</websocket:handshake-interceptors>
+		-->
 		<websocket:sockjs/>
 	</websocket:handlers>
 
