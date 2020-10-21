@@ -56,4 +56,29 @@ public class HomeController {
 		return "redirect:./";
 	}
 	
+	@RequestMapping(value="/finalactionpage")
+	public String finalactionpage() {
+		return "finalactionpage";
+	}
+	
+	@RequestMapping(value="/finalnotice")
+	public String finalnotice() {
+		return "finalnotice";
+	}
+	
+	@RequestMapping(value="/finalnoticedetail")
+	public String finalnoticedetail() {
+		return "finalnoticedetail";
+	}
+	
+	@RequestMapping(value="/finalstopwatch")
+	public String finalstopwatch() {
+		return "finalstopwatch";
+	}
+	
+	@RequestMapping(value="/finaltimer")
+	public String finaltimer() {
+		return "finaltimer";
+	}
+	
 }
