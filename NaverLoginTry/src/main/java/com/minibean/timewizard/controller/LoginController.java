@@ -38,6 +38,8 @@ public class LoginController {
 		this.loginNaverBO = loginNaverBO;
 	}
 	
+	
+	/* 기본 로그인창 */
 	@RequestMapping(value="", method= {RequestMethod.GET, RequestMethod.POST})
 	public String loginPage(Model model, HttpSession session) {
 		logger.info(">> [CONTROLLER-USERINFO] move to login page");
@@ -45,10 +47,13 @@ public class LoginController {
 		String naverAuthUrl = loginNaverBO.getAuthorizationUrl(session);
 		model.addAttribute("naver_url", naverAuthUrl);
 		logger.info("* naver: " + naverAuthUrl);
+//		model.addAttribute("google_url", "");
+//		model.addAttribute("kakao_url", "");
 		
 		return "userlogin";
 	}
 	
+	/* 일반 로그인 */
 	@RequestMapping(value="/general", method= {RequestMethod.GET, RequestMethod.POST})
 	public String generalLogin(UserInfoDto dto, HttpSession session) {
 		logger.info(">> [CONTROLLER-USERINFO] general login");
@@ -65,6 +70,7 @@ public class LoginController {
 		return "redirect:../";
 	}
 	
+	/* sns 로그인 - NAVER */
 	@RequestMapping(value="/navercallback", method= {RequestMethod.GET, RequestMethod.POST})
 	public String navercallback(@RequestParam String code, @RequestParam String state, HttpSession session) throws IOException, InterruptedException, ExecutionException {
 		
@@ -76,11 +82,8 @@ public class LoginController {
 		JsonObject object = JsonParser.parseString(apiResult).getAsJsonObject().get("response").getAsJsonObject();
 		
 		UserInfoDto naverdto = new UserInfoDto();
-//		System.out.println(object.get("id").toString().split("\"")[1]);
-		// "id" 식으로 가져온다!
-		
 		naverdto.setUser_id(object.get("id").toString().split("\"")[1]);
-		naverdto.setUser_pw("naver");
+		naverdto.setUser_pw("naver"); // 해당 부분 수정 바람
 		naverdto.setUser_email(object.get("email").toString().split("\"")[1]);
 		naverdto.setUser_name(object.get("name").toString().split("\"")[1]);
 		
@@ -94,14 +97,7 @@ public class LoginController {
 		}
 	}
 	
-	
-	@RequestMapping(value="/signup")
-	public String signupPage() {
-		logger.info(">> [CONTROLLER-USERINFO] move to user signup form");
-		
-		return "usersignup";
-	}
-	
+	/* sns 회원가입 */
 	@RequestMapping(value="/snssignup")
 	public String signupPageSns(Model model, UserInfoDto dto) {
 		logger.info(">> [CONTROLLER-USERINFO] move to user signup form (SNS)");
@@ -109,6 +105,15 @@ public class LoginController {
 		return "usersignupsns";
 	}
 	
+	/* 일반 회원가입 */
+	@RequestMapping(value="/signup")
+	public String signupPage() {
+		logger.info(">> [CONTROLLER-USERINFO] move to user signup form");
+		
+		return "usersignup";
+	}
+	
+	/* 회원가입 완료 */
 	@RequestMapping(value="/signupresult")
 	public String signupResult(UserInfoDto dto) {
 		logger.info(">> [CONTROLLER-USERINFO] signup");
