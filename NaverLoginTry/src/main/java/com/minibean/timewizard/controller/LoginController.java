@@ -23,6 +23,7 @@ import com.google.gson.JsonParser;
 import com.minibean.timewizard.model.biz.UserInfoBiz;
 import com.minibean.timewizard.model.dao.UserInfoDao;
 import com.minibean.timewizard.model.dto.UserInfoDto;
+import com.minibean.timewizard.utils.LoginGoogleVO;
 import com.minibean.timewizard.utils.LoginNaverVO;
 
 @Controller
@@ -34,12 +35,14 @@ public class LoginController {
 	private Logger logger = LoggerFactory.getLogger(LoginController.class);
 	
 	@Autowired
-	private LoginNaverVO loginNaverBO;
+	private LoginNaverVO loginNaverVO;
+	@Autowired
+	private LoginGoogleVO loginGoogleVO;
 	private String apiResult = null;
 	
 	@Autowired
-	private void setLoginNaverBO(LoginNaverVO loginNaverBO) {
-		this.loginNaverBO = loginNaverBO;
+	private void setLoginNaverVO(LoginNaverVO loginNaverVO) {
+		this.loginNaverVO = loginNaverVO;
 	}
 	
 	
@@ -48,11 +51,13 @@ public class LoginController {
 	public String loginPage(Model model, HttpSession session) {
 		logger.info(">> [CONTROLLER-USERINFO] move to login page");
 		
-		String naverAuthUrl = loginNaverBO.getAuthorizationUrl(session);
+		String naverAuthUrl = loginNaverVO.getAuthorizationUrl(session);
+		String googleAuthUrl = loginGoogleVO.getAuthorizationUrl(session);
 		model.addAttribute("naver_url", naverAuthUrl);
-		logger.info("* naver: " + naverAuthUrl);
-//		model.addAttribute("google_url", "");
+		model.addAttribute("google_url", googleAuthUrl);
 //		model.addAttribute("kakao_url", "");
+		logger.info("* naver: " + naverAuthUrl);
+		logger.info("* google: " + googleAuthUrl);
 		
 		return "userlogin";
 	}
@@ -81,8 +86,8 @@ public class LoginController {
 		
 		logger.info(">> [CONTROLLER-USERINFO] NAVER callback ");
 		
-		OAuth2AccessToken oauthToken = loginNaverBO.getAccessToken(session, code, state);
-		apiResult = loginNaverBO.getUserProfile(oauthToken);
+		OAuth2AccessToken oauthToken = loginNaverVO.getAccessToken(session, code, state);
+		apiResult = loginNaverVO.getUserProfile(oauthToken);
 		
 		JsonObject object = JsonParser.parseString(apiResult).getAsJsonObject().get("response").getAsJsonObject();
 		
@@ -95,6 +100,31 @@ public class LoginController {
 		UserInfoDto result = userInfoBiz.selectOne(naverdto);
 		if (result == null) {
 			session.setAttribute("snsinfo", naverdto);
+			return "redirect:./snssignup";
+		} else {
+			session.setAttribute("login", result);
+			return "redirect:../success";
+		}
+	}
+	
+	/* sns 로그인 - GOOGLE */
+	@RequestMapping(value="/googlecallback", method= {RequestMethod.GET, RequestMethod.POST})
+	public String googlecallback(@RequestParam String code, @RequestParam String state, HttpSession session) throws IOException, InterruptedException, ExecutionException {
+		logger.info(">> [CONTROLLER-USERINFO] GOOGLE callback");
+		OAuth2AccessToken oauthToken = loginGoogleVO.getAccessToken(session, code, state);
+		apiResult = loginGoogleVO.getUserProfile(oauthToken);
+//		logger.info("* api result : " + apiResult);
+		
+		JsonObject object = JsonParser.parseString(apiResult).getAsJsonObject();
+		UserInfoDto googledto = new UserInfoDto();
+		googledto.setUser_id(object.get("sub").toString().split("\"")[1]);
+		googledto.setUser_pw("google"); // 해당 부분 수정 바람
+		googledto.setUser_email(object.get("email").toString().split("\"")[1]);
+		googledto.setUser_name(object.get("name").toString().split("\"")[1]);
+		
+		UserInfoDto result = userInfoBiz.selectOne(googledto);
+		if (result == null) {
+			session.setAttribute("snsinfo", googledto);
 			return "redirect:./snssignup";
 		} else {
 			session.setAttribute("login", result);
