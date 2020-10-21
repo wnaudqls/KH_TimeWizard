@@ -217,17 +217,21 @@ a {
 		<div class="sign-in" id="sign-in-info">
 			<h1>Sign In</h1>
 			<div class="sns">
-				<div class="icon">
-					구글
-				</div>
+				<a href="${google_url}">
+					<div class="icon">
+						구글
+					</div>
+				</a>
 				<a href="${naver_url}">
 					<div class="icon">
 						네이버
 					</div>
 				</a>
-				<div class="icon">
-					카카오
-				</div>
+				<a href="${kakao_url}">
+					<div class="icon">
+						카카오
+					</div>
+				</a>
 			</div>
 			<p class="small"> or user your account:
 			<div>

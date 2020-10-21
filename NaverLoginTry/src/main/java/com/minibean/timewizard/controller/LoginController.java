@@ -24,6 +24,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.minibean.timewizard.model.biz.UserInfoBiz;
 import com.minibean.timewizard.model.dto.UserInfoDto;
+import com.minibean.timewizard.utils.LoginGoogleVO;
 import com.minibean.timewizard.utils.LoginNaverVO;
 
 @Controller
@@ -35,21 +36,29 @@ public class LoginController {
 	private Logger logger = LoggerFactory.getLogger(LoginController.class);
 	
 	@Autowired
-	private LoginNaverVO loginNaverBO;
+	private LoginNaverVO loginNaverVO;
+	@Autowired
+	private LoginGoogleVO loginGoogleVO;
 	private String apiResult = null;
 	
 	@Autowired
-	private void setLoginNaverBO(LoginNaverVO loginNaverBO) {
-		this.loginNaverBO = loginNaverBO;
+	private void setLoginNaverVO(LoginNaverVO loginNaverVO) {
+		this.loginNaverVO = loginNaverVO;
 	}
 	
+	
+	/* 기본 로그인창 */
 	@RequestMapping(value="", method= {RequestMethod.GET, RequestMethod.POST})
 	public String loginPage(Model model, HttpSession session) {
 		logger.info(">> [CONTROLLER-USERINFO] move to login page");
 		
-		String naverAuthUrl = loginNaverBO.getAuthorizationUrl(session);
+		String naverAuthUrl = loginNaverVO.getAuthorizationUrl(session);
+		String googleAuthUrl = loginGoogleVO.getAuthorizationUrl(session);
 		model.addAttribute("naver_url", naverAuthUrl);
+		model.addAttribute("google_url", googleAuthUrl);
+//		model.addAttribute("kakao_url", "");
 		logger.info("* naver: " + naverAuthUrl);
+		logger.info("* google: " + googleAuthUrl);
 		
 		return "userlogin";
 	}
@@ -74,7 +83,7 @@ public class LoginController {
 		
 		return map;
 	}
-	
+
 	// 일반 로그인에서 아이디/PW를 맞게 입력했을 때 넘어감
 	@RequestMapping(value="/success")
 	public String success(UserInfoDto dto, HttpSession session) {
@@ -89,25 +98,23 @@ public class LoginController {
 		
 		session.invalidate();
 		return "index";
-		
+
 	}
 	
+	/* sns 로그인 - NAVER */
 	@RequestMapping(value="/navercallback", method= {RequestMethod.GET, RequestMethod.POST})
 	public String navercallback(@RequestParam String code, @RequestParam String state, HttpSession session) throws IOException, InterruptedException, ExecutionException {
 		
 		logger.info(">> [CONTROLLER-USERINFO] NAVER callback ");
 		
-		OAuth2AccessToken oauthToken = loginNaverBO.getAccessToken(session, code, state);
-		apiResult = loginNaverBO.getUserProfile(oauthToken);
+		OAuth2AccessToken oauthToken = loginNaverVO.getAccessToken(session, code, state);
+		apiResult = loginNaverVO.getUserProfile(oauthToken);
 		
 		JsonObject object = JsonParser.parseString(apiResult).getAsJsonObject().get("response").getAsJsonObject();
 		
 		UserInfoDto naverdto = new UserInfoDto();
-		//		System.out.println(object.get("id").toString().split("\"")[1]);
-		// "id" 식으로 가져온다!
-		
 		naverdto.setUser_id(object.get("id").toString().split("\"")[1]);
-		naverdto.setUser_pw("naver");
+		naverdto.setUser_pw("naver"); // 해당 부분 수정 바람
 		naverdto.setUser_email(object.get("email").toString().split("\"")[1]);
 		naverdto.setUser_name(object.get("name").toString().split("\"")[1]);
 		
@@ -121,14 +128,32 @@ public class LoginController {
 		}
 	}
 	
-	
-	@RequestMapping(value="/signup")
-	public String signupPage() {
-		logger.info(">> [CONTROLLER-USERINFO] move to user signup form");
+	/* sns 로그인 - GOOGLE */
+	@RequestMapping(value="/googlecallback", method= {RequestMethod.GET, RequestMethod.POST})
+	public String googlecallback(@RequestParam String code, @RequestParam String state, HttpSession session) throws IOException, InterruptedException, ExecutionException {
+		logger.info(">> [CONTROLLER-USERINFO] GOOGLE callback");
+		OAuth2AccessToken oauthToken = loginGoogleVO.getAccessToken(session, code, state);
+		apiResult = loginGoogleVO.getUserProfile(oauthToken);
+//		logger.info("* api result : " + apiResult);
 		
-		return "usersignup";
+		JsonObject object = JsonParser.parseString(apiResult).getAsJsonObject();
+		UserInfoDto googledto = new UserInfoDto();
+		googledto.setUser_id(object.get("sub").toString().split("\"")[1]);
+		googledto.setUser_pw("google"); // 해당 부분 수정 바람
+		googledto.setUser_email(object.get("email").toString().split("\"")[1]);
+		googledto.setUser_name(object.get("name").toString().split("\"")[1]);
+		
+		UserInfoDto result = userInfoBiz.selectOne(googledto);
+		if (result == null) {
+			session.setAttribute("snsinfo", googledto);
+			return "redirect:./snssignup";
+		} else {
+			session.setAttribute("login", result);
+			return "redirect:../success";
+		}
 	}
 	
+	/* sns 회원가입 */
 	@RequestMapping(value="/snssignup")
 	public String signupPageSns(Model model, UserInfoDto dto) {
 		logger.info(">> [CONTROLLER-USERINFO] move to user signup form (SNS)");
@@ -136,6 +161,15 @@ public class LoginController {
 		return "usersignupsns";
 	}
 	
+	/* 일반 회원가입 */
+	@RequestMapping(value="/signup")
+	public String signupPage() {
+		logger.info(">> [CONTROLLER-USERINFO] move to user signup form");
+		
+		return "usersignup";
+	}
+	
+	/* 회원가입 완료 */
 	@RequestMapping(value="/signupresult")
 	public String signupResult(UserInfoDto dto) {
 		logger.info(">> [CONTROLLER-USERINFO] signup");

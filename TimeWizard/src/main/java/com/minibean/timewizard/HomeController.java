@@ -4,6 +4,8 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+
+import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -22,7 +24,8 @@ public class HomeController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
@@ -36,4 +39,46 @@ public class HomeController {
 		return "home";
 	}
 	
+	@RequestMapping(value="/")
+	public String index() {
+		return "index";
+	}
+	
+	@RequestMapping(value="/success")
+	public String successPage() {
+		return "success";
+	}
+	
+	@RequestMapping(value="/invalidate")
+	public String invalidate(HttpSession session) {
+		if (session != null) {
+			session.invalidate();
+		}
+		return "redirect:./";
+	}
+	
+	@RequestMapping(value="/finalactionpage")
+	public String finalactionpage() {
+		return "finalactionpage";
+	}
+	
+	@RequestMapping(value="/finalnotice")
+	public String finalnotice() {
+		return "finalnotice";
+	}
+	
+	@RequestMapping(value="/finalnoticedetail")
+	public String finalnoticedetail() {
+		return "finalnoticedetail";
+	}
+	
+	@RequestMapping(value="/finalstopwatch")
+	public String finalstopwatch() {
+		return "finalstopwatch";
+	}
+	
+	@RequestMapping(value="/finaltimer")
+	public String finaltimer() {
+		return "finaltimer";
+	}
 }
