@@ -52,10 +52,12 @@ public class LoginController {
 		logger.info(">> [CONTROLLER-USERINFO] move to login page");
 		
 		String naverAuthUrl = loginNaverVO.getAuthorizationUrl(session);
+		String googleAuthUrl = loginGoogleVO.getAuthorizationUrl(session);
 		model.addAttribute("naver_url", naverAuthUrl);
-		logger.info("* naver: " + naverAuthUrl);
-//		model.addAttribute("google_url", "");
+		model.addAttribute("google_url", googleAuthUrl);
 //		model.addAttribute("kakao_url", "");
+		logger.info("* naver: " + naverAuthUrl);
+		logger.info("* google: " + googleAuthUrl);
 		
 		return "userlogin";
 	}
