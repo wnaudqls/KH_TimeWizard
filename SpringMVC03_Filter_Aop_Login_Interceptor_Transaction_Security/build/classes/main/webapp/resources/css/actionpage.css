@@ -1,0 +1,113 @@
+:root {
+    --text-color: #f0f4f5;
+    --background-color: #263343;
+    --accent-color: #d49466;
+}
+
+body {
+    margin: 0;
+    font-family: 'Staatliches';
+}
+
+a {
+    text-decoration: none;
+    color: var(--text-color);
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--background-color);
+    padding: 8px 12px;
+}
+
+.nav_logo {
+    font-size: 24px;
+    color: var(--text-color);
+}
+
+.nav_logo i {
+    color: var(--accent-color);
+}
+
+.nav_menu {
+    display: flex;
+    list-style: none;
+    padding-left: 0;
+}
+
+.nav_menu li {
+    padding: 8px 12px;
+}
+
+.nav_menu li:hover {
+    background-color: var(--accent-color);
+    border-radius: 4px;
+}
+
+.nav_icon {
+    list-style: none;
+    color: var(--text-color);
+    display: flex;
+    padding-left: 0;	
+}
+
+.nav_icon li {
+    padding: 8px 12px;
+    font-size: 24px;
+}
+
+.nav_icon li i{
+    cursor: pointer;
+}
+
+.nav_toggle {
+    display: none;
+    position: absolute;
+    right: 25px;
+    font-size: 24px;
+    color: var(--accent-color);
+}
+
+@media screen and (max-width: 1140px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 8px 24px;
+    }
+    
+    .nav_logo {
+        font-size: 40px;
+    }
+    
+    .nav_menu {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        font-size: 50px;
+    }
+    
+    .nav_menu li {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .nav_icon {
+        display: none;
+        width: 100%;
+        justify-content: center;
+        font-size: 40px;
+    }
+    
+    .nav_toggle {
+        display: block;
+        font-size: 40px;
+    }
+    
+    .nav_menu.active,
+    .nav_icon.active {
+        display: flex;
+    }
+}
