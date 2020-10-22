@@ -148,15 +148,15 @@ a {
 			<!-- Group메뉴 -->
 			<li><a href="#"><i class="fas fa-users"></a></i></li>
 			<!-- Off-line 메뉴 -->
-			<li><a href=""><i class="fas fa-binoculars"></i></a></li>
+			<li><a href="#"><i class="fas fa-binoculars"></i></a></li>
 			<!-- 알림 -->
-			<li><a href=""><i class="far fa-bell"></i></a></li>
+			<li><a href="#"><i class="far fa-bell"></i></a></li>
 			<%
 			//로그인 되어있을 때만 보이게!
 			if(UDto != null){  
 			%>
 			<li>${login.user_name }님! 반갑습니다.</li>
-			<li><a href="/timewizard/logout">logout</a></li>
+			<li><a href="login/logout">로그아웃</a></li>
 			<%
 			}
 			%>
@@ -174,8 +174,8 @@ a {
 	
 	<!-- footer에 공지사항, 챗봇 -->
 	<footer>
-		<a href="#" class=""><i class="fas fa-chalkboard-teacher"></i></a>
-		<a href="#" class=""><i class="far fa-paper-plane"></i></a>
+		<a href="notice" ><i class="fas fa-chalkboard-teacher"></i></a>
+		<a href="#" ><i class="far fa-paper-plane"></i></a>
 	</footer>
 
 </body>
