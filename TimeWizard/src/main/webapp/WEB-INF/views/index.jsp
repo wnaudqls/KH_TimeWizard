@@ -16,6 +16,7 @@
 	<a href="finalstopwatch">STOPWATCH</a>
 	<a href="finaltimer">TIMER</a>
 	<a href="mypage">mypage</a>
+	<a href="map">map</a>
 	
 </body>
 </html>
