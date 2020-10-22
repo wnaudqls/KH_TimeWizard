@@ -1,3 +1,4 @@
+<%@page import="com.minibean.timewizard.model.dto.UserInfoDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
@@ -134,6 +135,9 @@ a {
 
 </style>
 <body>
+<%
+	UserInfoDto UDto = (UserInfoDto)session.getAttribute("login");
+%>
 	
 	<nav class="navbar">
 		<div class="nav_logo">
@@ -141,9 +145,21 @@ a {
 			<a href="">TiWi</a>  <!-- 메인페이지로 -->
 		</div>
 		<ul class="nav_menu">
+			<!-- Group메뉴 -->
 			<li><a href="#"><i class="fas fa-users"></a></i></li>
+			<!-- Off-line 메뉴 -->
 			<li><a href=""><i class="fas fa-binoculars"></i></a></li>
+			<!-- 알림 -->
 			<li><a href=""><i class="far fa-bell"></i></a></li>
+			<%
+			//로그인 되어있을 때만 보이게!
+			if(UDto != null){  
+			%>
+			<li>${login.user_name }님! 반갑습니다.</li>
+			<li><a href="/timewizard/logout">logout</a></li>
+			<%
+			}
+			%>
 			<li><a href="mypage"><i class="fas fa-bars"></i></a></li>
 		</ul>
 		<ul class="nav_icon">
@@ -156,8 +172,10 @@ a {
 		</a>
 	</nav>
 	
+	<!-- footer에 공지사항, 챗봇 -->
 	<footer>
 		<a href="#" class=""><i class="fas fa-chalkboard-teacher"></i></a>
+		<a href="#" class=""><i class="far fa-paper-plane"></i></a>
 	</footer>
 
 </body>
