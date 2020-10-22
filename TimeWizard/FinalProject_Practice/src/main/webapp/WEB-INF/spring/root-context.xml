@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location" value="classpath:mybatis/db.properties"></property>
+	</bean>
+ 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+ 		<property name="driverClassName" value="${driver}"/>
+ 		<property name="url" value="${url}"/>
+ 		<property name="username" value="${username}"/>
+ 		<property name="password" value="${password}"/>
+ 	
+ 	</bean>
+ 	
+ 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
+ 		<property name="dataSource" ref="dataSource"/>
+ 																	<!-- 여기서 파일명을 그냥 config.xml로 놔서 계속 404에러는 발생하면서  -->
+ 		<property name="configLocation" value="WEB-INF/spring/sqls/mybatis-config.xml"/>
+ 		
+ 	</bean>
+ 	
+ 	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSession"/>
+	</bean>
+	
+	<!-- 스프링 관련 트랜잭션 매니져! -->
+	<!-- transactionManager -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	
+</beans>
