@@ -14,11 +14,9 @@
 	<a href="">회원가입</a>
 	
 	<a href="main">시작하기(main)</a>
-	<a href="finalnotice">NOTICE</a>
 	<a href="finalnoticedetail">NOTICE DETAIL</a>
 	<a href="finalstopwatch">STOPWATCH</a>
 	<a href="finaltimer">TIMER</a>
-	<a href="mypage">mypage</a>
 	<a href="map">map</a>
 	
 </body>
