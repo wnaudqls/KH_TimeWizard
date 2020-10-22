@@ -32,7 +32,7 @@
 				dataType: "json",
 				success: function(msg){
 					if (msg.check == true) {
-						location.href = 'login/success';
+						location.href = 'main';
 					} else {
 						alert("ID 혹은 PW가 잘못 입력 되었습니다.");
 					}
