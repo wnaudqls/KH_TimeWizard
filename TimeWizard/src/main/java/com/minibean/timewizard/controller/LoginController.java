@@ -90,52 +90,6 @@ public class LoginController {
 		return "redirect:../success";	
 	}
 	
-	/* 로그아웃 시 세션 제거 */
-	@RequestMapping(value="/logout")
-	public String logout(UserInfoDto dto, HttpSession session){
-		
-		session.invalidate();
-		return "index";
-	}
-	
-	// 일반 로그인 ID 혹은 PW를 입력하지 않았거나 틀렸을 때 (userlogin.jsp의 javascript와 연결)
-	@RequestMapping(value="/ajaxlogin", method=RequestMethod.POST)
-	@ResponseBody
-	public Map<String, Boolean> ajaxLogin(@RequestBody UserInfoDto dto, HttpSession session){
-		logger.info("[ajaxlogin]");
-		
-		UserInfoDto res = userInfoBiz.selectOne(dto);
-		
-		boolean check = false;
-		if (res != null) {
-			// 로그인 값을 계속 가지고 있는 Session
-			session.setAttribute("login", res);
-			check = true;
-		}
-		
-		Map<String, Boolean> map = new HashMap<String, Boolean>();
-		map.put("check", check);
-		
-		return map;
-	}
-
-	// 일반 로그인에서 아이디/PW를 맞게 입력했을 때 넘어감
-	@RequestMapping(value="/success")
-	public String success(UserInfoDto dto, HttpSession session) {
-		
-		return "redirect:../success";
-		
-	}
-	
-	// 로그아웃 시 세션 제거
-	@RequestMapping(value="/logout")
-	public String logout(UserInfoDto dto, HttpSession session){
-		
-		session.invalidate();
-		return "index";
-
-	}
-	
 	/* sns 로그인 - NAVER */
 	@RequestMapping(value="/navercallback", method= {RequestMethod.GET, RequestMethod.POST})
 	public String navercallback(@RequestParam String code, @RequestParam String state, HttpSession session) throws IOException, InterruptedException, ExecutionException {

@@ -208,9 +208,7 @@ a {
 	justify-content: center;
 }
 </style>
-<script type="text/javascript">
 
-</script>
 </head>
 <body>
 	<div class="overlay">
@@ -242,6 +240,7 @@ a {
 				<p class="forgot-password">Forgot your password?</p>
 				<input type="button" class="control-button in" onclick="loginPrc()" value="Sign In">
 				<a href="login/signup"><p>sign up</p></a>
+			</form>
 =======
 =======
 >>>>>>> 2be2a1ab08a9dce21b1914aa7739e7d7d3f94ee2
