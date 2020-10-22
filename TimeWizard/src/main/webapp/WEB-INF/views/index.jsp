@@ -15,6 +15,7 @@
 	<a href="finalnoticedetail">NOTICE DETAIL</a>
 	<a href="finalstopwatch">STOPWATCH</a>
 	<a href="finaltimer">TIMER</a>
+	<a href="mypage">mypage</a>
 	
 </body>
 </html>

@@ -235,6 +235,7 @@ a {
 			</div>
 			<p class="small"> or user your account:
 <<<<<<< HEAD
+<<<<<<< HEAD
 			<form id="sign-in-form" action="login/general" method="post">
 				<input type="text" placeholder="Id" name="user_id" />
 				<input type="password" placeholder="Password" name="user_pw" />
@@ -242,6 +243,8 @@ a {
 				<input type="button" class="control-button in" onclick="loginPrc()" value="Sign In">
 				<a href="login/signup"><p>sign up</p></a>
 =======
+=======
+>>>>>>> 2be2a1ab08a9dce21b1914aa7739e7d7d3f94ee2
 			<form id="sign-in-form">
 				<div>
 					<input type="text" placeholder="Id" name="user_id" id="user_id" />
@@ -252,7 +255,10 @@ a {
 					<input type="button" class="control-button in" onclick="loginPrc()" value="Sign In">
 					<a href="login/signup"><p>sign up</p></a>
 				</div>
+<<<<<<< HEAD
 >>>>>>> main
+=======
+>>>>>>> 2be2a1ab08a9dce21b1914aa7739e7d7d3f94ee2
 			</form>
 		</div>
 	</div>
