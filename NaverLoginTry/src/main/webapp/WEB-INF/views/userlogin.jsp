@@ -228,6 +228,7 @@ a {
 					</div>
 				</a>
 				<a href="${kakao_url}">
+                <!-- <a href="login/kakaotry"> -->
 					<div class="icon">
 						카카오
 					</div>
@@ -244,9 +245,10 @@ a {
 				<a href="login/signup"><p>sign up</p></a>
 			</div>
 		</div>
-	</div>
+    </div>
+    <script type="text/javascript" src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 	<script type="text/javascript">
-	
+        
 	</script>
 </body>
 </html>
