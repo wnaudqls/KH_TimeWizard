@@ -47,7 +47,7 @@ public class LoginController {
 	
 	
 	/* 기본 로그인창 */
-	@RequestMapping(value="loginform", method= {RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value="/loginform", method= {RequestMethod.GET, RequestMethod.POST})
 	public String loginPage(Model model, HttpSession session) {
 		logger.info(">> [CONTROLLER-USERINFO] move to login page");
 		
@@ -171,6 +171,14 @@ public class LoginController {
 			return "redirect:../login";
 		}
 		
+	}
+	
+	/* 로그아웃 */
+	@RequestMapping(value="/logout")
+	public String invalidate(HttpSession session) {
+		logger.info("[logout]");
+		session.invalidate();
+		return "redirect:/";
 	}
 	
 }

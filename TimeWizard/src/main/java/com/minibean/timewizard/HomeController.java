@@ -49,23 +49,10 @@ public class HomeController {
 		return "success";
 	}
 	
-	@RequestMapping(value="/logout")
-	public String invalidate(HttpSession session) {
-		
-		session.invalidate();
-		return "redirect:/";
-	}
+
 	
-	@RequestMapping(value="/finalactionpage")
-	public String finalactionpage() {
-		return "finalactionpage";
-	}
 	
-	@RequestMapping(value="/finalnotice")
-	public String finalnotice() {
-		return "finalnotice";
-	}
-	
+
 	@RequestMapping(value="/finalnoticedetail")
 	public String finalnoticedetail() {
 		return "finalnoticedetail";

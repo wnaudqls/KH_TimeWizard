@@ -1,0 +1,23 @@
+#title{
+	
+	text-align: left;
+}
+
+#search{
+	width:200px;
+	text-align: center;
+}
+#searchArea{
+	
+	
+	margin-top:10%;
+	margin-left:40%;
+	
+}
+#example {
+	margin-top: 5%;
+	margin-left: 20%;
+	width: 1000px;
+	height: 1000px;
+	border: 1px solid black;
+}
