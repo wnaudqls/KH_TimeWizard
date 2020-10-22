@@ -16,6 +16,8 @@
 	<a href="finalstopwatch">STOPWATCH</a>
 	<a href="finaltimer">TIMER</a>
 	<a href="mypage">mypage</a>
+	<a href="grouplist">그룹리스트</a>
+	<a href="streaming">방송</a>
 	
 </body>
 </html>

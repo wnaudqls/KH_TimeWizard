@@ -1,4 +1,4 @@
-package com.minibean.timewizard;
+package com.minibean.timewizard.controller;
 
 
 import org.slf4j.Logger;
@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
 import com.minibean.timewizard.biz.ChatBiz;
 import com.minibean.timewizard.biz.ChatBizImpl;
@@ -20,20 +18,20 @@ import com.minibean.timewizard.dao.ChatDaoImpl;
  */
 
 @Controller
-public class ChatController {
+public class GroupController {
 	
 	ChatDao dao = new ChatDaoImpl();
 	
 	@Autowired
 	ChatBiz biz = new ChatBizImpl();
 
-	private static final Logger logger = LoggerFactory.getLogger(ChatController.class);
+	private static final Logger logger = LoggerFactory.getLogger(GroupController.class);
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
 	
-	@RequestMapping("/")
+	@RequestMapping(value="/")
 	public String index() {
 		return "index";
 	}
