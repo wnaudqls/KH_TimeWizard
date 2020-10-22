@@ -234,12 +234,25 @@ a {
 				</a>
 			</div>
 			<p class="small"> or user your account:
+<<<<<<< HEAD
 			<form id="sign-in-form" action="login/general" method="post">
 				<input type="text" placeholder="Id" name="user_id" />
 				<input type="password" placeholder="Password" name="user_pw" />
 				<p class="forgot-password">Forgot your password?</p>
 				<input type="button" class="control-button in" onclick="loginPrc()" value="Sign In">
 				<a href="login/signup"><p>sign up</p></a>
+=======
+			<form id="sign-in-form">
+				<div>
+					<input type="text" placeholder="Id" name="user_id" id="user_id" />
+					<input type="password" placeholder="Password" name="user_pw" id="user_pw"/><br/>
+				</div>
+				<div>
+					<p class="forgot-password">Forgot your password?</p>
+					<input type="button" class="control-button in" onclick="loginPrc()" value="Sign In">
+					<a href="login/signup"><p>sign up</p></a>
+				</div>
+>>>>>>> main
 			</form>
 		</div>
 	</div>
