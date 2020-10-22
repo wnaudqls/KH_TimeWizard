@@ -1,0 +1,22 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<h1>SUCCESS!</h1>
+	${login.user_name }님, 반갑습니다<br />
+	<a href="/logout">로그아웃</a>
+<<<<<<< HEAD
+<<<<<<< HEAD
+
+=======
+>>>>>>> main
+=======
+>>>>>>> 2be2a1ab08a9dce21b1914aa7739e7d7d3f94ee2
+</body>
+</html>

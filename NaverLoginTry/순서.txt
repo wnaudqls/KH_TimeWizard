@@ -1,0 +1,35 @@
+CHECKLIST
+	* properties - web project settings - context root
+	* maven - update project
+UPGRADE
+	1. pom.xml
+		java 1.8/spring 5.2.9.RELEASE/servlet-api/jsp-api/maven-compiler-plugin
+	2. properties - project facets - java / (dynamic web module) version check
+	3. update maven projects
+	
+NAVER
+	1. pom.xml
+		scribejava-core 3.3.0
+			API 요청할 시에 code와 state 값을 가져오는데
+				state 함수가 deprecated 되지 않고 남아있을 것
+				OAuthRequest의 생성자 파라미터로 OAuthService가 들어갈 것
+	2. LoginNaverApi.java
+	3. LoginNaverBO.java
+	4. LoginController.java
+	5. index/userlogin/usersignup/naversuccess.jsp
+Mybatis
+	* MyBatis Config/Mapper DTD Catalog 등록
+	1. pom.xml
+		ojdbc6/mybatis/mybatis-spring/commons-dbcp/spring-orm
+	2. web.xml
+		root-context.xml/mapping/encoding filter
+	3. /WEB-INF/spring/sqls/user_info.sql
+	4. dto, dao, biz, controller
+	5. src/main/resources/mybatis/board-mapper.xml
+	6. src/main/resources/mybatis/db.properties
+	7. /WEB-INF/spring/sqls/config.xml
+	8. root-context.xml
+		db.properties (org.springframework.factory.config.PropertyPlaceholderConfigurer)
+		dataSource (org.apache.commons.dbp2.BasicDataSource)
+		sqlSession (org.mybatis.spring.SqlSessionFactoryBean)
+		sqlSessionTemplate (org.mybatis.spring.SqlSessionTemplate)
