@@ -35,7 +35,7 @@ public class LoginGoogleVO {
     private final static String REDIRECT_URI = "http://localhost:8787/timewizard/login/googlecallback";
     private final static String PROTECTED_RESOURCE_URL = "https://www.googleapis.com/oauth2/v3/userinfo";
     private final static String SCOPE = "openid profile email";
-    private final static String SESSION_STATE = "oauth_state";
+    private final static String SESSION_STATE = "oauth_state_g";
     private Logger logger = LoggerFactory.getLogger(LoginGoogleVO.class);
 
     public String getAuthorizationUrl(HttpSession session) {

@@ -20,6 +20,8 @@
 	<a href="finaltimer">TIMER</a>
 	<a href="mypage">mypage</a>
 	<a href="tiwimap">map</a>
+	<a href="grouplist">그룹리스트</a>
+	<a href="streaming">방송</a>
 	
 </body>
 </html>

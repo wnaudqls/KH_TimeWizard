@@ -110,7 +110,7 @@ a {
     .nav_icon.active {
         display: flex;
     }
-    
+  
     /*메뉴바 아이콘*/
     .fas{
     	color: white;

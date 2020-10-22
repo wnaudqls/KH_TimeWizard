@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1 id="title">대충 그룹방 이름</h1>
+<h1 id="title">그룹방 이름: ${dto.user_id }</h1>
 <hr>
 <div id="localvideo">
 
@@ -23,11 +23,12 @@
 
 
 
+
 	<!-- onkeyup: 키가 눌렀을때 나오는 이벤트(해당 태그를 선택한 상태여야함) -->
 	<div id="textarea">
 		<input type="text" id="message" onkeyup="enterkey()"placeholder="채팅을 입력하십시오." /> 
 		<input type="button" id="sendBtn"value="submit" /> 
-		<input id="roomid" /> <input type="button" id="btn-open-room" value="방열기">
+		<input id="roomId" value="${dto.user_id }"/> <input type="button" id="btn-open-room" value="방열기">
 		
 
 		<!-- 이 부분은 방 만들때 값을 받아서 넣어주면 될 듯함 -->
@@ -53,6 +54,8 @@
 <script type="text/javascript">
 	var sock;
 	var nickname;
+	var messageArea;
+	var roomId = document.getElementById("roomId").value;
 	$("#connect").click(function() {
         nickname = document.getElementById("nickname").value;
         document.getElementById("nickname").style.display="none";
@@ -86,7 +89,7 @@
 
 	function onOpen(){
 		
-		sock.send(nickname + "님이 입장하셨습니다.");
+		sock.send(JSON.stringify({chatRoomId : roomId, type:'ENTER', writer:nickname})));
 	}
 	
 	//EchoHandler의 RequestMapping의 주소를 그대로 갖다붙힘
@@ -95,14 +98,17 @@
 	
 	// 메시지 전송
 	function sendMessage() {
-		sock.send($("#nickname").val() + ": " + $("#message").val());
+		nickname = document.getElementById("nickname").value;
+		sock.send(nickname + ": " +  $("#message").val());
 		$('#message').val('')
 	}
 
 	// 서버로부터 메시지를 받았을 때
 	function onMessage(msg) {
 		var data = msg.data;
-		$("#messageArea").append(data + "<br/>");
+		messageArea = document.getElementById("messageArea");
+		messageArea.innerHTML = messageArea.innerHTML + data + "<br>" ;
+		//$("#messageArea").append(data + "<br/>");
 	}
 	// 서버와 연결을 끊었을 때
 	function onClose(evt) {
