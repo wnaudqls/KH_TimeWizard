@@ -26,16 +26,15 @@
 		} else {
 			$.ajax({
 				type: "post",
-				url: "ajaxlogin.do",
+				url: "login/ajaxlogin",
 				data: JSON.stringify(loginVal),
 				contentType: "application/json",
 				dataType: "json",
 				success: function(msg){
 					if (msg.check == true) {
-						location.href = 'list.do';
+						location.href = 'login/success';
 					} else {
-						$("#loginchk").show();
-						$("#loginchk").html("ID 혹은 PW가 잘못 입력 되었습니다.").css("color", "red");
+						alert("ID 혹은 PW가 잘못 입력 되었습니다.");
 					}
 				},
 				error: function(){
@@ -235,17 +234,15 @@ a {
 				</a>
 			</div>
 			<p class="small"> or user your account:
-			<form id="sign-in-form" action="login/general" method="post">
-				<div>
-					<input type="text" placeholder="Id" name="user_id" />
-					<input type="password" placeholder="Password" name="user_pw" />
-				</div>
-				<div>
-					<p class="forgot-password">Forgot your password?</p>
-					<button class="control-button in" onclick="location.href='loginPrc();'">Sign In</button>
-					<a href="login/signup"><p>sign up</p></a>
-				</div>
-			</form>
+			<div>
+				<input type="text" placeholder="Id" name="user_id" id="user_id" />
+				<input type="password" placeholder="Password" name="user_pw" id="user_pw"/><br/>
+			</div>
+			<div>
+				<p class="forgot-password">Forgot your password?</p>
+				<input type="button" class="control-button in" onclick="loginPrc()" value="Sign In">
+				<a href="login/signup"><p>sign up</p></a>
+			</div>
 		</div>
 	</div>
 </body>
