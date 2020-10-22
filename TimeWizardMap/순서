@@ -1,0 +1,51 @@
+1. web.xml : 2.5 -> 4.0
+	(dynamic web project 생성 - Target runtime : Apache Tomcat v9.0
+	Dynamic web modul version : 4.0
+	마지막 Web Module에 [Generate web.xml deployment descriptor] 체크하기
+	
+	만들어졌으면
+	<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+	id="WebApp_ID" version="4.0">
+	복사해서 SpringMVC05의 web.xml 거 지우고 그 자리에 붙여넣기.
+	
+	그럼 [Project Explorer] 탭의 SpringMVC05_Update의 'Deployment Descriptor' 아이콘이 4.0으로 바뀜)
+
+2. pom.xml
+	java-version 1.6 -> 1.8
+	springframework 3.1.1.RELEASE -> x.x.x (이번엔 5.2.9.RELEASE)
+	(artifactId) servlet-api 2.5 -> (artifactId) javax.servlet-api 4.0.1
+	(artifactId) jsp-api 2.1 -> (artifactId) javax.servlet.jsp-api 2.3.3
+	(artifactId) maven-compiler-plugin의
+		source : 1.6 -> 1.8
+		target : 1.6 -> 1.8
+		
+3. [프로젝트 우클릭 Properties] project facets
+	Dynamic Web Module 2.5 -> 4.0
+	Java 1.6 -> 1.8
+
+4. maven update
+
+
+_Jdbc
+5. pom.xml : spring-jdbc, ojdbc6
+6. root-context -> applicationContext 파일명/경로 수정,
+	web.xml 수정 (applicationContext, <url-pattern>*.do</url-pattern>, filter 추가>
+7. src/main/resources/sqls/
+	jdbc.sql
+	db.properties
+	
+8. applicationContext.xml 수정 (namespaces탭에서 context 체크해야 함)
+9. dto, dao, biz, controller
+
+_Javaconfig
+10. ApplicationConfig (com.mvc.update.config.ApplicationConfig) - applicationContext.xml 대체
+11. ServletConfig (com.mvc.update.config.ServletConfig impl WebMvcConfigurer) - servlet-context.xml 대체
+12. web.xml 수정
+13. WEB-INF/spring/appServlet 폴더 삭제 / maven update
+14. Webconfig (com.mvc.update.config.WebConfig implements WebApplicationInitializer)
+15. web.xml 삭제 후 maven update
+
+
+
