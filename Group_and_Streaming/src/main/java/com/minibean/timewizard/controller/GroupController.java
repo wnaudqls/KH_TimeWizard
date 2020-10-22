@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.minibean.timewizard.biz.ChatBiz;
 import com.minibean.timewizard.biz.ChatBizImpl;
@@ -43,7 +44,9 @@ public class GroupController {
 	}
 	
 	@RequestMapping("/streaming")
-	public String streaming() {
+	public String streaming(@RequestParam("user_id") String user_id, Model model) {
+		logger.info(user_id+"");
+		model.addAttribute("dto", biz.selectOne(user_id));
 		return "group_room";
 	}
 	@RequestMapping("/list")

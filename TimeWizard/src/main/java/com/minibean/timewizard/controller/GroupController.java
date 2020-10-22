@@ -17,7 +17,6 @@ import com.minibean.timewizard.dao.ChatDaoImpl;
  * Handles requests for the application home page.
  */
 
-
 @Controller
 public class GroupController {
 	
@@ -36,7 +35,7 @@ public class GroupController {
 	@RequestMapping("/grouplist")
 	public String grouplist(Model model) {
 		model.addAttribute("list", biz.selectList());
-		return "grouplist";
+		return "group_list";
 	}
 	
 	@RequestMapping("/streaming")
@@ -56,7 +55,6 @@ public class GroupController {
 	public String create(Model model, String user_id) {
 		return "redirect:/list";
 	}
-	
 	
 	
 }

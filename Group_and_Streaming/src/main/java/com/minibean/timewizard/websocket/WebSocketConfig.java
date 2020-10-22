@@ -17,9 +17,7 @@ public class WebSocketConfig implements WebSocketConfigurer
 	@Override
 	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
 		// TODO Auto-generated method stub
-		registry.addHandler(echohandler, "/timewizard/webserver").setAllowedOrigins("*")
-		.withSockJS().setInterceptors(new HttpSessionHandshakeInterceptor())
-		.setClientLibraryUrl("");
+		registry.addHandler(echohandler, "/timewizard/webserver");
 		
 	}
 
