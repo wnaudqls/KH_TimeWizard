@@ -51,9 +51,9 @@ public class HomeController {
 	
 	@RequestMapping(value="/logout")
 	public String invalidate(HttpSession session) {
-
+		
 		session.invalidate();
-		return "redirect:../";
+		return "redirect:/";
 	}
 	
 	@RequestMapping(value="/finalactionpage")
