@@ -138,14 +138,13 @@ a {
 	<nav class="navbar">
 		<div class="nav_logo">
 			<i class="fas fa-magic"></i>
-			<a href="">TiWi</a>
+			<a href="">TiWi</a>  <!-- 메인페이지로 -->
 		</div>
 		<ul class="nav_menu">
-			<li><a href="">Home</a></li>
-			<li><a href="">Garrely</a></li>
-			<li><a href="">Notice</a></li>
-			<li><a href="">FAQ</a></li>
-			<li><a href="">Mypage</a></li>
+			<li><a href="#"><i class="fas fa-users"></a></i></li>
+			<li><a href=""><i class="fas fa-binoculars"></i></a></li>
+			<li><a href=""><i class="far fa-bell"></i></a></li>
+			<li><a href="mypage"><i class="fas fa-bars"></i></a></li>
 		</ul>
 		<ul class="nav_icon">
 			<li><i class="fab fa-twitter-square"></i></li>
@@ -156,6 +155,10 @@ a {
 			<i class="fas fa-bars"></i>
 		</a>
 	</nav>
+	
+	<footer>
+		<a href="#" class=""><i class="fas fa-chalkboard-teacher"></i></a>
+	</footer>
 
 </body>
 <script>

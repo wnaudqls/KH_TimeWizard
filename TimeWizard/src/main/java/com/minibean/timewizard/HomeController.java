@@ -81,9 +81,5 @@ public class HomeController {
 	public String finaltimer() {
 		return "finaltimer";
 	}
-	
-	@RequestMapping(value="/mypage")
-	public String mypage() {
-		return "mypage";
-	}
+
 }
