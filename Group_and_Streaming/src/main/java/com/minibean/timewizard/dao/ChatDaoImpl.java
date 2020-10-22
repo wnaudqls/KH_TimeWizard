@@ -39,7 +39,12 @@ public class ChatDaoImpl implements ChatDao{
 	public List<ChatDto> selectList() {
 		// TODO Auto-generated method stub
 		List<ChatDto> list = new ArrayList<ChatDto>();
-		list = sqlSession.selectList(namespace+"selectList");
+		try {
+			list = sqlSession.selectList(namespace+"selectList");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return list;
 	}
 
@@ -47,7 +52,9 @@ public class ChatDaoImpl implements ChatDao{
 	@Override
 	public ChatDto selectOne(String user_id) {
 		// TODO Auto-generated method stub
-		return null;
+		ChatDto dto = new ChatDto();
+		dto = sqlSession.selectOne(namespace+"selectOne", user_id);
+		return dto;
 	}
 
 
