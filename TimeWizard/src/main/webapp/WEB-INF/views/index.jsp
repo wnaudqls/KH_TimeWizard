@@ -19,7 +19,7 @@
 	<a href="finalstopwatch">STOPWATCH</a>
 	<a href="finaltimer">TIMER</a>
 	<a href="mypage">mypage</a>
-	<a href="map">map</a>
+	<a href="tiwimap">map</a>
 	
 </body>
 </html>
