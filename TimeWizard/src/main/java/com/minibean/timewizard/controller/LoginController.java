@@ -173,4 +173,12 @@ public class LoginController {
 		
 	}
 	
+	/* 로그아웃 */
+	@RequestMapping(value="/logout")
+	public String invalidate(HttpSession session) {
+		logger.info("[logout]");
+		session.invalidate();
+		return "redirect:/";
+	}
+	
 }

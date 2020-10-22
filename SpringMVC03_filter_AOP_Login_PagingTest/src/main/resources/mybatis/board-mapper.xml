@@ -11,14 +11,14 @@
 	<!-- 페이징 처리 후 게시글 조회 -->
 	<select id="selectList" parameterType="com.mvc.upgrade.model.dto.PagingDto" resultType="BoardDto">
 		SELECT *
+		FROM(
+			SELECT ROWNUM RN, MYNO, MYNAME, MYTITLE, MYCONTENT, MYDATE
 			FROM(
-				SELECT ROWNUM RN, MYNO, MYNAME, MYTITLE, MYCONTENT, MYDATE
-					FROM(
-						SELECT MYNO, MYNAME, MYTITLE, MYCONTENT, MYDATE
-						FROM MYBOARD
-						ORDER BY MYNO DESC
-						)A
-				)
+				SELECT MYNO, MYNAME, MYTITLE, MYCONTENT, MYDATE
+				FROM MYBOARD
+				ORDER BY MYNO DESC
+				)A
+			)
 		WHERE RN BETWEEN #{start} AND #{end}
 	</select>
 	

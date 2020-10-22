@@ -6,14 +6,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class MypageController {
+public class NoticeController {
 	
-	private Logger logger = LoggerFactory.getLogger(MypageController.class);
+	private Logger logger = LoggerFactory.getLogger(LoginController.class);
 	
-	@RequestMapping("/mypage")
-	public String Mypage() {
-		logger.info("[mypage]");
-		return "mypage";
+	@RequestMapping("/notice")
+	public String noticeList() {
+		logger.info("[noticeList]");
+		return "notice";
 	}
 
 }
