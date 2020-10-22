@@ -44,33 +44,29 @@
 		
 		navigator.geolocation.getCurrentPosition(function getLocation(position) {
 			
-			// 경도
-			var longitude = position.coords.longitude;
-			// 위도
-			var latitude = position.coords.latitude;
+			var longitude = position.coords.longitude; // 경도
+			var latitude = position.coords.latitude; // 위도
 			
-			// 지도를 표시하는 DIV
-			var mapContainer = document.getElementById('map'),
+			var mapContainer = document.getElementById('map'), // 지도를 표시하는 DIV
 
 			mapOption = {
-				center : new kakao.maps.LatLng(latitude, longitude), // 지도의 중심좌표, 위에서 얻은 현재 위치의 위도와 경도가 입력됨
+				center : new kakao.maps.LatLng(latitude, longitude), // 지도의 중심좌표 : 위에서 얻은 현재 위치의 위도와 경도가 입력됨
 				level : 4 // 지도의 확대 레벨
 			};
 
-			// 지도를 생성
+			// 지도 생성
 			var map = new kakao.maps.Map(mapContainer, mapOption);
 			
 			// 마우스 휠과 모바일 터치를 이용한 지도 확대, 축소를 막는다
 			map.setZoomable(false);
 
-			// 지도에 확대 축소 컨트롤을 생성한다
+			// 지도에 확대 축소 컨트롤 생성
 			var zoomControl = new kakao.maps.ZoomControl();
 
-			// 지도의 우측에 확대 축소 컨트롤을 추가한다
+			// 지도의 우측에 확대 축소 컨트롤을 추가
 			map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 			
-			
-			// 현재 위치 재 설정 시작--------------
+			// 현재 위치 재설정 시작
 			// 버튼을 클릭하면 아래 배열의 좌표들이 모두 보이게 지도 범위를 재설정합니다
 			var points = new kakao.maps.LatLng(latitude, longitude)
 
@@ -99,8 +95,7 @@
 				// LatLngBounds 객체에 추가된 좌표들을 기준으로 지도의 범위를 재설정
 				map.setBounds(bounds);
 			}
-			// 현재 위치 재 설정 끝 --------------
-
+			// 현재 위치 재설정 끝
 
 			// 장소 검색 객체를 생성합니다
 			var ps = new kakao.maps.services.Places(map);
@@ -386,7 +381,7 @@
 	
 			var map = new kakao.maps.Map(container, options);
 	</script>
-	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=112d3ea1d6f9c231c512b356cb5c03ce&libraries=LIBRARY"></script>
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=112d3ea1d6f9c231c512b356cb5c03ce&libraries=services"></script>
 
 </body>
 </html>
