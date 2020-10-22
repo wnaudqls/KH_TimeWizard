@@ -52,8 +52,8 @@ public class HomeController {
 	@RequestMapping(value="/logout")
 	public String invalidate(HttpSession session) {
 		
-			session.invalidate();
-		return "redirect:./index";
+		session.invalidate();
+		return "redirect:/";
 	}
 	
 	@RequestMapping(value="/finalactionpage")
@@ -80,9 +80,5 @@ public class HomeController {
 	public String finaltimer() {
 		return "finaltimer";
 	}
-	
-	@RequestMapping(value="/mypage")
-	public String mypage() {
-		return "mypage";
-	}
+
 }

@@ -48,12 +48,11 @@ public class HomeController {
 		return "success";
 	}
 	
-	@RequestMapping(value="/invalidate")
+	@RequestMapping(value="/logout")
 	public String invalidate(HttpSession session) {
-		if (session != null) {
-			session.invalidate();
-		}
-		return "redirect:./";
+
+		session.invalidate();
+		return "redirect:../";
 	}
 	
 }

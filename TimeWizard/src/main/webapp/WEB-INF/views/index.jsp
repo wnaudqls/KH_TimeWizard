@@ -8,9 +8,12 @@
 </head>
 <body>
 
-	<a href="login"><div class="start">시작하기</div></a>
+
 	
-	<a href="finalactionpage">MAIN</a>
+	<a href="login/loginform"><div class="start">로그인</div></a>
+	<a href="">회원가입</a>
+	
+	<a href="main">시작하기(main)</a>
 	<a href="finalnotice">NOTICE</a>
 	<a href="finalnoticedetail">NOTICE DETAIL</a>
 	<a href="finalstopwatch">STOPWATCH</a>
@@ -18,6 +21,8 @@
 	<a href="mypage">mypage</a>
 	<a href="grouplist">그룹리스트</a>
 	<a href="streaming">방송</a>
+	<a href="map">map</a>
+
 	
 </body>
 </html>

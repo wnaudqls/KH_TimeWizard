@@ -47,7 +47,7 @@ public class LoginController {
 	
 	
 	/* 기본 로그인창 */
-	@RequestMapping(value="", method= {RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value="loginform", method= {RequestMethod.GET, RequestMethod.POST})
 	public String loginPage(Model model, HttpSession session) {
 		logger.info(">> [CONTROLLER-USERINFO] move to login page");
 		

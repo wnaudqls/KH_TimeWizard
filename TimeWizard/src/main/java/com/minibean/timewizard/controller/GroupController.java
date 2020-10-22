@@ -17,6 +17,7 @@ import com.minibean.timewizard.dao.ChatDaoImpl;
  * Handles requests for the application home page.
  */
 
+
 @Controller
 public class GroupController {
 	
@@ -55,6 +56,7 @@ public class GroupController {
 	public String create(Model model, String user_id) {
 		return "redirect:/list";
 	}
+	
 	
 	
 }
