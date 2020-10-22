@@ -152,8 +152,8 @@ a {
 			<!-- 알림 -->
 			<li><a href="#"><i class="far fa-bell"></i></a></li>
 			<%
-			//로그인 되어있을 때만 보이게!
-			if(UDto != null){  
+			//로그인 되어있고 USER일때만 보이게!
+			if(UDto != null && UDto.getUser_role().equals("USER")){  
 			%>
 			<li>${login.user_name }님! 반갑습니다.</li>
 			<li><a href="login/logout">로그아웃</a></li>
