@@ -10,7 +10,7 @@
 
 	<h1>SUCCESS!</h1>
 	${login.user_name }님, 반갑습니다<br />
-	<a href="login/logout">로그아웃</a>
+	<a href="/timewizard/logout">로그아웃</a>
 
 </body>
 </html>
