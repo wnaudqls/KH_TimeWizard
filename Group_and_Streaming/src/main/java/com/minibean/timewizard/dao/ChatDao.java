@@ -5,6 +5,7 @@ import java.util.List;
 import com.minibean.timewizard.dto.ChatDto;
 
 public interface ChatDao {
+	String namespace = "chat-mapper.";
 	public void init();
 	
 	public List<ChatDto> selectList();

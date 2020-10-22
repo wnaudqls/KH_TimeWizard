@@ -72,7 +72,7 @@
 		sock.close();
 	}
 	function connect() {
-		sock = new SockJS("/timewizard/webserver.do/");
+		sock = new SockJS("/timewizard/webserver");
 		// sock의 이벤트
 		sock.onopen = onOpen;
 		sock.onmessage = onMessage;

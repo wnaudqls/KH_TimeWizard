@@ -9,7 +9,8 @@ import org.springframework.web.socket.server.support.HttpSessionHandshakeInterce
 
 @Configuration
 @EnableWebSocket
-public class WebSocketConfig implements WebSocketConfigurer{
+public class WebSocketConfig implements WebSocketConfigurer
+{
 	@Autowired
 	private EchoHandler	echohandler;
 

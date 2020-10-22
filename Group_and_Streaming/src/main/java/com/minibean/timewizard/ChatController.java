@@ -38,30 +38,28 @@ public class ChatController {
 		return "index";
 	}
 	
-	@RequestMapping("/grouplist.do")
+	@RequestMapping("/grouplist")
 	public String grouplist(Model model) {
 		model.addAttribute("list", biz.selectList());
 		return "group_list";
 	}
 	
-	@RequestMapping("/streaming.do")
+	@RequestMapping("/streaming")
 	public String streaming() {
-		ModelAndView modelview = new ModelAndView();
-		modelview.setView(new RedirectView("/streaming",true,false));
 		return "group_room";
 	}
-	@RequestMapping("/list.do")
+	@RequestMapping("/list")
 	public String list() {
 		return "list";
 	}
-	@RequestMapping("/new.do")
+	@RequestMapping("/new")
 	public String room() {
 		return "new";
 	}
 	
-	@RequestMapping("/create.do")
+	@RequestMapping("/create")
 	public String create(Model model, String user_id) {
-		return "redirect:/list.do";
+		return "redirect:/list";
 	}
 	
 	

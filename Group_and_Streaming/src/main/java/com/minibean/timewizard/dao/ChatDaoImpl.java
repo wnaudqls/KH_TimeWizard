@@ -38,7 +38,9 @@ public class ChatDaoImpl implements ChatDao{
 	@Override
 	public List<ChatDto> selectList() {
 		// TODO Auto-generated method stub
-		return null;
+		List<ChatDto> list = new ArrayList<ChatDto>();
+		list = sqlSession.selectList(namespace+"selectList");
+		return list;
 	}
 
 

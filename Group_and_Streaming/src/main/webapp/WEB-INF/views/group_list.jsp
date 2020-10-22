@@ -14,14 +14,33 @@
 </h1>
 <hr>
 	<table border="1">
-	
 		<c:choose>
 			<c:when test="${empty list }">
 				<tr>
 					<td>아무것도 없습니다.</td>
 				</tr>
 			</c:when>
-			<c:otherwise></c:otherwise>
+			<c:otherwise>
+				<c:forEach var="dto" items="${list }">
+					<tr>
+						<th>번호</th>
+						<td>${dto.chat_no }</td>
+					</tr>
+					<tr>
+						<th>아이디</th>	
+						<td>${dto.user_id }</td>
+					</tr>
+					<tr>
+						<th>내용</th>
+						<td>${dto.chat_content }</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<input type="button" value="접속하기" onclick="location.href='streaming.do?user_id=${dto.user_id}'">
+						</td>
+					</tr>
+				</c:forEach>
+			</c:otherwise>
 		</c:choose>
 	</table>
 	<input type="button" value="만들기" onclick="location.href='new.do'">
