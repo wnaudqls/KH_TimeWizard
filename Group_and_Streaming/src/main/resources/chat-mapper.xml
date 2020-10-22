@@ -5,16 +5,20 @@
   		SELECT * FROM CHAT
   	</select>	
   	<select id="selectOne" resultType="ChatDto">
-  		SELECT MYNO, MYNAME, MYTITLE, MYCONTENT, MYDATE FROM MYBOARD
-  		WHERE MYNO = #{myno}
+  		SELECT * 
+  		FROM CHAT WHERE USER_ID = #{user_id}
+  		
   	</select>	
   	<insert id="insert">
-  		INSERT INTO MYBOARD VALUES(MYNOSEQ.NEXTVAL,#{myname},#{mytitle},#{mycontent},SYSDATE)
+  		INSERT INTO CHAT VALUES(CHAT_SEQ.NEXTVAL, 1, #{user_id}, #{chat_content});
   	</insert>
   	<delete id="delete">
-  		DELETE FROM MYBOARD WHERE MYNO = #{myno}
+  		DELETE FROM CHAT WHERE USER_ID = #{user_id}
   	</delete>
+  	<!--  
+  	보류
   	<update id="update">
   		UPDATE MYBOARD SET MYTITLE = #{mytitle}, MYCONTENT = #{mycontent} WHERE MYNO = #{myno}
   	</update>
+  	-->
 </mapper>

@@ -110,6 +110,7 @@ a {
     .nav_icon.active {
         display: flex;
     }
+<<<<<<< HEAD
     
     /*메뉴바 아이콘*/
     .fas{
@@ -118,4 +119,6 @@ a {
     .fas:hover{
     	color: black;
     }
+=======
+>>>>>>> main
 }

@@ -12,7 +12,7 @@ public class MypageController {
 	
 	@RequestMapping("/mypage")
 	public String Mypage() {
-		
+		logger.info("[mypage]");
 		return "mypage";
 	}
 

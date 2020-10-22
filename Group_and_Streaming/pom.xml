@@ -34,14 +34,16 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
-		<!-- WebSocket -->
+		
+		<!-- WebSocket 추가 -->
+		
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-websocket</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
 
-		<!-- Jackson(Json) -->
+		<!-- Jackson(Json) 추가 -->
 
 		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
 		<dependency>

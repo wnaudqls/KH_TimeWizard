@@ -103,8 +103,25 @@
 	
 	<br/>
 	
+	<!-- !페이징 부분! -->
 	<div id="paging_box">
-		<a id="paging">< 1 2 3 4 5 ></a>
+		<c:if test="${paging.startpage != 1}">
+			<a href="list.do?nowpage=${paging.startpage-1}&cntPerpage=${paging.cntPerpage}">&lt;</a>
+		</c:if>
+		<c:forEach begin="${paging.startpage}" end="${paging.endpage}" var="p">
+			<!-- when은 choose안에 꼭 들어가 있어야 한다. choose안에 otherwise는 없어도 된다. -->
+			<c:choose>
+				<c:when test="${p == paging.nowpage}">
+					<b>${p}</b>
+				</c:when>
+				<c:when test="${p != paging.nowpage}">
+					<a href="list.do?nowpage=${p}&cntPerpage=${paging.cntPerpage}">${p}</a>
+				</c:when>
+			</c:choose>
+		</c:forEach>
+			<c:if test="${paging.endpage != paging.lastpage}">
+				<a href="list.do?nowpage=${paging.endpage+1}&cntPerpage=${paging.cntPerpage}">&gt;</a>
+			</c:if>
 	</div>
 
 </body>

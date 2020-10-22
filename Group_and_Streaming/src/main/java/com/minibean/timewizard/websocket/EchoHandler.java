@@ -6,16 +6,29 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.minibean.timewizard.biz.ChatBiz;
+import com.minibean.timewizard.biz.ChatBizImpl;
+import com.minibean.timewizard.dao.ChatDao;
+import com.minibean.timewizard.dao.ChatDaoImpl;
+import com.minibean.timewizard.dto.ChatDto;
+import com.minibean.timewizard.dto.ChatmessageDto;
+
 //연결할 주소
 @RequestMapping("/webserver")
 public class EchoHandler extends TextWebSocketHandler{
 	
+	
+	 private final ObjectMapper objectMapper = new ObjectMapper();
+	@Autowired
+	ChatBiz biz = new ChatBizImpl();
 	//TextWebSocketHandler를 꼭 상속받아야함
 	
 	//세션 리스트
@@ -39,16 +52,23 @@ public class EchoHandler extends TextWebSocketHandler{
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		// TODO Auto-generated method stub
-		
+		/*
 		//메세지를 보낸 session의 아이디와 메세지 내용을 콘솔창에 띄움
 		logger.info("{}로 부터 {} 받음",session.getId(), message.getPayload());
+		
 		
 		//sessionList에 있는 session들을 WebSocketSession타입인 wss에 저장
 		for(WebSocketSession wss: sessionList) {
 			
 			//전체 유저에게 띄워줌
 			wss.sendMessage(new TextMessage(message.getPayload()));
-		}
+		}*/
+		
+		String msg = message.getPayload();
+        ChatmessageDto chatMessage = objectMapper.readValue(msg,ChatmessageDto.class);
+        ChatDao dao = new ChatDaoImpl();
+        dao.selectOne(chatMessage.getChatRoomId());
+        ChatDto.handleMessage(session,chatMessage,objectMapper);
 	}
 	
 	

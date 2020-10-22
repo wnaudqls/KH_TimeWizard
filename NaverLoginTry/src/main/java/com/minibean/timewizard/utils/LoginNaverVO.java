@@ -6,6 +6,8 @@ import java.util.concurrent.ExecutionException;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
@@ -28,11 +30,13 @@ public class LoginNaverVO {
 	 */
 	private final static String CLIENT_ID = "4iXT347PPGkmH6OSJkN2";
 	private final static String CLIENT_SECRET = "gOJT6tWDgW";
-//	private final static String REDIRECT_URI = "http://localhost:8787/timewizard/login/navercallback";
-	private final static String REDIRECT_URI = "https://localhost:8443/timewizard/login/navercallback";
-	private final static String SESSION_STATE = "oauth_state";
+	private final static String REDIRECT_URI = "http://localhost:8787/timewizard/login/navercallback";
+//	private final static String REDIRECT_URI = "https://localhost:8443/timewizard/login/navercallback";
+	private final static String SESSION_STATE = "oauth_state_n";
 	// 프로필 조회 API URL
 	private final static String PROFILE_API_URL = "https://openapi.naver.com/v1/nid/me";
+	
+	private Logger logger = LoggerFactory.getLogger(LoginNaverVO.class);
 	
 	/* 네아로 인증 URL 생성 Method */
 	public String getAuthorizationUrl(HttpSession session) {
@@ -40,7 +44,7 @@ public class LoginNaverVO {
 		// 세션 유효성 검증을 위한 난수 생성 후 session에 저장
 		String state = generateRandomString();
 		setSession(session, state);
-		
+		logger.info("session state : " + session.getAttribute("oauth_state_n"));
 		/*
 		 * // scrive-java가 제공하는 인증 URL 생성 기능으로 네아로 인증 URL 생성 후 리턴 
 		 * OAuth20Service oauthService = new ServiceBuilder()
@@ -65,6 +69,7 @@ public class LoginNaverVO {
 		
 		// callback으로 전달받은 세션 검증용 난수와 세션에 저장되어 있는 난수값 비교
 		String sessionState = getSession(session);
+		logger.info("state : " + state + " sessionState : " + sessionState);
 		if(StringUtils.pathEquals(sessionState, state)) {
 			/*
 			 * OAuth20Service oauthService = new ServiceBuilder()
@@ -82,7 +87,9 @@ public class LoginNaverVO {
 					.apiSecret(CLIENT_SECRET)
 					.callback(REDIRECT_URI)
 					.build(LoginNaverApi.instance());
-			return oauthService.getAccessToken(code);
+			OAuth2AccessToken accessToken = oauthService.getAccessToken(code);
+			logger.info(accessToken.getRawResponse().toString());
+			return accessToken;
 		}
 		return null;
 	}
