@@ -49,7 +49,8 @@
 	<!-- interceptor -->
 	<interceptors>
 		<interceptor>
-			<mapping path="/*"/>
+			<mapping path="/**/*"/>
+			<exclude-mapping path="/login/*"/>
 			<beans:bean class="com.minibean.timewizard.interceptor.LoginInterceptor"></beans:bean>
 		</interceptor>
 	</interceptors>
