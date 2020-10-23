@@ -55,10 +55,15 @@ public class HomeController {
 	public String successPage() {
 		return "success";
 	}
+	
+	@RequestMapping(value="/finalnotice")
+	public String finalnotice() {
+		return "notice";
+	}
 
 	@RequestMapping(value="/finalnoticedetail")
 	public String finalnoticedetail() {
-		return "finalnoticedetail";
+		return "notice_detail";
 	}
 	
 	@RequestMapping(value="/finalstopwatch")

@@ -239,7 +239,7 @@ a {
 				<div>
 					<p class="forgot-password">Forgot your password?</p>
 					<input type="button" class="control-button in" onclick="loginPrc()" value="Sign In">
-					<a href="login/signup"><p>sign up</p></a>
+					<a href="./signup"><p>sign up</p></a>
 				</div>
 			</form>
 		</div>

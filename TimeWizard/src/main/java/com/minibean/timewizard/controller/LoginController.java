@@ -58,7 +58,7 @@ public class LoginController {
 		String googleAuthUrl = loginGoogleVO.getAuthorizationUrl(session);
 		model.addAttribute("naver_url", naverAuthUrl);
 		model.addAttribute("google_url", googleAuthUrl);
-//		model.addAttribute("kakao_url", "");
+		
 		logger.info("* naver: " + naverAuthUrl);
 		logger.info("* google: " + googleAuthUrl);
 		
@@ -69,7 +69,7 @@ public class LoginController {
 	@RequestMapping(value="/ajaxlogin", method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Boolean> ajaxLogin(@RequestBody UserInfoDto dto, HttpSession session){
-		logger.info("[ajaxlogin]");
+		logger.info(">> [CONTROLLER-USERINFO] ajax login");
 		
 		UserInfoDto res = userInfoBiz.selectOne(dto);
 		
@@ -106,12 +106,13 @@ public class LoginController {
 		
 		UserInfoDto naverdto = new UserInfoDto();
 		naverdto.setUser_id(object.get("id").toString().split("\"")[1]);
-		naverdto.setUser_pw("naver"); // 해당 부분 수정 바람
+		naverdto.setUser_pw(object.get("id").toString().split("\"")[1]);
 		naverdto.setUser_email(object.get("email").toString().split("\"")[1]);
 		naverdto.setUser_name(object.get("name").toString().split("\"")[1]);
 		
 		UserInfoDto result = userInfoBiz.selectOne(naverdto);
 		if (result == null) {
+			logger.info(">> [CONTROLLER-USERINFO] NAVER - user info not exists");
 			session.setAttribute("snsinfo", naverdto);
 			return "redirect:./snssignup";
 		} else {
@@ -124,19 +125,20 @@ public class LoginController {
 	@RequestMapping(value="/googlecallback", method= {RequestMethod.GET, RequestMethod.POST})
 	public String googlecallback(@RequestParam String code, @RequestParam String state, HttpSession session) throws IOException, InterruptedException, ExecutionException {
 		logger.info(">> [CONTROLLER-USERINFO] GOOGLE callback");
+		
 		OAuth2AccessToken oauthToken = loginGoogleVO.getAccessToken(session, code, state);
 		String apiResult = loginGoogleVO.getUserProfile(oauthToken);
-//		logger.info("* api result : " + apiResult);
 		
 		JsonObject object = JsonParser.parseString(apiResult).getAsJsonObject();
 		UserInfoDto googledto = new UserInfoDto();
 		googledto.setUser_id(object.get("sub").toString().split("\"")[1]);
-		googledto.setUser_pw("google"); // 해당 부분 수정 바람
+		googledto.setUser_pw(object.get("sub").toString().split("\"")[1]);
 		googledto.setUser_email(object.get("email").toString().split("\"")[1]);
 		googledto.setUser_name(object.get("name").toString().split("\"")[1]);
 		
 		UserInfoDto result = userInfoBiz.selectOne(googledto);
 		if (result == null) {
+			logger.info(">> [CONTROLLER-USERINFO] GOOGLE - user info not exists");
 			session.setAttribute("snsinfo", googledto);
 			return "redirect:./snssignup";
 		} else {
@@ -157,12 +159,13 @@ public class LoginController {
         
         UserInfoDto kakaodto = new UserInfoDto();
         kakaodto.setUser_id(apiResultObject.get("id").toString());
-        kakaodto.setUser_pw("kakao");
+        kakaodto.setUser_pw(apiResultObject.get("id").toString());
         kakaodto.setUser_name(profileObject.get("nickname").toString().split("\"")[1]);
         kakaodto.setUser_email(kakaoAccountObject.get("email").toString().split("\"")[1]);
         
         UserInfoDto result = userInfoBiz.selectOne(kakaodto);
         if (result == null) {
+        	logger.info(">> [CONTROLLER-USERINFO] KAKAO - user info not exists");
             session.setAttribute("snsinfo", kakaodto);
             return "/timewizard/login/snssignup";
         } else {
