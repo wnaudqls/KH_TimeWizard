@@ -14,6 +14,7 @@ public class MainController {
 	
 	@RequestMapping(value="/main")
 	public String Main() {
+		logger.info(">> [CONTROLLER-MAIN] move to main page");
 		return "finalactionpage";
 	}
 	

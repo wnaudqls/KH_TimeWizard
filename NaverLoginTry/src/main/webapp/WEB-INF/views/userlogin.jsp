@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script type="text/javascript">
 
 	$(function(){
@@ -227,11 +228,10 @@ a {
 						네이버
 					</div>
 				</a>
-				<a href="${kakao_url}">
-					<div class="icon">
-						카카오
-					</div>
-				</a>
+				<%-- <a href="${kakao_url}"> --%>
+				<div class="icon" id="kakao-login-btn">
+					카카오
+				</div>
 			</div>
 			<p class="small"> or user your account:
 			<div>
@@ -244,9 +244,41 @@ a {
 				<a href="login/signup"><p>sign up</p></a>
 			</div>
 		</div>
-	</div>
+    </div>
 	<script type="text/javascript">
-	
+		window.addEventListener('DOMContentLoaded', ()=>{
+		    Kakao.cleanup();
+		    Kakao.init('8ba76a6026ec5b6b73ff1f95270d8845');
+		    let state = Math.random().toString(36).substr(2,11);
+		    sessionStorage.setItem('oauth_state_k', state);
+			const kakaobtn = document.getElementById("kakao-login-btn");
+			kakaobtn.addEventListener("click", () =>{
+				Kakao.Auth.login({
+					success: function(authObj){
+						Kakao.API.request({
+							url: '/v2/user/me',
+							success: function(res){
+								const xhr = new XMLHttpRequest();
+								xhr.open('POST','/timewizard/login/kakaocallback');
+								xhr.setRequestHeader('Content-type','application/json');
+								xhr.send(JSON.stringify(res));
+								xhr.onreadystatechange = function (e){
+									if (xhr.readyState == 4 && xhr.status == 200){
+										window.location.replace(xhr.responseText);
+									}
+								}
+							},
+							fail: function(err){
+								console.log(err);
+							},
+						})
+					},
+					fail : function(err){
+						console.error(err);
+					}
+				})
+			});
+		});
 	</script>
 </body>
 </html>
