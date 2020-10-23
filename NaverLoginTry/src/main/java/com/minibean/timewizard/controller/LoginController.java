@@ -6,13 +6,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -44,7 +42,6 @@ public class LoginController {
     private LoginGoogleVO loginGoogleVO;
     @Autowired
     private LoginKakaoVO loginKakaoVO;
-    private String apiResult = null;
 
     @Autowired
     private void setLoginNaverVO(LoginNaverVO loginNaverVO) {
@@ -115,7 +112,7 @@ public class LoginController {
         logger.info(">> [CONTROLLER-USERINFO] NAVER callback ");
 
         OAuth2AccessToken oauthToken = loginNaverVO.getAccessToken(session, code, state);
-        apiResult = loginNaverVO.getUserProfile(oauthToken);
+        String apiResult = loginNaverVO.getUserProfile(oauthToken);
 
         JsonObject object = JsonParser.parseString(apiResult).getAsJsonObject().get("response").getAsJsonObject();
 
@@ -141,7 +138,7 @@ public class LoginController {
             throws IOException, InterruptedException, ExecutionException {
         logger.info(">> [CONTROLLER-USERINFO] GOOGLE callback");
         OAuth2AccessToken oauthToken = loginGoogleVO.getAccessToken(session, code, state);
-        apiResult = loginGoogleVO.getUserProfile(oauthToken);
+        String apiResult = loginGoogleVO.getUserProfile(oauthToken);
         // logger.info("* api result : " + apiResult);
 
         JsonObject object = JsonParser.parseString(apiResult).getAsJsonObject();
@@ -162,6 +159,7 @@ public class LoginController {
     }
 
     
+    /* sns 로그인 - KAKAO */
     @RequestMapping(value = "/kakaocallback", method = { RequestMethod.GET, RequestMethod.POST })
     @ResponseBody
     public String kakaocallback(@RequestBody String json, HttpSession session) throws IOException, InterruptedException, ExecutionException {

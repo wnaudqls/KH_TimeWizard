@@ -44,6 +44,7 @@ public class LoginNaverVO {
 		// 세션 유효성 검증을 위한 난수 생성 후 session에 저장
 		String state = generateRandomString();
 		setSession(session, state);
+		logger.info("\n* (naver) state : " + state + "\n* session state : "  + getSession(session));
 		
 		/*
 		 * // scrive-java가 제공하는 인증 URL 생성 기능으로 네아로 인증 URL 생성 후 리턴 
@@ -69,7 +70,7 @@ public class LoginNaverVO {
 		
 		// callback으로 전달받은 세션 검증용 난수와 세션에 저장되어 있는 난수값 비교
 		String sessionState = getSession(session);
-		logger.info("* state : " + state + "\n* session state : " + sessionState);
+		logger.info("\n* (naver) state : " + state + "\n* session state : "  + getSession(session).toString());
 		if(StringUtils.pathEquals(sessionState, state)) {
 			/*
 			 * OAuth20Service oauthService = new ServiceBuilder()

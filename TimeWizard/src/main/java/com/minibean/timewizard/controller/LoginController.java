@@ -38,11 +38,14 @@ public class LoginController {
 	private LoginNaverVO loginNaverVO;
 	@Autowired
 	private LoginGoogleVO loginGoogleVO;
-	private String apiResult = null;
 	
 	@Autowired
 	private void setLoginNaverVO(LoginNaverVO loginNaverVO) {
 		this.loginNaverVO = loginNaverVO;
+	}
+	@Autowired
+	private void setLoginGoogleVO(LoginGoogleVO loginGoogleVO) {
+		this.loginGoogleVO = loginGoogleVO;
 	}
 	
 	
@@ -87,17 +90,17 @@ public class LoginController {
 	@RequestMapping(value="/success")
 	public String success(UserInfoDto dto, HttpSession session) {
 		
-		return "redirect:../success";	
+		return "redirect:../main";	
 	}
 	
 	/* sns 로그인 - NAVER */
 	@RequestMapping(value="/navercallback", method= {RequestMethod.GET, RequestMethod.POST})
 	public String navercallback(@RequestParam String code, @RequestParam String state, HttpSession session) throws IOException, InterruptedException, ExecutionException {
 		
-		logger.info(">> [CONTROLLER-USERINFO] NAVER callback ");
+		logger.info(">> [CONTROLLER-USERINFO] NAVER callback");
 		
 		OAuth2AccessToken oauthToken = loginNaverVO.getAccessToken(session, code, state);
-		apiResult = loginNaverVO.getUserProfile(oauthToken);
+		String apiResult = loginNaverVO.getUserProfile(oauthToken);
 		
 		JsonObject object = JsonParser.parseString(apiResult).getAsJsonObject().get("response").getAsJsonObject();
 		
@@ -113,7 +116,7 @@ public class LoginController {
 			return "redirect:./snssignup";
 		} else {
 			session.setAttribute("login", result);
-			return "redirect:../success";
+			return "redirect:../main";
 		}
 	}
 	
@@ -122,7 +125,7 @@ public class LoginController {
 	public String googlecallback(@RequestParam String code, @RequestParam String state, HttpSession session) throws IOException, InterruptedException, ExecutionException {
 		logger.info(">> [CONTROLLER-USERINFO] GOOGLE callback");
 		OAuth2AccessToken oauthToken = loginGoogleVO.getAccessToken(session, code, state);
-		apiResult = loginGoogleVO.getUserProfile(oauthToken);
+		String apiResult = loginGoogleVO.getUserProfile(oauthToken);
 //		logger.info("* api result : " + apiResult);
 		
 		JsonObject object = JsonParser.parseString(apiResult).getAsJsonObject();
@@ -138,9 +141,43 @@ public class LoginController {
 			return "redirect:./snssignup";
 		} else {
 			session.setAttribute("login", result);
-			return "redirect:../success";
+			return "redirect:../main";
 		}
 	}
+	
+    /* sns 로그인 - KAKAO */
+    @RequestMapping(value = "/kakaocallback", method = { RequestMethod.GET, RequestMethod.POST })
+    @ResponseBody
+    public String kakaocallback(@RequestBody String json, HttpSession session) throws IOException, InterruptedException, ExecutionException {
+        logger.info(">> [CONTROLLER-USERINFO] KAKAO callback");
+        
+        JsonObject apiResultObject = JsonParser.parseString(json).getAsJsonObject();
+        JsonObject kakaoAccountObject = JsonParser.parseString(apiResultObject.get("kakao_account").toString()).getAsJsonObject();
+        JsonObject profileObject = JsonParser.parseString(kakaoAccountObject.get("profile").toString()).getAsJsonObject();
+        
+        UserInfoDto kakaodto = new UserInfoDto();
+        kakaodto.setUser_id(apiResultObject.get("id").toString());
+        kakaodto.setUser_pw("kakao");
+        kakaodto.setUser_name(profileObject.get("nickname").toString().split("\"")[1]);
+        kakaodto.setUser_email(kakaoAccountObject.get("email").toString().split("\"")[1]);
+        
+        UserInfoDto result = userInfoBiz.selectOne(kakaodto);
+        if (result == null) {
+            session.setAttribute("snsinfo", kakaodto);
+            return "/timewizard/login/snssignup";
+        } else {
+            session.setAttribute("login", result);
+            return "/timewizard/login/kakaosuccess";
+        }
+    }
+    
+    /* sns 로그인 성공 시 리다이렉트 용 */
+    @RequestMapping(value = "/kakaosuccess")
+    public String success(HttpSession session) {
+
+        return "redirect:../main";
+
+    }
 	
 	/* sns 회원가입 */
 	@RequestMapping(value="/snssignup")
@@ -165,10 +202,10 @@ public class LoginController {
 		
 		int res = userInfoBiz.insert(dto);
 		if (res > 0) {
-			return "redirect:../login";
+			return "redirect:loginform";
 		} else {
 			logger.info("[ERROR] CONTROLLER-USERINFO :: signup form");
-			return "redirect:../login";
+			return "redirect:loginform";
 		}
 		
 	}

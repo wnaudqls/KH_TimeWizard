@@ -41,6 +41,7 @@ public class LoginGoogleVO {
     public String getAuthorizationUrl(HttpSession session) {
         String state = generateRandomString();
         setSession(session, state);
+        logger.info("\n* (google) state : " + state + "\n* session state : "  + getSession(session));
         final Map<String, String> additionalParams = new HashMap<>();
         additionalParams.put("access_type", "offline");
         additionalParams.put("prompt", "consent");
