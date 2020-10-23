@@ -1,4 +1,4 @@
-package com.minibean.timewizard.interceptor;
+package com.minibean.timewizard.common.interceptor;
 
 import java.util.Enumeration;
 
