@@ -22,6 +22,7 @@
 	}
 	
 	function buttonEvt(){
+		//변수설정
 	  var hour = 0;
 	  var min = 0;
 	  var sec = 0;
