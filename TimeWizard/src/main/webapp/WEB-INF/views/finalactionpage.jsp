@@ -216,9 +216,12 @@ a {
 	<section class="sectionbar">
 		<div class="mainframe">
 			Main
+
+			
 		</div>
 		<div class="friends">
 			Friends
+			
 		</div>
 	</section>
 	
