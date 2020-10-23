@@ -50,7 +50,6 @@ public class UserInfoDaoImpl implements UserInfoDao {
 
 	@Override
 	public UserInfoDto selectOne(UserInfoDto dto) {
-		logger.info(">> [USERINFO] selectOne by UserInfoDto - " + dto.getUser_no());
 		UserInfoDto result = null;
 		
 		try {
@@ -59,6 +58,7 @@ public class UserInfoDaoImpl implements UserInfoDao {
 			logger.info("[ERROR] USERINFO :: selectOne by UserInfoDto");
 			e.printStackTrace();
 		}
+		logger.info(">> [USERINFO] selectOne by UserInfoDto - " + dto.getUser_no());
 		
 		return result;
 	}

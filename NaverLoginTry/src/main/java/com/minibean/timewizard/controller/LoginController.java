@@ -6,11 +6,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -158,21 +160,38 @@ public class LoginController {
             return "redirect:../success";
         }
     }
-    
-    
-    @RequestMapping(value = "/kakaotry")
-    public String kakaoTest() {
-        return "kakaotry";
-    }
 
+    
     @RequestMapping(value = "/kakaocallback", method = { RequestMethod.GET, RequestMethod.POST })
-    public String kakaocallback(@RequestParam String code, @RequestParam String state, HttpSession session) throws IOException, InterruptedException, ExecutionException {
-    	logger.info(">> [CONTROLLER-USERINFO] KAKAO callback");
-        OAuth2AccessToken oauthToken = loginKakaoVO.getAccessToken(session, code, state);
-        apiResult = loginGoogleVO.getUserProfile(oauthToken);
-    	logger.info("* api result : " + apiResult);
-    	
-        return "kakaosuccess";
+    @ResponseBody
+    public String kakaocallback(@RequestBody String json, HttpSession session) throws IOException, InterruptedException, ExecutionException {
+        logger.info(">> [CONTROLLER-USERINFO] KAKAO callback");
+        
+        JsonObject apiResultObject = JsonParser.parseString(json).getAsJsonObject();
+        JsonObject kakaoAccountObject = JsonParser.parseString(apiResultObject.get("kakao_account").toString()).getAsJsonObject();
+        JsonObject profileObject = JsonParser.parseString(kakaoAccountObject.get("profile").toString()).getAsJsonObject();
+        
+        UserInfoDto kakaodto = new UserInfoDto();
+        kakaodto.setUser_id(apiResultObject.get("id").toString());
+        kakaodto.setUser_pw("kakao");
+        kakaodto.setUser_name(profileObject.get("nickname").toString().split("\"")[1]);
+        kakaodto.setUser_email(kakaoAccountObject.get("email").toString().split("\"")[1]);
+        
+        UserInfoDto result = userInfoBiz.selectOne(kakaodto);
+        if (result == null) {
+            session.setAttribute("snsinfo", kakaodto);
+            return "/timewizard/login/snssignup";
+        } else {
+            session.setAttribute("login", result);
+            return "/timewizard/login/kakaosuccess";
+        }
+    }
+    
+    @RequestMapping(value = "/kakaosuccess")
+    public String success(HttpSession session) {
+
+        return "redirect:../success";
+
     }
 
     
