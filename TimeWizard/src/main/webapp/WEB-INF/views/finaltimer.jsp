@@ -6,7 +6,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Electrolize&display=swap" rel="stylesheet">
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://kit.fontawesome.com/3049a69bf8.js" crossorigin="anonymous"></script>
 <script type="text/javascript">
 
 	var Hcount = 0;
@@ -73,7 +75,7 @@
 	    	$("#timer_reset").click(function() {
 	            clearInterval(x);
 	            document.getElementById("timer").innerHTML = "0m 0s";
-	            
+	            document.getElementById("timer_setting").innerHTML = "Time Limit : 0m";
 	        });
 	    })
 	}
@@ -83,7 +85,7 @@
 		Mcount = 0;
 		Htime = 0;
 		Mtime = 0;
-		document.getElementById("timer_setting").innerHTML = "Time Limit : 0m";
+		
 		$('#timer_start').attr('disabled', false);
 		$('#timer_hour').attr('disabled', false);
 		$('#timer_min').attr('disabled', false);
@@ -94,12 +96,15 @@
 </head>
 
 <style>
+
+	body {
+		font-family: 'Electrolize';
+	}
 	
 	#timer_box {
 		width: 400px;
 		border: 2px solid black;
 		background-color: #273c75;
-		color: white;
 	}
 	
 	#timer {
@@ -112,11 +117,13 @@
 	#timer_time {
 		width: 400px;
 		height: 100px;
+		color: white;
 	}
 	
 	#timer_limit {
 		width: 400px;
 		height: 25px;
+		color: white;
 	}
 	
 	#timer_setting {
@@ -126,17 +133,13 @@
 	#timer_menu {
 		width: 400px;
 		height: 50px;
-		background-color: #192a56;
+		background-color: white;
+		text-align: center;
 	}
 	
-	.timer_button {
-		width: 20%;
-		margin-left: 3%;
-		margin-top: 15px;
+	#timer_menu i {
 		cursor: pointer;
-		background-color: #192a56;
-		color: white;
-		border: 2px solid white;
+		font-size: 30px;
 	}
 
 </style>
@@ -153,10 +156,10 @@
 			<div id="timer_setting">Time Limit :</div>
 		</div>
 		<div id="timer_menu">
-			<button id="timer_hour" class="timer_button" onclick="hours()">+60m</button>
-			<button id="timer_min" class="timer_button" onclick="mins()">+10m</button>
-			<button id="timer_start" class="timer_button" onclick="start()">START</button>
-			<button id="timer_reset" class="timer_button" onclick="reset()">RESET</button>
+			<i id="timer_hour" class="fas fa-plus-circle" onclick="hours()"></i>
+			<i id="timer_min" class="fas fa-plus-square" onclick="mins()"></i>
+			<i id="timer_start" class="fas fa-play-circle" onclick="start()"></i>
+			<i id="timer_reset" class="fas fa-stop-circle" onclick="reset()"></i>
 		</div>
 	</div>
 	
