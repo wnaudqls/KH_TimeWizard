@@ -91,6 +91,42 @@ a {
     color: var(--accent-color);
 }
 
+.sectionbar {
+	display: flex;
+	width: 100%;
+	height: 650px;
+}
+
+.mainframe {
+	width: 85%;
+}
+
+.friends {
+	width: 15%;
+	border-left: 1px solid black;
+}
+
+.footerbar {
+	display: flex;
+	width: 100%;
+	background-color: var(--background-color);
+	padding: 8px 12px;
+}
+
+.footer_box {
+    width: 100%;
+    text-align: center;
+    font-size: 24px;
+}
+
+.footer_box i {
+	padding: 8px 12px;
+}
+
+.footer_box i:hover {
+	color: var(--accent-color);
+}
+
 @media screen and (max-width: 1140px) {
     .navbar {
         flex-direction: column;
@@ -131,6 +167,7 @@ a {
     .nav_icon.active {
         display: flex;
     }
+    
 }
 
 </style>
@@ -161,6 +198,7 @@ a {
 			}
 			%>
 			<li><a href="mypage"><i class="fas fa-bars"></i></a></li>
+			<li><a href=""><i class="fas fa-stopwatch"></i></a></li>
 		</ul>
 		<ul class="nav_icon">
 			<li><i class="fab fa-twitter-square"></i></li>
@@ -172,10 +210,21 @@ a {
 		</a>
 	</nav>
 	
+	<section class="sectionbar">
+		<div class="mainframe">
+			Main
+		</div>
+		<div class="friends">
+			Friends
+		</div>
+	</section>
+	
 	<!-- footer에 공지사항, 챗봇 -->
-	<footer>
-		<a href="notice" ><i class="fas fa-chalkboard-teacher"></i></a>
-		<a href="#" ><i class="far fa-paper-plane"></i></a>
+	<footer class="footerbar">
+		<div class="footer_box">
+			<a href="notice" ><i class="fas fa-chalkboard-teacher"></i></a>
+			<a href="#" ><i class="far fa-paper-plane"></i></a>
+		</div>
 	</footer>
 
 </body>
