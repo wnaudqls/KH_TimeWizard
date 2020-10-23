@@ -5,7 +5,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
 
-<bean id="logAop" class="com.minibean.timewizard.aop.LogAop"/>
+<bean id="logAop" class="com.minibean.timewizard.common.aop.LogAop"/>
 	<aop:config>
 		<aop:pointcut expression="execution(public * com.minibean.timewizard.model.dao.*Dao*.*(..))" id="daoPoint"/>
 		<aop:aspect ref="logAop" id="logAop">
