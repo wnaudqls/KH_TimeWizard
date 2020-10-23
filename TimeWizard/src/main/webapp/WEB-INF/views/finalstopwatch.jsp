@@ -6,25 +6,13 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Electrolize&display=swap" rel="stylesheet">
+<link href="resources/css/stopwatch.css" rel="stylesheet">
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script type="text/javascript">
-
-	
-
-</script>
+<script src="https://kit.fontawesome.com/3049a69bf8.js" crossorigin="anonymous"></script>
+<script src="resources/js/stopwatch.js" defer></script>
 
 </head>
-
-<style>
-
-	#stopwatch_box {
-		width: 400px;
-		height: 150px;
-		border: 1px solid black;
-	}
-
-</style>
-
 <body>
 
 	<h1>STOPWATCH</h1>
@@ -34,9 +22,9 @@
 			<div id="time" class="time">00:00:00</div>
 		</div>
 		<div id="stopwatch_menu">
-			<i>시작</i>
-			<i>일시정지</i>
-			<i>정지</i>
+			<a><i id="startbtn" class="fas fa-play-circle"></i></a>
+			<a><i id="pausebtn" class="fas fa-pause-circle"></i></a>
+			<a><i id="stopbtn" class="fas fa-stop-circle"></i></a>
 		</div>
 	</div>
 
