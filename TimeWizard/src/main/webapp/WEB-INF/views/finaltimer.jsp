@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Electrolize&display=swap" rel="stylesheet">
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script type="text/javascript">
 
@@ -94,6 +95,10 @@
 </head>
 
 <style>
+
+	body {
+		font-family: 'Electrolize';
+	}
 	
 	#timer_box {
 		width: 400px;
