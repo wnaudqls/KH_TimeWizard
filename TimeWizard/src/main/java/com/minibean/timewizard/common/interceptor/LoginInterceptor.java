@@ -1,6 +1,6 @@
 package com.minibean.timewizard.common.interceptor;
 
-import java.util.Enumeration;
+import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,19 +15,22 @@ public class LoginInterceptor implements HandlerInterceptor {
 	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-		logger.info("LOGININTERCEPTOR::prehandle=============================");
-		logger.info("Class \t : " + handler.getClass());
-		logger.info("Request URI \t : " + request.getRequestURI());
-		logger.info("Servlet URI \t : " + request.getServletPath());
+		logger.info("[LogingInterceptor]:prehandle");
 		
-		Enumeration<String> paramNames = request.getParameterNames();
-		
-		while (paramNames.hasMoreElements()) {
-			String key = (String) paramNames.nextElement();  
-			String value = request.getParameter(key);
-			logger.info("# Request Parameter : " + key + "=" + value);
+		//아래 조건일때만 controller로 넘어갑니다.
+		if(	request.getRequestURI().contains("/login/loginform")||
+			request.getRequestURI().contains("/login/ajaxlogin") || 
+			request.getRequestURI().contains("/login/navercallback") || 
+			request.getRequestURI().contains("/login/googlecallback") || 
+			request.getRequestURI().contains("/login/kakaocallback") || 
+			request.getRequestURI().contains("/login/snssignup") || 
+			request.getRequestURI().contains("/login/signupresult") || 
+			request.getRequestURI().contains("/login/kakaosuccess") || 
+			request.getRequestURI().contains("/mypage")||
+			request.getSession().getAttribute("login")!=null) {
+			
+			return true;
 		}
-		logger.info("========================================================");
 		
 		//session에 값이 없으면,
 		if(request.getSession().getAttribute("login")==null) {
@@ -40,7 +43,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 	
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) {
-		logger.info("LOGININTERCEPTOR::posthandle=============================");
+		logger.info("[LoginInterceptor] : postHandle");
 		
 		if(modelAndView != null) {
 			logger.info(modelAndView.getViewName());
@@ -49,6 +52,6 @@ public class LoginInterceptor implements HandlerInterceptor {
 	
 	@Override
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
-		logger.info("LOGININTERCEPTOR::aftercompletion=========================");
+		logger.info("[LoginInterceptor] : afterCompletion");
 	}
 }

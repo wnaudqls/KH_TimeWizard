@@ -1,4 +1,4 @@
-package com.minibean.timewizard.utils;
+package com.minibean.timewizard.utils.login;
 
 import java.io.IOException;
 import java.util.HashMap;

@@ -8,12 +8,46 @@
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-<!-- <link rel="stylesheet" href="resources/css/userlogin.css">
-<script type="text/javascript"  src="resources/js/userlogin_ajaxlogin.js"></script> -->
+<script type="text/javascript">
 
-<style>
-@charset "UTF-8";
+	$(function(){
+		$("#loginchk").hide();
+	});
+	
+	function loginPrc(){
+		var user_id = $("#user_id").val().trim();
+		var user_pw = $("#user_pw").val().trim();
+		var loginVal = {
+				"user_id": user_id,
+				"user_pw": user_pw
+		}
+		
+		if (user_id == null || user_id == "" || user_pw == null || user_pw == "" ){
+			alert("ID와 PW를 모두 작성해 주세요");
+		} else {
+			$.ajax({
+				type: "post",
+				url: "/timewizard/login/ajaxlogin",
+				data: JSON.stringify(loginVal),
+				contentType: "application/json",
+				dataType: "json",
+				success: function(msg){
+					if (msg.check == true) {
+						location.href = '/timewizard/main';
+					} else {
+						alert("ID 혹은 PW가 잘못 입력 되었습니다.");
+					}
+				},
+				error: function(){
+					alert("통신 실패");
+				}
+			});
+		}
+	}
 
+</script>
+
+<style type="text/css">
 :root{
   --form-height:550px;
   --form-width: 900px;
@@ -63,49 +97,6 @@ body, html{
   margin: 20px 0px 30px;
   font-weight: 200;
 }
-
-#sign-in-form input, #sign-up-form input{
-  margin: 12px;
-  font-size: 14px;
-  padding: 15px;
-  width: 260px;
-  font-weight: 300;
-  border: none;
-  background-color: #e4e4e494;
-  font-family: 'Helvetica Neue', sans-serif;
-  letter-spacing: 1.5px;
-  padding-left: 20px;
-}
-
-#sign-in-form input::placeholder{
-  letter-spacing: 1px;
-}
-
-.forgot-password{
-  font-size: 12px;
-  display: inline-block;
-  border-bottom: 2px solid #efebeb;
-  padding-bottom: 3px;
-}
-
-.forgot-password:hover{
-  cursor: pointer;
-}
-
-
-.sns {
-	display: flex;
-}
-.icon {
-	justify-content: space-around;
-}
-a {
-	text-decoration: none;
-}
-.overlay {
-	justify-content: center;
-}
-
 /* 
 ------------------------
       Buttons
@@ -175,43 +166,50 @@ a {
   width: 25px;
   height: 25px;
 }
-</style>
-<script type="text/javascript">
-$(function(){
-	$("#loginchk").hide();
-});
 
-function loginPrc(){
-	var user_id = $("#user_id").val().trim();
-	var user_pw = $("#user_pw").val().trim();
-	var loginVal = {
-			"user_id": user_id,
-			"user_pw": user_pw
-	}
-	
-	if (user_id == null || user_id == "" || user_pw == null || user_pw == "" ){
-		alert("ID와 PW를 모두 작성해 주세요");
-	} else {
-		$.ajax({
-			type: "post",
-			url: "/timewizard/login/ajaxlogin",
-			data: JSON.stringify(loginVal),
-			contentType: "application/json",
-			dataType: "json",
-			success: function(msg){
-				if (msg.check == true) {
-					location.href = '/timewizard/main';
-				} else {
-					alert("ID 혹은 PW가 잘못 입력 되었습니다.");
-				}
-			},
-			error: function(){
-				alert("통신 실패");
-			}
-		});
-	}
+#sign-in-form input, #sign-up-form input{
+  margin: 12px;
+  font-size: 14px;
+  padding: 15px;
+  width: 260px;
+  font-weight: 300;
+  border: none;
+  background-color: #e4e4e494;
+  font-family: 'Helvetica Neue', sans-serif;
+  letter-spacing: 1.5px;
+  padding-left: 20px;
 }
-</script>
+
+#sign-in-form input::placeholder{
+  letter-spacing: 1px;
+}
+
+.forgot-password{
+  font-size: 12px;
+  display: inline-block;
+  border-bottom: 2px solid #efebeb;
+  padding-bottom: 3px;
+}
+
+.forgot-password:hover{
+  cursor: pointer;
+}
+
+
+.sns {
+	display: flex;
+}
+.icon {
+	justify-content: space-around;
+}
+a {
+	text-decoration: none;
+}
+.overlay {
+	justify-content: center;
+}
+</style>
+
 </head>
 <body>
 	<div class="overlay">
@@ -232,9 +230,9 @@ function loginPrc(){
 					카카오
 				</div>
 			</div>
-			<p class="small"> or user your account:</p>
+			<p class="small"> or user your account:
 			<div id="sign-in-form">
-				<div class="input-area">
+				<div>
 					<input type="text" placeholder="Id" name="user_id" id="user_id" />
 					<input type="password" placeholder="Password" name="user_pw" id="user_pw"/><br/>
 				</div>
@@ -246,41 +244,40 @@ function loginPrc(){
 			</div>
 		</div>
 	</div>
-	<!-- <script type="text/javascript" src="resources/js/userlogin_kakaologin.js"></script> -->
 	<script type="text/javascript">
-	window.addEventListener('DOMContentLoaded', ()=>{
-	    Kakao.cleanup();
-	    Kakao.init('8ba76a6026ec5b6b73ff1f95270d8845');
-	    let state = Math.random().toString(36).substr(2,11);
-	    sessionStorage.setItem('oauth_state_k', state);
-		const kakaobtn = document.getElementById("kakao-login-btn");
-		kakaobtn.addEventListener("click", () =>{
-			Kakao.Auth.login({
-				success: function(authObj){
-					Kakao.API.request({
-						url: '/v2/user/me',
-						success: function(res){
-							const xhr = new XMLHttpRequest();
-							xhr.open('POST','/timewizard/login/kakaocallback');
-							xhr.setRequestHeader('Content-type','application/json');
-							xhr.send(JSON.stringify(res));
-							xhr.onreadystatechange = function (e){
-								if (xhr.readyState == 4 && xhr.status == 200){
-									window.location.replace(xhr.responseText);
+		window.addEventListener('DOMContentLoaded', ()=>{
+		    Kakao.cleanup();
+		    Kakao.init('8ba76a6026ec5b6b73ff1f95270d8845');
+		    let state = Math.random().toString(36).substr(2,11);
+		    sessionStorage.setItem('oauth_state_k', state);
+			const kakaobtn = document.getElementById("kakao-login-btn");
+			kakaobtn.addEventListener("click", () =>{
+				Kakao.Auth.login({
+					success: function(authObj){
+						Kakao.API.request({
+							url: '/v2/user/me',
+							success: function(res){
+								const xhr = new XMLHttpRequest();
+								xhr.open('POST','/timewizard/login/kakaocallback');
+								xhr.setRequestHeader('Content-type','application/json');
+								xhr.send(JSON.stringify(res));
+								xhr.onreadystatechange = function (e){
+									if (xhr.readyState == 4 && xhr.status == 200){
+										window.location.replace(xhr.responseText);
+									}
 								}
-							}
-						},
-						fail: function(err){
-							console.log(err);
-						},
-					})
-				},
-				fail : function(err){
-					console.error(err);
-				}
-			})
+							},
+							fail: function(err){
+								console.log(err);
+							},
+						})
+					},
+					fail : function(err){
+						console.error(err);
+					}
+				})
+			});
 		});
-	});
 	</script>
 </body>
 </html>

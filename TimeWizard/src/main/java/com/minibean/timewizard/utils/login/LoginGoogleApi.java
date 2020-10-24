@@ -1,4 +1,4 @@
-package com.minibean.timewizard.utils;
+package com.minibean.timewizard.utils.login;
 
 import com.github.scribejava.core.builder.api.DefaultApi20;
 
