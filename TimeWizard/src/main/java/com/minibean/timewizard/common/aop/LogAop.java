@@ -1,4 +1,4 @@
-package com.minibean.timewizard.aop;
+package com.minibean.timewizard.common.aop;
 
 import org.aspectj.lang.JoinPoint;
 import org.slf4j.Logger;
