@@ -10,18 +10,18 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.minibean.timewizard.model.dto.DailyDto;
+import com.minibean.timewizard.model.dto.UserTodoDto;
 
 @Repository
-public class DailyDaoImpl implements DailyDao {
+public class UserTodoDaoImpl implements UserTodoDao {
 	
 	@Autowired
 	private SqlSessionTemplate sqlSession;
-	private Logger logger = LoggerFactory.getLogger(DailyDaoImpl.class);
+	private Logger logger = LoggerFactory.getLogger(UserTodoDaoImpl.class);
 	
 	@Override
-	public List<DailyDto> selectList() {
-		List<DailyDto> list = new ArrayList<DailyDto>();
+	public List<UserTodoDto> selectList() {
+		List<UserTodoDto> list = new ArrayList<UserTodoDto>();
 		
 		
 		

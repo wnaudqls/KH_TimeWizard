@@ -2,10 +2,11 @@ package com.minibean.timewizard.model.dto;
 
 import java.util.Date;
 
-public class DailyDto {
+public class UserTodoDto {
 	
 	private int todo_no;
 	private String user_id;
+	private int user_no;
 	private String todo_title;
 	private String todo_color;
 	private String todo_content;
@@ -14,9 +15,23 @@ public class DailyDto {
 	private Date todo_regdate;
 	private String todo_complete;
 	
-	public DailyDto() {}
+	public UserTodoDto() {}
 
-	public DailyDto(int todo_no, String user_id, String todo_title, String todo_color, String todo_content,
+	public UserTodoDto(int todo_no, int user_no, String todo_title, String todo_color, String todo_content,
+			String todo_catagory, String todo_hashtag, Date todo_regdate, String todo_complete) {
+		super();
+		this.todo_no = todo_no;
+		this.user_no = user_no;
+		this.todo_title = todo_title;
+		this.todo_color = todo_color;
+		this.todo_content = todo_content;
+		this.todo_catagory = todo_catagory;
+		this.todo_hashtag = todo_hashtag;
+		this.todo_regdate = todo_regdate;
+		this.todo_complete = todo_complete;
+	}
+
+	public UserTodoDto(int todo_no, String user_id, String todo_title, String todo_color, String todo_content,
 			String todo_catagory, String todo_hashtag, Date todo_regdate, String todo_complete) {
 		this.todo_no = todo_no;
 		this.user_id = user_id;
@@ -37,6 +52,13 @@ public class DailyDto {
 		this.todo_no = todo_no;
 	}
 
+	public int getUser_no() {
+		return user_no;
+	}
+
+	public void setUser_no(int user_no) {
+		this.user_no = user_no;
+	}
 	public String getUser_id() {
 		return user_id;
 	}
