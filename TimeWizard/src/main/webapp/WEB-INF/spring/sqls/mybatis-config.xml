@@ -4,9 +4,11 @@
 	<typeAliases>
 		<typeAlias type="com.minibean.timewizard.model.dto.UserInfoDto" alias="UserInfoDto"/>
 		<typeAlias type="com.minibean.timewizard.dto.ChatDto" alias="ChatDto"/>
+		<typeAlias type="com.minibean.timewizard.model.dto.UserTodoDto" alias="TodoDto"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="/mybatis/user_info-mapper.xml" />
 		<mapper resource="/mybatis/chat-mapper.xml"/>
+		<mapper resource="/mybatis/user_todo-mampper.xml"/>
 	</mappers>
 </configuration>
