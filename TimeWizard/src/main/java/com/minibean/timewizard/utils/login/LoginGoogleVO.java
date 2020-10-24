@@ -1,4 +1,4 @@
-package com.minibean.timewizard.utils;
+package com.minibean.timewizard.utils.login;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -36,43 +36,52 @@ public class LoginGoogleVO {
     private final static String PROTECTED_RESOURCE_URL = "https://www.googleapis.com/oauth2/v3/userinfo";
     private final static String SCOPE = "openid profile email";
     private final static String SESSION_STATE = "oauth_state_g";
+    
     private Logger logger = LoggerFactory.getLogger(LoginGoogleVO.class);
 
     public String getAuthorizationUrl(HttpSession session) {
         String state = generateRandomString();
         setSession(session, state);
-        final Map<String, String> additionalParams = new HashMap<>();
+        
+        final Map<String, String> additionalParams = new HashMap<String, String>();
         additionalParams.put("access_type", "offline");
         additionalParams.put("prompt", "consent");
-        OAuth20Service oauthService = new ServiceBuilder(CLIENT_ID).apiSecret(CLIENT_SECRET).defaultScope(SCOPE)
-                .callback(REDIRECT_URI).build(LoginGoogleApi.instance());
+        OAuth20Service oauthService = new ServiceBuilder(CLIENT_ID)
+        		.apiSecret(CLIENT_SECRET)
+        		.defaultScope(SCOPE)
+                .callback(REDIRECT_URI)
+                .build(LoginGoogleApi.instance());
+        
         return oauthService.createAuthorizationUrlBuilder().state(state).additionalParams(additionalParams).build();
     }
 
     public OAuth2AccessToken getAccessToken(HttpSession session, String code, String state)
             throws IOException, InterruptedException, ExecutionException {
         String sessionState = getSession(session);
+        
         if (StringUtils.pathEquals(sessionState, state)) {
             OAuth20Service oauthService = new ServiceBuilder(CLIENT_ID).apiSecret(CLIENT_SECRET).callback(REDIRECT_URI)
                     .build(LoginGoogleApi.instance());
             OAuth2AccessToken accessToken = oauthService.getAccessToken(code);
-//            logger.info("* Access Token's raw response : " + accessToken.getRawResponse());
-//            accessToken = oauthService.refreshAccessToken(accessToken.getRefreshToken());
-//            logger.info("* Access Token's raw response (After refresh) : " + accessToken.getRawResponse());
+            
             return accessToken;
         }
+        
         return null;
     }
 
     public String getUserProfile(OAuth2AccessToken accessToken)
             throws InterruptedException, ExecutionException, IOException {
-        OAuth20Service oauthService = new ServiceBuilder(CLIENT_ID).apiSecret(CLIENT_SECRET).callback(REDIRECT_URI)
+    	
+        OAuth20Service oauthService = new ServiceBuilder(CLIENT_ID)
+        		.apiSecret(CLIENT_SECRET)
+        		.callback(REDIRECT_URI)
                 .build(LoginGoogleApi.instance());
+        
         OAuthRequest request = new OAuthRequest(Verb.GET, PROTECTED_RESOURCE_URL);
         oauthService.signRequest(accessToken, request);
         Response response = oauthService.execute(request);
-//        logger.info("* response code : " + response.getCode());
-//        logger.info("* response body : " + response.getBody());
+        
         return response.getBody();
     }
 

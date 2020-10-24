@@ -1,4 +1,4 @@
-package com.minibean.timewizard.interceptor;
+package com.minibean.timewizard.common.interceptor;
 
 import java.io.IOException;
 
@@ -18,8 +18,14 @@ public class LoginInterceptor implements HandlerInterceptor {
 		logger.info("[LogingInterceptor]:prehandle");
 		
 		//아래 조건일때만 controller로 넘어갑니다.
-		if(	request.getRequestURI().contains("/logni/loginform")||
+		if(	request.getRequestURI().contains("/login/loginform")||
 			request.getRequestURI().contains("/login/ajaxlogin") || 
+			request.getRequestURI().contains("/login/navercallback") || 
+			request.getRequestURI().contains("/login/googlecallback") || 
+			request.getRequestURI().contains("/login/kakaocallback") || 
+			request.getRequestURI().contains("/login/snssignup") || 
+			request.getRequestURI().contains("/login/signupresult") || 
+			request.getRequestURI().contains("/login/kakaosuccess") || 
 			request.getRequestURI().contains("/mypage")||
 			request.getSession().getAttribute("login")!=null) {
 			

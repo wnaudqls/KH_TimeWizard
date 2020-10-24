@@ -52,7 +52,7 @@ public class HomeController {
 	public String invalidate(HttpSession session) {
 
 		session.invalidate();
-		return "redirect:../";
+		return "redirect:/";
 	}
 	
 }
