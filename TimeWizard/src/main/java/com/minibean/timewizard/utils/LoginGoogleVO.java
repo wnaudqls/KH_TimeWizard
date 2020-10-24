@@ -43,7 +43,7 @@ public class LoginGoogleVO {
         String state = generateRandomString();
         setSession(session, state);
         
-        final Map<String, String> additionalParams = new HashMap<>();
+        final Map<String, String> additionalParams = new HashMap<String, String>();
         additionalParams.put("access_type", "offline");
         additionalParams.put("prompt", "consent");
         OAuth20Service oauthService = new ServiceBuilder(CLIENT_ID)
