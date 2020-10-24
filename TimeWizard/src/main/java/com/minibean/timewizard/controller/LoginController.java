@@ -23,8 +23,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.minibean.timewizard.model.biz.UserInfoBiz;
 import com.minibean.timewizard.model.dto.UserInfoDto;
-import com.minibean.timewizard.utils.LoginGoogleVO;
-import com.minibean.timewizard.utils.LoginNaverVO;
+import com.minibean.timewizard.utils.login.LoginGoogleVO;
+import com.minibean.timewizard.utils.login.LoginNaverVO;
 
 @Controller
 @RequestMapping(value="/login")
