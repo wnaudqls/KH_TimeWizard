@@ -6,7 +6,7 @@
 	<!-- The definition of the Root Spring Container shared by all Servlets and Filters -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/spring/appServlet/root-context.xml</param-value>
+		<param-value>/WEB-INF/spring/root-context.xml</param-value>
 	</context-param>
 	
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
@@ -22,7 +22,7 @@
 			<param-name>contextConfigLocation</param-name>
 			<param-value>
 				/WEB-INF/spring/appServlet/servlet-context.xml
-				/WEB-INF/spring/appServlet/aop-context.xml
+				/WEB-INF/spring/appServlet/security-context.xml
 			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
@@ -33,29 +33,19 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 	
-	<filter>
-		<filter-name>encodingFilter</filter-name>
-		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
-		<init-param>
-			<param-name>encoding</param-name>
-			<param-value>UTF-8</param-value>
-		</init-param>
-		<init-param>
-			<param-name>forceEncoding</param-name>
-			<param-value>true</param-value>
-		</init-param>
-	</filter>
-	<filter-mapping>
-		<filter-name>encodingFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
+	<error-page>
+	   <error-code>500</error-code>
+	   <location>/WEB-INF/views/error.jsp</location>
+	</error-page>
 	
+	<!-- Spring Security -->
 	<filter>
-		<filter-name>logFilter</filter-name>
-		<filter-class>com.minibean.timewizard.common.filter.LogFilter</filter-class>
+	   <filter-name>springSecurityFilterChain</filter-name>
+	   <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
 	</filter>
 	<filter-mapping>
-		<filter-name>logFilter</filter-name>
-		<url-pattern>/*</url-pattern>
+	   <filter-name>springSecurityFilterChain</filter-name>
+	   <url-pattern>/*</url-pattern>
 	</filter-mapping>
+
 </web-app>
