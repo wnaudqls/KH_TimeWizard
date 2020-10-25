@@ -35,11 +35,12 @@
 			<!-- 알림 -->
 			<li><a href="#"><i class="far fa-bell"></i></a></li>
 			<%
-			//로그인 되어있을 때만 보이게!
-			if(UDto != null){  
+			//로그인 되어있고 USER일때만 보이게!
+			if(UDto != null && UDto.getUser_role().equals("USER")){  
 			%>
 			<li>${login.user_name }님! 반갑습니다.</li>
-			<li><a href="login/logout">로그아웃</a></li>
+			<li><a href="./logout">로그아웃</a></li>
+
 			<%
 			}
 			%>
@@ -58,6 +59,7 @@
 	</nav>
 	
 	<section class="sectionbar">
+
 		<div class="main_box">
 			<div class="tab_box">
 				<div class="tap active" onclick="openTab(event, 'con1')"><a href="#">Tap 1</a></div>
@@ -67,7 +69,6 @@
 				<div id="con1" class="content on"><p>Content 1, Tap 1의 내용</p></div>
 				<div id="con2" class="content"><p>Content 2, Tap 2의 내용</p></div>
 			</div>
-		</div>
 	</section>
 	
 	<aside class="friendsbar">
