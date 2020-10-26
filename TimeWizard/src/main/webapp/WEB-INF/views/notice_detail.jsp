@@ -8,79 +8,14 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
+<link href="resources/css/noticedetail.css" rel="stylesheet">
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://kit.fontawesome.com/3049a69bf8.js" crossorigin="anonymous"></script>
 <script type="text/javascript">
 
 </script>
 
 </head>
-
-<style>
-
-	#title {
-		border-bottom: 2px solid black;
-		width: 80%;
-		margin-left: 10%;
-	}
-	
-	#content {
-		border-bottom: 2px solid black;
-		width: 80%;
-		height: 300px;
-		margin-left: 10%
-	}
-	
-	#comment_state {
-		width: 70%;
-		margin-left: 15%;
-		margin-bottom: 10px;
-	}
-	
-	#comment_total {
-		float: left;
-	}
-	
-	#comment_toggle {
-		float: right;
-		cursor: pointer;
-	}
-	
-	#commentlist_box {
-		width: 70%;
-		height: 150px;
-		border: 1px solid black;
-		margin-left: 15%;
-	}
-	
-	#comment_box {
-		width: 70%;
-		height: 30px;
-		border: 1px solid black;
-		margin-left: 15%;
-	}
-	
-	#comment_text {
-		font-size: 16px;
-		width: 85%;
-		padding: 6px;
-		border: 0px;
-		outline: none;
-		float: left;
-	}
-	
-	#comment_button {
-		width: 13%;
-		height: 100%;
-		border: 0px;
-		background: black;
-		color: white;
-		outline: none;
-		float: right;
-		cursor: pointer;
-	}
-
-</style>
-
 <body>
 	
 	<h1>공지사항</h1>
@@ -93,17 +28,19 @@
 			<col width="100" />
 			<col width="200" />
 			<col width="100" />
+			<col width="50" />
 		</colgroup>
 		<tr>
-			<th>(공지사항 제목)</th>
-			<th>(운영자)</th>
-			<th>(작성일)</th>
+			<th>${dto.notice_title }</th>
+			<th>운영자 YM</th>
+			<th>${dto.notice_regdate }</th>
 			<th>(조회수)</th>
+			<th class="update" onclick="location.href='update?notice_no=${dto.notice_no }'"><i class="fas fa-wrench"></i></th>
 		</tr>
 	</table>
 	
 	<div id="content">
-		(내용)
+		${dto.notice_content }
 	</div>
 	
 	<br/>
@@ -125,9 +62,9 @@
 			<c:otherwise>
 				<c:forEach items="${list }" var="dto">
 					<tr>
-						<td>${dto.mycontent }</td>
-						<td>${dto.myname }</td>
-						<td>${dto.mydate }</td>
+						<td></td>
+						<td>(작성자 ID)</td>
+						<td></td>
 						<td><a>X</a></td>
 					</tr>
 				</c:forEach>
