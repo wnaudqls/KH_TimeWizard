@@ -1,0 +1,48 @@
+	a {
+		text-decoration: none;
+	}
+
+	.notice_text {
+		border-bottom: 1px solid black;
+	}
+	
+	#paging_box {
+		cursor: pointer;
+		text-align: center;
+	}
+
+	#noticeBoard {
+		width: 80%;
+		margin-left: 10%;
+	}
+	
+	#search_box {
+		height: 30px;
+		width: 290px;
+		border: 1px solid black;
+		margin-left: 41%;
+	}
+	
+	#search_text {
+		font-size: 16px;
+		width: 225px;
+		padding: 6px;
+		border: 0px;
+		outline: none;
+		float: left;
+	}
+	
+	#search_button {
+		width: 52px;
+		height: 100%;
+		border: 0px;
+		background: black;
+		color: white;
+		outline: none;
+		float: left;
+		cursor: pointer;
+	}
+	
+	.trash {
+		cursor: pointer;
+	}

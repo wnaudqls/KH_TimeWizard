@@ -8,59 +8,14 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
+<link href="resources/css/notice.css" rel="stylesheet">
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://kit.fontawesome.com/3049a69bf8.js" crossorigin="anonymous"></script>
 <script type="text/javascript">
 
 </script>
 
 </head>
-
-<style>
-	
-	.notice_text {
-		border-bottom: 1px solid black;
-	}
-	
-	#paging_box {
-		cursor: pointer;
-		text-align: center;
-	}
-
-	#noticeBoard {
-		width: 80%;
-		margin-left: 10%;
-	}
-	
-	#search_box {
-		height: 30px;
-		width: 290px;
-		border: 1px solid black;
-		margin-left: 41%;
-	}
-	
-	#search_text {
-		font-size: 16px;
-		width: 225px;
-		padding: 6px;
-		border: 0px;
-		outline: none;
-		float: left;
-	}
-	
-	#search_button {
-		width: 52px;
-		height: 100%;
-		border: 0px;
-		background: black;
-		color: white;
-		outline: none;
-		float: left;
-		cursor: pointer;
-	}
-	
-
-</style>
-
 <body>
 
 	<h1>공지사항</h1>
@@ -68,28 +23,39 @@
 	<br/><br/>
 	
 	<table id="noticeBoard">
-
+		<colgroup>
+			<col width="50" />
+			<col width="300" />
+			<col width="100" />
+			<col width="50" />
+		</colgroup>
+		<tr>
+			<th>번호</th>
+			<th>제목</th>
+			<th>작성일</th>
+			<th></th>
+		</tr>
 		<c:choose>
 			<c:when test="${empty list }">
 				<tr>
-					<th colspan="4" class="notice_text">----------작성된 글이 없습니다----------</th>
+					<th colspan="3" class="notice_text">----------작성된 글이 없습니다----------</th>
 				</tr>
 			</c:when>
 			<c:otherwise>
 				<c:forEach items="${list }" var="dto">
 					<tr>
-						<td>${dto.myno }</td>
-						<td>${dto.myname }</td>
-						<td><a href="detail.do?myno=${dto.myno }">${dto.mytitle }</a></td>
-						<td>${dto.mydate }</td>
+						<th>${dto.notice_no }</th>
+						<th><a href="./detail?notice_no=${dto.notice_no }">${dto.notice_title }</a></th>
+						<th>${dto.notice_regdate }</th>
+						<th class="trash" onclick="location.href='./delete?notice_no=${dto.notice_no }'"><i class="fas fa-trash-alt"></i></th>
 					</tr>
 				</c:forEach>
 			</c:otherwise>
 		</c:choose>
 		
 		<tr>
-			<td align="right">
-				<input type="button" value="글 작성" onclick="location.href='insert.do'" />
+			<td colspan="4" align="right">
+				<input type="button" value="글 작성" onclick="location.href='insert'" />
 			</td>
 		</tr>
 	</table>
