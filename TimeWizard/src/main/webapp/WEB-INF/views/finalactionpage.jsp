@@ -31,7 +31,7 @@
 			<!-- Group메뉴 -->
 			<li><a href="#"><i class="fas fa-users"></a></i></li>
 			<!-- Off-line 메뉴 -->
-			<li><a href="#"><i class="fas fa-binoculars"></i></a></li>
+			<li><a href="tiwimap"><i class="fas fa-binoculars"></i></a></li>
 			<!-- 알림 -->
 			<li><a href="#"><i class="far fa-bell"></i></a></li>
 			<%
