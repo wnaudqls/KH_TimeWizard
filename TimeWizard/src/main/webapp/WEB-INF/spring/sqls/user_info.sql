@@ -3,6 +3,7 @@ select object_name, object_type from user_objects
 -----------------------------------------------------
 
 DROP SEQUENCE USER_INFO_SEQ;
+
 DROP TABLE USER_INFO;
 
 CREATE SEQUENCE USER_INFO_SEQ;
