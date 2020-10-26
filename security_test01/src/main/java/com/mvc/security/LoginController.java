@@ -18,12 +18,12 @@ public class LoginController {
 	
 	@RequestMapping(value = "/login/loginForm.do",method = RequestMethod.GET)
 	public String loginFor(Locale locale, Model model) {
-		logger.info("ȯ���Ѵ� �α��� ���̴� ");
+		logger.info("로그인컨트롤러 ");
 		return "login/loginForm";
 	}
 	@RequestMapping(value = "/login/accessDenied.do", method = RequestMethod.GET)
 	public String accessDenied(Locale locale, Model model) {
-		logger.info("�� ���� �źξ� ~ ");
+		logger.info("accessDenied컨트롤러");
 		
 		return "login/accessDenied";
 		
