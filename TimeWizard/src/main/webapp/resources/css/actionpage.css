@@ -11,7 +11,6 @@ body {
 
 a {
     text-decoration: none;
-    color: var(--text-color);
 }
 
 .navbar {
@@ -20,6 +19,10 @@ a {
     align-items: center;
     background-color: var(--background-color);
     padding: 8px 12px;
+}
+
+.navbar a {
+	color: var(--text-color);
 }
 
 .nav_logo {
@@ -70,6 +73,85 @@ a {
     color: var(--accent-color);
 }
 
+.sectionbar {
+	float: left;
+	width: 85%;
+	height: 200px;
+}
+
+.sectionbar a {
+	color: black;	
+}
+
+.main_box {
+	width: 100%;
+}
+
+.tab_box {
+	display: flex;
+	width: 100%;
+}
+
+.tap {
+	width: 50%;
+	font-size: 24px;
+	background-color: gray;
+}
+
+.tap a {
+	display: block;
+}
+
+.active {
+	background-color: white;
+}
+
+.content_box {
+	display: flex;
+	width: 100%;
+}
+
+.content {
+	display: none;
+}
+
+.on {
+	display: block;
+}
+
+.friendsbar {
+	float: left;
+	width: 14%;
+	height: 650px;
+	border-left: 1px solid black;
+}
+
+.footerbar {
+	display: flex;
+	width: 100%;
+	background-color: var(--background-color);
+}
+
+.footerbar a {
+	color: var(--text-color);
+}
+
+.footer_box {
+    width: 100%;
+    text-align: center;
+    font-size: 24px;
+    padding: 8px 12px;
+}
+
+.footer_box i {
+	padding: 8px 12px;
+}
+
+.footer_box i:hover {
+	background-color: var(--accent-color);
+	border-radius: 4px;
+}
+
 @media screen and (max-width: 1140px) {
     .navbar {
         flex-direction: column;
@@ -110,15 +192,5 @@ a {
     .nav_icon.active {
         display: flex;
     }
-<<<<<<< HEAD
-    
-    /*메뉴바 아이콘*/
-    .fas{
-    	color: white;
-    }
-    .fas:hover{
-    	color: black;
-    }
-=======
->>>>>>> main
+
 }

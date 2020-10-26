@@ -50,11 +50,11 @@ public class UserInfoDaoImpl implements UserInfoDao {
 
 	@Override
 	public UserInfoDto selectOne(UserInfoDto dto) {
-		logger.info(">> [USERINFO] selectOne by UserInfoDto - " + dto.getUser_no());
 		UserInfoDto result = null;
 		
 		try {
 			result = sqlSession.selectOne(NAMESPACE+"selectOneUserInfoDto", dto);
+			logger.info(">> [USERINFO] selectOne by UserInfoDto - " + dto.getUser_no());
 		} catch (Exception e) {
 			logger.info("[ERROR] USERINFO :: selectOne by UserInfoDto");
 			e.printStackTrace();

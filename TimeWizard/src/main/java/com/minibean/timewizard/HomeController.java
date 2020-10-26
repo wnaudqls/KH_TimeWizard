@@ -48,17 +48,22 @@ public class HomeController {
 	public String invalidate(HttpSession session) {
 
 		session.invalidate();
-		return "redirect:../";
+		return "redirect:login/loginform";
 	}
 	
 	@RequestMapping(value="/success")
 	public String successPage() {
 		return "success";
 	}
+	
+	@RequestMapping(value="/finalnotice")
+	public String finalnotice() {
+		return "notice";
+	}
 
 	@RequestMapping(value="/finalnoticedetail")
 	public String finalnoticedetail() {
-		return "finalnoticedetail";
+		return "notice_detail";
 	}
 	
 	@RequestMapping(value="/finalstopwatch")
