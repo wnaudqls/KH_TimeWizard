@@ -74,10 +74,12 @@
 	
 	<br/>
 	
-	<div id="comment_box">
-		<input type="text" placeholder="※욕설이나 비방 등 게시판 운영정책에 어긋나는 게시물 등록시 게시물 삭제 및 글쓰기 제한등의 불이익을 받을 수 있습니다."
-		 id="comment_text" />
-		<button id="comment_button">등록</button>
+	<div id=comment>
+		<div id="comment_box">
+			<input type="text" placeholder="※욕설이나 비방 등 게시판 운영정책에 어긋나는 게시물 등록시 게시물 삭제 및 글쓰기 제한등의 불이익을 받을 수 있습니다."
+			 id="comment_text" />
+			<button id="comment_button"><a class="textOn">Comment</a><a class="imgOn"><i class="fas fa-check"></i></a></button>
+		</div>
 	</div>
 	
 </body>
