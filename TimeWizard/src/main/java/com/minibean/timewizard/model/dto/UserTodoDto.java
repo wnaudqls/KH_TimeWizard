@@ -5,7 +5,6 @@ import java.util.Date;
 public class UserTodoDto {
 	
 	private int todo_no;
-	private String user_id;
 	private int user_no;
 	private String todo_title;
 	private String todo_color;
@@ -31,19 +30,6 @@ public class UserTodoDto {
 		this.todo_complete = todo_complete;
 	}
 
-	public UserTodoDto(int todo_no, String user_id, String todo_title, String todo_color, String todo_content,
-			String todo_catagory, String todo_hashtag, Date todo_regdate, String todo_complete) {
-		this.todo_no = todo_no;
-		this.user_id = user_id;
-		this.todo_title = todo_title;
-		this.todo_color = todo_color;
-		this.todo_content = todo_content;
-		this.todo_catagory = todo_catagory;
-		this.todo_hashtag = todo_hashtag;
-		this.todo_regdate = todo_regdate;
-		this.todo_complete = todo_complete;
-	}
-
 	public int getTodo_no() {
 		return todo_no;
 	}
@@ -58,13 +44,6 @@ public class UserTodoDto {
 
 	public void setUser_no(int user_no) {
 		this.user_no = user_no;
-	}
-	public String getUser_id() {
-		return user_id;
-	}
-
-	public void setUser_id(String user_id) {
-		this.user_id = user_id;
 	}
 
 	public String getTodo_title() {
