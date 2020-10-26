@@ -36,8 +36,8 @@ public class UserTodoBizImpl implements UserTodoBiz {
 	}
 	
 	@Override
-	public int insertExample() {
-		return userTodoDao.insertExample();
+	public int insertExample(int user_no) {
+		return userTodoDao.insertExample(user_no);
 	}
 
 	@Override

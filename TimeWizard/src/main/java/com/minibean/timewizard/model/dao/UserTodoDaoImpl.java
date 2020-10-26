@@ -76,14 +76,14 @@ public class UserTodoDaoImpl implements UserTodoDao {
 	}
 	
 	@Override
-	public int insertExample() {
-		logger.info(">> [USERTODO] insert example");
+	public int insertExample(int user_no) {
+		logger.info(">> [USERTODO] insert Example");
 		int res = 0;
 		
 		try {
-			res = sqlSession.insert(NAMESPACE+"insertExample");
+			res = sqlSession.insert(NAMESPACE+"insertExample", user_no);
 		} catch (Exception e) {
-			logger.info("[ERROR] USERTODO :: insert");
+			logger.info("[ERROR] USERTODO :: insert Example");
 			e.printStackTrace();
 		}
 		

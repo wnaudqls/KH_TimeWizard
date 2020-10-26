@@ -12,7 +12,7 @@
 	  	TODO_HASHTAG, TODO_DATE, TODO_COMPLETE
 	  	FROM USER_TODO
 	  	WHERE USER_NO = #{user_no} 
-	  	AND TODO_DATE == TO_DATE(#{todo_date})
+	  	AND TO_CHAR(TODO_DATE, 'YYYYMMDD') = #{todo_date}
 	</select>
 	<!-- STOPWATCH 테이블과 JOIN하여 시간도 가져와야 합니다 -->
 	<select id="selectOne" parameterType="hashmap" resultType="TodoDto">
@@ -26,15 +26,10 @@
 	  	VALUES(USER_TODO_SEQ.NEXTVAL, #{user_no}, #{todo_title}, #{todo_color}, #{todo_content},
 	  	#{todo_category}, #{todo_hashtag}, #{todo_date}, #{todo_complete})
 	</insert>
-	<insert id="insertExample">
+	<insert id="insertExample" parameterType="int">
 	  	INSERT INTO USER_TODO
-	  	VALUES(USER_TODO_SEQ.NEXTVAL, #{user_no}, '할 일 제목', '6A5ACD', '설명을 기재하는 란입니다.',
-	  	#{todo_category}, #{todo_hashtag}, SYSDATE, 'N')
-	</insert>
-	<insert id="insert" parameterType="TodoDto">
-	  	INSERT INTO USER_TODO
-	  	VALUES(USER_TODO_SEQ.NEXTVAL, #{user_no}, #{todo_title}, #{todo_color}, #{todo_content},
-	  	#{todo_category}, #{todo_hashtag}, #{todo_date}, #{todo_complete})
+	  	VALUES(USER_TODO_SEQ.NEXTVAL, #{user_no}, '할 일 제목', '#6A5ACD', '설명을 기재하는 란입니다.',
+	  	'예시', '해시태그1,해시태그2,해시태그3', SYSDATE, 'N')
 	</insert>
 	<update id="update" parameterType="TodoDto">
 	  	UPDATE USER_TODO SET TODO_TITLE = #{todo_title}, TODO_COLOR = #{todo_color},

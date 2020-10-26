@@ -10,7 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.AntPathMatcher;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,25 +27,25 @@ public class DailyController {
 	private UserTodoBiz userTodoBiz;
 	private Logger logger = LoggerFactory.getLogger(DailyController.class);
 	 /* date : yyyyMMdd 식으로 호출은 어려울까? */
-	@RequestMapping(value="/list/**")
+	@RequestMapping(value="/list/{yyyyMMdd}")
 	@ResponseBody
-	public List<UserTodoDto> dailyList(HttpSession session, HttpServletRequest request, @PathVariable String date) {
+	public List<UserTodoDto> dailyList(HttpSession session, HttpServletRequest request, @PathVariable String yyyyMMdd) {
 		logger.info(">> [DAILYCONTROLLER] todo list");
 		UserInfoDto login = (UserInfoDto) session.getAttribute("login");
+		int user_no = login.getUser_no();
 		
 		String path = (String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
-		String matchPattern = (String) request.getAttribute(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE); // /list/**
-		String yyyyMMdd = new AntPathMatcher().extractPathWithinPattern(matchPattern, path);
-		logger.info("PATH CHECK\n* path : " + path + "\n( matchpattern : " + matchPattern + "\n* yyyyMMdd : " + yyyyMMdd);
+		String date = path.split("/")[3];
+		logger.info("PATH CHECK\n* path : " + path + "\n* yyyyMMdd : " + date);
 		/* parameter setting */
 		HashMap<String, Object> hashmap = new HashMap<String, Object>();
-		hashmap.put("user_no", login.getUser_no());
+		hashmap.put("user_no", user_no);
 		hashmap.put("todo_date", date);
 		List<UserTodoDto> list = userTodoBiz.selectList(hashmap);
 		
 		if (list == null || list.size() == 0) {
 			/* list가 null일 때 */
-			int res = userTodoBiz.insertExample();
+			int res = userTodoBiz.insertExample(user_no);
 			logger.info(">> example insert... - " + (res == 1?"성공":"실패"));
 			return dailyList(session, request, date);
 		} else {

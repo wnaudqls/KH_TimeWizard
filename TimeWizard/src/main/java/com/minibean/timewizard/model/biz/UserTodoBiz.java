@@ -11,7 +11,7 @@ public interface UserTodoBiz {
 	public List<UserTodoDto> selectList(HashMap<String, Object> params);
 	public UserTodoDto selectOne(int todo_no);
 	public int insert(UserTodoDto dto);
-	public int insertExample();
+	public int insertExample(int user_no);
 	public int update(UserTodoDto dto);
 	public int delete(int todo_no);
 
