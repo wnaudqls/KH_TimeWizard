@@ -1,48 +1,87 @@
+	body {
+		margin: 0;
+	}
+	
 	a {
 		text-decoration: none;
 	}
-
+	
 	.notice_text {
 		border-bottom: 1px solid black;
 	}
 	
-	#paging_box {
-		cursor: pointer;
-		text-align: center;
+	.notice_list {
+		border-bottom: 1px solid black;
 	}
 
 	#noticeBoard {
 		width: 80%;
 		margin-left: 10%;
+		border-bottom: 1px solid black;
+	}
+	
+	#search {
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
 	
 	#search_box {
 		height: 30px;
-		width: 290px;
+		width: 20%;
 		border: 1px solid black;
-		margin-left: 41%;
+		display: flex;
 	}
 	
 	#search_text {
 		font-size: 16px;
-		width: 225px;
+		width: 85%;
 		padding: 6px;
 		border: 0px;
-		outline: none;
-		float: left;
+		display: flex;
 	}
 	
 	#search_button {
-		width: 52px;
+		width: 15%;
 		height: 100%;
-		border: 0px;
 		background: black;
 		color: white;
-		outline: none;
-		float: left;
 		cursor: pointer;
+		display: flex;
+		font-size: 20px;
+		justify-content: center;
+		align-items: center;
+	}
+		
+	#paging_box {
+		cursor: pointer;
+		text-align: center;
 	}
 	
 	.trash {
 		cursor: pointer;
 	}
+	
+	.write {
+		cursor: pointer;
+		font-size: 24px;
+		padding: 20px 30px;
+	}
+
+
+@media screen and (max-width: 1140px) {
+	
+	#noticeBoard {
+		width: 90%;
+		margin-left: 5%;
+		border-bottom: 1px solid black;
+	}
+	
+	#search_box {
+		width: 70%;
+	}
+		
+}
+	
+	

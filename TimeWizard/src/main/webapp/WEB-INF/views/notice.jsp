@@ -54,17 +54,19 @@
 		</c:choose>
 		
 		<tr>
-			<td colspan="4" align="right">
-				<input type="button" value="글 작성" onclick="location.href='insert'" />
+			<td class="write" colspan="4" align="right">
+				<i class="fas fa-edit" onclick="location.href='insert'"></i>
 			</td>
 		</tr>
 	</table>
 	
 	<br/><br/>
 	
-	<div id="search_box">
-		<input type="text" placeholder="search.." id="search_text" />
-		<button id="search_button">검색</button>
+	<div id="search">
+		<div id="search_box">
+			<input type="text" placeholder="search.." id="search_text" />
+			<button id="search_button"><a><i class="fas fa-search"></i></a></button>
+		</div>
 	</div>
 	
 	<br/>
