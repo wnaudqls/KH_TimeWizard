@@ -1,6 +1,7 @@
 package com.minibean.timewizard.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -19,35 +20,104 @@ public class UserTodoDaoImpl implements UserTodoDao {
 	private SqlSessionTemplate sqlSession;
 	private Logger logger = LoggerFactory.getLogger(UserTodoDaoImpl.class);
 	
+
 	@Override
-	public List<UserTodoDto> selectList() {
-		List<UserTodoDto> list = new ArrayList<UserTodoDto>();
-		
-		return null;
+	public List<UserTodoDto> selectList(int user_no) {
+		logger.info(">> [USERTODO] selectList");
+		List<UserTodoDto> result = new ArrayList<UserTodoDto>();
+		try {
+			result = sqlSession.selectList(NAMESPACE+"selectList", user_no);
+		} catch (Exception e) {
+			logger.info("[ERROR] USERTODO :: selectList");
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	@Override
+	public List<UserTodoDto> selectList(HashMap<String, Object> params) {
+		logger.info(">> [USERTODO] selectList By todo_date");
+		List<UserTodoDto> result = new ArrayList<UserTodoDto>();
+		try {
+			result = sqlSession.selectList(NAMESPACE+"selectListTodoDate", params);
+		} catch (Exception e) {
+			logger.info("[ERROR] USERTODO :: selectList By todo_date");
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 	@Override
 	public UserTodoDto selectOne(int todo_no) {
-		// TODO Auto-generated method stub
-		return null;
+		logger.info(">> [USERTODO] selectOne by todo number - " + todo_no);
+		UserTodoDto result = null;
+		try {
+			result = sqlSession.selectOne(NAMESPACE+"selectOne", todo_no);
+		} catch (Exception e) {
+			logger.info("[ERROR] USERTODO :: selectOne by todo number - " + todo_no);
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 	@Override
 	public int insert(UserTodoDto dto) {
-		// TODO Auto-generated method stub
-		return 0;
+		logger.info(">> [USERTODO] insert");
+		int res = 0;
+		
+		try {
+			res = sqlSession.insert(NAMESPACE+"insert", dto);
+		} catch (Exception e) {
+			logger.info("[ERROR] USERTODO :: insert");
+			e.printStackTrace();
+		}
+		
+		return res;
+	}
+	
+	@Override
+	public int insertExample() {
+		logger.info(">> [USERTODO] insert example");
+		int res = 0;
+		
+		try {
+			res = sqlSession.insert(NAMESPACE+"insertExample");
+		} catch (Exception e) {
+			logger.info("[ERROR] USERTODO :: insert");
+			e.printStackTrace();
+		}
+		
+		return res;
 	}
 
 	@Override
 	public int update(UserTodoDto dto) {
-		// TODO Auto-generated method stub
-		return 0;
+		logger.info(">> [USERTODO] update - " + dto.getTodo_no());
+		int res = 0;
+		
+		try {
+			res = sqlSession.update(NAMESPACE+"update", dto);
+		} catch (Exception e) {
+			logger.info("[ERROR] USERTODO :: update");
+			e.printStackTrace();
+		}
+		
+		return res;
 	}
 
 	@Override
 	public int delete(int todo_no) {
-		// TODO Auto-generated method stub
-		return 0;
+		logger.info(">> [USERTODO] delete - " + todo_no);
+		int res = 0;
+		
+		try {
+			res = sqlSession.update(NAMESPACE+"delete", todo_no);
+		} catch (Exception e) {
+			logger.info("[ERROR] USERTODO :: delete - " + todo_no);
+			e.printStackTrace();
+		}
+		
+		return res;
 	}
 	
 

@@ -20,6 +20,7 @@
 	<a href="finaltimer">TIMER</a>
 	<a href="mypage">mypage</a>
 	<a href="tiwimap">map</a>
+	<a href="daily">daily part</a>
 	
 </body>
 </html>
