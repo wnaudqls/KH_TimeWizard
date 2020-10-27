@@ -20,6 +20,6 @@
 	<a href="finaltimer">TIMER</a>
 	<a href="mypage">mypage</a>
 	<a href="tiwimap">map</a>
-	
+	<a href="grouplist">채팅방 목록</a>
 </body>
 </html>
