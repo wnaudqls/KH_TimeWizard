@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class HomeController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+	private Logger logger = LoggerFactory.getLogger(HomeController.class);
 
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
@@ -37,12 +37,13 @@ public class HomeController {
 	
 	@RequestMapping(value="/")
 	public String index() {
+		logger.info(">> [CONTROLLER-HOME] go to index page");
 		return "index";
 	}
 	
     @RequestMapping(value="/logout")
 	public String invalidate(HttpSession session) {
-
+		logger.info(">> [CONTROLLER-HOME] user logout");
 		session.invalidate();
 		return "redirect:login/loginform";
 	}
