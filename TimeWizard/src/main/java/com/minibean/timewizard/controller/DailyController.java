@@ -65,7 +65,8 @@ public class DailyController {
 	}
 	
 	@RequestMapping(value="/insert")
-	public void dailyInsert() {
+	@ResponseBody
+	public void dailyInsert(UserInfoDto dto) {
 		
 	}
 	
