@@ -4,11 +4,11 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
 import com.mvc.security.model.dto.MemberDto;
 
-@Service
+@Repository
 public class MemberDaoImpl implements MemberDao {
 	
 	@Autowired
@@ -18,7 +18,7 @@ public class MemberDaoImpl implements MemberDao {
 
 	@Override
 	public MemberDto login(MemberDto dto) {
-		logger.info("[login컨트롤러]");
+		logger.info("[login다오임플]");
 		
 		MemberDto mdto = null;
 		
@@ -34,7 +34,7 @@ public class MemberDaoImpl implements MemberDao {
 
 	@Override
 	public int regist(MemberDto dto) {
-		logger.info("[regist컨트롤러]");
+		logger.info("[regist다오임플]");
 		
 		return 0;
 	}
