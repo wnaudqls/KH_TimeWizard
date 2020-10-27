@@ -35,7 +35,7 @@
 	</bean>	
 	
 	   <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.tistory.pentode.service.dao" />
+        <property name="basePackage" value="com.mvc.security.model.dao" />
     </bean>
     
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">

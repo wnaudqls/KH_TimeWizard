@@ -29,10 +29,9 @@
         <jdbc-user-service 
             data-source-ref="dataSource"
             role-prefix=""
-            users-by-username-query="select username, password, enabled from users where username = ?"
-            authorities-by-username-query="select username, authority from authorities where username = ?"
-            group-authorities-by-username-query="select g.id, g.group_name, ga.authority from groups g, group_members gm, group_authorities ga where gm.username = ? and g.id = ga.group_id and g.id = gm.group_id"
-        />
+            users-by-username-query="select mid, mpw, menabled from mem where mid = ?"
+            authorities-by-username-query="select mid, mrole from mem where mid = ?"
+              />
         </authentication-provider>
     </authentication-manager>
    
