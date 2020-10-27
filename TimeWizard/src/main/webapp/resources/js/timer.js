@@ -76,4 +76,6 @@
 		$('#timer_start').attr('onclick', 'start()');
 		$('#timer_hour').attr('onclick', 'hours()');
 		$('#timer_min').attr('onclick', 'mins()');
+		
+		document.getElementById("timer_setting").innerHTML = "Set ";
 	}
