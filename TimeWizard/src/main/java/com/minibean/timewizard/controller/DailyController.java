@@ -31,7 +31,7 @@ public class DailyController {
 	@RequestMapping(value="/list/{yyyyMMdd}")
 	@ResponseBody
 	public List<UserTodoDto> dailyList(HttpSession session, HttpServletRequest request, @PathVariable String yyyyMMdd) {
-		logger.info(">> [DAILYCONTROLLER] todo list");
+		logger.info(">> [CONTROLLER-DAILY] todo list");
 		UserInfoDto login = (UserInfoDto) session.getAttribute("login");
 		int user_no = login.getUser_no();
 		
@@ -60,6 +60,7 @@ public class DailyController {
 	@RequestMapping(value="/detail/{todo_no}")
 	@ResponseBody
 	public UserTodoDto dailyDetail(@PathVariable("todo_no") int todo_no, HttpSession session) {
+		logger.info(">> [CONTROLLER-DAILY] detail - " + todo_no);
 		UserInfoDto login = (UserInfoDto) session.getAttribute("login");
 		UserTodoDto dto = userTodoBiz.selectOne(todo_no);
 		return dto;
@@ -70,11 +71,12 @@ public class DailyController {
 	public void dailyInsert(@RequestBody UserTodoDto dto, HttpSession session) {
 		UserInfoDto login = (UserInfoDto) session.getAttribute("login");
 		dto.setUser_no(login.getUser_no());
-		logger.info(">> [DAILY] insert content\n* user_no : " + dto.getUser_no()
-		+ "\n* todo_title : " + dto.getTodo_title() 
-		+ "\n* todo_content : " + dto.getTodo_content());
+		logger.info(">> [CONTROLLER-DAILY] insert content"
+					+ "\n\t* user_no : " + dto.getUser_no()
+					+ "\n\t* todo_title : " + dto.getTodo_title() 
+					+ "\n\t* todo_content : " + dto.getTodo_content());
 		int res = userTodoBiz.insert(dto);
-		logger.info("success?: " + ((res == 1)?"yes":"no"));
+		logger.info(">> [CONTROLLER-DAILY] success?: " + ((res == 1)?"yes":"no"));
 	}
 	
 	public void dailyUpdate() {
