@@ -30,7 +30,7 @@
 	<context:component-scan base-package="com.minibean.timewizard" />
 
 	<beans:bean id="sockethandler"
-		class="com.minibean.timewizard.websocket.EchoHandler">
+		class="com.minibean.timewizard.websocket.handler.EchoHandler">
 
 	</beans:bean>
 

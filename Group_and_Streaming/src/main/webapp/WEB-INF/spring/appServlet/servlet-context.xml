@@ -34,19 +34,14 @@
 	</beans:bean>
 
 
-	<beans:bean id="sockethandler"
-		class="com.minibean.timewizard.websocket.EchoHandler">
+	<beans:bean id="sockethandler" class="com.minibean.timewizard.websocket.EchoHandler">
 
 	</beans:bean>
 
 	<websocket:handlers>
-		<websocket:mapping handler="sockethandler" path="/webserver"/>
-		<!--
-		<websocket:handshake-interceptors>
-			<beans:bean class=""></beans:bean>
-		</websocket:handshake-interceptors>
-		-->
-		<websocket:sockjs/>
+		<websocket:mapping handler="sockethandler"
+			path="/webserver" />
+		<websocket:sockjs />
 	</websocket:handlers>
 
 

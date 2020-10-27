@@ -1,11 +1,12 @@
-package com.minibean.timewizard.websocket;
+package com.minibean.timewizard.websocket.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
-import org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor;
+
+import com.minibean.timewizard.websocket.handler.EchoHandler;
 
 @Configuration
 @EnableWebSocket
@@ -17,9 +18,7 @@ public class WebSocketConfig implements WebSocketConfigurer
 	@Override
 	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
 		// TODO Auto-generated method stub
-		registry.addHandler(echohandler, "/timewizard/webserver").setAllowedOrigins("*")
-		.withSockJS().setInterceptors(new HttpSessionHandshakeInterceptor())
-		.setClientLibraryUrl("");
+		registry.addHandler(echohandler, "/timewizard/webserver");
 		
 	}
 

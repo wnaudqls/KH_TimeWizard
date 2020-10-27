@@ -1,4 +1,4 @@
-package com.minibean.timewizard.websocket;
+package com.minibean.timewizard.websocket.handler;
 
 
 import java.util.HashSet;

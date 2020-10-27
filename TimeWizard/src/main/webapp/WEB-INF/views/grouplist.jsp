@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="resources/css/group_list.css">
+<link rel="stylesheet" type="text/css" href="resources/css/grouplist.css">
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -22,28 +22,28 @@
 			</c:when>
 			<c:otherwise>
 				<c:forEach var="dto" items="${list }">
-					<tr>
+					<%-- <tr>
 						<th>번호</th>
 						<td>${dto.chat_no }</td>
-					</tr>
+					</tr> --%>
 					<tr>
 						<th>아이디</th>	
-						<td>${dto.user_id }</td>
+						<td>${dto.name }</td>
 					</tr>
-					<tr>
+					<%-- <tr>
 						<th>내용</th>
 						<td>${dto.chat_content }</td>
-					</tr>
+					</tr> --%>
 					<tr>
 						<td colspan="2">
-							<input type="button" value="접속하기" onclick="location.href='streaming.do?user_id=${dto.user_id}'">
+							<input type="button" value="접속하기" onclick="location.href='joinroom/${dto.roomid }'">
 						</td>
 					</tr>
 				</c:forEach>
 			</c:otherwise>
 		</c:choose>
 	</table>
-	<input type="button" value="만들기" onclick="location.href='new.do'">
+	<input type="button" value="만들기" onclick="location.href='newroom'">
 	<div id="searchArea">
 		<input type="text" id="search" placeholder="아이디 , 방이름을 입력하십시오." /> 
 		<input type="button" id="searchBtn" value="검색하기" />
