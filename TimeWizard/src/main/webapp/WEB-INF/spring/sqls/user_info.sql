@@ -1,9 +1,9 @@
-
 select object_name, object_type from user_objects
 
 -----------------------------------------------------
 
 DROP SEQUENCE USER_INFO_SEQ;
+
 DROP TABLE USER_INFO;
 
 CREATE SEQUENCE USER_INFO_SEQ;
@@ -80,9 +80,6 @@ CREATE TABLE USER_TODO(
 );
 	-- TODO_REGDATE DATE NOT NULL,
 	
-update user_todo 
-set todo_color = '#6A5ACD'
-where todo_no = 1;
 SELECT *
 FROM USER_TODO;
 
