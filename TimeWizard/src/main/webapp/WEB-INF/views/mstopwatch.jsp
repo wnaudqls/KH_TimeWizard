@@ -23,6 +23,27 @@
 		background-color: #273c75;
 	}
 
+
+@media screen and (max-width: 1140px) {
+	
+	body {
+		margin-top: 100px;
+		background-color: white;
+	}
+	
+	.home {
+		float: right;
+	}
+	
+	.home a {
+		text-decoration: none;
+		font-size: 24px;
+		padding: 8px 12px;
+		color: black;
+	}
+	
+}
+
 }
 	
 </style>
@@ -53,6 +74,10 @@
 			<i id="timer_reset" class="fas fa-stop-circle" onclick="reset()"></i>
 		</div>
 	</div>
+	
+	<br/><br/><br/>
+	
+	<div class="home"><a href="main"><i class="fas fa-home"></i></a></div>
 
 </body>
 </html>
