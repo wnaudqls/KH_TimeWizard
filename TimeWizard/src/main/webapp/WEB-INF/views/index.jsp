@@ -11,7 +11,7 @@
 
 	
 	<a href="login/loginform"><div class="start">로그인</div></a>
-	<a href="">회원가입</a>
+	<a href="login/signup">회원가입</a>
 	
 	<a href="main">시작하기(main)</a>
 	<a href="notice">NOTICE</a>

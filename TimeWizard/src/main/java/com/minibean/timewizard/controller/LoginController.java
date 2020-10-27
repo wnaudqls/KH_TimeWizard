@@ -34,6 +34,7 @@ public class LoginController {
 	private UserInfoBiz userInfoBiz;
 	private Logger logger = LoggerFactory.getLogger(LoginController.class);
 	
+	
 	@Autowired
 	private LoginNaverVO loginNaverVO;
 	@Autowired
@@ -198,6 +199,16 @@ public class LoginController {
 		return "usersignup";
 	}
 	
+	@RequestMapping(value = "/idcheck", method = RequestMethod.GET)
+	public @ResponseBody int idCheck(@RequestParam("user_id") String user_id) {
+		logger.info(" 입력받은 아이디 : " + user_id);
+		int cnt = userInfoBiz.idCheck(user_id);
+
+		return cnt;
+	}
+	
+	
+	
 	/* 회원가입 완료 */
 	@RequestMapping(value="/signupresult")
 	public String signupResult(UserInfoDto dto) {
@@ -212,5 +223,7 @@ public class LoginController {
 		}
 		
 	}
+	
+	
 	
 }

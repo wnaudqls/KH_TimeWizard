@@ -29,8 +29,8 @@
         <jdbc-user-service 
             data-source-ref="dataSource"
             role-prefix=""
-            users-by-username-query="select mid, mpw, menabled from mem where mid = ?"
-            authorities-by-username-query="select mid, mrole from mem where mid = ?"
+            users-by-username-query="select mid as id, mpw as password, enabled from mem where mid = ?"
+            authorities-by-username-query="select mid as id, authority from mem where mid = ?"
               />
         </authentication-provider>
     </authentication-manager>
