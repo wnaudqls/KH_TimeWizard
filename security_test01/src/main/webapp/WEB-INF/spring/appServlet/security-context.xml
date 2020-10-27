@@ -4,7 +4,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
-    
+   
    <!-- 검사 URL --> 
 <http use-expressions="true">
  		<intercept-url pattern="/login/loginForm.do" access="permitAll" /> 
@@ -23,17 +23,15 @@
 		
 		<access-denied-handler error-page="/login/accessDenied.do" /> 
 </http>
-
     <!--  provider  -->
     <authentication-manager>
         <authentication-provider>
         <jdbc-user-service 
             data-source-ref="dataSource"
             role-prefix=""
-            users-by-username-query="select username, password, enabled from users where username = ?"
-            authorities-by-username-query="select username, authority from authorities where username = ?"
-            group-authorities-by-username-query="select g.id, g.group_name, ga.authority from groups g, group_members gm, group_authorities ga where gm.username = ? and g.id = ga.group_id and g.id = gm.group_id"
-        />
+            users-by-username-query="select mid, mpw, menabled from mem where mid = ?"
+            authorities-by-username-query="select mid, mrole from mem where mid = ?"
+              />
         </authentication-provider>
     </authentication-manager>
    
