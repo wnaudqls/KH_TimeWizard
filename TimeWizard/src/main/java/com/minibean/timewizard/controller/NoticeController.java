@@ -6,13 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.minibean.timewizard.biz.ChatBiz;
-import com.minibean.timewizard.biz.ChatBizImpl;
-import com.minibean.timewizard.dao.ChatDao;
-import com.minibean.timewizard.dao.ChatDaoImpl;
 import com.minibean.timewizard.model.biz.NoticeBiz;
 import com.minibean.timewizard.model.biz.NoticeBizImpl;
 import com.minibean.timewizard.model.dao.NoticeDao;
