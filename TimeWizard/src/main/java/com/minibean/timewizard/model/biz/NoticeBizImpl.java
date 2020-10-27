@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.minibean.timewizard.model.dao.NoticeDao;
 import com.minibean.timewizard.model.dto.NoticeDto;
+import com.minibean.timewizard.model.dto.PagingDto;
 
 @Service
 public class NoticeBizImpl implements NoticeBiz {
@@ -15,8 +16,8 @@ public class NoticeBizImpl implements NoticeBiz {
 	private NoticeDao noticeDao;
 	
 	@Override
-	public List<NoticeDto> selectList() {
-		return noticeDao.selectList();
+	public List<NoticeDto> selectList(PagingDto pagingdto) {
+		return noticeDao.selectList(pagingdto);
 	}
 
 	@Override
@@ -37,6 +38,12 @@ public class NoticeBizImpl implements NoticeBiz {
 	@Override
 	public int delete(int notice_no) {
 		return noticeDao.delete(notice_no);
+	}
+
+	@Override
+	public int countNotice() {
+	
+		return noticeDao.countNotice();
 	}
 
 }

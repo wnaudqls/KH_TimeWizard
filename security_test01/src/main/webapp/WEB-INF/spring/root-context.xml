@@ -34,10 +34,12 @@
 		<constructor-arg ref="sqlSession"></constructor-arg>
 	</bean>	
 	
-	   <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.mvc.security.model.dao" />
+	<!--  -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.mvc.security.mapper.MemberMapper" />
     </bean>
     
+    <!-- transaction -->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource" />
     </bean>
