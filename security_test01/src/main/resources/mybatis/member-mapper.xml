@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="member">
+<mapper namespace="com.minibean.timewizard.security">
 
+	<select id="login" parameterType="MemberDto" resultType="MemberDto">
+	SELECT MNO, MID, MPW, MNAME, MROLE, MENABLED
+	FROM MEM
+	WHERE MID = #{mid} 
+	AND MPW = #{mpw}
+	AND MENABLED = '1'
+	</select>
+	
+	<select id="regist" parameterType="MemberDto">
+	INSERT INTO MEM
+	VALUES(MNOSEQ.NEXTVAL, #{mid}, #{mpw}, #{mname}, 'USER', '1')
+	</select>
+	
 </mapper>
