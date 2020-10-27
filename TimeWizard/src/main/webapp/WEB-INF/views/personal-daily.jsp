@@ -69,7 +69,7 @@ border: 1px;
 	
 	<script type="text/javascript">
 	window.addEventListener('DOMContentLoaded', () => {
-		dailylist(<%=today%>);
+		dailylist(<%=day%>);
 	});
 	function sayColorValue(){
 		let color = document.getElementById("colorinput").value;
@@ -82,14 +82,14 @@ border: 1px;
 		color.value = text;
 	}
 	function dailylist(date){
+		const listDiv = document.getElementById("todo__list");
+		listDiv.innerHTML = "";
 		const xhr = new XMLHttpRequest();
 		xhr.open("POST", "daily/list/"+date);
 		xhr.send();
 		xhr.onreadystatechange = () => {
 			if (xhr.readyState == 4 && xhr.status == 200){
 				let items = "";
-				const listDiv = document.getElementById("todo__list");
-				listDiv.innerHTML = "";
 				if (xhr.responseText != null ||xhr.responseText != ""){
 					items = JSON.parse(xhr.responseText);
 					console.log(items);
@@ -110,7 +110,8 @@ border: 1px;
 						let category_cell = document.createElement("div");
 						category_cell.setAttribute("class","cell category__cell");
 						let category_title = document.createElement("button");
-						/* category_title.setAttribute("class","category"); */
+						category_title.setAttribute("class","todo__block");
+						category_title.setAttribute("type","button");
 						category_title.textContent = (items[i].todo_category == null ? '기본' : items[i].todo_category);
 						category_cell.appendChild(category_title);
 						/* >>onclick event<< */
@@ -125,6 +126,7 @@ border: 1px;
 						let stopwatch_cell = document.createElement("div");
 						stopwatch_cell.setAttribute("class","cell stopwatch__cell");
 						let stopwatch = document.createElement("button");
+						stopwatch.setAttribute("type","button");
 						stopwatch.setAttribute("class","stopwatch_"+i+" stopwatch");
 						/* onclick event : */
 						/* hover color change */
@@ -163,7 +165,7 @@ border: 1px;
 			}
 		}
 	}
-	/* item 클릭시 detail modal */
+	/* item 클릭시 detail modal + 수정하기 버튼 누르면 수정 되는걸로... */
 	function showDetailModal(todo_no){
 		const xhr = new XMLHttpRequest();
 		xhr.open("POST", "daily/detail/"+todo_no);
@@ -192,24 +194,22 @@ border: 1px;
 	
 	/* 추가 modal */
 	function showInsertModal(date){
-		/* 
-		 * modal area에 들어가야 하는 것들 (insert)
-		 * title
-		 * color
-		 * content
-		 * category : 따로 테이블을 만드나...? switch-case로 처리하기에는 다소 난감
-		 * hashtag : 스페이스바 누르면 블록 만들어지게 구성. 이렇게 만들어도 근데 잘 검색이 될까
-		 * todo_date : 이건 상단 date__area에 자동으로 맞춰지게끔
-		 */
 		let modalArea = document.getElementsByClassName("modal__area")[0];
 		modalArea.innerHTML = "";
+		
 		let overlay_div = document.createElement("div");
 		overlay_div.setAttribute("class","modal__overlay");
 		
 		let insert_div = document.createElement("div");
 		insert_div.setAttribute("class","modal__insert");
 		
+		let form = document.createElement("form");
+		form.setAttribute("action","");
+		form.setAttribute("method","post");
+		form.setAttribute("id","insert__form");
+		
 		let close_button = document.createElement("button");
+		close_button.setAttribute("type","button");
 		/* onclick event close */
 		close_button.setAttribute("onclick","closeModal();");
 		let times = document.createElement("i");
@@ -220,6 +220,7 @@ border: 1px;
 		title_input.setAttribute("type","text");
 		title_input.setAttribute("placeholder","todo 이름");
 		title_input.setAttribute("name","todo_title");
+		title_input.setAttribute("id","todo_title");
 		
 		/* 색상이 다음 행에서 전개되는 경우 */
 		let color_div = document.createElement("div");
@@ -244,7 +245,8 @@ border: 1px;
 		category_namespan.setAttribute("class","todo__subname");
 		category_namespan.textContent = "todo 속성";
 		let category_button = document.createElement("button");
-		/* category_button.setAttribute("class",""); */
+		category_button.setAttribute("type","button");
+		category_button.setAttribute("class","todo__block");
 		category_button.setAttribute("name","todo_category");
 		category_button.textContent = "없음";
 		category_button.setAttribute("value", category_button.textContent);
@@ -260,6 +262,7 @@ border: 1px;
 		let hashtag_editablediv = document.createElement("div");
 		hashtag_editablediv.setAttribute("class","todo__editable");
 		hashtag_editablediv.setAttribute("contenteditable","true");
+		hashtag_editablediv.setAttribute("name","todo_hashtag")
 		/* focust, keyup event, (spacebar or ,) event, close event */
 		hashtag_div.appendChild(hashtag_namespan);
 		hashtag_div.appendChild(hashtag_editablediv);
@@ -270,32 +273,116 @@ border: 1px;
 		date_namespan.setAttribute("class","todo__subname");
 		date_namespan.textContent = "날짜";
 		let date_button = document.createElement("button");
-		/* date_button.setAttribute("class",""); */
+		date_button.setAttribute("type","button");
+		date_button.setAttribute("class","todo_date")
+		date_button.setAttribute("name","todo_date")
 		date_button.textContent = date.toString().substring(0,4)+"-"+date.toString().substring(4,6)+"-"+date.toString().substring(6,8);
+		date_button.setAttribute("value",date_button.textContent);
 		/* onclick event -> input type=calendar open */
 		date_div.appendChild(date_namespan);
 		date_div.appendChild(date_button);
 		
+		/* 상세설정 : 소요 시간 작성 저장하기 */
+		let time_div = document.createElement("div");
+		time_div.setAttribute("class","todo__div");
+		let time_namespan = document.createElement("span");
+		time_namespan.setAttribute("class","todo__subname");
+		time_namespan.textContent = "완료 여부";
+		let time_checkbox = document.createElement("input");
+		time_checkbox.setAttribute("type","checkbox");
+		time_checkbox.setAttribute("name","todo_complete");
+		time_checkbox.setAttribute("value","N");
+		let starttime = document.createElement("input");
+		starttime.setAttribute("type","time");
+		starttime.setAttribute("name","start_time");
+		starttime.setAttribute("disabled",true);
+		let between_span = document.createElement("span");
+		between_span.setAttribute("class","tilde");
+		between_span.textContent = "~";
+		let endtime = document.createElement("input");
+		endtime.setAttribute("type","time");
+		endtime.setAttribute("name","end_time");
+		endtime.setAttribute("disabled",true);
+		time_div.appendChild(time_namespan);
+		time_div.appendChild(time_checkbox);
+		time_div.appendChild(starttime);
+		time_div.appendChild(between_span);
+		time_div.appendChild(endtime);
+		
 		let submit_button = document.createElement("button");
 		submit_button.setAttribute("class","todo__save");
+		submit_button.setAttribute("type","button");
+		submit_button.disabled = true;
 		submit_button.textContent = "저장";
 		/* onclick event : submit */
-		
+		submit_button.setAttribute("onclick","submitModal();");
+		/*
 		insert_div.appendChild(close_button);
 		insert_div.appendChild(title_input);
 		insert_div.appendChild(color_div);
 		insert_div.appendChild(content_textarea);
+		insert_div.appendChild(time_div);
 		insert_div.appendChild(category_div);
 		insert_div.appendChild(hashtag_div);
 		insert_div.appendChild(date_div);
 		insert_div.appendChild(submit_button);
+		*/
+		form.appendChild(close_button);
+		form.appendChild(title_input);
+		form.appendChild(color_div);
+		form.appendChild(content_textarea);
+		form.appendChild(time_div);
+		form.appendChild(category_div);
+		form.appendChild(hashtag_div);
+		form.appendChild(date_div);
+		form.appendChild(submit_button);
+		insert_div.appendChild(form);
+		
 		overlay_div.appendChild(insert_div);
 		modalArea.appendChild(overlay_div);
+		
+		let input_title = document.getElementById("todo_title");
+		let button_submit = document.getElementsByClassName("todo__save")[0];
+		todo_title.addEventListener("keyup",()=>{
+			if(todo_title.value == null || todo_title.value == ""){
+				button_submit.disabled = true;
+			} else {
+				button_submit.disabled = false;
+			}
+		});
+		
+		let input_complete = document.getElementsByName("todo_complete")[0];
+		let input_starttime = document.getElementsByName("start_time")[0];
+		let input_endtime = document.getElementsByName("end_time")[0];
+		input_complete.addEventListener("click",()=>{
+			if(input_complete.checked == true){
+				input_starttime.disabled = false;
+				input_endtime.disabled = false;
+				input_complete.value = "Y";
+			}else {
+				input_starttime.disabled = true;
+				input_endtime.disabled = true;
+				input_complete.value = "N";
+			}
+		});
 	}
 	
-	/* 수정 modal (-> detail에서 교체? 아니면 마우스오버시 수정버튼이라도 뜨게??) */
-	function showUpdateModal(){
-		
+	function submitModal(){
+		const xhr = new XMLHttpRequest();
+		xhr.open("POST", "daily/insert");
+		xhr.setRequestHeader("Content-type","application/json");
+		const data = {
+				todo_title: document.getElementsByName("todo_title")[0].value,
+				todo_color: document.getElementsByName("todo_color")[0].value,
+				todo_content: document.getElementsByName("todo_content")[0].value,
+				todo_category: document.getElementsByName("todo_category")[0].value,
+				todo_complete: document.getElementsByName("todo_complete")[0].value,
+				todo_hashtag: document.getElementsByName("todo_hashtag")[0].textContent,
+				todo_date: Date.parse(document.getElementsByName("todo_date")[0].value)
+		};
+		console.log(data);
+		xhr.send(JSON.stringify(data));
+		closeModal();
 	}
 	
 	/* modal창 닫기 이벤트 */

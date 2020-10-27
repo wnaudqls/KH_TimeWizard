@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.HandlerMapping;
@@ -66,8 +67,14 @@ public class DailyController {
 	
 	@RequestMapping(value="/insert")
 	@ResponseBody
-	public void dailyInsert(UserInfoDto dto) {
-		
+	public void dailyInsert(@RequestBody UserTodoDto dto, HttpSession session) {
+		UserInfoDto login = (UserInfoDto) session.getAttribute("login");
+		dto.setUser_no(login.getUser_no());
+		logger.info(">> [DAILY] insert content\n* user_no : " + dto.getUser_no()
+		+ "\n* todo_title : " + dto.getTodo_title() 
+		+ "\n* todo_content : " + dto.getTodo_content());
+		int res = userTodoBiz.insert(dto);
+		logger.info("success?: " + ((res == 1)?"yes":"no"));
 	}
 	
 	public void dailyUpdate() {

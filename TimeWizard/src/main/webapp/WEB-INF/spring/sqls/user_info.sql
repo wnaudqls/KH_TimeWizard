@@ -80,9 +80,6 @@ CREATE TABLE USER_TODO(
 );
 	-- TODO_REGDATE DATE NOT NULL,
 	
-update user_todo 
-set todo_color = '#6A5ACD'
-where todo_no = 1;
 SELECT *
 FROM USER_TODO;
 
