@@ -11,6 +11,8 @@
 	<h1>공지사항 작성</h1>
 	
 	<form action="./insertres" method="post">
+		<input type="hidden" name="nowpage" value="${paging.nowpage }">
+		<input type="hidden" name="cntPerpage" value="${paging.cntPerpage }">
 		<table border="1">
 			<tr>
 				<th>제목</th>
@@ -22,7 +24,7 @@
 			</tr>
 			<tr>
 				<td colspan="2" align="right">
-					<input type="button" value="취소" onclick="location.href='notice'" />
+					<input type="button" value="취소" onclick="location.href='notice?nowpage=${paging.nowpage}&cntPerpage=${paging.cntPerpage}'" />
 					<input type="submit" value="작성" />
 				</td>
 			</tr>

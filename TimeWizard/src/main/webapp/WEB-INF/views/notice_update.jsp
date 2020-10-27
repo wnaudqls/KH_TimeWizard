@@ -12,6 +12,8 @@
 	
 	<form action="./updateres" method="post">
 		<input type="hidden" name="notice_no" value="${dto.notice_no }" />
+		<input type="hidden" name="nowpage" value="${paging.nowpage }">
+		<input type="hidden" name="cntPerpage" value="${paging.cntPerpage }">
 		<table border="1">
 			<tr>
 				<th>제목</th>
