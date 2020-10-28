@@ -11,15 +11,16 @@
 
 	
 	<a href="login/loginform"><div class="start">로그인</div></a>
-	<a href="">회원가입</a>
+	<a href="login/signup">회원가입</a>
 	
 	<a href="main">시작하기(main)</a>
-	<a href="finalnotice">NOTICE</a>
+	<a href="notice">NOTICE</a>
 	<a href="finalnoticedetail">NOTICE DETAIL</a>
 	<a href="finalstopwatch">STOPWATCH</a>
 	<a href="finaltimer">TIMER</a>
 	<a href="mypage">mypage</a>
 	<a href="tiwimap">map</a>
+	<a href="daily">daily part</a>
 	
 	<h1><a href="kakaomes">share</a></h1>
 	

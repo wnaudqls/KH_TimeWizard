@@ -1,15 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="">
- 
+<mapper namespace="com.minibean.timewizard.notice">
+
  	<!-- 총 게시글 갯수 출력 -->
-	<select id="countpage" resultType="int">
+	<select id="countNotice" resultType="int">
 		SELECT COUNT(*)
 		FROM BOARD_NOTICE
 	</select>
 	 
 	 <!-- paging과 list출력 -->
-	<select id="selectList" parameterType="com.minibean.timewizard.model.dto.PagingDto">
+	<!-- <select id="selectList" parameterType="com.minibean.timewizard.model.dto.PagingDto">
+		SELECT *
+		FROM(
+			SELECT ROWNUM RN, NOTICE_NO, NOTICE_TITLE, NOTICE_CONTENT, NOTICE_REGDATE
+			FROM(
+				SELECT NOTICE_NO, NOTICE_TITLE, NOTICE_CONTENT, NOTICE_REGDATE
+				FROM BOARD_NOTICE
+				ORDER BY NOTICE_NO DESC
+				)A
+			)
+		WHERE RN BETWEEN #{start} AND #{end}
+	</select> -->
+	
+	<select id="selectList" parameterType="com.minibean.timewizard.model.dto.PagingDto" resultType="NoticeDto">
 		SELECT *
 		FROM(
 			SELECT ROWNUM RN, NOTICE_NO, NOTICE_TITLE, NOTICE_CONTENT, NOTICE_REGDATE
@@ -22,8 +35,51 @@
 		WHERE RN BETWEEN #{start} AND #{end}
 	</select>
 	
-	<!-- insert, update, delete만 해주면 됩니다!!! -->
-
-
+	<insert id="insert" parameterType="NoticeDto">
+		INSERT INTO BOARD_NOTICE
+		VALUES(BOARD_NOTICE_SEQ.NEXTVAL, #{notice_title}, #{notice_content}, SYSDATE)
+	</insert>
+	
+	<select id="selectOne" parameterType="int" resultType="NoticeDto" >
+  	 	SELECT NOTICE_NO, NOTICE_TITLE, NOTICE_CONTENT, NOTICE_REGDATE
+  		FROM BOARD_NOTICE
+   		WHERE NOTICE_NO = #{notice_no}
+	</select>
+	
+	<update id="update" parameterType="NoticeDto">
+		UPDATE BOARD_NOTICE
+      	SET NOTICE_TITLE = #{notice_title}, NOTICE_CONTENT = #{notice_content}
+     	WHERE NOTICE_NO = #{notice_no}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		DELETE FROM BOARD_NOTICE
+		WHERE NOTICE_NO = #{notice_no}
+	</delete>
 
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

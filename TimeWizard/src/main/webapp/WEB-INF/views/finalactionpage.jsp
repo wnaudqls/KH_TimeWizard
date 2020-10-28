@@ -45,8 +45,11 @@
 			}
 			%>
 			<li><a href="mypage"><i class="fas fa-bars"></i></a></li>
-			<li><a href="#" onclick="window.open('stopwatch', 'window', 'width=300, height=190, left=0, top=100, status=no, resizable=no');return false">
-			<i class="fas fa-stopwatch"></i></a></li>
+			<li>
+				<a href="#" class="web" onclick="window.open('stopwatch', 'window', 'width=300, height=190, left=0, top=100, status=no, resizable=no');return false">
+				<i class="fas fa-stopwatch"></i></a>
+				<a href="mstopwatch" class="mobile"><i class="fas fa-stopwatch"></i></a>
+			</li>
 		</ul>
 		<ul class="nav_icon">
 			<li><i class="fab fa-twitter-square"></i></li>
@@ -78,7 +81,7 @@
 	<!-- footer에 공지사항, 챗봇 -->
 	<footer class="footerbar">
 		<div class="footer_box">
-			<a href="notice"><i class="fas fa-chalkboard-teacher"></i></a>
+			<a href="notice?nowpage=1&cntPerpage=5"><i class="fas fa-chalkboard-teacher"></i></a>
 			<a href="#"><i class="far fa-paper-plane"></i></a>
 		</div>
 	</footer>

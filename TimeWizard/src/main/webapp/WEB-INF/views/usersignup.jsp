@@ -166,10 +166,154 @@ a {
 .overlay {
 	justify-content: center;
 }
+
+#signform{
+	position: fixed;
+	color : navy;
+	top: 8%;
+	left: 35%;
+	width: 400px;
+	height: 800px;
+	background-color: rice;
+	border-radius: 13px 13px 13px 13px;
+	box-shadow: 10px 4px 30px rgba(0, 0, 0, 0.29);
+}
+
+.email_button{
+	background-color: #96DBE2;
+	outline:none;
+	text-color : white;
+	margin :15px 89.5px 0p;
+	padding : 1px 6x;
+	margin-left: auto;
+  	margin-right: auto;
+ 	width: 140px;
+ 	height: 40px;
+ 	font-size: 14px;
+ 	text-transform: uppercase;
+ 	border-radius: 20px;
+ 	color: white;
+ 	outline :0;
+ 
+ 	align : right;
+}
 </style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript">
+
+//아이디 중복체크 입니다.
+var idPass;
+var idRegex = /^[a-zA-Z0-9]{4,12}$/;
+
+$(document).ready(function() {
+
+	$('input[name=user_id]').blur(function() {
+		var idCheck = $('input[name=user_id]').val();
+		if (idRegex.test(idCheck)) {
+			$.ajax({
+
+				url : 'idcheck?user_id=' + idCheck,
+				type : 'get',
+
+				success : function(data) {
+					var color;
+					var ans;
+					if (data > 0) {
+						ans = '이미 존재하는 아이디입니다.';
+						color = '#FF6600';
+						idPass = false;
+					} else {
+						ans = '회원가입 가능한 아이디입니다.';
+						color = 'navy';
+						idPass = true;
+					}
+					
+					//#은 id
+					$('#idc').text(ans);
+					$('#idc').css('color', color);
+					
+				}
+			})
+		}
+	});
+})
+
+
+
+
+// 비밀번호 체크
+	$(function() {
+		$("#alert-success").hide();
+		$("#alert-danger").hide();
+		$("input").keyup(function() {
+			var pwd1 = $("#pwd1").val();
+			var pwd2 = $("#pwd2").val();
+			if (pwd1 != "" || pwd2 != "") {
+				if (pwd1 == pwd2) {
+					$("#alert-success").show();
+					$("#alert-danger").hide();
+					$("#submit").removeAttr("disabled");
+				} else {
+					$("#alert-success").hide();
+					$("#alert-danger").show();
+					$("#submit").attr("disabled", "disabled");
+				}
+			}
+		});
+	});
+
+//이메일 인증 메일 보내기
+
+var arr = new Array();
+ 
+function emailSend(){
+
+arr[5] = false;
+var user_email = $("#user_email").val().trim();
+alert(user_email);
+
+$.ajax({
+	url : "./emailSend?user_email="+ user_email,
+	type : "get",
+	
+	success : function(data){
+				console.log(data)
+				alert("이메일이 발송되었습니다. 인증번호를 확인 후 입력하여주십시오.");
+			 	//$(".email_auth_code").show();
+				$("#email_auto_code").focus();
+				//$("#emailcode").val(data);  
+				arr[5] = true;
+				
+	}, 	error : function(e){
+		alert("이메일 인증에 실패하셨습니다.")
+	}
+})
+}
+
+//이메일 인증
+function emailCodeCheck(){
+
+arr[5] = false;
+
+
+var inputemailcode = $("#email_auto_code").val().trim();
+
+if(email_auto_code!=null){
+	$("#email_check").text("이메일 인증을 성공했습니다.").css({'color' : 'navy','font-size' : '16px'});
+	
+	arr[5] = true;
+}else{
+	$("#email_check").text("이메일 인증을 실패했습니다. 다시 시도하여주십시오.").css({ 'color' : '#FF6600', 'font-size' : '13px'});
+}
+}  
+
+
+</script>
+
 </head>
 <body>
-	<div class="overlay">
+	<div class="overlay" id="signform">
 		<div class="sign-up" id="sign-up-info">
 			<h1>Create Account</h1>
 			<div class="sns">
@@ -187,10 +331,25 @@ a {
 			</div>
 			<p class="small"> or user your email for registration:
 			<form id="sign-up-form" action="signupresult" method="post">
-				<input type="text" placeholder="Id" name="user_id" required="required" />
-				<input type="password" placeholder="Password" name="user_pw" required="required" />
-				<input type="password" placeholder="Check Password" name="pw_check" required="required" />
-				<input type="email" placeholder="Email" name="user_email" required="required" />
+				<div>
+					<input type="text" placeholder="Id" name="user_id" required="required" autofocus />
+					<div id="idc"></div>
+				</div>	
+				<div>
+					<input type="password" placeholder="Password" name="user_pw" id="pwd1" required="required" tabindex="3"/>
+					<input type="password" placeholder="Check Password" name="pw_check" id="pwd2"  required="required"  tabindex="3"/>
+					
+					<p class="alert alert-success" id="alert-success" style="color: navy; margin: 0;" >비밀번호가일치합니다.</p>
+					<p class="alert alert-danger" id="alert-danger" style="color: #FF6600; margin: 0;" >비밀번호가 일치하지않습니다.</p>
+				</div>		
+				<input type="email" placeholder="Email" name="user_email" id="user_email" required="required" />
+				<button type="button" onclick="emailSend();" class="email_button" >이메일 코드 전송</button> 
+					<div>
+						<input type="text" placeholder="인증번호를 입력 " id="email_auto_code" />
+						<button type="button" onclick="emailCodeCheck();" class="email_button" id="email_auto_code">이메일인증</button>
+						<div id="email_check"></div>
+					</div>
+				 
 				<input type="text" placeholder="Name" name="user_name" required="required" />
 				<button class="control-button in">Sign Up</button>
 			</form>

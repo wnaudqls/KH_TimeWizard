@@ -6,19 +6,19 @@ public class MemberDto {
 	private String mid;
 	private String mpw;
 	private String mname;
-	private String mrole;
-	private String menabled;
+	private String authority;
+	private String enabled;
 	
 	public MemberDto() {}
 
-	public MemberDto(int mno, String mid, String mpw, String mname, String mrole, String menabled) {
-		super();
+	public MemberDto(int mno, String mid, String mpw, String mname, String authority, String enabled) {
+		
 		this.mno = mno;
 		this.mid = mid;
 		this.mpw = mpw;
 		this.mname = mname;
-		this.mrole = mrole;
-		this.menabled = menabled;
+		this.authority = authority;
+		this.enabled = enabled;
 	}
 
 	public int getMno() {
@@ -53,20 +53,20 @@ public class MemberDto {
 		this.mname = mname;
 	}
 
-	public String getMrole() {
-		return mrole;
+	public String getAuthority() {
+		return authority;
 	}
 
-	public void setMrole(String mrole) {
-		this.mrole = mrole;
+	public void setAuthority(String authority) {
+		this.authority = authority;
 	}
 
-	public String getMenabled() {
-		return menabled;
+	public String getEnabled() {
+		return enabled;
 	}
 
-	public void setMenabled(String menabled) {
-		this.menabled = menabled;
+	public void setEnabled(String enabled) {
+		this.enabled = enabled;
 	}
 	
 }

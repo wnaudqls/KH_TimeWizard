@@ -1,0 +1,106 @@
+	.update {
+		cursor: pointer;
+	}
+
+	#title {
+		border-bottom: 1px solid black;
+		width: 80%;
+		margin-left: 10%;
+	}
+	
+	#content {
+		border-bottom: 1px solid black;
+		width: 80%;
+		height: 300px;
+		margin-left: 10%
+	}
+	
+	#comment_state {
+		width: 70%;
+		margin-left: 15%;
+		margin-bottom: 10px;
+	}
+	
+	#comment_total {
+		float: left;
+	}
+	
+	#comment_toggle {
+		float: right;
+		cursor: pointer;
+	}
+	
+	#commentlist_box {
+		width: 70%;
+		height: 150px;
+		border: 1px solid black;
+		margin-left: 15%;
+	}
+	
+	#comment {
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	
+	#comment_box {
+		width: 70%;
+		height: 30px;
+		border: 1px solid black;
+		display: flex;
+	}
+	
+	#comment_text {
+		font-size: 16px;
+		width: 85%;
+		padding: 6px;
+		border: 0px;
+		display: flex;
+	}
+	
+	#comment_button {
+		width: 15%;
+		height: 100%;
+		background: black;
+		color: white;
+		cursor: pointer;
+		display: flex;
+		font-size: 20px;
+		justify-content: center;
+		align-items: center;
+	}
+	
+	.imgOn {
+		display: none;
+	}
+
+	
+@media screen and (max-width: 1140px) {
+	
+	#title {
+		border-bottom: 1px solid black;
+		width: 90%;
+		margin-left: 5%;
+	}
+	
+	#content {
+		border-bottom: 1px solid black;
+		width: 90%;
+		margin-left: 5%;
+	}
+	
+	#commentlist_box {
+		width: 90%;
+		margin-left: 5%;
+	}
+	
+	.imgOn {
+		display: block;
+	}
+	
+	.textOn {
+		display: none;
+	}
+	
+}

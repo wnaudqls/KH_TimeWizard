@@ -22,6 +22,8 @@
 		margin: 0;
 		background-color: #273c75;
 	}
+
+}
 	
 </style>
 <body>
