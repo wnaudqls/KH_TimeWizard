@@ -22,5 +22,7 @@
 	<a href="tiwimap">map</a>
 	<a href="daily">daily part</a>
 	
+	<h1><a href="kakaomes">share</a></h1>
+	
 </body>
 </html>
