@@ -15,5 +15,11 @@ public class StopwatchController {
 		logger.info("[stopwatch]");
 		return "stopwatch";
 	}
+	
+	@RequestMapping("/mstopwatch")
+	public String Mstopwatch() {
+		logger.info("[Mstopwatch]");
+		return "mstopwatch";
+	}
 
 }
