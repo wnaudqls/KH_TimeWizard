@@ -43,5 +43,12 @@ public class UserInfoBizImpl implements UserInfoBiz {
 	public int delete(int user_no) {
 		return userInfoDao.delete(user_no);
 	}
+	
+	@Override
+	public int idCheck(String id) {
+		
+		int cnt= userInfoDao.idCheck(id);
+		return cnt;
+	}
 
 }

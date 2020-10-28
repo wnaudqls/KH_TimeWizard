@@ -36,5 +36,13 @@
 		UPDATE USER_INFO SET USER_ACTIVE = 'N'
 		WHERE USER_NO = #{user_no}
 	</update>
+	
+	<select id="idCheck" parameterType="UserInfoDto" resultType="int">
+		SELECT COUNT(user_id)
+		FROM USER_INFO
+		WHERE USER_ID = #{user_id}
+	</select>
+	
+	
 
 </mapper>

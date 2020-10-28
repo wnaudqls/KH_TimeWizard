@@ -11,7 +11,7 @@
 
 	
 	<a href="login/loginform"><div class="start">로그인</div></a>
-	<a href="">회원가입</a>
+	<a href="login/signup">회원가입</a>
 	
 	<a href="main">시작하기(main)</a>
 	<a href="notice">NOTICE</a>
@@ -21,5 +21,8 @@
 	<a href="mypage">mypage</a>
 	<a href="tiwimap">map</a>
 	<a href="grouplist">채팅방 목록</a>
+	<a href="daily">daily part</a>
+	<a href="kakaomes">share</a>
+	
 </body>
 </html>

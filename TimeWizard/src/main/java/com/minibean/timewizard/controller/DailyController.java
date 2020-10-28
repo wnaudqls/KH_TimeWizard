@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.HandlerMapping;
@@ -30,7 +31,7 @@ public class DailyController {
 	@RequestMapping(value="/list/{yyyyMMdd}")
 	@ResponseBody
 	public List<UserTodoDto> dailyList(HttpSession session, HttpServletRequest request, @PathVariable String yyyyMMdd) {
-		logger.info(">> [DAILYCONTROLLER] todo list");
+		logger.info(">> [CONTROLLER-DAILY] todo list");
 		UserInfoDto login = (UserInfoDto) session.getAttribute("login");
 		int user_no = login.getUser_no();
 		
@@ -59,14 +60,23 @@ public class DailyController {
 	@RequestMapping(value="/detail/{todo_no}")
 	@ResponseBody
 	public UserTodoDto dailyDetail(@PathVariable("todo_no") int todo_no, HttpSession session) {
+		logger.info(">> [CONTROLLER-DAILY] detail - " + todo_no);
 		UserInfoDto login = (UserInfoDto) session.getAttribute("login");
 		UserTodoDto dto = userTodoBiz.selectOne(todo_no);
 		return dto;
 	}
 	
 	@RequestMapping(value="/insert")
-	public void dailyInsert() {
-		
+	@ResponseBody
+	public void dailyInsert(@RequestBody UserTodoDto dto, HttpSession session) {
+		UserInfoDto login = (UserInfoDto) session.getAttribute("login");
+		dto.setUser_no(login.getUser_no());
+		logger.info(">> [CONTROLLER-DAILY] insert content"
+					+ "\n\t* user_no : " + dto.getUser_no()
+					+ "\n\t* todo_title : " + dto.getTodo_title() 
+					+ "\n\t* todo_content : " + dto.getTodo_content());
+		int res = userTodoBiz.insert(dto);
+		logger.info(">> [CONTROLLER-DAILY] success?: " + ((res == 1)?"yes":"no"));
 	}
 	
 	public void dailyUpdate() {

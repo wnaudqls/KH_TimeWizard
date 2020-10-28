@@ -14,5 +14,6 @@ public interface UserInfoDao {
 	public int insert(UserInfoDto dto);
 	public int update(UserInfoDto dto);
 	public int delete(int user_no);
+	public int idCheck(String id);
 	
 }

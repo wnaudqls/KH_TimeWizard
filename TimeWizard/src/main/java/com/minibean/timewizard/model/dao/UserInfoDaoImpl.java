@@ -107,5 +107,11 @@ public class UserInfoDaoImpl implements UserInfoDao {
 		
 		return res;
 	}
+	
+	@Override
+	public int idCheck(String id) {
+		int cnt=sqlSession.selectOne(NAMESPACE+"idCheck", id);
+		return cnt;
+	}
 
 }
