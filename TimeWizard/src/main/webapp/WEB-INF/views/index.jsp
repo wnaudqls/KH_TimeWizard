@@ -21,5 +21,7 @@
 	<a href="mypage">mypage</a>
 	<a href="tiwimap">map</a>
 	
+	<h1><a href="kakaomes">share</a></h1>
+	
 </body>
 </html>
