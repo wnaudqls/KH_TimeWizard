@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.minibean.timewizard.model.dto.NoticeDto;
+import com.minibean.timewizard.model.dto.PagingDto;
 
 @Repository
 public class NoticeDaoImpl implements NoticeDao {
@@ -19,11 +20,11 @@ public class NoticeDaoImpl implements NoticeDao {
 	private static final Logger logger = LoggerFactory.getLogger(NoticeDaoImpl.class);
 	
 	@Override
-	public List<NoticeDto> selectList() {
+	public List<NoticeDto> selectList(PagingDto pagingdto) {
 		List<NoticeDto> list = new ArrayList<NoticeDto>();
 		
 		try {
-			list = sqlSession.selectList(NAMESPACE+"selectList");
+			list = sqlSession.selectList(NAMESPACE+"selectList", pagingdto);
 		} catch (Exception e) {
 			logger.info("[ERROR] Notice :: selectList");
 			e.printStackTrace();
@@ -82,6 +83,20 @@ public class NoticeDaoImpl implements NoticeDao {
 			res = sqlSession.delete(NAMESPACE+"delete", notice_no);
 		} catch (Exception e) {
 			logger.info("[ERROR] Notice :: delete");
+			e.printStackTrace();
+		}
+		
+		return res;
+	}
+
+	@Override
+	public int countNotice() {
+		int res = 0;
+		
+		try {
+			res = sqlSession.selectOne(NAMESPACE+"countNotice");
+		} catch (Exception e) {
+			logger.info("[ERROR] Notice :: countNotice");
 			e.printStackTrace();
 		}
 		

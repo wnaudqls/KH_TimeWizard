@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.minibean.timewizard.security">
+<mapper namespace="com.mvc.security.mapper.MemberMapper">
 
 	<select id="login" parameterType="MemberDto" resultType="MemberDto">
-	SELECT MNO, MID, MPW, MNAME, MROLE, MENABLED
+	SELECT MNO, MID, MPW, MNAME, AUTHORITY, ENABLED
 	FROM MEM
 	WHERE MID = #{mid} 
 	AND MPW = #{mpw}
-	AND MENABLED = '1'
+	AND ENABLED = '1'
 	</select>
 	
 	<select id="regist" parameterType="MemberDto">
