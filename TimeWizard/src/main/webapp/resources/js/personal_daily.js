@@ -7,6 +7,7 @@ let category_array = [
 	{key:"관계",value:"block__relation"},
 	{key:"기타",value:"block__etc"}
 ];
+let selectedCategory = "";
 
 function dailylist(date){
 	const listDiv = document.getElementById("todo__list");
@@ -178,7 +179,7 @@ function showInsertModal(date){
 	hashtag_editablediv.setAttribute("class","todo__editable");
 	hashtag_editablediv.setAttribute("contenteditable","true");
 	hashtag_editablediv.setAttribute("name","todo_hashtag")
-	/* TODO focus, keyup event, (spacebar or ,) event, close event */
+	/* TODO focus, keyup event, (spacebar or ,) event, remove event */
 	hashtag_div.appendChild(hashtag_namespan);
 	hashtag_div.appendChild(hashtag_editablediv);
 	
@@ -321,6 +322,7 @@ function selectedOrNot(element){
 	let siblings = t => [...t.parentElement.children].filter(e => e != t);
 	element.setAttribute("class", selectCategoryClass(element.value));
 	let i = 0;
+	selectedCategory = element;
 	for (i = 0; i< siblings(element).length; i++){
 		 siblings(element)[i].setAttribute("class","todo__block notselected");
 	}
@@ -329,10 +331,13 @@ function selectedOrNot(element){
 
 function submitCategory(){
 	let firstModal = document.getElementsByClassName("modal__area")[0];
-	let secondModal = document.getElementsByClassName("modal__area")[1];
 	let firstModalCategory = firstModal.querySelector("[name=todo_category]")
-	let selectedCategory = secondModal.querySelectorAll('button[class^="block__.*"]')[0];
-	console.log(selectedCategory);
+	let secondModal = document.getElementsByClassName("modal__area")[1];
+	/* regex로 감지한 category를 firstmodal의 todo-category의 value와 textcontent로 넘기기 */
+	firstModalCategory.setAttribute("class", selectedCategory.classList[0] + " " + selectedCategory.classList[1]);
+	firstModalCategory.textContent = selectedCategory.value;
+	firstModalCategory.value = selectedCategory.value;
+	closeSecondModal();
 }
 
 function submitInsertModal(){
@@ -359,6 +364,7 @@ function submitInsertModal(){
 				todo_hashtag: document.getElementsByName("todo_hashtag")[0].textContent,
 				todo_date: Date.parse(document.getElementsByName("todo_date")[0].value)
 		};
+		console.log(data);
 		xhr.send(JSON.stringify(data));
 		xhr.onreadystatechange = () => {
 			if (xhr.readyState == 4 && xhr.status == 200){
@@ -386,6 +392,7 @@ function showDeleteConfirm(todo_no){
 	let overlay_div = document.createElement("div");
 	overlay_div.setAttribute("class","modal__overlay");
 	/* TODO overlay onclick event -> 클릭시 현재 modal창 닫기? */
+	overlay_div.setAttribute("onclick","closeFirstModal();")
 	
 	let delete_div = document.createElement("div");
 	delete_div.setAttribute("class","modal__delete");
@@ -439,13 +446,186 @@ function showDetailModal(todo_no){
 	xhr.onreadystatechange = () => {
 		if (xhr.readyState == 4 && xhr.status == 200){
 			let item = "";
-			const modal_div = document.getElementsByClassName("modal__area")[0];
-			modal_div.innerHTML = "";
+			const modalArea = document.getElementsByClassName("modal__area")[0];
+			modalArea.innerHTML = "";
 			if (xhr.responseText != null ||xhr.responseText != ""){
 				/* response not null */
 				item = JSON.parse(xhr.responseText);
 				console.log(item);
 				/* TODO 추가 modal 에서 내용만 채우기 */
+				
+				let overlay_div = document.createElement("div");
+				overlay_div.setAttribute("class","modal__overlay");
+				/* TODO overlay onclick event -> 클릭시 현재 modal창 닫기? */
+				
+				let detail_div = document.createElement("div");
+				detail_div.setAttribute("class","modal__detail");
+				
+				let form = document.createElement("form");
+				form.setAttribute("action","");
+				form.setAttribute("method","post");
+				form.setAttribute("id","update__form");
+				
+				let close_button = document.createElement("button");
+				close_button.setAttribute("type","button");
+				close_button.setAttribute("class","button__times");
+				/* onclick event close */
+				close_button.setAttribute("onclick","closeFirstModal();");
+				let times = document.createElement("i");
+				times.setAttribute("class", "fas fa-times");
+				close_button.appendChild(times);
+				
+				let delete_button = document.createElement("button");
+				delete_button.setAttribute("type","button");
+				delete_button.setAttribute("class","button__delete");
+				delete_button.textContent = "삭제하기";
+				/* onclick event close */
+				delete_button.setAttribute("onclick","showDeleteConfirm("+ item.todo_no +");");
+				
+				let title_input = document.createElement("input");
+				title_input.setAttribute("type","text");
+				title_input.setAttribute("placeholder","todo 이름");
+				title_input.setAttribute("name","todo_title");
+				title_input.setAttribute("id","todo_title");
+				title_input.setAttribute("value",item.todo_title);
+				
+				/* 색상이 다음 행에서 전개되는 경우 */
+				let color_div = document.createElement("div");
+				color_div.setAttribute("class","todo__div");
+				let color_namespan = document.createElement("span");
+				color_namespan.setAttribute("class","todo__subname");
+				color_namespan.textContent = "todo 색상";
+				let color_input = document.createElement("input");
+				color_input.setAttribute("type","color");
+				color_input.setAttribute("name","todo_color");
+				color_input.setAttribute("value",item.todo_color);
+				color_div.appendChild(color_namespan);
+				color_div.appendChild(color_input);
+				
+				let content_textarea = document.createElement("textarea");
+				content_textarea.setAttribute("class","todo__textarea");
+				content_textarea.setAttribute("name","todo_content");
+				content_textarea.setAttribute("placeholder","todo 상세 설명");
+				content_textarea.textContent = item.todo_content;
+				
+				let category_div = document.createElement("div");
+				category_div.setAttribute("class","todo__div");
+				let category_namespan = document.createElement("span");
+				category_namespan.setAttribute("class","todo__subname");
+				category_namespan.textContent = "카테고리";
+				let category_button = document.createElement("button");
+				category_button.setAttribute("type","button");
+				category_button.textContent = item.todo_category;
+				category_button.setAttribute("name","todo_category");
+				category_button.setAttribute("class",selectCategoryClass(category_button.textContent));
+				category_button.setAttribute("value", category_button.textContent);
+				/* TODO onclick -> popup event : 카테고리 나열해서 선택 - 적용 > modal close, value 적용 */
+				category_button.setAttribute("onclick","showCategoryModal();")
+				category_div.appendChild(category_namespan);
+				category_div.appendChild(category_button);
+				
+				let hashtag_div = document.createElement("div");
+				hashtag_div.setAttribute("class","todo__div");
+				let hashtag_namespan = document.createElement("span");
+				hashtag_namespan.setAttribute("class","todo__subname");
+				hashtag_namespan.textContent = "해시태그";
+				let hashtag_editablediv = document.createElement("div");
+				hashtag_editablediv.setAttribute("class","todo__editable");
+				hashtag_editablediv.setAttribute("contenteditable","true");
+				hashtag_editablediv.setAttribute("name","todo_hashtag")
+				/* TODO focus, keyup event, (spacebar or ,) event, remove event */
+				hashtag_div.appendChild(hashtag_namespan);
+				hashtag_div.appendChild(hashtag_editablediv);
+				
+				let date_div = document.createElement("div");
+				date_div.setAttribute("class","todo__div");
+				let date_namespan = document.createElement("span");
+				date_namespan.setAttribute("class","todo__subname");
+				date_namespan.textContent = "날짜";
+				let date_input = document.createElement("input");
+				date_input.setAttribute("type","date");
+				date_input.setAttribute("name","todo_date")
+				/* TODO 이부분 이거 맞나? 체크할 것 */
+				date_input.setAttribute("value",date.toString().substring(0,4)+"-"+date.toString().substring(4,6)+"-"+date.toString().substring(6,8));
+				date_div.appendChild(date_namespan);
+				date_div.appendChild(date_input);
+				
+				/* TODO 상세설정 : 소요 시간 작성 저장하기 => db table 필요 */
+				let time_div = document.createElement("div");
+				time_div.setAttribute("class","todo__div");
+				let time_namespan = document.createElement("span");
+				time_namespan.setAttribute("class","todo__subname");
+				time_namespan.textContent = "완료 여부";
+				let time_checkbox = document.createElement("input");
+				time_checkbox.setAttribute("type","checkbox");
+				time_checkbox.setAttribute("name","todo_complete");
+				time_checkbox.setAttribute("value",item.todo_complete);
+				
+				let starttime = document.createElement("input");
+				starttime.setAttribute("type","time");
+				starttime.setAttribute("name","start_time");
+//				starttime.setAttribute("disabled",true); // 이부분도 조건?
+//				starttime.setAttribute("value", (item.start_time == "" ? "" : item.start_time));
+				let between_span = document.createElement("span");
+				between_span.setAttribute("class","tilde");
+				between_span.textContent = "~";
+				let endtime = document.createElement("input");
+				endtime.setAttribute("type","time");
+				endtime.setAttribute("name","end_time");
+//				endtime.setAttribute("disabled",true); // 그러면 이부분도 조건
+//				starttime.setAttribute("value", (item.end_time == "" ? "" : item.end_time));
+				time_div.appendChild(time_namespan);
+				time_div.appendChild(time_checkbox);
+				time_div.appendChild(starttime);
+				time_div.appendChild(between_span);
+				time_div.appendChild(endtime);
+				
+				let submit_button = document.createElement("button");
+				submit_button.setAttribute("class","todo__save");
+				submit_button.setAttribute("type","button");
+				submit_button.textContent = "저장";
+				submit_button.setAttribute("onclick","submitUpdateModal("+item.todo_no+");");
+				
+				form.appendChild(close_button);
+				form.appendChild(delete_button);
+				form.appendChild(title_input);
+				form.appendChild(color_div);
+				form.appendChild(content_textarea);
+				form.appendChild(time_div);
+				form.appendChild(category_div);
+				form.appendChild(hashtag_div);
+				form.appendChild(date_div);
+				form.appendChild(submit_button);
+				detail_div.appendChild(form);
+				
+				modalArea.appendChild(overlay_div);
+				modalArea.appendChild(detail_div);
+				
+				let input_title = document.getElementById("todo_title");
+				let button_submit = document.getElementsByClassName("todo__save")[0];
+				input_title.addEventListener("keyup",()=>{
+					if(input_title.value == null || input_title.value == ""){
+						button_submit.disabled = true;
+					} else {
+						button_submit.disabled = false;
+					}
+				});
+				
+				let input_complete = document.getElementsByName("todo_complete")[0];
+				let input_starttime = document.getElementsByName("start_time")[0];
+				let input_endtime = document.getElementsByName("end_time")[0];
+				input_complete.addEventListener("click",()=>{
+					if(input_complete.checked == true){
+						input_starttime.disabled = false;
+						input_endtime.disabled = false;
+						input_complete.value = "Y";
+					}else {
+						input_starttime.disabled = true;
+						input_endtime.disabled = true;
+						input_complete.value = "N";
+					}
+				});
+				
 				
 			} else {
 				/* response null */
@@ -456,6 +636,44 @@ function showDetailModal(todo_no){
 		}
 		
 	}/* onreadystatechange */
+}
+
+function submitUpdateModal(todo_no){
+	let input_complete = document.getElementsByName("todo_complete")[0];
+	let input_starttime = document.getElementsByName("start_time")[0].value;
+	let input_endtime = document.getElementsByName("end_time")[0].value;
+	let temp = input_starttime.split(":");
+	let starttime_minutes= temp[0] * 60 + temp[1];
+	temp = input_endtime.split(":");
+	let endtime_minutes = temp[0] * 60 + temp[1];
+	if(input_complete.checked == true && (input_starttime == "" || input_endtime == "" ||(endtime_minutes - starttime_minutes < 0))){ 
+		alert("내용을 입력해주세요");
+		return false;
+		
+//	} else if { // session 정보가 다를 떄! userinfo not correct
+	} else {
+		const xhr = new XMLHttpRequest();
+		xhr.open("POST", "daily/update");
+		xhr.setRequestHeader("Content-type","application/json");
+		const data = {
+				todo_no: todo_no,
+				todo_title: document.getElementsByName("todo_title")[0].value,
+				todo_color: document.getElementsByName("todo_color")[0].value,
+				todo_content: document.getElementsByName("todo_content")[0].value,
+				todo_category: document.getElementsByName("todo_category")[0].value,
+				todo_complete: document.getElementsByName("todo_complete")[0].value,
+				todo_hashtag: document.getElementsByName("todo_hashtag")[0].textContent,
+				todo_date: Date.parse(document.getElementsByName("todo_date")[0].value)
+		};
+		console.log(data);
+		xhr.send(JSON.stringify(data));
+		xhr.onreadystatechange = () => {
+			if (xhr.readyState == 4 && xhr.status == 200){
+				dailylist(pagedate);
+			}
+		}
+		closeFirstModal();
+	}
 }
 
 /* stopwatch/timer popup event */

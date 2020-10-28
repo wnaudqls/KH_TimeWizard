@@ -79,11 +79,26 @@ public class DailyController {
 		logger.info(">> [CONTROLLER-DAILY] success?: " + ((res == 1)?"yes":"no"));
 	}
 	
-	public void dailyUpdate() {
-		
+	@RequestMapping(value="/update")
+	@ResponseBody
+	public void dailyUpdate(@RequestBody UserTodoDto dto, HttpSession session) {
+		UserInfoDto login = (UserInfoDto) session.getAttribute("login");
+		dto.setUser_no(login.getUser_no());
+		logger.info(">> [CONTROLLER-DAILY] update content"
+				+ "\n\t* user_no : " + dto.getUser_no()
+				+ "\n\t* todo_title : " + dto.getTodo_title());
+		int res = userTodoBiz.update(dto);
+		logger.info(">> [CONTROLLER-DAILY] success?: " + ((res == 1)?"yes":"no"));
 	}
-	public void dailyDelete() {
-		
+	
+	@RequestMapping(value="/delete")
+	@ResponseBody
+	public void dailyDelete(@RequestBody int todo_no) {
+		// 유저 정보 체크는 언제...? 유저 정보 같을 때만 삭제 란이 활성화되게 하면 되지만...
+		logger.info(">> [CONTROLLER-DAILY] delete content"
+				+ "\n\t* todo_no : " + todo_no);
+		int res = userTodoBiz.delete(todo_no);
+		logger.info(">> [CONTROLLER-DAILY] success?: " + ((res == 1)?"yes":"no"));
 	}
 
 }
