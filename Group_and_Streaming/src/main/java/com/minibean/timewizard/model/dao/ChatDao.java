@@ -7,11 +7,7 @@ import com.minibean.timewizard.model.dto.ChatDto;
 public interface ChatDao {
 
 	String namespace = "chat-mapper.";
-	List<ChatDto> findAllRoom();
-
-	ChatDto findRoomById(String id);
-
-	ChatDto createChatRoom(String name);
+	
 	
 	int insert(ChatDto chat);
 	

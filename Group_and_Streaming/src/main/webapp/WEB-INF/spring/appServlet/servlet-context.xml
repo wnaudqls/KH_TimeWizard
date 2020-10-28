@@ -34,16 +34,25 @@
 	</beans:bean>
 
 
-	<beans:bean id="sockethandler" class="com.minibean.timewizard.websocket.EchoHandler">
+<!-- 
+stomp 웹소켓 주소 경로
 
-	</beans:bean>
+endpoint: 웹소켓 기본경로
 
-	<websocket:handlers>
-		<websocket:mapping handler="sockethandler"
-			path="/webserver" />
-		<websocket:sockjs />
-	</websocket:handlers>
+application-detination: 클라이언트가 값을 전달해줄 경로
 
+simple-broker: 서버로부터 값을 받아줄 경로
+
+-->
+	<websocket:message-broker
+		application-destination-prefix="/publish">
+
+		<websocket:stomp-endpoint path="/webserver">
+			<websocket:sockjs />
+		</websocket:stomp-endpoint>
+		<websocket:simple-broker prefix="/subscribe" />
+
+	</websocket:message-broker>
 
 
 </beans:beans>

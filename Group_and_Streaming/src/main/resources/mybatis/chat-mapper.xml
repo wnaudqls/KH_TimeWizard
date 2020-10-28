@@ -7,8 +7,12 @@
   </select>
   <select id="selectOne" resultType="ChatDto">
   	SELECT ROOMID, NAME
-  	FROM TEST WHERE NAME = #{name}
+  	FROM TEST WHERE ROOMID = #{roomid}
   </select>
+ <!--  <select id="selectOne" resultType="ChatDto">
+  	SELECT ROOMID, NAME
+  	FROM TEST WHERE NAME = #{name}
+  </select> -->
   <insert id="insert">
   	INSERT INTO TEST VALUES(TEST_SEQ.NEXTVAL, #{name})
   </insert>

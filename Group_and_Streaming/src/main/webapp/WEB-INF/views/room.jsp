@@ -14,8 +14,8 @@
     <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
-<script type="text/javascript"
-	src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.5/sockjs.min.js"></script>
+
+
 
 
 </head>
@@ -37,7 +37,48 @@
 </script>
 </body>
 <script type="text/javascript">
-    var webSocket;
+
+	var webSocket;
+	var nickname;
+	var client = Stomp.over(webSocket); // 1. SockJS를 내부에 들고 있는 client를 내어준다.
+	var rid = document.getElementById("rid").value;
+	document.getElementById("name").addEventListener("click",function(){
+	    nickname = document.getElementById("nickname").value;
+	    document.getElementById("nickname").style.display = "none";
+	    document.getElementById("name").style.display = "none";
+	    connect();
+	})
+	document.getElementById("send").addEventListener("click",function(){
+	    send();
+	})
+	function connect(){
+	    webSocket = new SockJS("/timewizard/webserver");
+	    client.connect = onOpen;
+	    webSocket.onclose = onClose;
+	    webSocket.onmessage = onMessage;
+	}
+	function disconnect(){
+	    webSocket.send(JSON.stringify({roomid :rid, type:'LEAVE', writer:nickname}));
+	    webSocket.close();
+	}
+	function send(){
+	    msg = document.getElementById("message").value;
+	    webSocket.send(JSON.stringify({roomid :rid, type:'CHAT', writer:nickname, message : msg}));
+	    document.getElementById("message").value = "";
+	}
+	function onOpen(){
+		client.send(JSON.stringify({roomid :rid, type:'ENTER', writer:nickname}));
+	}
+	function onMessage(e){
+	    data = e.data;
+	    chatroom = document.getElementById("chatroom");
+	    chatroom.innerHTML = chatroom.innerHTML + "<br>" + data;
+	}
+	function onClose(){
+	    disconnect();
+	} 
+
+   /*  var webSocket;
     var nickname;
     var rid = document.getElementById("rid").value;
     document.getElementById("name").addEventListener("click",function(){
@@ -74,7 +115,7 @@
     }
     function onClose(){
         disconnect();
-    }
+    } */
 
 </script>
 </html>

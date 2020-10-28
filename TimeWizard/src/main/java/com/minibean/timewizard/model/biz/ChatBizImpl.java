@@ -15,23 +15,7 @@ public class ChatBizImpl implements ChatBiz{
 	@Autowired
 	ChatDao dao = new ChatDaoImpl();
 	
-	@Override
-	public List<ChatDto> findAllRoom() {
-		// TODO Auto-generated method stub
-		return dao.findAllRoom();
-	}
-
-	@Override
-	public ChatDto findRoomById(String id) {
-		// TODO Auto-generated method stub
-		return dao.findRoomById(id);
-	}
-
-	@Override
-	public ChatDto createChatRoom(String name) {
-		// TODO Auto-generated method stub
-		return dao.createChatRoom(name);
-	}
+	
 
 	@Override
 	public int insert(ChatDto chat) {

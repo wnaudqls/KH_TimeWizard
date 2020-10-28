@@ -28,26 +28,7 @@ public class ChatDaoImpl implements ChatDao{
         chatRoomMap = new LinkedHashMap<>();
     }
     
-    @Override
-    public List<ChatDto> findAllRoom(){
-        List<ChatDto> chatRooms = new ArrayList<ChatDto>(chatRoomMap.values());
-        Collections.reverse(chatRooms);
-        return chatRooms;
-    }
-    @Override
-    public ChatDto findRoomById(String id){
-    	ChatDto dto = chatRoomMap.get(id);
-    	System.out.println("dto: "+dto);
-        return dto;
-    }
-    @Override
-    public ChatDto createChatRoom(String name){
-        ChatDto chatRoom = ChatDto.create(name);
-        chatRoomMap.put(chatRoom.getRoomid(), chatRoom);
-        
-        return chatRoom;
-    }
-    
+
 	@Override
 	public List<ChatDto> selectList() {
 		// TODO Auto-generated method stub
