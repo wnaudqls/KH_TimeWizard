@@ -7,17 +7,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style type="text/css">
-div {
-border: 1px;
-}
-.todo__item {
-	display:flex;
-}
-.todo__insert {
-	text-align:center;
-}
-</style>
+<link rel="stylesheet" href="/timewizard/css/reset.css">
+<!-- <link rel="stylesheet" href="/timewizard/css/normalize.css"> -->
+<link rel="stylesheet" href="/timewizard/css/personal_daily.css">
 <script src="https://kit.fontawesome.com/3049a69bf8.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -63,7 +55,7 @@ border: 1px;
 	<div class="modal__area"></div>
 	
 
-	<script type="text/javascript" src="/timewizard/js/personal-daily.js"></script>
+	<script type="text/javascript" src="/timewizard/js/personal_daily.js"></script>
 	<script type="text/javascript">
 	let pagedate = <%=date%>;
 	window.addEventListener('DOMContentLoaded', () => {

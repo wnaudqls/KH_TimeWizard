@@ -31,9 +31,9 @@ public class HomeController {
 		String formattedDate = dateFormat.format(date);
 		
 		model.addAttribute("serverTime", formattedDate );
-		
 		return "home";
 	}
+	
 	
 	@RequestMapping(value="/")
 	public String index() {
@@ -76,7 +76,7 @@ public class HomeController {
 	
 	@RequestMapping(value="/daily")
 	public String personalDaily() {
-		return "personal-daily";
+		return "personal_daily";
 	}
 
 }

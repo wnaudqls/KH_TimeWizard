@@ -1,0 +1,49 @@
+@charset "UTF-8";
+
+div {
+border: 1px;
+}
+.todo__item {
+	display:flex;
+}
+.todo__insert {
+	text-align:center;
+}
+
+
+/* * * * * * * * * * *
+ *      category     *
+ * * * * * * * * * * */
+.todo__block{
+	
+}
+.todo__block:hover{
+	
+}
+.blaock__example {
+	
+}
+.block__basic{
+	
+}
+.block__study{
+	
+}
+.block__health{
+	
+}
+.block__life{
+	
+}
+.block__relax {
+	
+}
+.block__relation{
+	
+}
+.block__etc{
+	background-color:slateblue;
+}
+.notselected {
+	background-color: white;
+}
