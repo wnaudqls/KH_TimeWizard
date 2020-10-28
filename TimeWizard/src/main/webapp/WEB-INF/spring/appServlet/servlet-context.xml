@@ -31,19 +31,27 @@
 	
 	<context:component-scan base-package="com.minibean.timewizard" />
 
-	<beans:bean id="sockethandler"
-		class="com.minibean.timewizard.websocket.EchoHandler">
-
-	</beans:bean>
 
 	<!-- WEBSOCKET 추가 -->
-	<websocket:handlers>
-		<websocket:mapping handler="sockethandler"
-			path="/webserver" />
-		<!-- <websocket:handshake-interceptors> <beans:bean class=""></beans:bean> 
-			</websocket:handshake-interceptors> -->
-		<websocket:sockjs />
-	</websocket:handlers>
+	<!-- 
+stomp 웹소켓 주소 경로
+
+endpoint: 웹소켓 기본경로
+
+application-detination: 클라이언트가 값을 전달해줄 경로
+
+simple-broker: 서버로부터 값을 받아줄 경로
+
+-->
+	<websocket:message-broker
+		application-destination-prefix="/publish">
+
+		<websocket:stomp-endpoint path="/webserver">
+			<websocket:sockjs />
+		</websocket:stomp-endpoint>
+		<websocket:simple-broker prefix="/subscribe" />
+
+	</websocket:message-broker>
 
 	<!-- interceptor -->
 	<interceptors>
