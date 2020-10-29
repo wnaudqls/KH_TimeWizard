@@ -6,7 +6,7 @@
 	</settings>
 	<typeAliases>
 		<typeAlias type="com.minibean.timewizard.model.dto.UserInfoDto" alias="UserInfoDto"/>
-		<typeAlias type="com.minibean.timewizard.dto.ChatDto" alias="ChatDto"/>
+		<typeAlias type="com.minibean.timewizard.model.dto.ChatDto" alias="ChatDto"/>
 		<typeAlias type="com.minibean.timewizard.model.dto.UserTodoDto" alias="TodoDto"/>
 		<typeAlias type="com.minibean.timewizard.model.dto.NoticeDto" alias="NoticeDto"/>
 	</typeAliases>
