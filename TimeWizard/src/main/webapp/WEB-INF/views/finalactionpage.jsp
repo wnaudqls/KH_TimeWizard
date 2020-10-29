@@ -76,6 +76,8 @@
 	
 	<aside class="friendsbar">
 		friends
+		<input type="text" placeholder="search.." id="search_text" />
+		<button id="search_button"><a><i class="fas fa-search"></i></a></button>
 	</aside>
 	
 	<!-- footer에 공지사항, 챗봇 -->
