@@ -2,9 +2,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="chat-mapper">
   <select id="selectList" resultType="ChatDto">
-  	SELECT * FROM CHAT
+  	SELECT ROOMID, NAME
+  	FROM TEST
   </select>
   <select id="selectOne" resultType="ChatDto">
-  	SELECT * FROM CHAT WHERE USER_ID = #{user_id}
+  	SELECT ROOMID, NAME
+  	FROM TEST WHERE ROOMID = #{roomid}
   </select>
+ <!--  <select id="selectOne" resultType="ChatDto">
+  	SELECT ROOMID, NAME
+  	FROM TEST WHERE NAME = #{name}
+  </select> -->
+  <insert id="insert">
+  	INSERT INTO TEST VALUES(TEST_SEQ.NEXTVAL, #{name})
+  </insert>
 </mapper>

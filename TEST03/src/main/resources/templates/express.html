@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>Expression</h1>
+
+	<p th:text="|Hello, ${name}|">Hello, $name</p>
+	<p th:text="|asdf, ${dto.subject}|"></p>
+	<div th:object="${dto}">
+		<p th:text="*{subject}">subject</p>
+	</div>
+	<table border="1">
+		<tr>
+			<th>SUBJECT</th>
+			<Th>SEQ</Th>
+
+
+		</tr>
+		
+			<tr th:each="dto:${list}">
+				<td th:text="*{dto.subject}">list.dto.subject</td>
+				<td th:text="*{dto.seq}">list.dto.seq</td>
+			</tr>
+			
+			<tr th:each="dto: ${list}">
+				<td th:object="${dto}">
+					<span th:text="*{subject}">subject: </span>
+					<span th:text="*{seq}">seq: </span>
+				</td>
+			</tr>
+			
+	</table>
+	<table border="1">
+		<tr th:if="${iflist} ne null">
+			<td>iflist is not null</td>
+		</tr>
+		<tr th:unless="${iflist} ne null">
+			<td>iflist is null</td>
+		</tr>
+
+	</table>
+	<div th:each="num:${#numbers.sequence(1,3)}">
+		<th:block th:switch="${num}">
+			<p th:case="1" th:text="|this is ${num}|"></p>
+			<p th:case="2" th:text="|second is ${num}|"></p>
+			<p th:case="3" th:text="|this is ${num}|"></p>
+		</th:block>
+	</div>
+	<a th:href="@{index.html}">index</a>
+	<a th:href="@{utill}">utill</a>
+</body>
+</html>
