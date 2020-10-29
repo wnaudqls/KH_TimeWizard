@@ -218,7 +218,7 @@ a {
 			<div class="sns">
 				<a href="${google_url}">
 					<div class="icon">
-						구글
+						<i class="fab fa-google"></i>
 					</div>
 				</a>
 				<a href="${naver_url}">
@@ -227,7 +227,7 @@ a {
 					</div>
 				</a>
 				<div class="icon" id="kakao-login-btn">
-					카카오
+					<i class="fab fa-kaggle"></i>
 				</div>
 			</div>
 			<p class="small"> or user your account:
