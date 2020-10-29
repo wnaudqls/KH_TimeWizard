@@ -15,6 +15,11 @@
 	  	AND TO_CHAR(TODO_DATE, 'YYYYMMDD') = #{todo_date}
 	  	ORDER BY TODO_NO
 	</select>
+	<select id="countList" parameterType="int" resultType="int">
+		SELECT COUNT(TODO_NO)
+		FROM USER_TODO
+		WHERE USER_NO = #{user_no}
+	</select>
 	<!-- selectListTodoDate & selectOne :	STOPWATCH 테이블과 JOIN하여 시간도 가져와야 합니다 -->
 	<select id="selectOne" parameterType="int" resultType="TodoDto">
 	    SELECT TODO_NO, USER_NO, TODO_TITLE, TODO_COLOR, TODO_CONTENT, TODO_CATEGORY,
@@ -31,7 +36,7 @@
 	<insert id="insertExample" parameterType="int">
 	  	INSERT INTO USER_TODO
 	  	VALUES(USER_TODO_SEQ.NEXTVAL, #{user_no}, '할 일 제목', '#6A5ACD', '설명을 기재하는 란입니다.',
-	  	'예시', '해시태그1,해시태그2,해시태그3', SYSDATE, 'N')
+	  	'예시', '#해시태그1 #해시태그2 #해시태그3 ', SYSDATE, 'N')
 	</insert>
 	<update id="update" parameterType="TodoDto">
 	  	UPDATE USER_TODO SET TODO_TITLE = #{todo_title}, TODO_COLOR = #{todo_color},

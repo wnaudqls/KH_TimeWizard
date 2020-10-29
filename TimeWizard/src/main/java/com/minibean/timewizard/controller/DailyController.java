@@ -39,21 +39,21 @@ public class DailyController {
 		String date = path.split("/")[3];
 		logger.info("PATH CHECK\n* path : " + path + "\n* yyyyMMdd : " + date);
 		/* parameter setting */
-		HashMap<String, Object> hashmap = new HashMap<String, Object>();
-		hashmap.put("user_no", user_no);
-		hashmap.put("todo_date", date);
-		List<UserTodoDto> list = userTodoBiz.selectList(hashmap);
+		int newOrNot = userTodoBiz.countList(user_no);
 		
-		if (list == null || list.size() == 0) {
+		if (newOrNot == 0) {
 			/* list가 null일 때 */
 			int res = userTodoBiz.insertExample(user_no);
 			logger.info(">> example insert... - " + (res == 1?"성공":"실패"));
 			return dailyList(session, request, date);
 		} else {
-			/* list가 null이 아닐 때 */
+			/* 전체 list가 null이 아닐 때 */
+			HashMap<String, Object> hashmap = new HashMap<String, Object>();
+			hashmap.put("user_no", user_no);
+			hashmap.put("todo_date", date);
+			List<UserTodoDto> list = userTodoBiz.selectList(hashmap);
 			return list;
 		}
-		
 		
 	}
 	
@@ -91,9 +91,9 @@ public class DailyController {
 		logger.info(">> [CONTROLLER-DAILY] success?: " + ((res == 1)?"yes":"no"));
 	}
 	
-	@RequestMapping(value="/delete")
+	@RequestMapping(value="/delete/{todo_no}")
 	@ResponseBody
-	public void dailyDelete(@RequestBody int todo_no) {
+	public void dailyDelete(@PathVariable("todo_no") int todo_no) {
 		// 유저 정보 체크는 언제...? 유저 정보 같을 때만 삭제 란이 활성화되게 하면 되지만...
 		logger.info(">> [CONTROLLER-DAILY] delete content"
 				+ "\n\t* todo_no : " + todo_no);

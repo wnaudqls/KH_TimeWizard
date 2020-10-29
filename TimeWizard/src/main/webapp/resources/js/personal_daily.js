@@ -37,7 +37,6 @@ function dailylist(date){
 					category_cell.setAttribute("class","cell category__cell");
 					
 					let category_title = document.createElement("button");
-					/* TODO dailylist : array 중에 카테고리 내용이 있다면 그 클래스로 */
 					category_title.setAttribute("class", selectCategoryClass(items[i].todo_category));
 					category_title.setAttribute("type","button");
 					category_title.textContent = (items[i].todo_category == null ? '기본' : items[i].todo_category);
@@ -109,10 +108,11 @@ function selectCategoryClass(itemcategory){
 function showInsertModal(date){
 	let modalArea = document.getElementsByClassName("modal__area")[0];
 	modalArea.innerHTML = "";
+	selectedCategory = "";
 	
 	let overlay_div = document.createElement("div");
 	overlay_div.setAttribute("class","modal__overlay");
-	/* TODO overlay onclick event -> 클릭시 현재 modal창 닫기? */
+	overlay_div.setAttribute("onclick","closeFirstModal();");
 	
 	let insert_div = document.createElement("div");
 	insert_div.setAttribute("class","modal__insert");
@@ -165,7 +165,6 @@ function showInsertModal(date){
 	category_button.setAttribute("name","todo_category");
 	category_button.setAttribute("class",selectCategoryClass(category_button.textContent));
 	category_button.setAttribute("value", category_button.textContent);
-	/* TODO onclick -> popup event : 카테고리 나열해서 선택 - 적용 > modal close, value 적용 */
 	category_button.setAttribute("onclick","showCategoryModal();")
 	category_div.appendChild(category_namespan);
 	category_div.appendChild(category_button);
@@ -179,7 +178,7 @@ function showInsertModal(date){
 	hashtag_editablediv.setAttribute("class","todo__editable");
 	hashtag_editablediv.setAttribute("contenteditable","true");
 	hashtag_editablediv.setAttribute("name","todo_hashtag")
-	/* TODO focus, keyup event, (spacebar or ,) event, remove event */
+	/* TODO hashtag.js 확인해서 */
 	hashtag_div.appendChild(hashtag_namespan);
 	hashtag_div.appendChild(hashtag_editablediv);
 	
@@ -275,7 +274,7 @@ function showCategoryModal(){
 	
 	let overlay_div = document.createElement("div");
 	overlay_div.setAttribute("class","modal__overlay");
-	/* TODO overlay onclick event -> 클릭시 현재 modal창 닫기? */
+	overlay_div.setAttribute("onclick","closeSecondModal();");
 	
 	let category_div = document.createElement("div");
 	category_div.setAttribute("class","modal__category");
@@ -294,7 +293,6 @@ function showCategoryModal(){
 		category_block.textContent = category_array[i].key;
 		category_block.setAttribute("value",category_block.textContent);
 		category_block.setAttribute("onclick","selectedOrNot(this);");
-		/* onclick event -> change class */
 		categories_div.appendChild(category_block);
 	}
 	
@@ -305,7 +303,6 @@ function showCategoryModal(){
 	accept_button.setAttribute("type","button");
 	accept_button.setAttribute("class","button__accept");
 	accept_button.textContent = "저장";
-	/* TODO onclick event -> value, textContent change */
 	accept_button.setAttribute("onclick","submitCategory();");
 	
 	buttons_div.appendChild(accept_button);
@@ -333,11 +330,15 @@ function submitCategory(){
 	let firstModal = document.getElementsByClassName("modal__area")[0];
 	let firstModalCategory = firstModal.querySelector("[name=todo_category]")
 	let secondModal = document.getElementsByClassName("modal__area")[1];
-	/* regex로 감지한 category를 firstmodal의 todo-category의 value와 textcontent로 넘기기 */
-	firstModalCategory.setAttribute("class", selectedCategory.classList[0] + " " + selectedCategory.classList[1]);
-	firstModalCategory.textContent = selectedCategory.value;
-	firstModalCategory.value = selectedCategory.value;
-	closeSecondModal();
+	if (selectedCategory != null || selectedCategory != ""){
+		firstModalCategory.setAttribute("class", selectedCategory.classList[0] + " " + selectedCategory.classList[1]);
+		firstModalCategory.textContent = selectedCategory.value;
+		firstModalCategory.value = selectedCategory.value;
+		closeSecondModal();
+	} else {
+		alert("카테고리를 선택해주세요");
+		return false;
+	}
 }
 
 function submitInsertModal(){
@@ -352,6 +353,7 @@ function submitInsertModal(){
 		alert("내용을 입력해주세요");
 		return false;
 	} else {
+		/* TODO hashtag data trim or something do */
 		const xhr = new XMLHttpRequest();
 		xhr.open("POST", "daily/insert");
 		xhr.setRequestHeader("Content-type","application/json");
@@ -361,6 +363,7 @@ function submitInsertModal(){
 				todo_content: document.getElementsByName("todo_content")[0].value,
 				todo_category: document.getElementsByName("todo_category")[0].value,
 				todo_complete: document.getElementsByName("todo_complete")[0].value,
+				/* start_time, end_time */
 				todo_hashtag: document.getElementsByName("todo_hashtag")[0].textContent,
 				todo_date: Date.parse(document.getElementsByName("todo_date")[0].value)
 		};
@@ -384,14 +387,11 @@ function closeSecondModal(){
 	let modalArea = document.getElementsByClassName("modal__area")[1];
 	modalArea.innerHTML = "";
 }
-/* 삭제 let check = confirm('삭제하시겠습니까?') */
 function showDeleteConfirm(todo_no){
-	/* confirm 말고 modal? */
 	let modalArea = document.getElementsByClassName("modal__area")[0];
 	
 	let overlay_div = document.createElement("div");
 	overlay_div.setAttribute("class","modal__overlay");
-	/* TODO overlay onclick event -> 클릭시 현재 modal창 닫기? */
 	overlay_div.setAttribute("onclick","closeFirstModal();")
 	
 	let delete_div = document.createElement("div");
@@ -407,7 +407,6 @@ function showDeleteConfirm(todo_no){
 	delete_button.setAttribute("type","button");
 	delete_button.setAttribute("class","button__delete");
 	delete_button.textContent = "삭제"
-	/* onclick event -> go to controller and delete it */
 	delete_button.setAttribute("onclick","submitDeleteModal("+todo_no+");");
 	
 	let cancel_button = document.createElement("button");
@@ -452,11 +451,10 @@ function showDetailModal(todo_no){
 				/* response not null */
 				item = JSON.parse(xhr.responseText);
 				console.log(item);
-				/* TODO 추가 modal 에서 내용만 채우기 */
 				
 				let overlay_div = document.createElement("div");
 				overlay_div.setAttribute("class","modal__overlay");
-				/* TODO overlay onclick event -> 클릭시 현재 modal창 닫기? */
+				overlay_div.setAttribute("onclick","closeFistModal();");
 				
 				let detail_div = document.createElement("div");
 				detail_div.setAttribute("class","modal__detail");
@@ -469,12 +467,12 @@ function showDetailModal(todo_no){
 				let close_button = document.createElement("button");
 				close_button.setAttribute("type","button");
 				close_button.setAttribute("class","button__times");
-				/* onclick event close */
 				close_button.setAttribute("onclick","closeFirstModal();");
 				let times = document.createElement("i");
 				times.setAttribute("class", "fas fa-times");
 				close_button.appendChild(times);
 				
+				/* TODO c:when?으로 session의 user_no와 user_distinct check */
 				let delete_button = document.createElement("button");
 				delete_button.setAttribute("type","button");
 				delete_button.setAttribute("class","button__delete");
@@ -519,7 +517,6 @@ function showDetailModal(todo_no){
 				category_button.setAttribute("name","todo_category");
 				category_button.setAttribute("class",selectCategoryClass(category_button.textContent));
 				category_button.setAttribute("value", category_button.textContent);
-				/* TODO onclick -> popup event : 카테고리 나열해서 선택 - 적용 > modal close, value 적용 */
 				category_button.setAttribute("onclick","showCategoryModal();")
 				category_div.appendChild(category_namespan);
 				category_div.appendChild(category_button);
@@ -533,7 +530,8 @@ function showDetailModal(todo_no){
 				hashtag_editablediv.setAttribute("class","todo__editable");
 				hashtag_editablediv.setAttribute("contenteditable","true");
 				hashtag_editablediv.setAttribute("name","todo_hashtag")
-				/* TODO focus, keyup event, (spacebar or ,) event, remove event */
+				/* TODO trim 처리??? */
+				hashtag_editablediv.textContent = item.todo_hashtag;
 				hashtag_div.appendChild(hashtag_namespan);
 				hashtag_div.appendChild(hashtag_editablediv);
 				
@@ -545,7 +543,8 @@ function showDetailModal(todo_no){
 				let date_input = document.createElement("input");
 				date_input.setAttribute("type","date");
 				date_input.setAttribute("name","todo_date")
-				/* TODO 이부분 이거 맞나? 체크할 것 */
+				/* TODO todo_date의 변환법 체크! */
+				let date = item.todo_date;
 				date_input.setAttribute("value",date.toString().substring(0,4)+"-"+date.toString().substring(4,6)+"-"+date.toString().substring(6,8));
 				date_div.appendChild(date_namespan);
 				date_div.appendChild(date_input);
@@ -580,6 +579,7 @@ function showDetailModal(todo_no){
 				time_div.appendChild(between_span);
 				time_div.appendChild(endtime);
 				
+				/* TODO c:when?으로 session의 user_no와 user_distinct check */
 				let submit_button = document.createElement("button");
 				submit_button.setAttribute("class","todo__save");
 				submit_button.setAttribute("type","button");
@@ -649,8 +649,6 @@ function submitUpdateModal(todo_no){
 	if(input_complete.checked == true && (input_starttime == "" || input_endtime == "" ||(endtime_minutes - starttime_minutes < 0))){ 
 		alert("내용을 입력해주세요");
 		return false;
-		
-//	} else if { // session 정보가 다를 떄! userinfo not correct
 	} else {
 		const xhr = new XMLHttpRequest();
 		xhr.open("POST", "daily/update");
@@ -662,6 +660,7 @@ function submitUpdateModal(todo_no){
 				todo_content: document.getElementsByName("todo_content")[0].value,
 				todo_category: document.getElementsByName("todo_category")[0].value,
 				todo_complete: document.getElementsByName("todo_complete")[0].value,
+				/* start_time, end_time */
 				todo_hashtag: document.getElementsByName("todo_hashtag")[0].textContent,
 				todo_date: Date.parse(document.getElementsByName("todo_date")[0].value)
 		};
