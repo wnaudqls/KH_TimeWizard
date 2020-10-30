@@ -78,6 +78,30 @@
 		friends
 		<input type="text" placeholder="search.." id="search_text" />
 		<button id="search_button"><a><i class="fas fa-search"></i></a></button>
+		<!-- 나와 친구인 유저들 -->
+		<c:choose>
+			<c:when test="${empty flist }">
+				<p>-- 친구를 추가하세요 ^_^ --</p>
+			</c:when>
+			<c:otherwise>
+				<c:forEach items="${flist }" var="fdto">
+					<p>이름 : ${fdto.user_name }</p>
+				</c:forEach>
+			</c:otherwise>
+		</c:choose>
+		<hr>
+		<!-- 나와 친구가 아닌 유저들 -->
+		<c:choose>
+			<c:when test="${empty nlist }">
+				<p>-- 당신은 인싸>_&lt; --</p>
+			</c:when>
+			<c:otherwise>
+				<c:forEach items="${nlist }" var="ndto">
+					<p>${ndto.user_no}, ${ndto.user_name }<input type="button" value="친구추가" onclick="location.href='#'"></p>
+				</c:forEach>
+			</c:otherwise>
+		</c:choose>
+	
 	</aside>
 	
 	<!-- footer에 공지사항, 챗봇 -->
@@ -90,12 +114,6 @@
 
 </body>
 </html>
-
-
-
-
-
-
 
 
 
