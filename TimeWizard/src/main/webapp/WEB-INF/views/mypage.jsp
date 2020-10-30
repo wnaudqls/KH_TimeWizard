@@ -7,33 +7,67 @@
 <head>
 <meta charset="UTF-8">
 <title>mypage</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&family=Source+Sans+Pro:wght@200;400&family=Staatliches&display=swap" rel="stylesheet">
+<link href="resources/css/mypage.css" rel="stylesheet">
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="resources/js/mypage.js" defer></script>
+<script src="https://kit.fontawesome.com/3049a69bf8.js" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+
+	const elImage = document.querySelector("#reviewImageFileOpenInput");
+	elImage.addEventListener("change", (evt) => {
+	  const image = evt.target.files[0];
+	  if(!validImageType(image)) { 
+	    console.warn("invalide image file type");
+	    return;
+	  }
+	});
+	
+	function valideImageType(image) {
+	  const result = ([ 'image/jpeg',
+	                    'image/png',
+	                    'image/jpg' ].indexOf(image.type) > -1);
+	  return result;
+	}
+	
+</script>
+
 </head>
 <body>
-	<h1>MyPage</h1>
-
-	<div align="center">
-		<a href="#">프로필 사진</a>
-		<br>
-		<br>
-		<div>
-			<input type="text" value="아이디" size=2 style="border: 0px; text-align:center ">
-			<input type="text" name="" size=40 style="border-top: 0px; border-right: 0px; border-left: 0px"><br>
-			<input type="text" value="비밀번호" size=4 style="border: 0px; text-align:center ">
-			<input type="password" name="" size=40 style="border-top: 0px; border-right: 0px; border-left: 0px"><br>
-			<input type="text" value="이름" size=2 style="border: 0px; text-align:center ">
-			<input type="text" name="" size=40 style="border-top: 0px; border-right: 0px; border-left: 0px"><br>
-			<input type="text" value="이메일" size=2 style="border: 0px; text-align:center ">
-			<input type="email" name="" size=40 style="border-top: 0px; border-right: 0px; border-left: 0px">
+	
+	<div class="mypagebox">
+		<div class="mypagemenu" align="center">
+			<div class="profile" onclick="">프로필 사진부분</div>
+			
+			<table>
+				<tr>
+					<td>ID</td>
+					<td><input type="text" name="" size=20 readonly value="${login.user_id }"></td>
+				</tr>
+				<tr>
+					<td>PW</td>
+					<td><input type="password" name="" size=20></td>
+				</tr>
+				<tr>
+					<td>NAME</td>
+					<td><input type="text" name="" size=20 readonly value="${login.user_name }"></td>
+				</tr>
+				<tr>
+					<td>EMAIL</td>
+					<td><input type="email" name="" size=20 value="${login.user_email }"></td>
+				</tr>
+				<tr>
+					<td colspan="2" align="right">
+						<input type="submit" class="submitbox" value="수정" onclick="" />
+					</td>
+				</tr>
+			</table>
 		</div>
-		<Br>
-		<div style="margin-left: 300px">
-			<input type="button" value="수정" onclick="location.href=''">
-		</div>
-	</div>
-		<br> <br>
-		<div>
-			<h3>Timelapse</h3>
-			<table border="1">
+	
+		<div class="mypagemenu" align="center">
+			<table>
 			<!-- 구현할때 사용하면 될듯!
 				<c:choose>
 					<c:when test="">
@@ -52,19 +86,17 @@
 				-->
 				<tr>
 					<td>날짜 및 시간</td>
-					<td><input type="button" value="저장"></td>
+					<td><a class="save"><i class="fas fa-save"></i></a></td>
 				</tr>
 				<tr>
 					<td>날짜 및 시간</td>
-					<td><input type="button" value="저장"></td>
+					<td><a class="save"><i class="fas fa-save"></i></a></td>
 				</tr>
 			</table>
 		</div>
 		
-		<div>
-			<h3>멤버쉽</h3>
-			
-			<table border="1">
+		<div class="mypagemenu" align="center">
+			<table>
 				<tr>
 					<td><h5>스트리밍 이용</h5></td>
 					<td colspan="3" align="center">9,900원</td>
@@ -87,7 +119,7 @@
 		<div>
 		
 		</div>
-
+	</div>
 
 
 </body>
