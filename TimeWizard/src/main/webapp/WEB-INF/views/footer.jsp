@@ -11,7 +11,7 @@
 	<!-- footer에 공지사항, 챗봇 -->
 	<footer class="footerbar">
 		<div class="footer_box">
-			<a href="notice?nowpage=1&cntPerpage=5"><i class="fas fa-chalkboard-teacher"></i></a>
+			<a href="notice"><i class="fas fa-chalkboard-teacher"></i></a>
 			<a href="#"><i class="far fa-paper-plane"></i></a>
 		</div>
 	</footer>
