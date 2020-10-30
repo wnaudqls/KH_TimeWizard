@@ -35,6 +35,11 @@ function connect() {
 	        var content = JSON.parse(chat.body);
 	        $("#messageArea").append(content.writer+": "+ content.message+ "<br>")
 	    });
+		 client.subscribe("/subscribe/chat/join/"+rid, function (chat) {
+	   		console.log('asdfasf');
+	        var content = JSON.parse(chat.body);
+	        $("#messageArea").append(content.message+ "<br>")
+	    });
 	})
 	
  }
