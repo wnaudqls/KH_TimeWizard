@@ -18,7 +18,7 @@ a {
     justify-content: space-between;
     align-items: center;
     background-color: var(--background-color);
-    padding: 8px 12px;
+    padding: 0px 12px;
 }
 
 .navbar a {
@@ -41,7 +41,7 @@ a {
 }
 
 .nav_menu li {
-    padding: 8px 12px;
+    padding: 0px 12px;
 }
 
 .nav_menu li:hover {
@@ -57,7 +57,7 @@ a {
 }
 
 .nav_icon li {
-    padding: 8px 12px;
+    padding: 0px 12px;
     font-size: 24px;
 }
 
@@ -81,7 +81,7 @@ a {
 .sectionbar {
 	float: left;
 	width: 85%;
-	height: 200px;
+	height: 90vh;
 }
 
 .sectionbar a {
@@ -127,7 +127,7 @@ a {
 .friendsbar {
 	float: left;
 	width: 14%;
-	height: 650px;
+	height: 90vh;
 	border-left: 1px solid black;
 }
 
@@ -166,7 +166,7 @@ a {
     .navbar {
         flex-direction: column;
         align-items: flex-start;
-        padding: 8px 24px;
+        padding: 8px 12px;
     }
     
     .nav_logo {
@@ -185,6 +185,7 @@ a {
     .nav_menu li {
         width: 100%;
         text-align: center;
+        padding: 5px;
     }
     
     .nav_icon {
