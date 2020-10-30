@@ -1,4 +1,4 @@
-package com.minibean.timewizard.mail;
+package com.minibean.timewizard.utils.mail;
 
 import java.util.Random;
 
