@@ -555,6 +555,7 @@ function showDetailModal(todo_no){
 					hashtag.textContent = splitedtexts[i];
 					hashtag.appendChild(removebutton);
 					hashtag_editablediv.appendChild(hashtag);
+					hashtag_editablediv.innerHTML += "&nbsp;";
 				}
 				hashtag_div.appendChild(hashtag_namespan);
 				hashtag_div.appendChild(hashtag_editablediv);

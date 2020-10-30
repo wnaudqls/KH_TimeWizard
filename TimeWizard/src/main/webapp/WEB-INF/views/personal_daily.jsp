@@ -7,11 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="/timewizard/css/reset.css">
-<!-- <link rel="stylesheet" href="/timewizard/css/normalize.css"> -->
 <link rel="stylesheet" href="/timewizard/css/personal_daily.css">
-<script src="https://kit.fontawesome.com/3049a69bf8.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 <%
