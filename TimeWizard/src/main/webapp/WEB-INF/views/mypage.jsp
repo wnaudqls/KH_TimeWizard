@@ -9,7 +9,7 @@
 <title>mypage</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&family=Source+Sans+Pro:wght@200;400&family=Staatliches&display=swap" rel="stylesheet">
-<link href="resources/css/mypage.css" rel="stylesheet">
+<link href="resources/css/userpage.css" rel="stylesheet">
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="resources/js/mypage.js" defer></script>
 <script src="https://kit.fontawesome.com/3049a69bf8.js" crossorigin="anonymous"></script>
