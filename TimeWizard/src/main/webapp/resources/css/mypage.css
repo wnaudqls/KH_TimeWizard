@@ -1,0 +1,88 @@
+body {
+	background-color: #b2bec3;
+	color: white;
+}
+
+.mypagebox {
+	border: 3px solid white;
+	width: 50%;
+	height: 90vh;
+	margin-left: 25%;
+	margin-top: 2rem;
+}
+
+
+.mypagemenu {
+	padding: 15px 0px 10px 0px;
+}
+
+.profile {
+	border: 3px solid white;
+	width: 20%;
+	height: 20vh;
+	border-radius: 50%;
+	cursor: pointer;
+	margin: 20px 0px 20px 0px;
+}
+
+.submitbox {
+	border: 1px solid white;
+	background-color: #b2bec3;
+	cursor: pointer;
+	color: white;
+	margin-top: 0.5rem;
+}
+
+.submitbox:hover {
+	background-color: white;
+	color: #b2bec3;
+}
+
+.save {
+	cursor: pointer;
+}
+
+@media screen and (max-width: 1140px) {
+	.mypagebox {
+		border: 3px solid white;
+		width: 80%;
+		height: 110vh;
+		margin-left: 10%;
+		margin-top: 2rem;
+		margin-bottom: 2rem;
+	}
+	
+	.profile {
+		border: 3px solid white;
+		width: 40%;
+		height: 20vh;
+		border-radius: 50%;
+		cursor: pointer;
+		margin: 20px 0px 20px 0px;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
