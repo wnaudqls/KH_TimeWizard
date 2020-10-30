@@ -39,11 +39,10 @@
 			if(UDto != null && UDto.getUser_role().equals("USER")){  
 			%>
 			<li>${login.user_name }님! 반갑습니다.</li>
-			<li><a href="./logout">로그아웃</a></li>
-
 			<%
 			}
 			%>
+			<li><a href="./logout">로그아웃</a></li>
 			<li><a href="mypage"><i class="fas fa-bars"></i></a></li>
 			<li>
 				<a href="#" class="web" onclick="window.open('stopwatch', 'window', 'width=300, height=190, left=0, top=100, status=no, resizable=no');return false">
