@@ -21,6 +21,7 @@ function dailylist(date){
 			if (xhr.responseText != null ||xhr.responseText != ""){
 				items = JSON.parse(xhr.responseText);
 				const items_div = document.createElement("div");
+				items_div.setAttribute("class","todo__items");
 				let i = 0;
 				for (i = 0; i < items.length; i++) {
 					let item_div = document.createElement("div");
@@ -106,8 +107,9 @@ function selectCategoryClass(itemcategory){
 
 /* 추가 modal */
 function showInsertModal(date){
+	closeFirstModal();
+	closeSecondModal();
 	let modalArea = document.getElementsByClassName("modal__area")[0];
-	modalArea.innerHTML = "";
 	selectedCategory = "";
 	
 	let overlay_div = document.createElement("div");
@@ -204,6 +206,7 @@ function showInsertModal(date){
 	time_checkbox.setAttribute("type","checkbox");
 	time_checkbox.setAttribute("name","todo_complete");
 	time_checkbox.setAttribute("value","N");
+	
 	let starttime = document.createElement("input");
 	starttime.setAttribute("type","time");
 	starttime.setAttribute("name","start_time");
@@ -215,6 +218,7 @@ function showInsertModal(date){
 	endtime.setAttribute("type","time");
 	endtime.setAttribute("name","end_time");
 	endtime.setAttribute("disabled",true);
+	
 	time_div.appendChild(time_namespan);
 	time_div.appendChild(time_checkbox);
 	time_div.appendChild(starttime);
@@ -363,9 +367,10 @@ function submitInsertModal(){
 				todo_content: document.getElementsByName("todo_content")[0].value,
 				todo_category: document.getElementsByName("todo_category")[0].value,
 				todo_complete: document.getElementsByName("todo_complete")[0].value,
-				/* start_time, end_time */
-				todo_hashtag: document.getElementsByName("todo_hashtag")[0].textContent,
-				todo_date: Date.parse(document.getElementsByName("todo_date")[0].value)
+//				start_time: document.getElementsByName("start_time")[0].value,
+//				end_time: document.getElementsByName("end_time")[0].value,
+				todo_hashtag: document.getElementsByName("todo_hashtag")[0].textContent.trim(),
+				todo_date: document.getElementsByName("todo_date")[0].value
 		};
 		console.log(data);
 		xhr.send(JSON.stringify(data));
@@ -388,7 +393,8 @@ function closeSecondModal(){
 	modalArea.innerHTML = "";
 }
 function showDeleteConfirm(todo_no){
-	let modalArea = document.getElementsByClassName("modal__area")[0];
+	closeSecondModal();
+	let modalArea = document.getElementsByClassName("modal__area")[1];
 	
 	let overlay_div = document.createElement("div");
 	overlay_div.setAttribute("class","modal__overlay");
@@ -424,6 +430,14 @@ function showDeleteConfirm(todo_no){
 	
 }
 
+function getDateForValue(times){
+	let theday  = new Date(times);
+	let year = Number(theday.getYear()) + 1900;
+	let month = Number(theday.getMonth()) + 1;
+	let date = Number(theday.getDate());
+	return year + "-" + month + "-" + date;
+}
+
 function submitDeleteModal(todo_no){
 	const xhr = new XMLHttpRequest();
 	xhr.open("POST", "daily/delete/"+todo_no);
@@ -445,8 +459,9 @@ function showDetailModal(todo_no){
 	xhr.onreadystatechange = () => {
 		if (xhr.readyState == 4 && xhr.status == 200){
 			let item = "";
+			closeFirstModal();
+			closeSecondModal();
 			const modalArea = document.getElementsByClassName("modal__area")[0];
-			modalArea.innerHTML = "";
 			if (xhr.responseText != null ||xhr.responseText != ""){
 				/* response not null */
 				item = JSON.parse(xhr.responseText);
@@ -477,7 +492,6 @@ function showDetailModal(todo_no){
 				delete_button.setAttribute("type","button");
 				delete_button.setAttribute("class","button__delete");
 				delete_button.textContent = "삭제하기";
-				/* onclick event close */
 				delete_button.setAttribute("onclick","showDeleteConfirm("+ item.todo_no +");");
 				
 				let title_input = document.createElement("input");
@@ -487,7 +501,6 @@ function showDetailModal(todo_no){
 				title_input.setAttribute("id","todo_title");
 				title_input.setAttribute("value",item.todo_title);
 				
-				/* 색상이 다음 행에서 전개되는 경우 */
 				let color_div = document.createElement("div");
 				color_div.setAttribute("class","todo__div");
 				let color_namespan = document.createElement("span");
@@ -530,8 +543,19 @@ function showDetailModal(todo_no){
 				hashtag_editablediv.setAttribute("class","todo__editable");
 				hashtag_editablediv.setAttribute("contenteditable","true");
 				hashtag_editablediv.setAttribute("name","todo_hashtag")
-				/* TODO trim 처리??? */
-				hashtag_editablediv.textContent = item.todo_hashtag;
+				let splitedtexts = item.todo_hashtag.split(" ");
+				let i = 0;
+				for (i=0; i<splitedtexts.length - 1; i++){
+					let hashtag = document.createElement("span")
+					hashtag.setAttribute("class","tag label label-info new");
+					let removebutton = document.createElement("span");
+					removebutton.setAttribute("class","delHashtag");
+					removebutton.setAttribute("data-role","remove");
+					removebutton.setAttribute("aria-hidden","true"); //what is aria-hidden?
+					hashtag.textContent = splitedtexts[i];
+					hashtag.appendChild(removebutton);
+					hashtag_editablediv.appendChild(hashtag);
+				}
 				hashtag_div.appendChild(hashtag_namespan);
 				hashtag_div.appendChild(hashtag_editablediv);
 				
@@ -543,9 +567,8 @@ function showDetailModal(todo_no){
 				let date_input = document.createElement("input");
 				date_input.setAttribute("type","date");
 				date_input.setAttribute("name","todo_date")
-				/* TODO todo_date의 변환법 체크! */
-				let date = item.todo_date;
-				date_input.setAttribute("value",date.toString().substring(0,4)+"-"+date.toString().substring(4,6)+"-"+date.toString().substring(6,8));
+				let date_input_value = getDateForValue(item.todo_date);
+				date_input.setAttribute("value", date_input_value);
 				date_div.appendChild(date_namespan);
 				date_div.appendChild(date_input);
 				
@@ -558,21 +581,22 @@ function showDetailModal(todo_no){
 				let time_checkbox = document.createElement("input");
 				time_checkbox.setAttribute("type","checkbox");
 				time_checkbox.setAttribute("name","todo_complete");
+				time_checkbox.checked = (item.todo_complete == 'Y')?true:false;
 				time_checkbox.setAttribute("value",item.todo_complete);
 				
 				let starttime = document.createElement("input");
 				starttime.setAttribute("type","time");
 				starttime.setAttribute("name","start_time");
-//				starttime.setAttribute("disabled",true); // 이부분도 조건?
-//				starttime.setAttribute("value", (item.start_time == "" ? "" : item.start_time));
+				starttime.disabled = (item.todo_complete == 'Y')?false:true;
+				starttime.setAttribute("value", (item.start_time == "" || item.start_time == undefined) ? "" : item.start_time);
 				let between_span = document.createElement("span");
 				between_span.setAttribute("class","tilde");
 				between_span.textContent = "~";
 				let endtime = document.createElement("input");
 				endtime.setAttribute("type","time");
 				endtime.setAttribute("name","end_time");
-//				endtime.setAttribute("disabled",true); // 그러면 이부분도 조건
-//				starttime.setAttribute("value", (item.end_time == "" ? "" : item.end_time));
+				endtime.disabled = (item.todo_complete == 'Y')?false:true;
+				starttime.setAttribute("value", (item.end_time == "" || item.end_time == undefined) ? "" : item.end_time);
 				time_div.appendChild(time_namespan);
 				time_div.appendChild(time_checkbox);
 				time_div.appendChild(starttime);
@@ -622,6 +646,8 @@ function showDetailModal(todo_no){
 					}else {
 						input_starttime.disabled = true;
 						input_endtime.disabled = true;
+						input_starttime.value = "";
+						input_endtime.value = "";
 						input_complete.value = "N";
 					}
 				});
@@ -660,9 +686,10 @@ function submitUpdateModal(todo_no){
 				todo_content: document.getElementsByName("todo_content")[0].value,
 				todo_category: document.getElementsByName("todo_category")[0].value,
 				todo_complete: document.getElementsByName("todo_complete")[0].value,
-				/* start_time, end_time */
-				todo_hashtag: document.getElementsByName("todo_hashtag")[0].textContent,
-				todo_date: Date.parse(document.getElementsByName("todo_date")[0].value)
+//				start_time: documemnt.getElementsByName("start_time")[0].value,
+//				end_time: document.getElementsByName("end_time")[0].value,
+				todo_hashtag: document.getElementsByName("todo_hashtag")[0].textContent.trim(),
+				todo_date: document.getElementsByName("todo_date")[0].value
 		};
 		console.log(data);
 		xhr.send(JSON.stringify(data));

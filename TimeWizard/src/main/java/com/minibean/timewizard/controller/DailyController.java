@@ -63,6 +63,11 @@ public class DailyController {
 		logger.info(">> [CONTROLLER-DAILY] detail - " + todo_no);
 		UserInfoDto login = (UserInfoDto) session.getAttribute("login");
 		UserTodoDto dto = userTodoBiz.selectOne(todo_no);
+		logger.info(">> [CONTROLLER-DAILY] detail content"
+				+ "\n\t* user_no : " + dto.getUser_no()
+				+ "\n\t* todo_title : " + dto.getTodo_title() 
+				+ "\n\t* todo_content : " + dto.getTodo_content()
+				+ "\n\t* todo_date : " + dto.getTodo_date());
 		return dto;
 	}
 	
@@ -74,7 +79,9 @@ public class DailyController {
 		logger.info(">> [CONTROLLER-DAILY] insert content"
 					+ "\n\t* user_no : " + dto.getUser_no()
 					+ "\n\t* todo_title : " + dto.getTodo_title() 
-					+ "\n\t* todo_content : " + dto.getTodo_content());
+					+ "\n\t* todo_content : " + dto.getTodo_content()
+					+ "\n\t* todo_date : " + dto.getTodo_date());
+		
 		int res = userTodoBiz.insert(dto);
 		logger.info(">> [CONTROLLER-DAILY] success?: " + ((res == 1)?"yes":"no"));
 	}
@@ -86,7 +93,9 @@ public class DailyController {
 		dto.setUser_no(login.getUser_no());
 		logger.info(">> [CONTROLLER-DAILY] update content"
 				+ "\n\t* user_no : " + dto.getUser_no()
-				+ "\n\t* todo_title : " + dto.getTodo_title());
+				+ "\n\t* todo_title : " + dto.getTodo_title() 
+				+ "\n\t* todo_content : " + dto.getTodo_content()
+				+ "\n\t* todo_date : " + dto.getTodo_date());
 		int res = userTodoBiz.update(dto);
 		logger.info(">> [CONTROLLER-DAILY] success?: " + ((res == 1)?"yes":"no"));
 	}
@@ -94,7 +103,6 @@ public class DailyController {
 	@RequestMapping(value="/delete/{todo_no}")
 	@ResponseBody
 	public void dailyDelete(@PathVariable("todo_no") int todo_no) {
-		// 유저 정보 체크는 언제...? 유저 정보 같을 때만 삭제 란이 활성화되게 하면 되지만...
 		logger.info(">> [CONTROLLER-DAILY] delete content"
 				+ "\n\t* todo_no : " + todo_no);
 		int res = userTodoBiz.delete(todo_no);

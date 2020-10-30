@@ -30,15 +30,15 @@
 	<h4>personal page</h4>
 	<h5>list area</h5>
 	<div class="daily__part">
-		<div class="list">
+		<div class="list__area">
 			<div class="date__area">
 				<div class="date__status">
-					<a>◀◀</a> <!-- fontawesome에서 괜찮은 화살표 버튼 찾아두기... -->
-					<a>◁</a>
+					<a><i class="fas fa-caret-square-left"></i></a>
+					<a><i class="far fa-caret-square-left"></i></a>
 					<span class="month"><%=month %>월 </span>
 					<span class="mday"><%=day %> 일</span>
-					<a>▷</a>
-					<a>▶▶</a>
+					<a><i class="far fa-caret-square-right"></i></a>
+					<a><i class="fas fa-caret-square-right"></i></a>
 				</div>
 				<div class="date__input"><!-- 빨리 찾기 기능...? -->
 					<input type="date" id="date" value="${today }" />
@@ -47,7 +47,6 @@
 			<div id="todo__list">date's todo-list
 			</div>
 		</div>
-		<br />
 		<div class="heatmap__area">
 			<h5>heatmap area</h5>
 		</div>
