@@ -4,38 +4,34 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
-    
-    <!-- 검사 URL -->
-    <http use-expressions="true">
-        <intercept-url pattern="/login/loginForm.do" access="permitAll" />
-        <intercept-url pattern="/home.do" access="permitAll" />
-        <intercept-url pattern="/admin/**" access="hasRole('ADMIN')" />
-        <intercept-url pattern="/**" access="hasAnyRole('USER, ADMIN')" />
-        
-        <form-login login-page="/login/loginForm.do"
-                    default-target-url="/home.do"
-                    authentication-failure-url="/login/loginForm.do?error"
-                    username-parameter="id"
-                    password-parameter="password" />
-        <logout logout-url="/logout"
-                logout-success-url="/home.do" />
-                
-        <access-denied-handler error-page="/login/accessDenied.do" />
-    </http>
-    
-    <beans:bean id="userDetailsService" class="org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl">
-        <beans:property name="dataSource" ref="dataSource"/>
-    </beans:bean>
-    
+   
+   <!-- 검사 URL --> 
+<http use-expressions="true">
+ 		<intercept-url pattern="/login/loginForm.do" access="permitAll" /> 
+		<intercept-url pattern="/home.do" access="permitAll" /> 
+		<intercept-url pattern="/admin/**" access="hasRole('ADMIN')" /> 
+		<intercept-url pattern="/**" access="hasAnyRole('USER, ADMIN')" /> 
+		
+		<form-login login-page="/login/loginForm.do" 
+					default-target-url="/home.do" 
+					authentication-failure-url="/login/loginForm.do?error" 
+					username-parameter="id" 
+					password-parameter="password" /> 
+					
+		<logout logout-url="/logout" 
+				logout-success-url="/home.do" /> 
+		
+		<access-denied-handler error-page="/login/accessDenied.do" /> 
+</http>
     <!--  provider  -->
     <authentication-manager>
         <authentication-provider>
         <jdbc-user-service 
             data-source-ref="dataSource"
             role-prefix=""
-            users-by-username-query="SELECT MNO, MID, MNAME, MROLE, MENABLED FROM MEM WHERE MID=?"
-            authorities-by-username-query="SELECT MID, MROLE FROM MEM WHERE MID=?"
-        />
+            users-by-username-query="select mid as id, mpw as password, enabled from mem where mid = ?"
+            authorities-by-username-query="select mid as id, authority from mem where mid = ?"
+              />
         </authentication-provider>
     </authentication-manager>
    

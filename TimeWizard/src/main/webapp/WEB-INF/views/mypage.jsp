@@ -7,12 +7,41 @@
 <head>
 <meta charset="UTF-8">
 <title>mypage</title>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="resources/js/mypage.js" defer></script>
+
+<script type="text/javascript">
+
+	const elImage = document.querySelector("#reviewImageFileOpenInput");
+	elImage.addEventListener("change", (evt) => {
+	  const image = evt.target.files[0];
+	  if(!validImageType(image)) { 
+	    console.warn("invalide image file type");
+	    return;
+	  }
+	});
+	
+	function valideImageType(image) {
+	  const result = ([ 'image/jpeg',
+	                    'image/png',
+	                    'image/jpg' ].indexOf(image.type) > -1);
+	  return result;
+	}
+
+</script>
+
 </head>
 <body>
 	<h1>MyPage</h1>
 
 	<div align="center">
 		<a href="#">프로필 사진</a>
+		
+		<form>
+			<input type="file" name="file" id="imageFileOpenInput" accept="image/*" />
+			<input type="submit" />
+		</form>
 		<br>
 		<br>
 		<div>
