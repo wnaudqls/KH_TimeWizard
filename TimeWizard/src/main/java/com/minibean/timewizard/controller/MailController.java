@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.minibean.timewizard.mail.MailService;
-import com.minibean.timewizard.mail.RandomCode;
+
+
+import com.minibean.timewizard.utils.mail.MailService;
+import com.minibean.timewizard.utils.mail.RandomCode;
 
 
 @Controller
@@ -28,9 +30,10 @@ public class MailController {
 	private Logger logger = LoggerFactory.getLogger(MailController.class);
 
 // 회원가입 이메일 인증
-	@RequestMapping(value = "/emailSend?user_email", method = RequestMethod.GET)
+	@RequestMapping(value = "login/emailSend", method = RequestMethod.GET)
 	@ResponseBody
 	public String sendMailAuth(HttpSession session, @RequestParam String user_email) {
+		logger.info("이메일 전송");
 		logger.info("[emailSend]");
 		//랜덤코드 객체 생성
 		RandomCode randomcode = new RandomCode();
