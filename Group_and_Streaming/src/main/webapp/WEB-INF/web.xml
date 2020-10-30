@@ -23,15 +23,24 @@
 			<param-name>contextConfigLocation</param-name>
 			<param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value>
 		</init-param>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>
+                com.minibean.timewizard.websocket.WebSocketConfig
+            </param-value>
+		</init-param>
 		<load-on-startup>1</load-on-startup>
 		<async-supported>true</async-supported>
+
 	</servlet>
+
+
 
 	<servlet-mapping>
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
-	
+
 	<!-- filter -->
 	<filter>
 		<filter-name>encoding</filter-name>

@@ -3,12 +3,12 @@
 <configuration>
 
 <typeAliases>
-<typeAlias type="com.minibean.timewizard.dto.ChatDto" alias="ChatDto"/>
+<typeAlias type="com.minibean.timewizard.model.dto.ChatDto" alias="ChatDto"/>
 </typeAliases>
 
 <!-- resource: src/main/resources -->
 <mappers>
-	<mapper resource="/mybatis/chat-mapper.xml"/>
+	 <mapper resource="/mybatis/chat-mapper.xml"/>
 </mappers>
 
 </configuration>

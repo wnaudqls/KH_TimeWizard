@@ -12,7 +12,15 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://kit.fontawesome.com/3049a69bf8.js" crossorigin="anonymous"></script>
 <script type="text/javascript">
-
+$(document).on('click', '#search_button', function(e){
+	var url="${pageContext.request.contextPath}/notice";
+	url = url+"?searchType="+$('#searchType').val();
+	url = url+"&keyword="+$('#search_text').val();
+	url = url+"&nowpage="+${paging.nowpage}+"&cntPerpage="+${paging.cntPerpage};
+	location.href=url;
+	console.log(url);
+	
+});
 </script>
 
 </head>
@@ -45,9 +53,9 @@
 				<c:forEach items="${list }" var="dto">
 					<tr>
 						<th>${dto.notice_no }</th>
-						<th><a href="./detail?notice_no=${dto.notice_no }">${dto.notice_title }</a></th>
+						<th><a href="./detail?notice_no=${dto.notice_no }&nowpage=${paging.nowpage }&cntPerpage=${paging.cntPerpage }">${dto.notice_title }</a></th>
 						<th>${dto.notice_regdate }</th>
-						<th class="trash" onclick="location.href='./delete?notice_no=${dto.notice_no }'"><i class="fas fa-trash-alt"></i></th>
+						<th class="trash" onclick="location.href='./delete?notice_no=${dto.notice_no }&nowpage=${paging.nowpage}&cntPerpage=${paging.cntPerpage }'"><i class="fas fa-trash-alt"></i></th>
 					</tr>
 				</c:forEach>
 			</c:otherwise>
@@ -55,7 +63,7 @@
 		
 		<tr>
 			<td class="write" colspan="4" align="right">
-				<i class="fas fa-edit" onclick="location.href='insert'"></i>
+				<i class="fas fa-edit" onclick="location.href='insert?&nowpage=${paging.nowpage}&cntPerpage=${paging.cntPerpage }'"></i>
 			</td>
 		</tr>
 	</table>
@@ -63,18 +71,22 @@
 	<br/><br/>
 	
 	<div id="search">
+		<select name="searchType">
+			<option value="nt_title" selected>제목</option>
+			<option value="nt_content">내용</option>
+		</select>
 		<div id="search_box">
 			<input type="text" placeholder="search.." id="search_text" />
-			<button id="search_button"><a><i class="fas fa-search"></i></a></button>
+			<button id="search_button" name="btnSearch"><a><i class="fas fa-search"></i></a></button>
 		</div>
 	</div>
 	
 	<br/>
 	
 	<!-- !페이징 부분! -->
-	<div id="paging_box">
+	<div style="display:block; text-align: center;">
 		<c:if test="${paging.startpage != 1}">
-			<a href="list.do?nowpage=${paging.startpage-1}&cntPerpage=${paging.cntPerpage}">&lt;</a>
+			<a href="notice?nowpage=${paging.startpage-1}&cntPerpage=${paging.cntPerpage}">&lt;</a>
 		</c:if>
 		<c:forEach begin="${paging.startpage}" end="${paging.endpage}" var="p">
 			<!-- when은 choose안에 꼭 들어가 있어야 한다. choose안에 otherwise는 없어도 된다. -->
@@ -83,12 +95,12 @@
 					<b>${p}</b>
 				</c:when>
 				<c:when test="${p != paging.nowpage}">
-					<a href="list.do?nowpage=${p}&cntPerpage=${paging.cntPerpage}">${p}</a>
+					<a href="notice?nowpage=${p}&cntPerpage=${paging.cntPerpage}">${p}</a>
 				</c:when>
 			</c:choose>
 		</c:forEach>
 			<c:if test="${paging.endpage != paging.lastpage}">
-				<a href="list.do?nowpage=${paging.endpage+1}&cntPerpage=${paging.cntPerpage}">&gt;</a>
+				<a href="notice?nowpage=${paging.endpage+1}&cntPerpage=${paging.cntPerpage}">&gt;</a>
 			</c:if>
 	</div>
 

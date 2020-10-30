@@ -1,67 +1,94 @@
 package com.minibean.timewizard.controller;
 
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.minibean.timewizard.biz.ChatBiz;
-import com.minibean.timewizard.biz.ChatBizImpl;
-import com.minibean.timewizard.dao.ChatDao;
-import com.minibean.timewizard.dao.ChatDaoImpl;
+import com.minibean.timewizard.message.ChatMessage;
+import com.minibean.timewizard.model.biz.ChatBiz;
+import com.minibean.timewizard.model.biz.ChatBizImpl;
+import com.minibean.timewizard.model.dto.ChatDto;
 
-/**
- * Handles requests for the application home page.
- */
+
+
+
+
 
 @Controller
 public class GroupController {
-	
-	ChatDao dao = new ChatDaoImpl();
+	@Autowired
+	SimpMessagingTemplate template;
+
 	
 	@Autowired
-	ChatBiz biz = new ChatBizImpl();
+	private final ChatBiz biz = new ChatBizImpl();
 
-	private static final Logger logger = LoggerFactory.getLogger(GroupController.class);
 	
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
 	
-	@RequestMapping(value="/")
-	public String index() {
+	
+	
+	@GetMapping("/")
+	public String index(Model model) {
 		return "index";
 	}
 	
-	@RequestMapping("/grouplist")
-	public String grouplist(Model model) {
-		model.addAttribute("list", biz.selectList());
-		return "group_list";
+	
+	@GetMapping("/grouplist")
+	public String list(Model model) {
+		 model.addAttribute("list", biz.selectList()); 
+		return "grouplist";
+	}
+
+
+	
+	@GetMapping("/joinroom/{name}")
+	public String room(@PathVariable("name") String name, Model model) {
+		 
+		  
+		ChatDto room = biz.selectOne(name); 
+		  
+		  
+		model.addAttribute("dto", room);
+	
+		return "grouproom";
+	}
+	@GetMapping("/newroom")
+	public String make(Model model) {
+		return "newRoom";
+	}
+
+	@PostMapping(value="/createres", params={"name"})
+	public String makeRoom(@RequestParam("name") String name, ChatDto dto) {
+		
+	 	int res = biz.insert(dto);
+		if(res > 0) {
+			
+			return "redirect:/grouplist";
+		}
+		else {
+			return "redirect:/newroom";
+		}
+		
 	}
 	
-	@RequestMapping("/streaming")
-	public String streaming(@RequestParam("user_id") String user_id, Model model) {
-		logger.info(user_id+"");
-		model.addAttribute("dto", biz.selectOne(user_id));
-		return "group_room";
-	}
-	@RequestMapping("/list")
-	public String list() {
-		return "list";
-	}
-	@RequestMapping("/new")
-	public String room() {
-		return "new";
-	}
-	
-	@RequestMapping("/create")
-	public String create(Model model, String user_id) {
-		return "redirect:/list";
-	}
-	
-	
+	@MessageMapping("/chat/join")
+    public void join(ChatMessage message) {
+		System.out.println(message.getWriter()+"님 등장");
+		
+		message.setMessage(message.getWriter() + "님이 입장하셨습니다.");
+        template.convertAndSend("/subscribe/chat/room/", message);
+    }
+
+	@MessageMapping("/chat/message")
+    public void message(ChatMessage message) {
+		System.out.println(message.getRoomid()+"번 채팅방");
+        template.convertAndSend("/subscribe/chat/room/"+message.getRoomid(), message);
+    }
 }

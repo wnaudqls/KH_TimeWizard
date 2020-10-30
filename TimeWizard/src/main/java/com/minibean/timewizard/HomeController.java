@@ -19,11 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class HomeController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-	
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
+	private Logger logger = LoggerFactory.getLogger(HomeController.class);
 
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
@@ -41,16 +37,18 @@ public class HomeController {
 	
 	@RequestMapping(value="/")
 	public String index() {
+		logger.info(">> [CONTROLLER-HOME] go to index page");
 		return "index";
 	}
 	
     @RequestMapping(value="/logout")
 	public String invalidate(HttpSession session) {
-
+		logger.info(">> [CONTROLLER-HOME] user logout");
 		session.invalidate();
 		return "redirect:login/loginform";
 	}
 	
+    /* test 용입니다 */
 	@RequestMapping(value="/success")
 	public String successPage() {
 		return "success";
@@ -74,6 +72,11 @@ public class HomeController {
 	@RequestMapping(value="/finaltimer")
 	public String finaltimer() {
 		return "finaltimer";
+	}
+	
+	@RequestMapping(value="/daily")
+	public String personalDaily() {
+		return "personal-daily";
 	}
 
 }

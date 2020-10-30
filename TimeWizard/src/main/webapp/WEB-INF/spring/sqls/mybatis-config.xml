@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
 <configuration>
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL"/>
+	</settings>
 	<typeAliases>
 		<typeAlias type="com.minibean.timewizard.model.dto.UserInfoDto" alias="UserInfoDto"/>
-		<typeAlias type="com.minibean.timewizard.dto.ChatDto" alias="ChatDto"/>
+		<typeAlias type="com.minibean.timewizard.model.dto.ChatDto" alias="ChatDto"/>
 		<typeAlias type="com.minibean.timewizard.model.dto.UserTodoDto" alias="TodoDto"/>
 		<typeAlias type="com.minibean.timewizard.model.dto.NoticeDto" alias="NoticeDto"/>
 	</typeAliases>
