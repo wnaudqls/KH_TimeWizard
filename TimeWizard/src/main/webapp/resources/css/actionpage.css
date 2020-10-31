@@ -58,16 +58,12 @@ a {
 
 .nav_icon li {
     padding: 0px 12px;
-    font-size: 24px;
-}
-
-.nav_icon li i{
-    cursor: pointer;
 }
 
 .nav_icon li:hover {
 	background-color: var(--accent-color);
 	border-radius: 4px;
+	cursor: pointer;
 }
 
 .nav_toggle {
@@ -129,6 +125,7 @@ a {
 	width: 14%;
 	height: 90vh;
 	border-left: 1px solid black;
+	overflow: auto;
 }
 
 .footerbar {
