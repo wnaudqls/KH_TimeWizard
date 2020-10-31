@@ -40,6 +40,7 @@
 		friends
 		<input type="text" placeholder="search.." id="search_text" />
 		<button id="search_button"><a><i class="fas fa-search"></i></a></button>
+		<b>Your Friends</b>
 		<!-- 나와 친구인 유저들 -->
 		<c:choose>
 			<c:when test="${empty flist }">
@@ -59,7 +60,7 @@
 			</c:when>
 			<c:otherwise>
 				<c:forEach items="${nlist }" var="ndto">
-					<p>${ndto.user_no}, ${ndto.user_name }<input type="button" value="친구추가" onclick="location.href='#'"></p>
+					<p>${ndto.user_name }<input type="button" value="친구추가" onclick="location.href='#'"></p>
 				</c:forEach>
 			</c:otherwise>
 		</c:choose>
