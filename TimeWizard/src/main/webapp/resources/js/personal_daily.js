@@ -367,8 +367,8 @@ function submitInsertModal(){
 				todo_content: document.getElementsByName("todo_content")[0].value,
 				todo_category: document.getElementsByName("todo_category")[0].value,
 				todo_complete: document.getElementsByName("todo_complete")[0].value,
-//				start_time: document.getElementsByName("start_time")[0].value,
-//				end_time: document.getElementsByName("end_time")[0].value,
+				start_time: document.getElementsByName("start_time")[0].value,
+				end_time: document.getElementsByName("end_time")[0].value,
 				todo_hashtag: document.getElementsByName("todo_hashtag")[0].textContent.trim(),
 				todo_date: document.getElementsByName("todo_date")[0].value
 		};
@@ -687,8 +687,8 @@ function submitUpdateModal(todo_no){
 				todo_content: document.getElementsByName("todo_content")[0].value,
 				todo_category: document.getElementsByName("todo_category")[0].value,
 				todo_complete: document.getElementsByName("todo_complete")[0].value,
-//				start_time: documemnt.getElementsByName("start_time")[0].value,
-//				end_time: document.getElementsByName("end_time")[0].value,
+				start_time: documemnt.getElementsByName("start_time")[0].value,
+				end_time: document.getElementsByName("end_time")[0].value,
 				todo_hashtag: document.getElementsByName("todo_hashtag")[0].textContent.trim(),
 				todo_date: document.getElementsByName("todo_date")[0].value
 		};

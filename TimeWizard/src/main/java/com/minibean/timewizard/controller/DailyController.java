@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.HandlerMapping;
 
+import com.minibean.timewizard.model.biz.StopwatchBiz;
 import com.minibean.timewizard.model.biz.UserTodoBiz;
 import com.minibean.timewizard.model.dto.UserInfoDto;
 import com.minibean.timewizard.model.dto.UserTodoDto;
@@ -27,7 +28,7 @@ public class DailyController {
 	@Autowired
 	private UserTodoBiz userTodoBiz;
 	private Logger logger = LoggerFactory.getLogger(DailyController.class);
-	 /* date : yyyyMMdd 식으로 호출은 어려울까? */
+	
 	@RequestMapping(value="/list/{yyyyMMdd}")
 	@ResponseBody
 	public List<UserTodoDto> dailyList(HttpSession session, HttpServletRequest request, @PathVariable String yyyyMMdd) {
@@ -36,7 +37,7 @@ public class DailyController {
 		int user_no = login.getUser_no();
 		
 		String path = (String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
-		String date = path.split("/")[3];
+		String date = path.split("/")[3]; // personal 경로 수정시 수정해야 함!
 		logger.info("PATH CHECK\n* path : " + path + "\n* yyyyMMdd : " + date);
 		/* parameter setting */
 		int newOrNot = userTodoBiz.countList(user_no);
