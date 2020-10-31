@@ -255,6 +255,13 @@
         	<artifactId>commons-io</artifactId>
         	<version>2.6</version>
 		</dependency>
+		
+		<!-- html2canvas -->
+		<dependency>
+		    <groupId>org.webjars.npm</groupId>
+		    <artifactId>html2canvas</artifactId>
+		    <version>0.5.0-beta4</version>
+		</dependency>
 
 	</dependencies>
 	<build>
