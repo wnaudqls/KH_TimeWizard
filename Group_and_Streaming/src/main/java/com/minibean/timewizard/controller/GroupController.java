@@ -1,6 +1,8 @@
 package com.minibean.timewizard.controller;
 
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -25,6 +27,8 @@ import com.minibean.timewizard.model.dto.ChatDto;
 public class GroupController {
 	@Autowired
 	SimpMessagingTemplate template;
+	
+	Logger log = LoggerFactory.getLogger(GroupController.class);
 
 	
 	@Autowired
@@ -80,15 +84,15 @@ public class GroupController {
 	
 	@MessageMapping("/chat/join")
     public void join(ChatMessage message) {
-		System.out.println(message.getWriter()+"님 등장");
+		log.info(message.getWriter()+"님 등장");
 		
 		message.setMessage(message.getWriter() + "님이 입장하셨습니다.");
-        template.convertAndSend("/subscribe/chat/room/", message);
+        template.convertAndSend("/subscribe/chat/join/"+message.getRoomid(), message);
     }
 
 	@MessageMapping("/chat/message")
     public void message(ChatMessage message) {
-		System.out.println(message.getRoomid()+"번 채팅방");
+		log.info("\n"+message.getRoomid()+"번 채팅방\n"+message.getWriter()+": "+message.getMessage());
         template.convertAndSend("/subscribe/chat/room/"+message.getRoomid(), message);
     }
 }
