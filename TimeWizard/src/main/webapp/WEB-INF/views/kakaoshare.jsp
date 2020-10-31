@@ -26,18 +26,9 @@
 	</div>
 	
 	
-	<div id="capture" style="padding: 10px; background:#f5da55">
-		<h4 style="color: #000; ">Hello world! Capture Test!</h4>
-	</div>
-	<button id="saveImg">html 화면 캡쳐해서 이미지로 변경</button>
-	
-	
 	<a id="download" download="hitmap.JPG">
 	<button type="button" onClick="download()">Download</button>
 	</a>
-<!-- 	<canvas id="myCanvas" width="720" height="450">
-		Your browser does not support Canvas.
-	</canvas> -->
 	
 	
 	<div style="background:red;" id="test">
