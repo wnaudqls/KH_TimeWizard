@@ -40,6 +40,7 @@
 		friends
 		<input type="text" placeholder="search.." id="search_text" />
 		<button id="search_button"><a><i class="fas fa-search"></i></a></button>
+		<b>Your Friends</b>
 		<!-- 나와 친구인 유저들 -->
 		<c:choose>
 			<c:when test="${empty flist }">
