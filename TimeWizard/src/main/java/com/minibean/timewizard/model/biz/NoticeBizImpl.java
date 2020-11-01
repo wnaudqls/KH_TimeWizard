@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.minibean.timewizard.model.dao.NoticeDao;
 import com.minibean.timewizard.model.dto.NoticeDto;
 import com.minibean.timewizard.model.dto.PagingDto;
-
 @Service
 public class NoticeBizImpl implements NoticeBiz {
 	
@@ -41,9 +40,9 @@ public class NoticeBizImpl implements NoticeBiz {
 	}
 
 	@Override
-	public int countNotice() {
+	public int countNotice(PagingDto search) {
 	
-		return noticeDao.countNotice();
+		return noticeDao.countNotice(search);
 	}
 
 }
