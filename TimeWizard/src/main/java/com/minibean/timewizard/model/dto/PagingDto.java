@@ -11,6 +11,10 @@ public class PagingDto {
 	private int end;
 	private int cntpage=5;
 	
+	//search
+	private String searchType;
+	private String keyword;
+	
 public PagingDto() {}
 	
 	public PagingDto(int total, int nowpage, int cntPerpage) {
@@ -115,6 +119,22 @@ public PagingDto() {}
 
 	public void setCntpage(int cntpage) {
 		this.cntpage = cntpage;
+	}
+
+	public String getSearchType() {
+		return searchType;
+	}
+
+	public void setSearchType(String searchType) {
+		this.searchType = searchType;
+	}
+
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
 	}
 	
 

@@ -27,7 +27,7 @@ public class FriendDaoImpl implements FriendDao {
 		try {
 			list = sqlSession.selectList(NAMESPACE+"selectListF", user_no);
 		} catch (Exception e) {
-			logger.info("[ERROR] Friend SelectListF");
+			logger.info("[ERROR] Friend SelectListF DaoImpl");
 			e.printStackTrace();
 		}
 		
@@ -42,11 +42,86 @@ public class FriendDaoImpl implements FriendDao {
 		try {
 			list = sqlSession.selectList(NAMESPACE+"selectListN", user_no);
 		} catch (Exception e) {
-			logger.info("[ERROR] Friend SelectListN");
+			logger.info("[ERROR] Friend SelectListN DaoImpl");
 			e.printStackTrace();
 		}
 		
 		return list;
 	}
+
+	//친구추가 -> 친구 요청 -> status : send
+	//insert 2번
+	@Override
+	public int SendInsert(FriendDto dto) {
+		int res = 0;
+		
+		try {
+			res = sqlSession.insert(NAMESPACE+"insert", dto);
+		} catch (Exception e) {
+			logger.info("[ERROR] SendInsert DaoImpl");
+			e.printStackTrace();
+		}
+		return res;
+	}
+
+	//친구추가-> 친구 요청 수락 -> status : accept
+	//update 2번
+	@Override
+	public int AcceptUpdate(FriendDto dto) {
+		int res = 0;
+		
+		try {
+			res = sqlSession.update(NAMESPACE+"updateAccept", dto);
+		} catch (Exception e) {
+			logger.info("[ERROR] AcceptUpdate DaoImpl");
+			e.printStackTrace();
+		}
+		return res;
+	}
+
+	//친구 거절 -> status : deny
+	//update하고 delete 한다.
+	@Override
+	public int DenyUpdate(FriendDto dto) {
+		int res = 0;
+		
+		try {
+			res = sqlSession.update(NAMESPACE+"updateDeny", dto);
+		} catch (Exception e) {
+			logger.info("[ERROR] DenyUpdate DaoImpl");
+			e.printStackTrace();
+		}
+		return res;
+	}
+	
+	@Override
+	public int DenyDelete(int user_no) {
+		int res = 0;
+		
+		try {
+			res = sqlSession.delete(NAMESPACE+"deleteDeny", user_no);
+		} catch (Exception e) {
+			logger.info("[ERROR] DenyDelete DaoImpl");
+			e.printStackTrace();
+		}
+		return res;
+	}
+
+
+	//친구 차단 -> status : block
+	//update 2번
+	@Override
+	public int BlockUpdate(FriendDto dto) {
+		int res = 0;
+		
+		try {
+			res = sqlSession.update(NAMESPACE+"updateBlock", dto);
+		} catch (Exception e) {
+			logger.info("[ERRROR] BlockUpdate DaoImpl");
+			e.printStackTrace();
+		}
+		return res;
+	}
+
 
 }
