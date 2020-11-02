@@ -8,3 +8,5 @@
   	SELECT * FROM TEST WHERE ROOMID = #{roomid}
   </select>
 </mapper>
+
+
