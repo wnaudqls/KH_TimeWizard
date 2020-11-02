@@ -71,7 +71,7 @@ if(maxClient){
 	if((maxClient.value == null || maxClient.value == '')
 	&&connection.maxParticipantsAllowed >= 100){
 		
-	connection.maxParticipantsAllowed = prompt("최대인원을 설정하세요.");
+	/*connection.maxParticipantsAllowed = prompt("최대인원을 설정하세요.");*/
 	while(isNaN(connection.maxParticipantsAllowed)){
 		connection.maxParticipantsAllowed = prompt("최대인원을 다시 설정하세요.");
 	}

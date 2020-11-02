@@ -2,7 +2,7 @@ package com.minibean.timewizard.message;
 
 
 public class ChatMessage {
-    private String roomid;
+    private String chat_title;
     private String writer;
     private String message;
     private MessageType type;
@@ -10,12 +10,12 @@ public class ChatMessage {
 
     
     
-	public String getRoomid() {
-		return roomid;
+	public String getChat_title() {
+		return chat_title;
 	}
 
-	public void setRoomid(String roomid) {
-		this.roomid = roomid;
+	public void setChat_title(String chat_title) {
+		this.chat_title = chat_title;
 	}
 
 	public String getWriter() {
@@ -44,7 +44,7 @@ public class ChatMessage {
 
 	@Override
 	public String toString() {
-		return "ChatMessage [roomid=" + roomid + ", writer=" + writer + ", message=" + message + ", type=" + type + "]";
+		return "ChatMessage [chat_title=" + chat_title + ", writer=" + writer + ", message=" + message + ", type=" + type + "]";
 	}
 
 
