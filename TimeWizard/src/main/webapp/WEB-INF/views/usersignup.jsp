@@ -5,7 +5,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 <style type="text/css">
+
 :root{
   --form-height:550px;
   --form-width: 900px;
@@ -55,6 +57,7 @@ body, html{
   margin: 20px 0px 30px;
   font-weight: 200;
 }
+
 /* 
 ------------------------
       Buttons
@@ -177,6 +180,7 @@ a {
 	background-color: rice;
 	border-radius: 13px 13px 13px 13px;
 	box-shadow: 10px 4px 30px rgba(0, 0, 0, 0.29);
+	
 }
 
 .email_button{
