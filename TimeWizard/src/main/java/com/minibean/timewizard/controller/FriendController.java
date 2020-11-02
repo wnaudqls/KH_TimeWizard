@@ -49,19 +49,26 @@ public class FriendController {
 	@MessageMapping("/login/join")
     public void join() {
 		logger.info("님 등장");
+	
+			
+			//전송해줄 경로에 값을 넣어서 클라이언트에게 전송
+			//friend_no에게 전송됨
+			template.convertAndSend("/subscribe/login/res/", "44555");
 		
-
-		//전송해줄 경로에 값을 넣어서 클라이언트에게 전송
-		//friend_no에게 전송됨
-        template.convertAndSend("/subscribe/login/res/", "44555");
-    }
+	}
 	
 	//신청버튼 클릭시, 클라이언트로 부터 값을 받을 경로
 	@MessageMapping("/alert/friend")
-    public void message(UserInfoDto dto) {
-		logger.info("asdf: "+dto.getUser_name());
+    public void message(FriendDto dto) {
+		logger.info("신청한 사람: "+dto.getUser_no()+"신청받은 사람: "+dto.getFriend_no());
 		//클라이언트에게 받은 값을 UserInfoDto 형식을 사용해 출력
-        template.convertAndSend("/subscribe/alert/good/"+dto.getUser_name(), dto.getUser_name());
-        //전송해줄 경로 + 친구신청을 받게될 이름 주소로 해당 값을 넣은뒤 전송
+		
+		int res = friendBiz.SendInsert(dto);
+		logger.info("결과: {}",res);
+		if(res >= -1) {
+			template.convertAndSend("/subscribe/alert/good/"+dto.getFriend_no(),dto.getUser_no());
+			//전송해줄 경로 + 친구신청을 받게될 이름 주소로 해당 값을 넣은뒤 전송
+			
+		}
     }
 }

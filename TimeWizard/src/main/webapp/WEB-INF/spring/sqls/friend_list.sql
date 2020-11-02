@@ -50,6 +50,8 @@ SELECT *
 FROM FRIEND_LIST
 WHERE USER_NO=2;
 
+Delete from FRIEND_LIST where STATUS = 'SEND'
+
 
 
 --나와 친구

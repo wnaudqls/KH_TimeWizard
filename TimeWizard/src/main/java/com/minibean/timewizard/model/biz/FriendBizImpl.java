@@ -30,10 +30,7 @@ public class FriendBizImpl implements FriendBiz {
 	//insert 2번?
 	@Override
 	public int SendInsert(FriendDto dto) {
-		//int insert01 = friendDao.SendInsert(dto);
-		//int insert02 = friendDao.SendInsert(dto);
 		
-		//return insert01+insert02;
 		return friendDao.SendInsert(dto);
 	}
 

@@ -16,5 +16,5 @@ public interface NoticeDao {
 	public int update(NoticeDto dto);
 	public int delete(int notice_no);
 
-	public int countNotice(PagingDto search);
+	public int countNotice();
 }

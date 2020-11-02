@@ -91,11 +91,11 @@ public class NoticeDaoImpl implements NoticeDao {
 	}
 
 	@Override
-	public int countNotice(PagingDto search) {
+	public int countNotice() {
 		int res = 0;
 		
 		try {
-			res = sqlSession.selectOne(NAMESPACE+"countNotice",search);
+			res = sqlSession.selectOne(NAMESPACE+"countNotice");
 		} catch (Exception e) {
 			logger.info("[ERROR] Notice :: countNotice");
 			e.printStackTrace();

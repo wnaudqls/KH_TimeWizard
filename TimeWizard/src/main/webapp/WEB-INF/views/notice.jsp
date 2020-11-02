@@ -62,28 +62,29 @@
 	
 	<!-- 글 검색 기능 -->
 	<div id="search">
-		<select name="searchType">
+		<select class="searchType" name="searchType">
 			<option value="nt_title" selected>제목</option>
 			<option value="nt_content">내용</option>
 		</select>
-		<div id="search_box">
-			<input type="text" placeholder="search.." id="search_text" />
+		<div id="search_box"> 
+			<input type="text" placeholder="search.." id="search_text" class="search_text" name="search_text"/>
 			<button type="submit" id="search_button" name="btnSearch"><a><i class="fas fa-search"></i></a></button>
 		</div>
 	</div>
 	<script>
 	$(document).on('click', '#search_button', function(e){
-		var text = "#search_text".val();
+		var text = document.getElementsByName("search_text")[0];
 		var url="${pageContext.request.contextPath}/notice";
-		url = url+"?searchType="+$('#searchType').val();
-		url = url+"&keyword="+$('#search_text').val();
+		url = url+"?searchType="+$('.searchType').val();
+		url = url+"&keyword="+$('.search_text').val();
 		url = url+"&nowpage="+${paging.nowpage}+"&cntPerpage="+${paging.cntPerpage};
 		location.href=url;
-		console.log(url);
+		//console.log("text : "+text.value);
+		console.log("url : "+url);
 		
 	});
 	</script>
-	
+		
 	<br/>
 	
 	<!-- !페이징 부분! -->

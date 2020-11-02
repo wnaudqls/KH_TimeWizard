@@ -40,9 +40,9 @@ public class NoticeBizImpl implements NoticeBiz {
 	}
 
 	@Override
-	public int countNotice(PagingDto search) {
+	public int countNotice() {
 	
-		return noticeDao.countNotice(search);
+		return noticeDao.countNotice();
 	}
 
 }

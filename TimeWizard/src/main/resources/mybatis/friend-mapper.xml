@@ -31,11 +31,21 @@
 	</select>
 	
 	<!-- 친구 추가 -> 친구요청중 -> status:send -->
-	<!-- insert 2번? -->
-	<insert id="insert" parameterType="FriendDto">
-		INSERT INTO FRIEND_LIST
-		VALUES(#{friend_no}, #{user_no}, 'SEND')
+	<!-- insert 2번 -->
+	<insert id="insert" parameterType="int">
+    {
+   CALL
+      DECLARE
+      BEGIN
+         INSERT INTO FRIEND_LIST
+         VALUES(#{friend_no}, #{user_no}, 'SEND');
+         
+         INSERT INTO FRIEND_LIST
+         VALUES(#{user_no}, #{friend_no}, 'SEND');
+   END
+   }
 	</insert>
+	
 	
 	<!-- 친구추가 -> 친구 요청 수락 -> status:accept -->
 	<!-- update 2번? -->
@@ -46,7 +56,7 @@
 			(FRIEND_NO = #{friend_no} OR USER_NO = #{friend_no})
 		AND
 			(FRIEND_NO = #{user_no} OR USER_NO = #{user_no})
-		AND STATUS = 'SEND'
+		AND STATUS = 'SEND'		
 	</update>
 	
 	<!-- 친구 거절 -> status:deny -->
