@@ -37,7 +37,7 @@
 	</section>
 
 	<aside class="friendsbar">
-		friends
+		<p>friends</p>
 		<input type="text" placeholder="search.." id="search_text" />
 		<button id="search_button"><a><i class="fas fa-search"></i></a></button>
 		<b>Your Friends</b>
