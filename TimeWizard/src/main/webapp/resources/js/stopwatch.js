@@ -21,7 +21,7 @@
 	    if(starFlag){
 	      $("#pausebtn").css("color","#FAED7D")
 	      $("#stopbtn").css("color","#FAED7D")
-	      this.style.color = "#4C4C4C";
+	      this.style.color = "white";
 	      starFlag = false;
 	
 	      if(time == 0){
@@ -62,7 +62,7 @@
 	    if(time != 0){
 	     	$("#startbtn").css("color","#FAED7D")
 	      	$("#stopbtn").css("color","#FAED7D")
-	        this.style.color = "#4C4C4C";
+	        this.style.color = "white";
 	        clearInterval(timer);
 	        starFlag = true;
 	    }
@@ -73,7 +73,7 @@
 	    if(time != 0){
 	      $("#pausebtn").css("color","#FAED7D")
 	      $("#startbtn").css("color","#FAED7D")
-	      this.style.color = "#4C4C4C";
+	      this.style.color = "white";
 	      clearInterval(timer);
 	      starFlag = true;
 	      time = 0;
