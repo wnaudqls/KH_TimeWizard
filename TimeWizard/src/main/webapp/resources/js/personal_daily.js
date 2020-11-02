@@ -209,14 +209,14 @@ function showInsertModal(date){
 	
 	let starttime = document.createElement("input");
 	starttime.setAttribute("type","time");
-	starttime.setAttribute("name","start_time");
+	starttime.setAttribute("name","todo_starttime");
 	starttime.setAttribute("disabled",true);
 	let between_span = document.createElement("span");
 	between_span.setAttribute("class","tilde");
 	between_span.textContent = "~";
 	let endtime = document.createElement("input");
 	endtime.setAttribute("type","time");
-	endtime.setAttribute("name","end_time");
+	endtime.setAttribute("name","todo_endtime");
 	endtime.setAttribute("disabled",true);
 	
 	time_div.appendChild(time_namespan);
@@ -257,8 +257,8 @@ function showInsertModal(date){
 	});
 	
 	let input_complete = document.getElementsByName("todo_complete")[0];
-	let input_starttime = document.getElementsByName("start_time")[0];
-	let input_endtime = document.getElementsByName("end_time")[0];
+	let input_starttime = document.getElementsByName("todo_starttime")[0];
+	let input_endtime = document.getElementsByName("todo_endtime")[0];
 	input_complete.addEventListener("click",()=>{
 		if(input_complete.checked == true){
 			input_starttime.disabled = false;
@@ -347,8 +347,8 @@ function submitCategory(){
 
 function submitInsertModal(){
 	let input_complete = document.getElementsByName("todo_complete")[0];
-	let input_starttime = document.getElementsByName("start_time")[0].value;
-	let input_endtime = document.getElementsByName("end_time")[0].value;
+	let input_starttime = document.getElementsByName("todo_starttime")[0].value;
+	let input_endtime = document.getElementsByName("todo_endtime")[0].value;
 	let temp = input_starttime.split(":");
 	let starttime_minutes= temp[0] * 60 + temp[1];
 	temp = input_endtime.split(":");
@@ -367,8 +367,8 @@ function submitInsertModal(){
 				todo_content: document.getElementsByName("todo_content")[0].value,
 				todo_category: document.getElementsByName("todo_category")[0].value,
 				todo_complete: document.getElementsByName("todo_complete")[0].value,
-				start_time: document.getElementsByName("start_time")[0].value,
-				end_time: document.getElementsByName("end_time")[0].value,
+				todo_starttime: document.getElementsByName("todo_starttime")[0].value,
+				todo_endtime: document.getElementsByName("todo_endtime")[0].value,
 				todo_hashtag: document.getElementsByName("todo_hashtag")[0].textContent.trim(),
 				todo_date: document.getElementsByName("todo_date")[0].value
 		};
@@ -587,17 +587,17 @@ function showDetailModal(todo_no){
 				
 				let starttime = document.createElement("input");
 				starttime.setAttribute("type","time");
-				starttime.setAttribute("name","start_time");
+				starttime.setAttribute("name","todo_starttime");
 				starttime.disabled = (item.todo_complete == 'Y')?false:true;
-				starttime.setAttribute("value", (item.start_time == "" || item.start_time == undefined) ? "" : item.start_time);
+				starttime.setAttribute("value", (item.todo_starttime == "" || item.todo_starttime == undefined) ? "" : item.todo_starttime);
 				let between_span = document.createElement("span");
 				between_span.setAttribute("class","tilde");
 				between_span.textContent = "~";
 				let endtime = document.createElement("input");
 				endtime.setAttribute("type","time");
-				endtime.setAttribute("name","end_time");
+				endtime.setAttribute("name","todo_endtime");
 				endtime.disabled = (item.todo_complete == 'Y')?false:true;
-				starttime.setAttribute("value", (item.end_time == "" || item.end_time == undefined) ? "" : item.end_time);
+				starttime.setAttribute("value", (item.todo_endtime == "" || item.todo_endtime == undefined) ? "" : item.todo_endtime);
 				time_div.appendChild(time_namespan);
 				time_div.appendChild(time_checkbox);
 				time_div.appendChild(starttime);
@@ -637,8 +637,8 @@ function showDetailModal(todo_no){
 				});
 				
 				let input_complete = document.getElementsByName("todo_complete")[0];
-				let input_starttime = document.getElementsByName("start_time")[0];
-				let input_endtime = document.getElementsByName("end_time")[0];
+				let input_starttime = document.getElementsByName("todo_starttime")[0];
+				let input_endtime = document.getElementsByName("todo_endtime")[0];
 				input_complete.addEventListener("click",()=>{
 					if(input_complete.checked == true){
 						input_starttime.disabled = false;
@@ -667,8 +667,8 @@ function showDetailModal(todo_no){
 
 function submitUpdateModal(todo_no){
 	let input_complete = document.getElementsByName("todo_complete")[0];
-	let input_starttime = document.getElementsByName("start_time")[0].value;
-	let input_endtime = document.getElementsByName("end_time")[0].value;
+	let input_starttime = document.getElementsByName("todo_starttime")[0].value;
+	let input_endtime = document.getElementsByName("todo_endtime")[0].value;
 	let temp = input_starttime.split(":");
 	let starttime_minutes= temp[0] * 60 + temp[1];
 	temp = input_endtime.split(":");
@@ -687,8 +687,8 @@ function submitUpdateModal(todo_no){
 				todo_content: document.getElementsByName("todo_content")[0].value,
 				todo_category: document.getElementsByName("todo_category")[0].value,
 				todo_complete: document.getElementsByName("todo_complete")[0].value,
-				start_time: documemnt.getElementsByName("start_time")[0].value,
-				end_time: document.getElementsByName("end_time")[0].value,
+				todo_starttime: documemnt.getElementsByName("todo_starttime")[0].value,
+				todo_endtime: document.getElementsByName("todo_endtime")[0].value,
 				todo_hashtag: document.getElementsByName("todo_hashtag")[0].textContent.trim(),
 				todo_date: document.getElementsByName("todo_date")[0].value
 		};
