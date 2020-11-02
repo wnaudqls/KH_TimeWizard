@@ -13,6 +13,6 @@ public interface NoticeBiz {
 	public int update(NoticeDto dto);
 	public int delete(int notice_no);
 	
-	public int countNotice();
+	public int countNotice(PagingDto search);
 
 }
