@@ -7,6 +7,8 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -19,6 +21,9 @@ public class FriendController {
 	
 	@Autowired
 	private FriendBiz friendBiz;
+	
+	@Autowired
+	SimpMessagingTemplate template;
 	
 	private Logger logger = LoggerFactory.getLogger(FriendController.class);
 	
@@ -39,4 +44,24 @@ public class FriendController {
 		
 		return "redirect:/main";
 	}
+	
+	//로그인 했을때, 클라이언트로 부터 값을 받을 경로
+	@MessageMapping("/login/join")
+    public void join() {
+		logger.info("님 등장");
+		
+
+		//전송해줄 경로에 값을 넣어서 클라이언트에게 전송
+		//friend_no에게 전송됨
+        template.convertAndSend("/subscribe/login/res/", "44555");
+    }
+	
+	//신청버튼 클릭시, 클라이언트로 부터 값을 받을 경로
+	@MessageMapping("/alert/friend")
+    public void message(UserInfoDto dto) {
+		logger.info("asdf: "+dto.getUser_name());
+		//클라이언트에게 받은 값을 UserInfoDto 형식을 사용해 출력
+        template.convertAndSend("/subscribe/alert/good/"+dto.getUser_name(), dto.getUser_name());
+        //전송해줄 경로 + 친구신청을 받게될 이름 주소로 해당 값을 넣은뒤 전송
+    }
 }

@@ -1,13 +1,8 @@
 package com.minibean.timewizard.model.dao;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
-import javax.annotation.PostConstruct;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +13,6 @@ import com.minibean.timewizard.model.dto.ChatDto;
 
 @Repository
 public class ChatDaoImpl implements ChatDao{
-    private Map<String, ChatDto> chatRoomMap = new HashMap<String, ChatDto>();
 
     @Autowired
 	private SqlSessionTemplate sqlSession;

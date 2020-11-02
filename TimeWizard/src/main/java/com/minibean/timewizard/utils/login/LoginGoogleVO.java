@@ -29,7 +29,7 @@ public class LoginGoogleVO {
      * response_type : code로 고정 scope : required access_type : recommended state :
      * recommended
      */
-
+	
     private final static String CLIENT_ID = "60906613845-gnhotpe7j9g5d1b1ucqdvqa1kqh7r6u1.apps.googleusercontent.com";
     private final static String CLIENT_SECRET = "J0HEKnRie-ZgogEDPBxSuSY9";
     private final static String REDIRECT_URI = "http://localhost:8787/timewizard/login/googlecallback";

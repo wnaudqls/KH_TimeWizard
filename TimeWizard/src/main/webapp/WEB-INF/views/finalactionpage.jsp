@@ -40,6 +40,7 @@
 		<p>friends</p>
 		<input type="text" placeholder="search.." id="search_text" />
 		<button id="search_button"><a><i class="fas fa-search"></i></a></button>
+		<b>Your Friends</b>
 		<!-- 나와 친구인 유저들 -->
 		<c:choose>
 			<c:when test="${empty flist }">
@@ -59,10 +60,11 @@
 			</c:when>
 			<c:otherwise>
 				<c:forEach items="${nlist }" var="ndto">
-					<p>${ndto.user_no}, ${ndto.user_name }<input type="button" value="친구추가" onclick="location.href='#'"></p>
+					<p>${ndto.user_no}, ${ndto.user_name }<input type="button" value="친구추가" onclick="alertsys('${ndto.user_name}')"></p>
 				</c:forEach>
 			</c:otherwise>
 		</c:choose>
+		<hr>
 	
 	</aside>
 
@@ -70,7 +72,66 @@
 	<jsp:include page="/WEB-INF/views/footer.jsp"></jsp:include>
 
 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.5/sockjs.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.js"></script>
 
+<script type="text/javascript">
+var sock;
+var nickname;
+var client;
+var friendclass = document.getElementsByClassName(friendclass);
+	//handler에서 정해준 서버 겅로로 설정
+	sock = new SockJS("/timewizard/webserver");
+	// Stomp로 웹소켓 연결
+	client = Stomp.over(sock)
+	
+	//연결 했을시,
+	client.connect({}, function(){
+		 // 3. send(path, header, message)로 메시지를 보낼 수 있다.
+	    client.send("/publish/login/join", {}); 
+		 
+		 //친구추가를 한 user_no
+	    // 4. subscribe(path, callback)로 메시지를 받을 수 있다. callback 첫번째 파라미터의 body로 메시지의 내용이 들어온다.
+	    client.subscribe("/subscribe/login/res/", function (chat) {
+	   		console.log("chateueueueueueue : "+chat);
+ 			
+ 
+	    });
+	    
+	    //친구추가를 받은 friend_no 
+	    //${login.user_name}을 쓴 이유는 친구신청을 받은 클라이언트만 값을 받아야 하기 때문에
+	    client.subscribe("/subscribe/alert/good/${login.user_name}", function (chat) {
+		 	console.log("subcribe: "+chat);
+		 	var addfriend = confirm(${login.user_name}+"님을 친구로 받아들이겠습니까?");
+		 	if(addfriend == true){
+		 		//"수락"을 누르면 FriendController로 보내서 insert시키기
+		 		//ajax로?
+		 		//var url = "";
+		 	}else{
+		 		//"거절"을 누르면 FriendControlller로 보내서 update, delete시키기
+		 		//ajax로?
+		 		//var url = "";
+		 	}
+		 	
+			alert("알람수신 완료");	
+
+	    });
+	})
+	
+	
+	 
+	
+function alertsys(name){
+		alert("알람보내기 테스트");
+		client.send("/publish/alert/friend", {}, 
+		JSON.stringify({user_name: name})); 
+		//FriendController의 /alert/friend경로에 {user_name: name}의 JSON 형식으로 보냄
+
+}
+	
+	
+
+</script>
 </body>
 </html>
 
