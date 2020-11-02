@@ -9,19 +9,18 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.HandlerMapping;
 
-import com.minibean.timewizard.model.biz.StopwatchBiz;
 import com.minibean.timewizard.model.biz.UserTodoBiz;
 import com.minibean.timewizard.model.dto.UserInfoDto;
 import com.minibean.timewizard.model.dto.UserTodoDto;
 
-@Controller
+@RestController
 @RequestMapping(value="/daily")
 public class DailyController {
 	
@@ -29,8 +28,7 @@ public class DailyController {
 	private UserTodoBiz userTodoBiz;
 	private Logger logger = LoggerFactory.getLogger(DailyController.class);
 	
-	@RequestMapping(value="/list/{yyyyMMdd}")
-	@ResponseBody
+	@PostMapping(value="/list/{yyyyMMdd}")
 	public List<UserTodoDto> dailyList(HttpSession session, HttpServletRequest request, @PathVariable String yyyyMMdd) {
 		logger.info(">> [CONTROLLER-DAILY] todo list");
 		UserInfoDto login = (UserInfoDto) session.getAttribute("login");
@@ -58,8 +56,7 @@ public class DailyController {
 		
 	}
 	
-	@RequestMapping(value="/detail/{todo_no}")
-	@ResponseBody
+	@PostMapping(value="/detail/{todo_no}")
 	public UserTodoDto dailyDetail(@PathVariable("todo_no") int todo_no, HttpSession session) {
 		logger.info(">> [CONTROLLER-DAILY] detail - " + todo_no);
 		UserInfoDto login = (UserInfoDto) session.getAttribute("login");
@@ -72,23 +69,23 @@ public class DailyController {
 		return dto;
 	}
 	
-	@RequestMapping(value="/insert")
-	@ResponseBody
+	@PostMapping(value="/insert")
 	public void dailyInsert(@RequestBody UserTodoDto dto, HttpSession session) {
+		logger.info("\n\t* todo_starttime : " + dto.getTodo_starttime());
 		UserInfoDto login = (UserInfoDto) session.getAttribute("login");
 		dto.setUser_no(login.getUser_no());
 		logger.info(">> [CONTROLLER-DAILY] insert content"
 					+ "\n\t* user_no : " + dto.getUser_no()
 					+ "\n\t* todo_title : " + dto.getTodo_title() 
 					+ "\n\t* todo_content : " + dto.getTodo_content()
-					+ "\n\t* todo_date : " + dto.getTodo_date());
+					+ "\n\t* todo_date : " + dto.getTodo_date()
+					+"\n\t* todo_starttime : " + dto.getTodo_starttime());
 		
 		int res = userTodoBiz.insert(dto);
 		logger.info(">> [CONTROLLER-DAILY] success?: " + ((res == 1)?"yes":"no"));
 	}
 	
-	@RequestMapping(value="/update")
-	@ResponseBody
+	@PostMapping(value="/update")
 	public void dailyUpdate(@RequestBody UserTodoDto dto, HttpSession session) {
 		UserInfoDto login = (UserInfoDto) session.getAttribute("login");
 		dto.setUser_no(login.getUser_no());
@@ -101,8 +98,7 @@ public class DailyController {
 		logger.info(">> [CONTROLLER-DAILY] success?: " + ((res == 1)?"yes":"no"));
 	}
 	
-	@RequestMapping(value="/delete/{todo_no}")
-	@ResponseBody
+	@PostMapping(value="/delete/{todo_no}")
 	public void dailyDelete(@PathVariable("todo_no") int todo_no) {
 		logger.info(">> [CONTROLLER-DAILY] delete content"
 				+ "\n\t* todo_no : " + todo_no);

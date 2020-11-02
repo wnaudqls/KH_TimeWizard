@@ -25,7 +25,7 @@
 	<insert id="insert" parameterType="UserInfoDto">
 		INSERT INTO USER_INFO
 		VALUES(USER_INFO_SEQ.NEXTVAL, #{user_id}, #{user_pw}, #{user_name},
-		#{user_email}, 'USER', NULL, 'Y', #{user_distinct} SYSDATE)
+		#{user_email}, 'USER', NULL, 'Y', #{user_distinct}, SYSDATE)
 	</insert>
 	<update id="update" parameterType="UserInfoDto">
 		UPDATE USER_INFO SET USER_PW = #{user_pw}, USER_NAME = #{user_name},

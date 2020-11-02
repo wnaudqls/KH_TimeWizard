@@ -2,6 +2,8 @@ package com.minibean.timewizard.model.dto;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class UserTodoDto {
 	
 	private int todo_no;
@@ -11,9 +13,12 @@ public class UserTodoDto {
 	private String todo_content;
 	private String todo_category;
 	private String todo_hashtag;
+	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date todo_date;
 	private String todo_complete;
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm")
 	private Date todo_starttime;
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm")
 	private Date todo_endtime;
 	
 	public UserTodoDto() {}

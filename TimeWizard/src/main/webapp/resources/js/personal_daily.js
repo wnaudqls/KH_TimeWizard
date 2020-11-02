@@ -333,7 +333,6 @@ function selectedOrNot(element){
 function submitCategory(){
 	let firstModal = document.getElementsByClassName("modal__area")[0];
 	let firstModalCategory = firstModal.querySelector("[name=todo_category]")
-	let secondModal = document.getElementsByClassName("modal__area")[1];
 	if (selectedCategory != null || selectedCategory != ""){
 		firstModalCategory.setAttribute("class", selectedCategory.classList[0] + " " + selectedCategory.classList[1]);
 		firstModalCategory.textContent = selectedCategory.value;
@@ -357,7 +356,7 @@ function submitInsertModal(){
 		alert("내용을 입력해주세요");
 		return false;
 	} else {
-		/* TODO hashtag data trim or something do */
+		let input_date = document.getElementsByName("todo_date")[0].value;
 		const xhr = new XMLHttpRequest();
 		xhr.open("POST", "daily/insert");
 		xhr.setRequestHeader("Content-type","application/json");
@@ -367,11 +366,13 @@ function submitInsertModal(){
 				todo_content: document.getElementsByName("todo_content")[0].value,
 				todo_category: document.getElementsByName("todo_category")[0].value,
 				todo_complete: document.getElementsByName("todo_complete")[0].value,
-				todo_starttime: document.getElementsByName("todo_starttime")[0].value,
-				todo_endtime: document.getElementsByName("todo_endtime")[0].value,
+				todo_starttime: setTimeForJSON(input_date, input_starttime),
+				todo_endtime: setTimeForJSON(input_date, input_endtime),
 				todo_hashtag: document.getElementsByName("todo_hashtag")[0].textContent.trim(),
-				todo_date: document.getElementsByName("todo_date")[0].value
+				todo_date: input_date
 		};
+		console.log("starttime : " + input_starttime);
+		console.log("endtime : " + input_endtime);
 		console.log(data);
 		xhr.send(JSON.stringify(data));
 		xhr.onreadystatechange = () => {
@@ -380,8 +381,30 @@ function submitInsertModal(){
 			}
 		}
 		closeFirstModal();
+		closeSecondModal();
 	}
 }
+
+
+function getDateForValue(days){
+	let theday  = new Date(days);
+	let year = Number(theday.getYear()) + 1900;
+	let month = Number(theday.getMonth()) + 1;
+	let date = Number(theday.getDate());
+	return year + "-" + month + "-" + date;
+}
+
+function setTimeForJSON(days, times){
+	return days + " " + times;
+}
+
+function getTimeForValue(daytime){
+	let theday = new Date(daytime);
+	let hour = theday.getHours();
+	let minutes = theday.getMinutes();
+	return hour + ":" + minutes;
+}
+
 
 /* modal창 닫기 이벤트 */
 function closeFirstModal(){
@@ -428,14 +451,6 @@ function showDeleteConfirm(todo_no){
 	modalArea.appendChild(overlay_div);
 	modalArea.appendChild(delete_div);
 	
-}
-
-function getDateForValue(times){
-	let theday  = new Date(times);
-	let year = Number(theday.getYear()) + 1900;
-	let month = Number(theday.getMonth()) + 1;
-	let date = Number(theday.getDate());
-	return year + "-" + month + "-" + date;
 }
 
 function submitDeleteModal(todo_no){
@@ -543,19 +558,34 @@ function showDetailModal(todo_no){
 				hashtag_editablediv.setAttribute("class","todo__editable");
 				hashtag_editablediv.setAttribute("contenteditable","true");
 				hashtag_editablediv.setAttribute("name","todo_hashtag")
-				let splitedtexts = item.todo_hashtag.split(" ");
-				let i = 0;
-				for (i=0; i<splitedtexts.length - 1; i++){
+				
+				if (item.todo_hashtag == null || item.todo_hashtag == ''){
+				} else if ( item.todo_hashtag.indexOf(" ") == -1){
 					let hashtag = document.createElement("span")
 					hashtag.setAttribute("class","tag label label-info new");
 					let removebutton = document.createElement("span");
 					removebutton.setAttribute("class","delHashtag");
-					removebutton.setAttribute("data-role","remove");
+					removebutton.setAttribute("data-role","remove"); // what is data-role?
 					removebutton.setAttribute("aria-hidden","true"); //what is aria-hidden?
-					hashtag.textContent = splitedtexts[i];
+					hashtag.textContent = item.todo_hashtag;
 					hashtag.appendChild(removebutton);
 					hashtag_editablediv.appendChild(hashtag);
-					hashtag_editablediv.innerHTML += "&nbsp;";
+					hashtag_editablediv.innerHTML += " ";
+				}else {
+					let splitedtexts = item.todo_hashtag.split(" ");
+					let i = 0;
+					for (i=0; i<splitedtexts.length; i++){
+						let hashtag = document.createElement("span")
+						hashtag.setAttribute("class","tag label label-info new");
+						let removebutton = document.createElement("span");
+						removebutton.setAttribute("class","delHashtag");
+						removebutton.setAttribute("data-role","remove"); // what is data-role?
+						removebutton.setAttribute("aria-hidden","true"); //what is aria-hidden?
+						hashtag.textContent = splitedtexts[i];
+						hashtag.appendChild(removebutton);
+						hashtag_editablediv.appendChild(hashtag);
+						hashtag_editablediv.innerHTML += " ";
+					}
 				}
 				hashtag_div.appendChild(hashtag_namespan);
 				hashtag_div.appendChild(hashtag_editablediv);
@@ -569,7 +599,8 @@ function showDetailModal(todo_no){
 				date_input.setAttribute("type","date");
 				date_input.setAttribute("name","todo_date")
 				let date_input_value = getDateForValue(item.todo_date);
-				date_input.setAttribute("value", date_input_value);
+//				date_input.setAttribute("value", date_input_value);
+				date_input.setAttribute("value", item.todo_date);
 				date_div.appendChild(date_namespan);
 				date_div.appendChild(date_input);
 				
@@ -589,7 +620,8 @@ function showDetailModal(todo_no){
 				starttime.setAttribute("type","time");
 				starttime.setAttribute("name","todo_starttime");
 				starttime.disabled = (item.todo_complete == 'Y')?false:true;
-				starttime.setAttribute("value", (item.todo_starttime == "" || item.todo_starttime == undefined) ? "" : item.todo_starttime);
+//				starttime.setAttribute("value", (item.todo_starttime == "" || item.todo_starttime == undefined) ? "" : item.todo_starttime);
+				starttime.setAttribute("value", (item.todo_starttime == "" || item.todo_starttime == undefined) ? "" : item.todo_starttime.split(" ")[1]);
 				let between_span = document.createElement("span");
 				between_span.setAttribute("class","tilde");
 				between_span.textContent = "~";
@@ -597,7 +629,7 @@ function showDetailModal(todo_no){
 				endtime.setAttribute("type","time");
 				endtime.setAttribute("name","todo_endtime");
 				endtime.disabled = (item.todo_complete == 'Y')?false:true;
-				starttime.setAttribute("value", (item.todo_endtime == "" || item.todo_endtime == undefined) ? "" : item.todo_endtime);
+				endtime.setAttribute("value", (item.todo_endtime == "" || item.todo_endtime == undefined) ? "" : item.todo_endtime.split(" ")[1]);
 				time_div.appendChild(time_namespan);
 				time_div.appendChild(time_checkbox);
 				time_div.appendChild(starttime);
@@ -677,6 +709,7 @@ function submitUpdateModal(todo_no){
 		alert("내용을 입력해주세요");
 		return false;
 	} else {
+		let input_date = document.getElementsByName("todo_date")[0].value;
 		const xhr = new XMLHttpRequest();
 		xhr.open("POST", "daily/update");
 		xhr.setRequestHeader("Content-type","application/json");
@@ -687,10 +720,10 @@ function submitUpdateModal(todo_no){
 				todo_content: document.getElementsByName("todo_content")[0].value,
 				todo_category: document.getElementsByName("todo_category")[0].value,
 				todo_complete: document.getElementsByName("todo_complete")[0].value,
-				todo_starttime: documemnt.getElementsByName("todo_starttime")[0].value,
-				todo_endtime: document.getElementsByName("todo_endtime")[0].value,
+				todo_starttime: setTimeForJSON(input_date, input_starttime),
+				todo_endtime: setTimeForJSON(input_date, input_endtime),
 				todo_hashtag: document.getElementsByName("todo_hashtag")[0].textContent.trim(),
-				todo_date: document.getElementsByName("todo_date")[0].value
+				todo_date: input_date
 		};
 		console.log(data);
 		xhr.send(JSON.stringify(data));

@@ -30,12 +30,13 @@
 	<insert id="insert" parameterType="TodoDto">
 	  	INSERT INTO USER_TODO
 	  	VALUES(USER_TODO_SEQ.NEXTVAL, #{user_no}, #{todo_title}, #{todo_color}, #{todo_content},
-	  	#{todo_category}, #{todo_hashtag}, #{todo_date}, #{todo_complete, #{todo_starttime}, #{todo_endtime}})
+	  	#{todo_category}, #{todo_hashtag}, #{todo_date}, #{todo_complete}, #{todo_starttime}, #{todo_endtime})
 	</insert>
 	<insert id="insertExample" parameterType="int">
 	  	INSERT INTO USER_TODO
-	  	VALUES(USER_TODO_SEQ.NEXTVAL, #{user_no}, '할 일 제목', '#6A5ACD', '설명을 기재하는 란입니다.',
-	  	'예시', '#해시태그1 #해시태그2 #해시태그3', SYSDATE, 'N', '', '')
+	  	VALUES(USER_TODO_SEQ.NEXTVAL, #{user_no}, '할 일 제목', '#6A5ACD', 
+	  	'설명을 기재하는 란입니다.',	'예시', '#해시태그1 #해시태그2 #해시태그3',
+	  	SYSDATE, 'N', '', '')
 	</insert>
 	<update id="update" parameterType="TodoDto">
 	  	UPDATE USER_TODO SET TODO_TITLE = #{todo_title}, TODO_COLOR = #{todo_color},
