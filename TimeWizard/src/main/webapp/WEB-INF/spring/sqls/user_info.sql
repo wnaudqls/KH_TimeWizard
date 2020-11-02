@@ -31,10 +31,10 @@ INSERT INTO USER_INFO VALUES(USER_INFO_SEQ.NEXTVAL, 'test', 'test1234',
 '테스트1','test01@tiwi.com', 'USER', NULL, 'Y','test1', SYSDATE);
 
 INSERT INTO USER_INFO VALUES(USER_INFO_SEQ.NEXTVAL, 'ming', 'ming1234',
-'밍','mingyeung@naver.com','ADMIN',NULL,'Y',SYSDATE);
+'밍','mingyeung@naver.com','USER',NULL,'Y',SYSDATE, NULL);
 
 INSERT INTO USER_INFO VALUES(USER_INFO_SEQ.NEXTVAL, 'user', 'user1234',
-'유저','mddd','USER',NULL,'Y',SYSDATE);
+'유저','mddd','USER',NULL,'Y',SYSDATE, NULL);
 
 
 SELECT USER_NO, USER_ID, USER_PW, USER_NAME, USER_EMAIL, 

@@ -66,6 +66,7 @@
 				</c:forEach>
 			</c:otherwise>
 		</c:choose>
+		<hr>
 	
 	</aside>
 
@@ -90,16 +91,30 @@ var friendclass = document.getElementsByClassName(friendclass);
 	client.connect({}, function(){
 		 // 3. send(path, header, message)로 메시지를 보낼 수 있다.
 	    client.send("/publish/login/join", {}); 
+		 
+		 //친구추가를 한 user_no
 	    // 4. subscribe(path, callback)로 메시지를 받을 수 있다. callback 첫번째 파라미터의 body로 메시지의 내용이 들어온다.
 	    client.subscribe("/subscribe/login/res/", function (chat) {
-	   		console.log('로그인');
+	   		console.log("chateueueueueueue : "+chat);
  			
  
 	    });
 	    
+	    //친구추가를 받은 friend_no 
 	    //${login.user_name}을 쓴 이유는 친구신청을 받은 클라이언트만 값을 받아야 하기 때문에
 	    client.subscribe("/subscribe/alert/good/${login.user_name}", function (chat) {
 		 	console.log("subcribe: "+chat);
+		 	var addfriend = confirm(${login.user_name}+"님을 친구로 받아들이겠습니까?");
+		 	if(addfriend == true){
+		 		//"수락"을 누르면 FriendController로 보내서 insert시키기
+		 		//ajax로?
+		 		//var url = "";
+		 	}else{
+		 		//"거절"을 누르면 FriendControlller로 보내서 update, delete시키기
+		 		//ajax로?
+		 		//var url = "";
+		 	}
+		 	
 			alert("알람수신 완료");	
 
 	    });

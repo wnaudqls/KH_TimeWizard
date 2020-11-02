@@ -11,17 +11,7 @@
 <link href="resources/css/notice.css" rel="stylesheet">
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://kit.fontawesome.com/3049a69bf8.js" crossorigin="anonymous"></script>
-<script type="text/javascript">
-$(document).on('click', '#search_button', function(e){
-	var url="${pageContext.request.contextPath}/notice";
-	url = url+"?searchType="+$('#searchType').val();
-	url = url+"&keyword="+$('#search_text').val();
-	url = url+"&nowpage="+${paging.nowpage}+"&cntPerpage="+${paging.cntPerpage};
-	location.href=url;
-	console.log(url);
-	
-});
-</script>
+
 
 </head>
 <body>
@@ -70,6 +60,7 @@ $(document).on('click', '#search_button', function(e){
 	
 	<br/><br/>
 	
+	<!-- 글 검색 기능 -->
 	<div id="search">
 		<select name="searchType">
 			<option value="nt_title" selected>제목</option>
@@ -77,9 +68,21 @@ $(document).on('click', '#search_button', function(e){
 		</select>
 		<div id="search_box">
 			<input type="text" placeholder="search.." id="search_text" />
-			<button id="search_button" name="btnSearch"><a><i class="fas fa-search"></i></a></button>
+			<button type="submit" id="search_button" name="btnSearch"><a><i class="fas fa-search"></i></a></button>
 		</div>
 	</div>
+	<script>
+	$(document).on('click', '#search_button', function(e){
+		var text = "#search_text".val();
+		var url="${pageContext.request.contextPath}/notice";
+		url = url+"?searchType="+$('#searchType').val();
+		url = url+"&keyword="+$('#search_text').val();
+		url = url+"&nowpage="+${paging.nowpage}+"&cntPerpage="+${paging.cntPerpage};
+		location.href=url;
+		console.log(url);
+		
+	});
+	</script>
 	
 	<br/>
 	

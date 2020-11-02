@@ -51,9 +51,11 @@ public class FriendController {
 		logger.info("님 등장");
 		
 
+		//전송해줄 경로에 값을 넣어서 클라이언트에게 전송
+		//friend_no에게 전송됨
         template.convertAndSend("/subscribe/login/res/", "44555");
-        //전송해줄 경로에 값을 넣어서 클라이언트에게 전송
     }
+	
 	//신청버튼 클릭시, 클라이언트로 부터 값을 받을 경로
 	@MessageMapping("/alert/friend")
     public void message(UserInfoDto dto) {

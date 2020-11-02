@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.minibean.timewizard.model.dto.NoticeDto;
 import com.minibean.timewizard.model.dto.PagingDto;
 
+
 @Repository
 public class NoticeDaoImpl implements NoticeDao {
 	
@@ -90,11 +91,11 @@ public class NoticeDaoImpl implements NoticeDao {
 	}
 
 	@Override
-	public int countNotice() {
+	public int countNotice(PagingDto search) {
 		int res = 0;
 		
 		try {
-			res = sqlSession.selectOne(NAMESPACE+"countNotice");
+			res = sqlSession.selectOne(NAMESPACE+"countNotice",search);
 		} catch (Exception e) {
 			logger.info("[ERROR] Notice :: countNotice");
 			e.printStackTrace();
