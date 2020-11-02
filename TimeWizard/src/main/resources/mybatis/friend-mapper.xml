@@ -48,16 +48,32 @@
 	
 	
 	<!-- 친구추가 -> 친구 요청 수락 -> status:accept -->
-	<!-- update 2번? -->
+	<!-- update 2번 -->
 	<update id="updateAccept" parameterType="FriendDto">
-		UPDATE FRIEND_LIST
+		
+		    {
+   CALL
+      DECLARE
+      BEGIN
+         UPDATE FRIEND_LIST
 		SET STATUS = 'ACCEPT'
 		WHERE 
 			(FRIEND_NO = #{friend_no} OR USER_NO = #{friend_no})
 		AND
 			(FRIEND_NO = #{user_no} OR USER_NO = #{user_no})
-		AND STATUS = 'SEND'		
+		AND STATUS = 'SEND';
+         
+         UPDATE FRIEND_LIST
+		SET STATUS = 'ACCEPT'
+		WHERE 
+			(FRIEND_NO = #{user_no} OR USER_NO = #{user_no})
+		AND
+			(FRIEND_NO = #{friend_no} OR USER_NO = #{friend_no})
+		AND STATUS = 'SEND';
+   END
+   }
 	</update>
+	
 	
 	<!-- 친구 거절 -> status:deny -->
 	<!-- update 2번 -->

@@ -1,7 +1,9 @@
 package com.minibean.timewizard.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
@@ -101,6 +103,68 @@ public class NoticeDaoImpl implements NoticeDao {
 			e.printStackTrace();
 		}
 		
+		return res;
+	}
+
+	@Override
+	public List<NoticeDto> selectSearchTitle(String search_text, PagingDto pagingdto) {
+		List<NoticeDto> list = new ArrayList<NoticeDto>();
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("nt_title", search_text);
+		map.put("pagingdto", pagingdto);
+		
+		try {
+			list = sqlSession.selectList(NAMESPACE+"selectSearchTitle",map);
+		} catch (Exception e) {
+			logger.info("[ERROR] selectSearchTitle DaoImpl");
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+
+	@Override
+	public List<NoticeDto> selectSearchContent(String search_text, PagingDto pagingdto) {
+		List<NoticeDto> list = new ArrayList<NoticeDto>();
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("nt_content", search_text);
+		map.put("pagingdto", pagingdto);
+		
+		logger.info("daodaodao nt_content : "+search_text);
+		try {
+			list = sqlSession.selectList(NAMESPACE+"selectSearchContent",map);
+		} catch (Exception e) {
+			logger.info("[ERROR] selectSearchContent DaoImpl");
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public int countSearchTitle(String search_text) {
+		int res = 0;
+		
+		try {
+			res = sqlSession.selectOne(NAMESPACE+"searchcountTitle",search_text);
+		} catch (Exception e) {
+			logger.info("[ERROR] countSearchTitle DaoImpl");
+			e.printStackTrace();
+		}
+		return res;
+	}
+
+	@Override
+	public int countSearchContent(String search_text) {
+		int res = 0;
+		
+		try {
+			res = sqlSession.selectOne(NAMESPACE+"searchcountContent",search_text);
+		} catch (Exception e) {
+			logger.info("[ERROR] countSearchContent DaoImpl");
+			e.printStackTrace();
+		}
 		return res;
 	}
 

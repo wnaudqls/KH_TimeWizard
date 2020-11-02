@@ -17,4 +17,10 @@ public interface NoticeDao {
 	public int delete(int notice_no);
 
 	public int countNotice();
+	
+	public List<NoticeDto> selectSearchTitle(String search_text, PagingDto pagingdto);
+	public List<NoticeDto> selectSearchContent(String search_text, PagingDto pagingdto);
+	
+	public int countSearchTitle(String search_text);
+	public int countSearchContent(String search_text);
 }

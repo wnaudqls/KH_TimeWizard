@@ -7,6 +7,54 @@
 		SELECT COUNT(*)
 		FROM BOARD_NOTICE
 	</select>
+	
+	<!-- 갯수 출력 title -->
+	<select id="searchcountTitle" resultType="int" parameterType="String">
+		SELECT COUNT(*)
+		FROM (
+			SELECT *
+			FROM BOARD_NOTICE
+			WHERE NOTICE_TITLE LIKE '%'||#{nt_title}||'%')
+	</select>
+	
+	<!-- 갯수 출력 content -->
+	<select id="searchcountContent" resultType="int" parameterType="String">
+		SELECT COUNT(*)
+		FROM (
+			SELECT *
+			FROM BOARD_NOTICE
+			WHERE NOTICE_CONTENT LIKE '%'||#{nt_content}||'%')
+	</select>
+	
+	<!-- title로 search 후 페이징 -->
+	<select id="selectSearchTitle" parameterType="hashMap" resultType="NoticeDto">
+		SELECT *
+		FROM(
+			SELECT ROWNUM RN, A.*
+			FROM (
+					SELECT *
+					FROM BOARD_NOTICE
+					WHERE NOTICE_TITLE LIKE '%'||#{nt_title}||'%'
+					ORDER BY NOTICE_NO DESC
+				)A
+			)
+		WHERE RN BETWEEN #{pagingdto.start} AND #{pagingdto.end}
+	</select>
+	
+	<!-- content로 search 후 페이징 -->
+	 <select id="selectSearchContent" parameterType="hashMap" resultType="NoticeDto">
+	 	SELECT *
+		FROM(
+			SELECT ROWNUM RN, A.*
+			FROM (
+					SELECT *
+					FROM BOARD_NOTICE
+					WHERE NOTICE_CONTENT LIKE '%'||#{nt_content}||'%'
+					ORDER BY NOTICE_NO DESC
+				)A
+			)
+		WHERE RN BETWEEN #{pagingdto.start} AND #{pagingdto.end}
+	 </select>
 	 
 	<!-- 페이징과 리스트 출력 -->
 	<select id="selectList" parameterType="com.minibean.timewizard.model.dto.PagingDto" resultType="NoticeDto">

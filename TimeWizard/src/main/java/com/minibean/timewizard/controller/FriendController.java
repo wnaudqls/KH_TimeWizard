@@ -33,8 +33,10 @@ public class FriendController {
 		UserInfoDto dto = (UserInfoDto)session.getAttribute("login");
 		
 		//나와 친구인 유저들 리스트
+		
 		List<FriendDto> list = friendBiz.selectListF(dto.getUser_no());
 		session.setAttribute("flist", list);
+		//return "redirect:/main";
 		
 		
 		//나와 친구가 아닌 유저들 리스트
@@ -43,17 +45,17 @@ public class FriendController {
 		
 		
 		return "redirect:/main";
+		
 	}
 	
 	//로그인 했을때, 클라이언트로 부터 값을 받을 경로
 	@MessageMapping("/login/join")
     public void join() {
 		logger.info("님 등장");
-	
 			
-			//전송해줄 경로에 값을 넣어서 클라이언트에게 전송
-			//friend_no에게 전송됨
-			template.convertAndSend("/subscribe/login/res/", "44555");
+		//전송해줄 경로에 값을 넣어서 클라이언트에게 전송
+		//friend_no에게 전송됨
+		template.convertAndSend("/subscribe/login/res/", "44555");
 		
 	}
 	
@@ -71,4 +73,34 @@ public class FriendController {
 			
 		}
     }
+	
+	//친구 요청 -> "수락"
+	//'send'를 'accept'로 바꾸기
+	@MessageMapping("/confirm/accept")
+	public void accept(FriendDto dto) {
+		logger.info("accept어어어");
+		logger.info("ddddd: "+dto.getUser_no()+", "+dto.getFriend_no());
+		
+		int res = friendBiz.AcceptUpdate(dto);
+		logger.info("친구추가 결과: {}",res);
+		if(res >= -1) {
+			template.convertAndSend("/subscribe/confirm/res/"+dto.getUser_no(),dto.getUser_no());
+			logger.info("친구추가 성공");
+		}
+		
+	}
+	@MessageMapping("/confirm/fnd")
+	public void sendfnd(FriendDto dto) {
+		logger.info("confirm어어어");
+		logger.info("ddddd: "+dto.getFriend_no());
+		template.convertAndSend("/subscribe/confirm/check/"+dto.getFriend_no(),dto.getFriend_no());
+		
+	}
+	
+	
+	//친구 요청 -> "거절"
+	@MessageMapping("/confirm/deny")
+	public void deny() {
+		logger.info("denyㄴ어ㅏㅗㄴ알");
+	}
 }
