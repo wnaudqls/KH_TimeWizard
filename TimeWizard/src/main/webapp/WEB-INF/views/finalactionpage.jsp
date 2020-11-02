@@ -60,7 +60,7 @@
 			</c:when>
 			<c:otherwise>
 				<c:forEach items="${nlist }" var="ndto">
-					<p>${ndto.user_no}, ${ndto.user_name }<input type="button" value="친구추가" onclick="alertsys('${ndto.user_name}')"></p>
+					<p>${ndto.user_no}, ${ndto.user_name }<input type="button" value="친구추가" onclick="alertsys('${ndto.user_no}','${login.user_no }')"></p>
 				</c:forEach>
 			</c:otherwise>
 		</c:choose>
@@ -79,6 +79,7 @@
 var sock;
 var nickname;
 var client;
+var user = ${login.user_no};
 var friendclass = document.getElementsByClassName(friendclass);
 	//handler에서 정해준 서버 겅로로 설정
 	sock = new SockJS("/timewizard/webserver");
@@ -100,31 +101,45 @@ var friendclass = document.getElementsByClassName(friendclass);
 	    
 	    //친구추가를 받은 friend_no 
 	    //${login.user_name}을 쓴 이유는 친구신청을 받은 클라이언트만 값을 받아야 하기 때문에
-	    client.subscribe("/subscribe/alert/good/${login.user_name}", function (chat) {
-		 	console.log("subcribe: "+chat);
-		 	var addfriend = confirm(${login.user_name}+"님을 친구로 받아들이겠습니까?");
-		 	if(addfriend == true){
+	    client.subscribe("/subscribe/alert/good/"+user, function (chat) {
+	    	var fnd = JSON.parse(chat.body);
+	    	console.log("subcribe: "+fnd);
+		 
+		 	if(confirm(fnd+"님을 친구로 받아들이겠습니까?")){
 		 		//"수락"을 누르면 FriendController로 보내서 insert시키기
 		 		//ajax로?
-		 		//var url = "";
+		 		client.send("/publish/confirm/accept",{},JSON.stringify({friend_no: fnd, user_no:user}));
+		 		client.subscribe("/subscribe/confirm/res/"+user, function(chat){
+		 			location.href="friend";
+		 				
+					})
+					client.send("/publish/confirm/fnd",{},JSON.stringify({friend_no: fnd}));
+		 			
+		 		
+		 		console.log("fnd : "+fnd+", "+"user : "+user);
+		 		
 		 	}else{
 		 		//"거절"을 누르면 FriendControlller로 보내서 update, delete시키기
 		 		//ajax로?
-		 		//var url = "";
+		 		client.send("/publish/confirm/deny", {});
 		 	}
+		 		
 		 	
-			alert("알람수신 완료");	
+			//alert("알람수신 완료");	
 
 	    });
+	    client.subscribe("/subscribe/confirm/check/"+user, function chat() {
+				console.log("asdf");
+			location.href = "friend";
+		});
 	})
 	
-	
-	 
-	
-function alertsys(name){
-		alert("알람보내기 테스트");
+function alertsys(fname,name){
+		alert("친구신청을 보냈습니다.");
 		client.send("/publish/alert/friend", {}, 
-		JSON.stringify({user_name: name})); 
+		JSON.stringify({user_no: name, friend_no: fname})); 
+		//name : 신청 보낸 사람, fname : 신청 받은 사람
+		//friend_no를 같이 보냄
 		//FriendController의 /alert/friend경로에 {user_name: name}의 JSON 형식으로 보냄
 
 }
