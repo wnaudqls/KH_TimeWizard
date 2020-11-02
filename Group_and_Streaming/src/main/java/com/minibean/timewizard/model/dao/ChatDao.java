@@ -9,12 +9,18 @@ public interface ChatDao {
 	String namespace = "chat-mapper.";
 	
 	
-	int insert(ChatDto chat);
+	public int insert(ChatDto chat);
 	
-	List<ChatDto> selectList();
+	public List<ChatDto> selectList();
 	
-	ChatDto selectOne(String name);
+	public ChatDto selectOne(String name);
 
-	
+	public int clientplus(String name);
+
+	public int kaboom(String name);
+
+	public int clientminus(String name);
+
+	public ChatDto clientnum(String name);
 
 }
