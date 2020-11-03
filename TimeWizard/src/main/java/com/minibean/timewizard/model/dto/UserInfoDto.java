@@ -14,6 +14,7 @@ public class UserInfoDto {
 	private String user_active;
 	private String user_distinct;
 	private Date user_regdate;
+	private FriendDto friendDto;
 	
 	public UserInfoDto() {}
 
@@ -115,5 +116,12 @@ public class UserInfoDto {
 	public void setUser_regdate(Date user_regdate) {
 		this.user_regdate = user_regdate;
 	}
+	public FriendDto getFriendDto() {
+		return friendDto;
+	}
+	public void setFriendDto(FriendDto friendDto) {
+		this.friendDto = friendDto;
+	}
+	
 
 }

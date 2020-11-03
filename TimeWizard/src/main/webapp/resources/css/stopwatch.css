@@ -1,6 +1,7 @@
 	#stopwatch_box {
 		width: 100%;
-		background-color: white;
+		background-color: #c44569;
+		color: white;
 	}
 	
 	#stopwatch_time {

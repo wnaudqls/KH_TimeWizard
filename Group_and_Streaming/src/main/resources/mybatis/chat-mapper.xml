@@ -2,18 +2,34 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="chat-mapper">
   <select id="selectList" resultType="ChatDto">
-  	SELECT ROOMID, NAME
+  	SELECT *
   	FROM TEST
   </select>
   <select id="selectOne" resultType="ChatDto">
-  	SELECT ROOMID, NAME
-  	FROM TEST WHERE ROOMID = #{roomid}
+  	SELECT*
+  	FROM TEST WHERE CHAT_TITLE = #{chat_title}
+  </select>
+   <select id="clientnum" resultType="ChatDto">
+  	SELECT *
+  	FROM TEST WHERE CHAT_TITLE = #{chat_title}
   </select>
  <!--  <select id="selectOne" resultType="ChatDto">
-  	SELECT ROOMID, NAME
-  	FROM TEST WHERE NAME = #{name}
+  	SELECT CHAT_NO, USER_ID
+  	FROM TEST WHERE NAME = #{user_id}
   </select> -->
   <insert id="insert">
-  	INSERT INTO TEST VALUES(TEST_SEQ.NEXTVAL, #{name})
+  	INSERT INTO TEST VALUES(TEST_SEQ.NEXTVAL,#{user_id}, #{chat_title},#{chat_public},#{chat_password}, 0)
   </insert>
+  <update id="clientplus">
+  	UPDATE TEST SET CHAT_CLIENT = CHAT_CLIENT+1
+  	WHERE CHAT_TITLE = #{chat_title}
+  </update>
+  <update id="clientminus">
+  	UPDATE TEST SET CHAT_CLIENT = CHAT_CLIENT-1
+  	WHERE CHAT_TITLE = #{chat_title}
+  </update>
+  <delete id="deleteroom">
+  	DELETE FROM TEST
+  	WHERE CHAT_TITLE = #{chat_title}
+  </delete>
 </mapper>

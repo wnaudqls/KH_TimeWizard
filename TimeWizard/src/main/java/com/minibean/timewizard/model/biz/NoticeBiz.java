@@ -13,6 +13,12 @@ public interface NoticeBiz {
 	public int update(NoticeDto dto);
 	public int delete(int notice_no);
 	
-	public int countNotice(PagingDto search);
+	public int countNotice();
+	
+	public List<NoticeDto> selectSearchTitle(String search_text, PagingDto pagingdto);
+	public List<NoticeDto> selectSearchContent(String search_text, PagingDto pagingdto);
+	
+	public int countSearchTitle(String search_text);
+	public int countSearchContent(String search_text);
 
 }
