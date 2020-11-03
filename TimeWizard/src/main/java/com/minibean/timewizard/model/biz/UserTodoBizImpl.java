@@ -24,6 +24,11 @@ public class UserTodoBizImpl implements UserTodoBiz {
 	public List<UserTodoDto> selectList(HashMap<String, Object> params) {
 		return userTodoDao.selectList(params);
 	}
+	
+	@Override
+	public int countList(int user_no) {
+		return userTodoDao.countList(user_no);
+	}
 
 	@Override
 	public UserTodoDto selectOne(int todo_no) {

@@ -9,81 +9,101 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.HandlerMapping;
 
 import com.minibean.timewizard.model.biz.UserTodoBiz;
 import com.minibean.timewizard.model.dto.UserInfoDto;
 import com.minibean.timewizard.model.dto.UserTodoDto;
 
-@Controller
+@RestController
 @RequestMapping(value="/daily")
 public class DailyController {
 	
 	@Autowired
 	private UserTodoBiz userTodoBiz;
 	private Logger logger = LoggerFactory.getLogger(DailyController.class);
-	 /* date : yyyyMMdd 식으로 호출은 어려울까? */
-	@RequestMapping(value="/list/{yyyyMMdd}")
-	@ResponseBody
+	
+	@PostMapping(value="/list/{yyyyMMdd}")
 	public List<UserTodoDto> dailyList(HttpSession session, HttpServletRequest request, @PathVariable String yyyyMMdd) {
 		logger.info(">> [CONTROLLER-DAILY] todo list");
 		UserInfoDto login = (UserInfoDto) session.getAttribute("login");
 		int user_no = login.getUser_no();
 		
 		String path = (String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
-		String date = path.split("/")[3];
+		String date = path.split("/")[3]; // personal 경로 수정시 수정해야 함!
 		logger.info("PATH CHECK\n* path : " + path + "\n* yyyyMMdd : " + date);
 		/* parameter setting */
-		HashMap<String, Object> hashmap = new HashMap<String, Object>();
-		hashmap.put("user_no", user_no);
-		hashmap.put("todo_date", date);
-		List<UserTodoDto> list = userTodoBiz.selectList(hashmap);
+		int newOrNot = userTodoBiz.countList(user_no);
 		
-		if (list == null || list.size() == 0) {
+		if (newOrNot == 0) {
 			/* list가 null일 때 */
 			int res = userTodoBiz.insertExample(user_no);
 			logger.info(">> example insert... - " + (res == 1?"성공":"실패"));
 			return dailyList(session, request, date);
 		} else {
-			/* list가 null이 아닐 때 */
+			/* 전체 list가 null이 아닐 때 */
+			HashMap<String, Object> hashmap = new HashMap<String, Object>();
+			hashmap.put("user_no", user_no);
+			hashmap.put("todo_date", date);
+			List<UserTodoDto> list = userTodoBiz.selectList(hashmap);
 			return list;
 		}
 		
-		
 	}
 	
-	@RequestMapping(value="/detail/{todo_no}")
-	@ResponseBody
+	@PostMapping(value="/detail/{todo_no}")
 	public UserTodoDto dailyDetail(@PathVariable("todo_no") int todo_no, HttpSession session) {
 		logger.info(">> [CONTROLLER-DAILY] detail - " + todo_no);
 		UserInfoDto login = (UserInfoDto) session.getAttribute("login");
 		UserTodoDto dto = userTodoBiz.selectOne(todo_no);
+		logger.info(">> [CONTROLLER-DAILY] detail content"
+				+ "\n\t* user_no : " + dto.getUser_no()
+				+ "\n\t* todo_title : " + dto.getTodo_title() 
+				+ "\n\t* todo_content : " + dto.getTodo_content()
+				+ "\n\t* todo_date : " + dto.getTodo_date());
 		return dto;
 	}
 	
-	@RequestMapping(value="/insert")
-	@ResponseBody
+	@PostMapping(value="/insert")
 	public void dailyInsert(@RequestBody UserTodoDto dto, HttpSession session) {
+		logger.info("\n\t* todo_starttime : " + dto.getTodo_starttime());
 		UserInfoDto login = (UserInfoDto) session.getAttribute("login");
 		dto.setUser_no(login.getUser_no());
 		logger.info(">> [CONTROLLER-DAILY] insert content"
 					+ "\n\t* user_no : " + dto.getUser_no()
 					+ "\n\t* todo_title : " + dto.getTodo_title() 
-					+ "\n\t* todo_content : " + dto.getTodo_content());
+					+ "\n\t* todo_content : " + dto.getTodo_content()
+					+ "\n\t* todo_date : " + dto.getTodo_date()
+					+"\n\t* todo_starttime : " + dto.getTodo_starttime());
+		
 		int res = userTodoBiz.insert(dto);
 		logger.info(">> [CONTROLLER-DAILY] success?: " + ((res == 1)?"yes":"no"));
 	}
 	
-	public void dailyUpdate() {
-		
+	@PostMapping(value="/update")
+	public void dailyUpdate(@RequestBody UserTodoDto dto, HttpSession session) {
+		UserInfoDto login = (UserInfoDto) session.getAttribute("login");
+		dto.setUser_no(login.getUser_no());
+		logger.info(">> [CONTROLLER-DAILY] update content"
+				+ "\n\t* user_no : " + dto.getUser_no()
+				+ "\n\t* todo_title : " + dto.getTodo_title() 
+				+ "\n\t* todo_content : " + dto.getTodo_content()
+				+ "\n\t* todo_date : " + dto.getTodo_date());
+		int res = userTodoBiz.update(dto);
+		logger.info(">> [CONTROLLER-DAILY] success?: " + ((res == 1)?"yes":"no"));
 	}
-	public void dailyDelete() {
-		
+	
+	@PostMapping(value="/delete/{todo_no}")
+	public void dailyDelete(@PathVariable("todo_no") int todo_no) {
+		logger.info(">> [CONTROLLER-DAILY] delete content"
+				+ "\n\t* todo_no : " + todo_no);
+		int res = userTodoBiz.delete(todo_no);
+		logger.info(">> [CONTROLLER-DAILY] success?: " + ((res == 1)?"yes":"no"));
 	}
 
 }

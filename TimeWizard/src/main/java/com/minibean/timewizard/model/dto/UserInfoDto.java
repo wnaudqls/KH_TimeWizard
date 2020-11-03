@@ -12,12 +12,16 @@ public class UserInfoDto {
 	private String user_role;
 	private String user_photo;
 	private String user_active;
+	private String user_distinct;
 	private Date user_regdate;
 	private FriendDto friendDto;
 	
 	public UserInfoDto() {}
+
+
 	public UserInfoDto(int user_no, String user_id, String user_pw, String user_name, String user_email,
-			String user_role, String user_photo, String user_active, Date user_regdate) {
+			String user_role, String user_photo, String user_active, String user_distinct, Date user_regdate) {
+		super();
 		this.user_no = user_no;
 		this.user_id = user_id;
 		this.user_pw = user_pw;
@@ -26,8 +30,10 @@ public class UserInfoDto {
 		this.user_role = user_role;
 		this.user_photo = user_photo;
 		this.user_active = user_active;
+		this.user_distinct = user_distinct;
 		this.user_regdate = user_regdate;
 	}
+
 
 	public int getUser_no() {
 		return user_no;
@@ -92,6 +98,16 @@ public class UserInfoDto {
 	public void setUser_active(String user_active) {
 		this.user_active = user_active;
 	}
+	
+	public String getUser_distinct() {
+		return user_distinct;
+	}
+
+
+	public void setUser_distinct(String user_distinct) {
+		this.user_distinct = user_distinct;
+	}
+
 
 	public Date getUser_regdate() {
 		return user_regdate;
