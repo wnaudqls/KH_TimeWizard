@@ -8,6 +8,7 @@
 		<typeAlias type="com.minibean.timewizard.model.dto.UserInfoDto" alias="UserInfoDto"/>
 		<typeAlias type="com.minibean.timewizard.model.dto.ChatDto" alias="ChatDto"/>
 		<typeAlias type="com.minibean.timewizard.model.dto.UserTodoDto" alias="TodoDto"/>
+		<typeAlias type="com.minibean.timewizard.model.dto.StopwatchDto" alias="StopwatchDto"/>
 		<typeAlias type="com.minibean.timewizard.model.dto.NoticeDto" alias="NoticeDto"/>
 		<typeAlias type="com.minibean.timewizard.model.dto.FriendDto" alias="FriendDto"/>
 	</typeAliases>
@@ -15,6 +16,7 @@
 		<mapper resource="/mybatis/user_info-mapper.xml" />
 		<mapper resource="/mybatis/chat-mapper.xml"/>
 		<mapper resource="/mybatis/user_todo-mapper.xml"/>
+		<mapper resource="/mybatis/stopwatch-mapper.xml"/>
 		<mapper resource="/mybatis/notice-mapper.xml"/>
 		<mapper resource="/mybatis/friend-mapper.xml"/>
 	</mappers>

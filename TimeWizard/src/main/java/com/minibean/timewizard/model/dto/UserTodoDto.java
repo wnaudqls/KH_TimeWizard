@@ -2,6 +2,8 @@ package com.minibean.timewizard.model.dto;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class UserTodoDto {
 	
 	private int todo_no;
@@ -11,13 +13,18 @@ public class UserTodoDto {
 	private String todo_content;
 	private String todo_category;
 	private String todo_hashtag;
+	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date todo_date;
 	private String todo_complete;
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm")
+	private Date todo_starttime;
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm")
+	private Date todo_endtime;
 	
 	public UserTodoDto() {}
-
 	public UserTodoDto(int todo_no, int user_no, String todo_title, String todo_color, String todo_content,
-			String todo_category, String todo_hashtag, Date todo_date, String todo_complete) {
+			String todo_category, String todo_hashtag, Date todo_date, String todo_complete, Date todo_starttime,
+			Date todo_endtime) {
 		super();
 		this.todo_no = todo_no;
 		this.user_no = user_no;
@@ -28,6 +35,8 @@ public class UserTodoDto {
 		this.todo_hashtag = todo_hashtag;
 		this.todo_date = todo_date;
 		this.todo_complete = todo_complete;
+		this.todo_starttime = todo_starttime;
+		this.todo_endtime = todo_endtime;
 	}
 
 	public int getTodo_no() {
@@ -101,7 +110,21 @@ public class UserTodoDto {
 	public void setTodo_complete(String todo_complete) {
 		this.todo_complete = todo_complete;
 	}
-	
-	
+
+	public Date getTodo_starttime() {
+		return todo_starttime;
+	}
+
+	public void setTodo_starttime(Date todo_starttime) {
+		this.todo_starttime = todo_starttime;
+	}
+
+	public Date getTodo_endtime() {
+		return todo_endtime;
+	}
+
+	public void setTodo_endtime(Date todo_endtime) {
+		this.todo_endtime = todo_endtime;
+	}
 
 }
