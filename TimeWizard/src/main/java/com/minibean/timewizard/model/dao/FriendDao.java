@@ -32,4 +32,5 @@ public interface FriendDao {
 	//update 2번
 	public int BlockUpdate(FriendDto dto);
 
+
 }
