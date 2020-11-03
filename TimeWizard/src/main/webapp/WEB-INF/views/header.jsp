@@ -1,6 +1,7 @@
 <%@page import="com.minibean.timewizard.model.dto.UserInfoDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,8 +38,16 @@
 			//로그인 되어있고 USER일때만 보이게!
 			if(UDto != null && UDto.getUser_role().equals("USER")){  
 			%>
-			<li><a href="mypage">${login.user_name }</a></li>
-			<li><a href="./logout">Logout</a></li>
+			<c:choose>
+				<c:when test="${userinfodto.user_role eq 'ADMIN' }">
+					<li><a href="adminpage">${login.user_name }</a></li>
+					<li><a href="./logout">Logout</a></li>
+				</c:when>
+				<c:otherwise>
+					<li><a href="mypage">${login.user_name }</a></li>
+					<li><a href="./logout">Logout</a></li>
+				</c:otherwise>
+			</c:choose>
 			<%
 			}
 			%>
