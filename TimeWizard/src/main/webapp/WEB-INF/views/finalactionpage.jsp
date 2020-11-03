@@ -10,9 +10,9 @@
 <title>Insert title here</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&family=Source+Sans+Pro:wght@200;400&family=Staatliches&display=swap" rel="stylesheet">
-<link href="resources/css/actionpage.css" rel="stylesheet">
-<script src="resources/js/actionpage.js" defer></script>
-<script src="resources/js/tap.js" defer></script>
+<link href="/timewizard/css/actionpage.css" rel="stylesheet">
+<script src="/timewizard/js/actionpage.js" defer></script>
+<script src="/timewizard/js/tap.js" defer></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://kit.fontawesome.com/3049a69bf8.js" crossorigin="anonymous"></script>
 

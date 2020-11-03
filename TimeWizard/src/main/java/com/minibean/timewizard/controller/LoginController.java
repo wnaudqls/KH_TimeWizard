@@ -144,7 +144,9 @@ public class LoginController {
 			return "redirect:./snssignup";
 		} else {
 			session.setAttribute("login", result);
+//			String user_distinct = result.getUser_distinct();
 			return "redirect:../main";
+//			return "redirect:../user/"+user_distinct;
 		}
 	}
 	
