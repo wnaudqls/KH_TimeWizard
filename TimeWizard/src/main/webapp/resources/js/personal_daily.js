@@ -81,13 +81,19 @@ function showDailyList(date){
 				listDiv.appendChild(items_div);
 			}/* response not null */
 			/* TODO c:when?으로 session의 user_no와 user_distinct check */
+			let cif = document.createElement("c:if"); // 이거 말고 if문으로 처리할 것 생각해봐라 jsp랑 js 로딩 순서!!!!!!!
+			cif.setAttribute("test","${linked.user_no eq login.user_no || login.user_role eq 'ADMIN'}");
+			
 			let insert_div = document.createElement("div");
 			insert_div.setAttribute("class","todo__insert");
 			insert_div.setAttribute("onclick","showInsertModal("+date+");");
 			let plus = document.createElement("i")
 			plus.setAttribute("class","fas fa-plus");
 			insert_div.appendChild(plus);
-			listDiv.appendChild(insert_div);
+			
+			cif.appendChild(insert_div);
+			listDiv.appendChild(cif);
+//			listDiv.appendChild(insert_div);
 		} else {
 			/* 로딩중 화면 */
 		}

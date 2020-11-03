@@ -1,3 +1,4 @@
+<%@page import="com.minibean.timewizard.model.dto.UserInfoDto"%>
 <%@page import="java.util.Calendar"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -11,6 +12,7 @@
 </head>
 <body>
 <%
+	/* input type=date를 넣을지 today 버튼을 넣을지? -> 그러면 달력 부분에 링크 걸어주면 보기 좋지 않을까? */
 	Calendar cal = Calendar.getInstance();
 	int today_year = cal.get(Calendar.YEAR);
 	int today_month = cal.get(Calendar.MONTH) + 1;
@@ -20,6 +22,8 @@
 	int month = cal.get(Calendar.MONTH) + 1;
 	int day = cal.get(Calendar.DATE);
 	String date = "" + year + (month<10 ? "0"+month : month) + (day<10 ? "0" + day : day);
+	UserInfoDto linked = (UserInfoDto) session.getAttribute("linked");
+	UserInfoDto login = (UserInfoDto) session.getAttribute("login");
 %>
 
 	<div class="daily__part">
@@ -52,6 +56,8 @@
 	<script type="text/javascript" src="/timewizard/js/personal_daily-hashtag.js"></script>
 	<script type="text/javascript">
 	let pagedate = <%=date%>;
+	let linkedUser = <%=linked.getUser_no()%>;
+	const loginUser = <%=login.getUser_no()%>;
 	window.addEventListener('DOMContentLoaded', () => {
 		showDailyList(pagedate);
 	});
