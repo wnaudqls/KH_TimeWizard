@@ -33,6 +33,26 @@ public class ChatBizImpl implements ChatBiz{
 		return dao.selectOne(name);
 	}
 	
+	@Override
+	public int clientplus(String name) {
+		return dao.clientplus(name);
+	}
+	@Override
+	public int kaboom(String name) {
+		return dao.kaboom(name);
+	}
+
+	@Override
+	public int clientminus(String name) {
+		// TODO Auto-generated method stub
+		return dao.clientminus(name);
+	}
+
+	@Override
+	public ChatDto clientnum(String name) {
+		// TODO Auto-generated method stub
+		return dao.clientnum(name);
+	}
 	
 	 
 	 

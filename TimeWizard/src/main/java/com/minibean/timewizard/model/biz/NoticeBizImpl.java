@@ -40,9 +40,33 @@ public class NoticeBizImpl implements NoticeBiz {
 	}
 
 	@Override
-	public int countNotice(PagingDto search) {
+	public int countNotice() {
 	
-		return noticeDao.countNotice(search);
+		return noticeDao.countNotice();
+	}
+
+	@Override
+	public List<NoticeDto> selectSearchTitle(String search_text, PagingDto pagingdto) {
+		
+		return noticeDao.selectSearchTitle(search_text, pagingdto);
+	}
+
+	@Override
+	public List<NoticeDto> selectSearchContent(String search_text, PagingDto pagingdto) {
+		
+		return noticeDao.selectSearchContent(search_text, pagingdto);
+	}
+
+	@Override
+	public int countSearchTitle(String search_text) {
+		
+		return noticeDao.countSearchTitle(search_text);
+	}
+
+	@Override
+	public int countSearchContent(String search_text) {
+		
+		return noticeDao.countSearchContent(search_text);
 	}
 
 }

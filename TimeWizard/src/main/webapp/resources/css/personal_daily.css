@@ -1,0 +1,71 @@
+@charset "UTF-8";
+
+div {
+border: 1px;
+}
+.todo__item {
+	display:flex;
+}
+.todo__insert {
+	text-align:center;
+}
+
+
+/* * * * * * * * * * *
+ *      category     *
+ * * * * * * * * * * */
+.todo__block{
+	
+}
+.todo__block:hover{
+	
+}
+.blaock__example {
+	background-color: chartreuse;
+}
+.block__basic{
+	background-color: coral;
+}
+.block__study{
+	background-color: gold;
+}
+.block__health{
+	background-color: crimson;
+}
+.block__life{
+	background-color: darkorange;
+}
+.block__relax {
+	background-color: darkmagenta;
+}
+.block__relation{
+	background-color: deeppink;
+}
+.block__etc{
+	background-color:slateblue;
+}
+.notselected {
+	background-color: white;
+}
+
+/* * * * * * * * * * *
+ *      hashtag      *
+ * * * * * * * * * * */
+.todo__editable {
+  border:1px solid #ddd;
+  padding: 10px;
+  font-size: 14px;
+}
+
+.tag span[data-role="remove"] {
+  margin-left: 8px;
+  cursor: pointer;
+}
+
+.tag span[data-role="remove"]:after {
+  content: "x";
+  padding: 0px 2px;
+}
+
+.label-info{background-color:#5bc0de}
+.label-info[href]:focus,.label-info[href]:hover{background-color:#31b0d5}

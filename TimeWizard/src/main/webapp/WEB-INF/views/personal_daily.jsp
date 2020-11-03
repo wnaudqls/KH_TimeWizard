@@ -7,18 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style type="text/css">
-div {
-border: 1px;
-}
-.todo__item {
-	display:flex;
-}
-.todo__insert {
-	text-align:center;
-}
-</style>
-<script src="https://kit.fontawesome.com/3049a69bf8.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="/timewizard/css/personal_daily.css">
 </head>
 <body>
 <%
@@ -33,19 +22,16 @@ border: 1px;
 	String date = "" + year + (month<10 ? "0"+month : month) + (day<10 ? "0" + day : day);
 %>
 
-	<h5>tab is here</h5>
-	<h4>personal page</h4>
-	<h5>list area</h5>
 	<div class="daily__part">
-		<div class="list">
+		<div class="list__area">
 			<div class="date__area">
 				<div class="date__status">
-					<a>◀◀</a> <!-- fontawesome에서 괜찮은 화살표 버튼 찾아두기... -->
-					<a>◁</a>
+					<a><i class="fas fa-caret-square-left"></i></a>
+					<a><i class="far fa-caret-square-left"></i></a>
 					<span class="month"><%=month %>월 </span>
 					<span class="mday"><%=day %> 일</span>
-					<a>▷</a>
-					<a>▶▶</a>
+					<a><i class="far fa-caret-square-right"></i></a>
+					<a><i class="fas fa-caret-square-right"></i></a>
 				</div>
 				<div class="date__input"><!-- 빨리 찾기 기능...? -->
 					<input type="date" id="date" value="${today }" />
@@ -54,7 +40,6 @@ border: 1px;
 			<div id="todo__list">date's todo-list
 			</div>
 		</div>
-		<br />
 		<div class="heatmap__area">
 			<h5>heatmap area</h5>
 		</div>
@@ -63,11 +48,12 @@ border: 1px;
 	<div class="modal__area"></div>
 	
 
-	<script type="text/javascript" src="/timewizard/js/personal-daily.js"></script>
+	<script type="text/javascript" src="/timewizard/js/personal_daily.js"></script>
+	<script type="text/javascript" src="/timewizard/js/personal_daily-hashtag.js"></script>
 	<script type="text/javascript">
 	let pagedate = <%=date%>;
 	window.addEventListener('DOMContentLoaded', () => {
-		dailylist(pagedate);
+		showDailyList(pagedate);
 	});
 	</script>
 </body>

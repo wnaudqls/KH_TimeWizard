@@ -5,9 +5,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
+<link rel="stylesheet" href="/timewizard/css/userlogin.css">
+<script src="https://kit.fontawesome.com/3914a9940d.js" crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script type="text/javascript" src="/timewizard/js/userlogin-kakaologin.js"></script>
 <script type="text/javascript">
 
 	$(function(){
@@ -210,6 +212,7 @@ a {
 }
 </style>
 
+
 </head>
 <body>
 	<div class="overlay">
@@ -218,22 +221,22 @@ a {
 			<div class="sns">
 				<a href="${google_url}">
 					<div class="icon">
-						구글
+						<i class="fab fa-google"></i>
 					</div>
 				</a>
 				<a href="${naver_url}">
 					<div class="icon">
-						네이버
+						<img alt="네이버" src="/timewizard/img/NAVER Logo_Black.png">
 					</div>
 				</a>
 				<div class="icon" id="kakao-login-btn">
-					카카오
+					<i class="fab fa-kaggle"></i>
 				</div>
 			</div>
 			<p class="small"> or user your account:
 			<div id="sign-in-form">
 				<div>
-					<input type="text" placeholder="Id" name="user_id" id="user_id" />
+					<input type="text" placeholder="Id" name="user_id" id="user_id" autofocus="autofocus" />
 					<input type="password" placeholder="Password" name="user_pw" id="user_pw"/><br/>
 				</div>
 				<div>
@@ -243,41 +246,6 @@ a {
 				</div>
 			</div>
 		</div>
-	</div>
-	<script type="text/javascript">
-		window.addEventListener('DOMContentLoaded', ()=>{
-		    Kakao.cleanup();
-		    Kakao.init('8ba76a6026ec5b6b73ff1f95270d8845');
-		    let state = Math.random().toString(36).substr(2,11);
-		    sessionStorage.setItem('oauth_state_k', state);
-			const kakaobtn = document.getElementById("kakao-login-btn");
-			kakaobtn.addEventListener("click", () =>{
-				Kakao.Auth.login({
-					success: function(authObj){
-						Kakao.API.request({
-							url: '/v2/user/me',
-							success: function(res){
-								const xhr = new XMLHttpRequest();
-								xhr.open('POST','/timewizard/login/kakaocallback');
-								xhr.setRequestHeader('Content-type','application/json');
-								xhr.send(JSON.stringify(res));
-								xhr.onreadystatechange = function (e){
-									if (xhr.readyState == 4 && xhr.status == 200){
-										window.location.replace(xhr.responseText);
-									}
-								}
-							},
-							fail: function(err){
-								console.log(err);
-							},
-						})
-					},
-					fail : function(err){
-						console.error(err);
-					}
-				})
-			});
-		});
-	</script>
+    </div>
 </body>
 </html>

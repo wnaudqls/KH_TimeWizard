@@ -11,9 +11,6 @@ public class PagingDto {
 	private int end;
 	private int cntpage=5;
 	
-	//search
-	private String searchType;
-	private String keyword;
 	
 public PagingDto() {}
 	
@@ -28,12 +25,12 @@ public PagingDto() {}
 
 	//마지막 페이지 계산
 	public void calcLastPage(int total, int cntPerpage) {
-		setLastpage((int)Math.ceil((double)total/(double)cntPerpage));
+		setLastpage((int)Math.ceil((double)total / (double)cntPerpage));
 	}
 	
 	//시작, 끝 페이지 계산
 	public void calcStartEndPage(int nowpage, int cntpage) {
-		setEndpage(((int)Math.ceil((double)nowpage/(double)cntpage))*cntpage);
+		setEndpage(((int)Math.ceil((double)nowpage / (double)cntpage)) * cntpage);
 		if(getLastpage() < getEndpage()) {
 			setEndpage(getLastpage());
 		}
@@ -46,7 +43,7 @@ public PagingDto() {}
 	//DB쿼리에서 계산할  start, end 계산
 	public void calcStartEnd(int nowpage, int cntPerpage) {
 		setEnd(nowpage * cntPerpage);
-		setStart(getEnd()-cntPerpage+1);
+		setStart(getEnd() - cntPerpage + 1);
 	}
 
 	public int getNowpage() {
@@ -121,21 +118,6 @@ public PagingDto() {}
 		this.cntpage = cntpage;
 	}
 
-	public String getSearchType() {
-		return searchType;
-	}
 
-	public void setSearchType(String searchType) {
-		this.searchType = searchType;
-	}
-
-	public String getKeyword() {
-		return keyword;
-	}
-
-	public void setKeyword(String keyword) {
-		this.keyword = keyword;
-	}
-	
 
 }

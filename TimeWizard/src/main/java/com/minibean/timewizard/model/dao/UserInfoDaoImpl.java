@@ -114,4 +114,6 @@ public class UserInfoDaoImpl implements UserInfoDao {
 		return cnt;
 	}
 
+
+
 }
