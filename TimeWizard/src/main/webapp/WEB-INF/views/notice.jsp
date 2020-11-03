@@ -11,7 +11,18 @@
 <link href="resources/css/notice.css" rel="stylesheet">
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://kit.fontawesome.com/3049a69bf8.js" crossorigin="anonymous"></script>
-
+<script>
+	$(document).ready(function(){
+		<c:if test="${search_text == null}">
+			$("#searchpaging").css("display", "none");
+			$("#paging").css("display", "block");
+		</c:if>
+		<c:if test="${search_text != null}">
+			$("#searchpaging").css("display", "block");
+			$("#paging").css("display", "none");
+		</c:if>
+	});
+</script>
 
 </head>
 <body>
@@ -61,35 +72,27 @@
 	<br/><br/>
 	
 	<!-- 글 검색 기능 -->
+	<!-- title, content 검색 가능 -->
 	<div id="search">
-		<select name="searchType">
-			<option value="nt_title" selected>제목</option>
-			<option value="nt_content">내용</option>
-		</select>
-		<div id="search_box">
-			<input type="text" placeholder="search.." id="search_text" />
-			<button type="submit" id="search_button" name="btnSearch"><a><i class="fas fa-search"></i></a></button>
-		</div>
+		<form action="notice" method="post">
+			<select class="searchType" name="searchType">
+				<option value="nt_title">제목</option>
+				<option value="nt_content">내용</option>
+			</select>
+			<div id="search_box"> 
+				<input type="text" placeholder="search.." id="search_text" class="search_text" name="search_text"/>
+				<button type="submit" id="search_button" name="btnSearch"><a><i class="fas fa-search"></i></a></button>
+			</div>
+		</form>
 	</div>
-	<script>
-	$(document).on('click', '#search_button', function(e){
-		var text = "#search_text".val();
-		var url="${pageContext.request.contextPath}/notice";
-		url = url+"?searchType="+$('#searchType').val();
-		url = url+"&keyword="+$('#search_text').val();
-		url = url+"&nowpage="+${paging.nowpage}+"&cntPerpage="+${paging.cntPerpage};
-		location.href=url;
-		console.log(url);
+
 		
-	});
-	</script>
-	
 	<br/>
 	
-	<!-- !페이징 부분! -->
-	<div style="display:block; text-align: center;">
+	<!-- search 후 페이징 -->
+	<div style="display:block; text-align: center;" id="searchpaging">
 		<c:if test="${paging.startpage != 1}">
-			<a href="notice?nowpage=${paging.startpage-1}&cntPerpage=${paging.cntPerpage}">&lt;</a>
+			<a href="notice?nowpage=${paging.startpage-1}&cntPerpage=${paging.cntPerpage}&searchType=${searchType }&search_text=${search_text}">&lt;</a>
 		</c:if>
 		<c:forEach begin="${paging.startpage}" end="${paging.endpage}" var="p">
 			<!-- when은 choose안에 꼭 들어가 있어야 한다. choose안에 otherwise는 없어도 된다. -->
@@ -98,12 +101,32 @@
 					<b>${p}</b>
 				</c:when>
 				<c:when test="${p != paging.nowpage}">
-					<a href="notice?nowpage=${p}&cntPerpage=${paging.cntPerpage}">${p}</a>
+					<a href="notice?nowpage=${p}&cntPerpage=${paging.cntPerpage}&searchType=${searchType }&search_text=${search_text}">${p}</a>
 				</c:when>
 			</c:choose>
 		</c:forEach>
 			<c:if test="${paging.endpage != paging.lastpage}">
-				<a href="notice?nowpage=${paging.endpage+1}&cntPerpage=${paging.cntPerpage}">&gt;</a>
+				<a href="notice?nowpage=${paging.endpage+1}&cntPerpage=${paging.cntPerpage}&searchType=${searchType }&search_text=${search_text}">&gt;</a>
+			</c:if>
+	</div>
+	<!-- !페이징 부분! -->
+	<div style="display:block; text-align: center;" id="paging">
+		<c:if test="${paging.startpage != 1}">
+			<a href="notice_list?nowpage=${paging.startpage-1}&cntPerpage=${paging.cntPerpage}">&lt;</a>
+		</c:if>
+		<c:forEach begin="${paging.startpage}" end="${paging.endpage}" var="p">
+			<!-- when은 choose안에 꼭 들어가 있어야 한다. choose안에 otherwise는 없어도 된다. -->
+			<c:choose>
+				<c:when test="${p == paging.nowpage}">
+					<b>${p}</b>
+				</c:when>
+				<c:when test="${p != paging.nowpage}">
+					<a href="notice_list?nowpage=${p}&cntPerpage=${paging.cntPerpage}">${p}</a>
+				</c:when>
+			</c:choose>
+		</c:forEach>
+			<c:if test="${paging.endpage != paging.lastpage}">
+				<a href="notice_list?nowpage=${paging.endpage+1}&cntPerpage=${paging.cntPerpage}">&gt;</a>
 			</c:if>
 	</div>
 

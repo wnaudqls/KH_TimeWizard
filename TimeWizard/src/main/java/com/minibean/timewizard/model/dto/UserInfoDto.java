@@ -13,6 +13,7 @@ public class UserInfoDto {
 	private String user_photo;
 	private String user_active;
 	private Date user_regdate;
+	private FriendDto friendDto;
 	
 	public UserInfoDto() {}
 	public UserInfoDto(int user_no, String user_id, String user_pw, String user_name, String user_email,
@@ -99,5 +100,12 @@ public class UserInfoDto {
 	public void setUser_regdate(Date user_regdate) {
 		this.user_regdate = user_regdate;
 	}
+	public FriendDto getFriendDto() {
+		return friendDto;
+	}
+	public void setFriendDto(FriendDto friendDto) {
+		this.friendDto = friendDto;
+	}
+	
 
 }
