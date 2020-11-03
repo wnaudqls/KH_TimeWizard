@@ -145,7 +145,48 @@ a {
 }
 
 #p3 {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+}
 
+.p3title {
+	font-size: 50px;
+	font-weight: bold;
+	margin-top: 10rem;
+}
+
+.p3title:after {
+    content: "";
+    display: flex;
+    width: 10%;
+	border-top: 3px solid var(--accent-color);
+	margin: auto;
+	margin-top: 2rem;
+}
+
+.p3main {
+	color: #636e72;
+}
+
+.p3box {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 2rem;
+}
+
+.p3btn {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 10%;
+	height: 5vh;
+	background-color: var(--accent-color);
+	border-radius: 10px;
+	color: white;
+	cursor: pointer;
 }
 
 #p4 {
@@ -201,6 +242,7 @@ a {
 	margin: 1rem;
 	background-color: white;
 	cursor: pointer;
+	text-align: center;
 }
 
 .minibean:hover {
@@ -242,6 +284,21 @@ a {
 		border: 1px solid black;
 		height: 40vh;
 	}
+
+	.p3title {
+		margin-top: 5rem;
+	}
+
+	.p3title:after {
+		width: 30%;
+	}
+
+	.p3btn {
+		width: 30%;
+		height: 7vh;
+	}
+
+
 }
 
 
