@@ -81,7 +81,7 @@ var iconDataURI = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAAB
 var sock;
 var nickname;
 var client;
-var user = ${login.user_no};
+var u_no = ${login.user_no};
 var uname = '${login.user_name}'
 var friendclass = document.getElementsByClassName(friendclass);
 var fnd_no;
@@ -103,17 +103,17 @@ var fnd_no;
 	    
 	    //친구추가를 받은 friend_no 
 	    //${login.user_name}을 쓴 이유는 친구신청을 받은 클라이언트만 값을 받아야 하기 때문에
-	    client.subscribe("/subscribe/alert/good/"+user, function (chat) {
+	    client.subscribe("/subscribe/alert/good/"+u_no, function (chat) {
 	    	var fnd = JSON.parse(chat.body);
 	    	var fnd_name = fnd['user_name'];
-	    	var message = "실험";
+	    	var message = fnd_name+"님이 친구 신청을 하셨습니다.";
 	    	var fnd_no = fnd["user_no"];
 	        var options = {
 	            body: message,
 	            icon: iconDataURI
 	        }
 	        //데스크탑 알림 요청
-	        var notification = new Notification(fnd_name+"님으로부터 받은 메세지", options);
+	        var notification = new Notification("알람", options);
 	        
 	        //알림 후 5초 뒤,
 	        setTimeout(function () {
@@ -125,10 +125,10 @@ var fnd_no;
 		 	if(confirm(fnd_name+"님을 친구로 받아들이겠습니까?")){
 		 		//"수락"을 누르면 FriendController로 보내서 insert시키기
 		 		//ajax로?
-		 		client.send("/publish/confirm/accept",{},JSON.stringify({friend_no: fnd_no, user_no: user, user_name: uname}));
-		 		client.subscribe("/subscribe/confirm/res/"+user, function(chat){
+		 		client.send("/publish/confirm/accept",{},JSON.stringify({friend_no: fnd_no, user_no: u_no, user_name: uname}));
+		 		client.subscribe("/subscribe/confirm/res/"+u_no, function(chat){
 		 			var added = JSON.parse(chat.body);
-		 			message = added['user_name']+"님과 이제 친구입니다";
+		 			message = added["user_name"]+"님과 이제 친구입니다";
 		 				options = {
 		 		            body: message,
 		 		            icon: iconDataURI
@@ -146,21 +146,21 @@ var fnd_no;
 					client.send("/publish/confirm/fnd",{},JSON.stringify({user_no: fnd_no}));
 		 			
 		 		
-		 		console.log("fnd : "+fnd+", "+"user : "+user);
+		 		console.log("fnd : "+fnd+", "+"user : "+u_no);
 		 		
 		 	}else{
 		 		//"거절"을 누르면 FriendControlller로 보내서 update, delete시키기
 		 		//ajax로?
-		 		client.send("/publish/confirm/deny", {});
+		 		client.send("/publish/confirm/deny", {}, JSON.stringify({user_no: fnd_no, friend_no: u_no}));
 		 	}
 		 		
 		 	
 			//alert("알람수신 완료");	
 
 	    });
-	    client.subscribe("/subscribe/confirm/check/"+user, function chat() {
+	    client.subscribe("/subscribe/confirm/check/"+u_no, function chat() {
 				
-	    	var added = JSON.parse(chat.body);
+	    	var added = JSON.parse(JSON.stringify(chat.body));
  			message = added['user_name']+"님이 친구추가를 수락하셨습니다.";
  				options = {
  		            body: message,

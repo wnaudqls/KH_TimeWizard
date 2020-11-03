@@ -51,7 +51,7 @@ public class FriendBizImpl implements FriendBiz {
 	public int DenyUpAndDel(FriendDto dto) {
 		
 		int update = friendDao.DenyUpdate(dto);
-		int delete = friendDao.DenyDelete(dto.getUser_no());
+		int delete = friendDao.DenyDelete(dto);
 		
 		return update+delete;
 	}

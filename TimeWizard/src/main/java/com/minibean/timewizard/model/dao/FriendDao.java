@@ -26,7 +26,7 @@ public interface FriendDao {
 	//친구 거절 -> status : deny
 	//update하고 delete한다.
 	public int DenyUpdate(FriendDto dto);
-	public int DenyDelete(int user_no);
+	public int DenyDelete(FriendDto dto);
 	
 	//친구 차단 -> status : block
 	//update 2번

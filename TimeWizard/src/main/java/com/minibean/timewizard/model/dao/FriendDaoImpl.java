@@ -95,11 +95,11 @@ public class FriendDaoImpl implements FriendDao {
 	}
 	
 	@Override
-	public int DenyDelete(int user_no) {
+	public int DenyDelete(FriendDto dto) {
 		int res = 0;
 		
 		try {
-			res = sqlSession.delete(NAMESPACE+"deleteDeny", user_no);
+			res = sqlSession.delete(NAMESPACE+"deleteDeny", dto);
 		} catch (Exception e) {
 			logger.info("[ERROR] DenyDelete DaoImpl");
 			e.printStackTrace();

@@ -84,7 +84,7 @@ public class FriendController {
 	@MessageMapping("/confirm/accept")
 	public void accept(FriendDto dto, UserInfoDto udto) {
 		udto = userBiz.selectOne(dto.getFriend_no());
-		logger.info("accept어어어");
+		logger.info("accept 작업");
 		logger.info("신청한 사람: {}\n신청받은 사람: {}",dto.getUser_name(), udto.getUser_name());
 		
 		int res = friendBiz.AcceptUpdate(dto);
@@ -97,9 +97,9 @@ public class FriendController {
 	}
 	@MessageMapping("/confirm/fnd")
 	public void sendfnd(UserInfoDto dto) {
-		logger.info("confirm어어어");
+		logger.info("confirm 작업");
 		dto = userBiz.selectOne(dto.getUser_no());
-		logger.info("ddddd: "+dto.getUser_no());
+		logger.info("신청한 사람: {}",dto);
 		template.convertAndSend("/subscribe/confirm/check/"+dto.getUser_no(),dto);
 		
 	}
@@ -107,7 +107,12 @@ public class FriendController {
 	
 	//친구 요청 -> "거절"
 	@MessageMapping("/confirm/deny")
-	public void deny() {
-		logger.info("denyㄴ어ㅏㅗㄴ알");
+	public void deny(FriendDto dto ,UserInfoDto udto) {
+		logger.info("deny 작업");
+		udto = userBiz.selectOne(dto.getUser_no());
+		
+		logger.info("거절한 사람: {} \nuser_no: {}, friend_no: "+dto.getFriend_no(),udto.getUser_name(),dto.getUser_no());
+		int res = friendBiz.DenyUpAndDel(dto);
+		logger.info("거절 결과: {}",res);
 	}
 }
