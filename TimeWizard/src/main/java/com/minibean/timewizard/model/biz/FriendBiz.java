@@ -31,4 +31,7 @@ public interface FriendBiz {
 	//update 2번
 	public int BlockUpdate(FriendDto dto);
 	
+	
+
+	
 }
