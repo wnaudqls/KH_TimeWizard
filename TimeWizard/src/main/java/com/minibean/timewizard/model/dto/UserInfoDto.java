@@ -33,6 +33,20 @@ public class UserInfoDto {
 		this.user_distinct = user_distinct;
 		this.user_regdate = user_regdate;
 	}
+	
+	// 회원정보조회
+	public UserInfoDto(int user_no, String user_id, String user_pw, String user_name, String user_email,
+			String user_active, Date user_regdate, String user_role) {
+		super();
+		this.user_no = user_no;
+		this.user_id = user_id;
+		this.user_pw = user_pw;
+		this.user_name = user_name;
+		this.user_email = user_email;
+		this.user_active = user_active;
+		this.user_regdate = user_regdate;
+		this.user_role = user_role;
+	}
 
 
 	public int getUser_no() {
