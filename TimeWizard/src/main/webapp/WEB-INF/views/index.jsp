@@ -20,6 +20,7 @@
 	<a href="grouplist">채팅방 목록</a>
 	<a href="daily">daily part</a>
 	<a href="kakaomes">share</a>
+	<a href="indexpage">index</a>
 	
 </body>
 </html>

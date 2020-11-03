@@ -1,9 +1,6 @@
 #textarea{
 	margin-top: 25%;
 }
-#disconnect{
-	display: none;
-}
 #message{
 	width: 200px;
 }
@@ -40,4 +37,7 @@ text-align: left;
 	width: 500px;
 	height: 100px;
 	overflow: auto;
+}
+#connect{
+	display: none;
 }

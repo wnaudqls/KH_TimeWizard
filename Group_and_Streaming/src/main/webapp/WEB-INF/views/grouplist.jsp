@@ -27,16 +27,20 @@
 						<td>${dto.chat_no }</td>
 					</tr> --%>
 					<tr>
+						<th>방이름</th>	
+						<td>${dto.chat_title }</td>
+					</tr>
+					<tr>
 						<th>아이디</th>	
-						<td>${dto.name }</td>
+						<td>${dto.user_id }</td>
 					</tr>
 					<%-- <tr>
 						<th>내용</th>
 						<td>${dto.chat_content }</td>
 					</tr> --%>
 					<tr>
-						<td colspan="2">
-							<input type="button" value="접속하기" onclick="location.href='joinroom/${dto.roomid }'">
+						<td colspan="2" align="right">
+							<input type="button" value="접속하기" onclick="location.href='joinroom/${dto.chat_title }'">
 						</td>
 					</tr>
 				</c:forEach>
@@ -48,8 +52,6 @@
 		<input type="text" id="search" placeholder="아이디 , 방이름을 입력하십시오." /> 
 		<input type="button" id="searchBtn" value="검색하기" />
 	</div>
-
-	<div id="messageArea"></div>
 </body>
 <script type="text/javascript">
 

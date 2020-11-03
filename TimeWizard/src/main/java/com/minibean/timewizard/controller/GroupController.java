@@ -1,6 +1,8 @@
 package com.minibean.timewizard.controller;
 
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -25,6 +27,8 @@ import com.minibean.timewizard.model.dto.ChatDto;
 public class GroupController {
 	@Autowired
 	SimpMessagingTemplate template;
+	
+	Logger log = LoggerFactory.getLogger(GroupController.class);
 
 	
 	@Autowired
@@ -64,15 +68,16 @@ public class GroupController {
 		return "newRoom";
 	}
 
-	@PostMapping(value="/createres", params={"name"})
-	public String makeRoom(@RequestParam("name") String name, ChatDto dto) {
+	@PostMapping(value="/createres")
+	public String makeRoom(ChatDto dto) {
 		
 	 	int res = biz.insert(dto);
 		if(res > 0) {
-			
-			return "redirect:/grouplist";
+			log.info("방 생성성공\n방 이름: {}",dto.getChat_title());
+			return "redirect:/joinroom/"+dto.getChat_title();
 		}
 		else {
+			log.info("방 생성실패");
 			return "redirect:/newroom";
 		}
 		
@@ -80,15 +85,42 @@ public class GroupController {
 	
 	@MessageMapping("/chat/join")
     public void join(ChatMessage message) {
-		System.out.println(message.getWriter()+"님 등장");
-		
+		log.info(message.getWriter()+"님 등장");
+		int res = biz.clientplus(message.getChat_title());
+		log.info("결과: {}",res);
 		message.setMessage(message.getWriter() + "님이 입장하셨습니다.");
-        template.convertAndSend("/subscribe/chat/room/", message);
+        template.convertAndSend("/subscribe/chat/join/"+message.getChat_title(), message);
     }
 
 	@MessageMapping("/chat/message")
     public void message(ChatMessage message) {
-		System.out.println(message.getRoomid()+"번 채팅방");
-        template.convertAndSend("/subscribe/chat/room/"+message.getRoomid(), message);
+		log.info("\n"+message.getChat_title()+" 채팅방\n"+message.getWriter()+": "+message.getMessage());
+        template.convertAndSend("/subscribe/chat/room/"+message.getChat_title(), message);
+    }
+	
+	@MessageMapping("/chat/disconnect")
+    public String disconnect(ChatMessage message) {
+		String room = message.getChat_title();
+		log.info(message.getWriter()+"님 퇴장");
+		int res = biz.clientminus(room);
+		log.info("클라이언트 감소 결과: {}",res);
+		ChatDto dto = biz.clientnum(room);
+		log.info("방 인원 결과: {}",dto.getChat_client());
+		int clientnum = dto.getChat_client();
+		
+		message.setMessage(message.getWriter() + "님이 퇴장하셨습니다.");
+        template.convertAndSend("/subscribe/chat/join/"+room, message);
+        if(clientnum <= 0) {
+			log.info("현재 인원이 0명 입니다. 방 삭제를 하겠습니다.");
+			int deleteroom = biz.kaboom(room);
+			if(deleteroom > 0) {
+				log.info("방 삭제완료.");
+				return "redirect:/grouplist";
+			}else {
+				log.info("방 삭제실패.");
+				
+			}
+		}
+        return "";
     }
 }
