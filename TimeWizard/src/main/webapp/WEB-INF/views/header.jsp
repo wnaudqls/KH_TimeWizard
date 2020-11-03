@@ -12,6 +12,7 @@
 
 <%
 	UserInfoDto UDto = (UserInfoDto)session.getAttribute("login");
+	System.out.println("user role in header : " + UDto.getUser_role());
 %>
 	
 	<nav class="navbar">
@@ -35,20 +36,19 @@
 		
 		<ul class="nav_icon">
 			<%
-			//로그인 되어있고 USER일때만 보이게!
+			//로그인 되어있고 ADMIN, USER일 때만 보이게!
 			if(UDto != null){
+				if(UDto.getUser_role().equals("ADMIN")){
 			%>
-			<c:choose>
-				<c:when test="${userinfodto.user_role eq 'ADMIN' }">
 					<li><a href="adminpage">${login.user_name }</a></li>
 					<li><a href="./logout">Logout</a></li>
-				</c:when>
-				<c:otherwise>
+			<%
+			} else {
+			%>
 					<li><a href="mypage">${login.user_name }</a></li>
 					<li><a href="./logout">Logout</a></li>
-				</c:otherwise>
-			</c:choose>
 			<%
+			}
 			}
 			%>
 		</ul>
