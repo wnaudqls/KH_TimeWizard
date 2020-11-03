@@ -16,7 +16,10 @@
 </head>
 <body>
 
-	<h1>공지사항</h1>
+	<div class="top">
+		<h1>공지사항</h1>
+		<div class="home"><a href="main"><i class="fab fa-tumblr-square"></i></a></div>
+	</div>
 	
 	<br/><br/>
 	
@@ -42,19 +45,19 @@
 			<c:otherwise>
 				<c:forEach items="${list }" var="dto">
 					<tr>
-						<th>${dto.notice_no }</th>
-						<th><a href="./detail?notice_no=${dto.notice_no }&nowpage=${paging.nowpage }&cntPerpage=${paging.cntPerpage }">${dto.notice_title }</a></th>
-						<th>${dto.notice_regdate }</th>
-						<th class="trash" onclick="location.href='./delete?notice_no=${dto.notice_no }&nowpage=${paging.nowpage}&cntPerpage=${paging.cntPerpage }'"><i class="fas fa-trash-alt"></i></th>
+						<td>${dto.notice_no }</td>
+						<td><a href="./detail?notice_no=${dto.notice_no }&nowpage=${paging.nowpage }&cntPerpage=${paging.cntPerpage }">${dto.notice_title }</a></td>
+						<td>${dto.notice_regdate }</td>
+						<td class="trash" onclick="location.href='./delete?notice_no=${dto.notice_no }&nowpage=${paging.nowpage}&cntPerpage=${paging.cntPerpage }'"><i class="fas fa-trash-alt"></i></td>
 					</tr>
 				</c:forEach>
 			</c:otherwise>
 		</c:choose>
 		
 		<tr>
-			<td class="write" colspan="4" align="right">
+			<th class="write" colspan="4" align="right">
 				<i class="fas fa-edit" onclick="location.href='insert?&nowpage=${paging.nowpage}&cntPerpage=${paging.cntPerpage }'"></i>
-			</td>
+			</th>
 		</tr>
 	</table>
 	
