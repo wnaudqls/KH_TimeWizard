@@ -20,14 +20,9 @@
 	<div class="adminbox">
 		<h1>관리자 페이지</h1>
 	</div>
-	
-	<%
-	List<UserInfoDto> list = (List<UserInfoDto>)request.getAttribute("list");
-	%>
+
 	<div class="adminbox" id="userlist">
-		<table border="0">
-			<col width="100"/>
-			<col width="100"/>
+		<table border="1">
 			<col width="100"/>
 			<col width="100"/>
 			<col width="100"/>
@@ -50,31 +45,25 @@
 					<td>가입날짜</td>
 					<td>등     급</td>
 					<td>등급변경</td>
+					<td>강제탈퇴</td>
 				</tr>
-		<%
-		if (list.size() == 0 ) {
-		%>
+				<c:forEach var="dto" items="${list }">
 				<tr>
-					<td>-----회원 정보가 없습니다.-----</td>
+					<td>${dto.user_no }</td>
+					<td>${dto.user_id }</td>
+					<td>${dto.user_pw }</td>
+					<td>${dto.user_name }</td>
+					<td>${dto.user_email }</td>
+					<td>${dto.user_active }</td>
+					<td>${dto.user_regdate }</td>
+					<td>${dto.user_role }</td>
+					<!-- 아래 부분 수정해서 버튼 누를 때
+					로그인한 관리자의 data가 아니라
+					클릭되는 유저의 data를 가져가야 함 -->
+					<td><a href="adminrole?${dto.user_no}">등급변경</a></td>
+					<td><a href="admindelete?${dto.user_no}">강제탈퇴</a></td>
 				</tr>
-		<%
-		} else {
-			for (UserInfoDto dto : list) {
-		%>
-				<tr>
-					<td><%=dto.getUser_no() %></td>
-					<td><%=dto.getUser_id() %></td>
-					<td><%=dto.getUser_pw() %></td>
-					<td><%=dto.getUser_name() %></td>
-					<td><%=dto.getUser_email() %></td>
-					<td><%=dto.getUser_active() %></td>
-					<td><%=dto.getUser_role() %></td>
-					<td><a href="adminrole" value="변경">${dto.getUser_id() }</a></td>
-				</tr>
-		<%
-			}
-		}
-%>
+				</c:forEach>
 		</table>
 
 	<div class="admin_box" onclick="location.href='#'">
