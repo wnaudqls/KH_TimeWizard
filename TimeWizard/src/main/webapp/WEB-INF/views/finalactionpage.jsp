@@ -31,7 +31,7 @@
 			</div>
 			<div class="content_box">
 
-				<div id="con1" class="content on"><p>Content 1, Tap 1의 내용</p></div>
+				<div id="con1" class="content on"><jsp:include page="/WEB-INF/views/personal_daily.jsp" flush="true"></jsp:include></div>
 				<div id="con2" class="content"><p>Content 2, Tap 2의 내용</p><a href="calendar">Calender</a></div>
 			</div>
 		</div>
