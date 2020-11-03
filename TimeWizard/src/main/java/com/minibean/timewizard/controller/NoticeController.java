@@ -22,32 +22,84 @@ public class NoticeController {
 	@Autowired
 	NoticeBiz biz = new NoticeBizImpl();
 	
-	
+	//search와 paging과 list
 	@RequestMapping(value="/notice")
 	public String noticeList(Model model, 
 			PagingDto pagingdto, 
-			@RequestParam("nowpage")String nowpage,
-			@RequestParam("cntPerpage")String cntPerpage,
-			@RequestParam(defaultValue = "nt_title")String searchType,
-			@RequestParam(required=false)String keyword,
-			PagingDto search) {
+			String searchType, String search_text,
+			@RequestParam(value="nowpage", required=false)String nowpage,
+			@RequestParam(value="cntPerpage", required=false)String cntPerpage) {
 		logger.info("[LIST]");
 		
-		int total = biz.countNotice(search);
+		if(searchType.equals("nt_title")) {
+			logger.info("search_text : "+search_text);
+			logger.info("searchType : "+searchType);
+			int total = biz.countSearchTitle(search_text);
+					
+			if(nowpage == null && cntPerpage == null) {
+				nowpage = "1";
+				cntPerpage = "5";
+			}else if(nowpage == null) {
+				nowpage = "1";
+			}else if(cntPerpage == null) {
+				cntPerpage = "5";
+			}
+		
+			pagingdto = new PagingDto(total, Integer.parseInt(nowpage), Integer.parseInt(cntPerpage));
+		
+			model.addAttribute("searchType", searchType);
+			model.addAttribute("search_text",search_text);
+			model.addAttribute("paging", pagingdto);
+			model.addAttribute("list", biz.selectSearchTitle(search_text, pagingdto));
+					
+			return "notice";
+			
+		}else if(searchType.equals("nt_content")) {
+			logger.info("searchType0202 : "+searchType);
+			int total = biz.countSearchContent(search_text);
+			
+			if(nowpage == null && cntPerpage == null) {
+				nowpage = "1";
+				cntPerpage = "5";
+			}else if(nowpage == null) {
+				nowpage = "1";
+			}else if(cntPerpage == null) {
+				cntPerpage = "5";
+			}
+			
+			pagingdto = new PagingDto(total, Integer.parseInt(nowpage), Integer.parseInt(cntPerpage));
+			
+			model.addAttribute("searchType", searchType);
+			model.addAttribute("search_text",search_text);
+			model.addAttribute("paging", pagingdto);
+			model.addAttribute("list", biz.selectSearchContent(search_text, pagingdto));
+			
+			return "notice";
+		
+		}else {
+			
+			return "redirect:/notice_list";
+		}
+	}
+	
+	//paging과 list
+	@RequestMapping(value="/notice_list")
+	public String List(PagingDto pagingdto, Model model,
+			@RequestParam(value="nowpage", required=false)String nowpage,
+			@RequestParam(value="cntPerpage", required=false)String cntPerpage) {
+		
+		int total = biz.countNotice();
 		if(nowpage == null && cntPerpage == null) {
 			nowpage = "1";
 			cntPerpage = "5";
 		}else if(nowpage == null) {
 			nowpage = "1";
+			
 		}else if(cntPerpage == null) {
 			cntPerpage = "5";
 		}
 		
 		pagingdto = new PagingDto(total, Integer.parseInt(nowpage), Integer.parseInt(cntPerpage));
-		
-		//search
-		 search.setSearchType(searchType);
-		 search.setKeyword(keyword);
 		
 		model.addAttribute("paging", pagingdto);
 		model.addAttribute("list", biz.selectList(pagingdto));
