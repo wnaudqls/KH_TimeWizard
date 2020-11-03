@@ -11,17 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class AdminController {
 	
-	@Autowired
-	private int user_no;
-	private String user_id;
-	private String user_pw;
-	private String user_name;
-	private String user_email;
-	private String user_role;
-	private String user_photo;
-	private String user_active;
-	private Date user_regdate;
-	
 	private Logger logger = LoggerFactory.getLogger(AdminController.class);
 	
 	@RequestMapping("/adminpage")
