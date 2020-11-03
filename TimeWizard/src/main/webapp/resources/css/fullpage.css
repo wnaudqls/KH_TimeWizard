@@ -157,6 +157,7 @@ a {
 	margin-top: 10rem;
 }
 
+
 .p3title:after {
     content: "";
     display: flex;
@@ -188,6 +189,7 @@ a {
 	color: white;
 	cursor: pointer;
 }
+
 
 #p4 {
 	background-color: var(--background-color);
@@ -242,7 +244,9 @@ a {
 	margin: 1rem;
 	background-color: white;
 	cursor: pointer;
+
 	text-align: center;
+
 }
 
 .minibean:hover {
@@ -285,6 +289,7 @@ a {
 		height: 40vh;
 	}
 
+
 	.p3title {
 		margin-top: 5rem;
 	}
@@ -297,7 +302,6 @@ a {
 		width: 30%;
 		height: 7vh;
 	}
-
 
 }
 

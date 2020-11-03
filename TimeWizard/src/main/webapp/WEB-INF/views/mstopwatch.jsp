@@ -84,8 +84,15 @@
 			<i id="timer_reset" class="fas fa-stop-circle" onclick="reset()"></i>
 		</div>
 	</div>
+
+	
+	<br/><br/><br/>
+	
+	<div class="home"><a href="main"><i class="fab fa-tumblr-square"></i></a></div>
+
 		
 	<div class="home"><a href="main">TIWI</a></div>
+
 
 </body>
 </html>
