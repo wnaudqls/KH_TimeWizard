@@ -115,10 +115,7 @@
 				</tr>
 			</table>
 		</div>
-		
-		<div>
-		
-		</div>
+		<div class="home"><a href="main"><i class="fab fa-tumblr-square"></i></a></div>
 	</div>
 
 

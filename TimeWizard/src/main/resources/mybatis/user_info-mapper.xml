@@ -16,7 +16,7 @@
 	</select>
 	<select id="selectOneUserInfoDto" parameterType="UserInfoDto" resultType="UserInfoDto">
 		SELECT ui.USER_NO, ui.USER_ID, ui.USER_PW, ui.USER_NAME, ui.USER_EMAIL, 
-			ui.USER_ROLE, ui.USER_PHOTO, ui.USER_ACTIVE, ui.USER_REGDATE --, ui.USER_DISTINCT
+			ui.USER_ROLE, ui.USER_PHOTO, ui.USER_ACTIVE, ui.USER_REGDATE 
 		FROM USER_INFO ui 
 		WHERE USER_ID = #{user_id}
 		AND USER_PW = #{user_pw}

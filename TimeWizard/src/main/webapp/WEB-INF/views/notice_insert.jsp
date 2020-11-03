@@ -5,6 +5,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+<script src="resources/js/summernote-lite.js"></script>
+<script src="resources/js/summernote/lang/summernote-ko-KR.js"></script>
+<script src="resources/js/noticeinsert.js"></script>
+<link href="resources/css/summernote-lite.css" rel="stylesheet" >
+
 </head>
 <body>
 
@@ -30,6 +36,10 @@
 			</tr>
 			
 		</table>
+	</form>
+	
+	<form method="post">
+		<textarea id="summernote" name="editordata"></textarea>
 	</form>
 
 </body>
