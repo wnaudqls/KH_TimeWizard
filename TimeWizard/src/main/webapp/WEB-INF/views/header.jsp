@@ -36,7 +36,7 @@
 		<ul class="nav_icon">
 			<%
 			//로그인 되어있고 USER일때만 보이게!
-			if(UDto != null && UDto.getUser_role().equals("USER")){  
+			if(UDto != null){
 			%>
 			<c:choose>
 				<c:when test="${userinfodto.user_role eq 'ADMIN' }">
