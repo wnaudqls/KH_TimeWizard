@@ -22,9 +22,6 @@
 	String date = "" + year + (month<10 ? "0"+month : month) + (day<10 ? "0" + day : day);
 %>
 
-	<h5>tab is here</h5>
-	<h4>personal page</h4>
-	<h5>list area</h5>
 	<div class="daily__part">
 		<div class="list__area">
 			<div class="date__area">
@@ -56,7 +53,7 @@
 	<script type="text/javascript">
 	let pagedate = <%=date%>;
 	window.addEventListener('DOMContentLoaded', () => {
-		dailylist(pagedate);
+		showDailyList(pagedate);
 	});
 	</script>
 </body>

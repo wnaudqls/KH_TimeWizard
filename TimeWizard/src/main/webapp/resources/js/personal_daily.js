@@ -9,7 +9,7 @@ let category_array = [
 ];
 let selectedCategory = "";
 
-function dailylist(date){
+function showDailyList(date){
 	const listDiv = document.getElementById("todo__list");
 	listDiv.innerHTML = "";
 	const xhr = new XMLHttpRequest();
@@ -56,9 +56,8 @@ function dailylist(date){
 					let stopwatch = document.createElement("button");
 					stopwatch.setAttribute("type","button");
 					stopwatch.setAttribute("class","stopwatch_"+i+" stopwatch");
-					/* TODO onclick event : stopwatch/timer popup */
+					stopwatch.setAttribute("onclick", "showPopupStopwatch("+items[i].todo_no+");");
 					
-					/* hover color change */
 					let css = '.stopwatch_'+i+':hover { background-color: '+items[i].todo_color+';}'
 							+'.stopwatch_'+i+':hover .fas { color: white; }';
 					let style = document.createElement("style");						
@@ -83,7 +82,6 @@ function dailylist(date){
 			}/* response not null */
 			let insert_div = document.createElement("div");
 			insert_div.setAttribute("class","todo__insert");
-			/* onclick event : modal show and form open -> ajax */
 			insert_div.setAttribute("onclick","showInsertModal("+date+");");
 			let plus = document.createElement("i")
 			plus.setAttribute("class","fas fa-plus");
@@ -127,8 +125,7 @@ function showInsertModal(date){
 	let close_button = document.createElement("button");
 	close_button.setAttribute("type","button");
 	close_button.setAttribute("class","button__times");
-	/* onclick event close */
-	close_button.setAttribute("onclick","closeFirstModal();");
+	close_button.setAttribute("onclick","closeFirstModal(); closeSecondModal();");
 	let times = document.createElement("i");
 	times.setAttribute("class", "fas fa-times");
 	close_button.appendChild(times);
@@ -139,7 +136,6 @@ function showInsertModal(date){
 	title_input.setAttribute("name","todo_title");
 	title_input.setAttribute("id","todo_title");
 	
-	/* 색상이 다음 행에서 전개되는 경우 */
 	let color_div = document.createElement("div");
 	color_div.setAttribute("class","todo__div");
 	let color_namespan = document.createElement("span");
@@ -180,7 +176,6 @@ function showInsertModal(date){
 	hashtag_editablediv.setAttribute("class","todo__editable");
 	hashtag_editablediv.setAttribute("contenteditable","true");
 	hashtag_editablediv.setAttribute("name","todo_hashtag")
-	/* TODO hashtag.js 확인해서 */
 	hashtag_div.appendChild(hashtag_namespan);
 	hashtag_div.appendChild(hashtag_editablediv);
 	
@@ -196,7 +191,6 @@ function showInsertModal(date){
 	date_div.appendChild(date_namespan);
 	date_div.appendChild(date_input);
 	
-	/* TODO 상세설정 : 소요 시간 작성 저장하기 => db table 필요 */
 	let time_div = document.createElement("div");
 	time_div.setAttribute("class","todo__div");
 	let time_namespan = document.createElement("span");
@@ -329,7 +323,6 @@ function selectedOrNot(element){
 	}
 }
 
-
 function submitCategory(){
 	let firstModal = document.getElementsByClassName("modal__area")[0];
 	let firstModalCategory = firstModal.querySelector("[name=todo_category]")
@@ -377,7 +370,7 @@ function submitInsertModal(){
 		xhr.send(JSON.stringify(data));
 		xhr.onreadystatechange = () => {
 			if (xhr.readyState == 4 && xhr.status == 200){
-				dailylist(pagedate);
+				showDailyList(pagedate);
 			}
 		}
 		closeFirstModal();
@@ -406,7 +399,6 @@ function getTimeForValue(daytime){
 }
 
 
-/* modal창 닫기 이벤트 */
 function closeFirstModal(){
 	let modalArea = document.getElementsByClassName("modal__area")[0];
 	modalArea.innerHTML = "";
@@ -460,13 +452,12 @@ function submitDeleteModal(todo_no){
 	xhr.send();
 	xhr.onreadystatechange = () => {
 		if (xhr.readyState == 4 && xhr.status == 200){
-			dailylist(pagedate);
+			showDailyList(pagedate);
 		}
 	}
 	closeFirstModal();
 }
 
-/* item 클릭시 detail modal + 수정하기 버튼 누르면 수정 되는걸로... */
 function showDetailModal(todo_no){
 	const xhr = new XMLHttpRequest();
 	xhr.open("POST", "daily/detail/"+todo_no);
@@ -478,7 +469,6 @@ function showDetailModal(todo_no){
 			closeSecondModal();
 			const modalArea = document.getElementsByClassName("modal__area")[0];
 			if (xhr.responseText != null ||xhr.responseText != ""){
-				/* response not null */
 				item = JSON.parse(xhr.responseText);
 				console.log(item);
 				
@@ -497,7 +487,7 @@ function showDetailModal(todo_no){
 				let close_button = document.createElement("button");
 				close_button.setAttribute("type","button");
 				close_button.setAttribute("class","button__times");
-				close_button.setAttribute("onclick","closeFirstModal();");
+				close_button.setAttribute("onclick","closeFirstModal(); closeSecondModal();");
 				let times = document.createElement("i");
 				times.setAttribute("class", "fas fa-times");
 				close_button.appendChild(times);
@@ -598,13 +588,10 @@ function showDetailModal(todo_no){
 				let date_input = document.createElement("input");
 				date_input.setAttribute("type","date");
 				date_input.setAttribute("name","todo_date")
-				let date_input_value = getDateForValue(item.todo_date);
-//				date_input.setAttribute("value", date_input_value);
 				date_input.setAttribute("value", item.todo_date);
 				date_div.appendChild(date_namespan);
 				date_div.appendChild(date_input);
 				
-				/* TODO 상세설정 : 소요 시간 작성 저장하기 => db table 필요 */
 				let time_div = document.createElement("div");
 				time_div.setAttribute("class","todo__div");
 				let time_namespan = document.createElement("span");
@@ -620,7 +607,6 @@ function showDetailModal(todo_no){
 				starttime.setAttribute("type","time");
 				starttime.setAttribute("name","todo_starttime");
 				starttime.disabled = (item.todo_complete == 'Y')?false:true;
-//				starttime.setAttribute("value", (item.todo_starttime == "" || item.todo_starttime == undefined) ? "" : item.todo_starttime);
 				starttime.setAttribute("value", (item.todo_starttime == "" || item.todo_starttime == undefined) ? "" : item.todo_starttime.split(" ")[1]);
 				let between_span = document.createElement("span");
 				between_span.setAttribute("class","tilde");
@@ -729,7 +715,7 @@ function submitUpdateModal(todo_no){
 		xhr.send(JSON.stringify(data));
 		xhr.onreadystatechange = () => {
 			if (xhr.readyState == 4 && xhr.status == 200){
-				dailylist(pagedate);
+				showDailyList(pagedate);
 			}
 		}
 		closeFirstModal();
@@ -738,5 +724,5 @@ function submitUpdateModal(todo_no){
 
 /* stopwatch/timer popup event */
 function showPopupStopwatch(todo_no){
-	
+	window.open('stopwatch', 'window','width=300, height=190, left=0, top=100, status=no, resizable=no');
 }
