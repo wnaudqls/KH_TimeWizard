@@ -22,11 +22,11 @@ import com.minibean.timewizard.model.dto.UserTodoDto;
 
 @RestController
 @RequestMapping(value="/daily")
-public class DailyController {
+public class PersonalDailyController {
 	
 	@Autowired
 	private UserTodoBiz userTodoBiz;
-	private Logger logger = LoggerFactory.getLogger(DailyController.class);
+	private Logger logger = LoggerFactory.getLogger(PersonalDailyController.class);
 	
 	@PostMapping(value="/list/{yyyyMMdd}")
 	public List<UserTodoDto> dailyList(HttpSession session, HttpServletRequest request, @PathVariable String yyyyMMdd) {
@@ -40,6 +40,7 @@ public class DailyController {
 		/* parameter setting */
 		int newOrNot = userTodoBiz.countList(user_no);
 		
+		/* userlogin 정보와 접속 정보가 동일할 떄만 */
 		if (newOrNot == 0) {
 			/* list가 null일 때 */
 			int res = userTodoBiz.insertExample(user_no);
@@ -57,9 +58,8 @@ public class DailyController {
 	}
 	
 	@PostMapping(value="/detail/{todo_no}")
-	public UserTodoDto dailyDetail(@PathVariable("todo_no") int todo_no, HttpSession session) {
+	public UserTodoDto dailyDetail(@PathVariable("todo_no") int todo_no) {
 		logger.info(">> [CONTROLLER-DAILY] detail - " + todo_no);
-		UserInfoDto login = (UserInfoDto) session.getAttribute("login");
 		UserTodoDto dto = userTodoBiz.selectOne(todo_no);
 		logger.info(">> [CONTROLLER-DAILY] detail content"
 				+ "\n\t* user_no : " + dto.getUser_no()
@@ -73,6 +73,7 @@ public class DailyController {
 	public void dailyInsert(@RequestBody UserTodoDto dto, HttpSession session) {
 		logger.info("\n\t* todo_starttime : " + dto.getTodo_starttime());
 		UserInfoDto login = (UserInfoDto) session.getAttribute("login");
+		/* userlogin 정보와 link 정보가 동일할 때만 !!! */
 		dto.setUser_no(login.getUser_no());
 		logger.info(">> [CONTROLLER-DAILY] insert content"
 					+ "\n\t* user_no : " + dto.getUser_no()
@@ -88,6 +89,7 @@ public class DailyController {
 	@PostMapping(value="/update")
 	public void dailyUpdate(@RequestBody UserTodoDto dto, HttpSession session) {
 		UserInfoDto login = (UserInfoDto) session.getAttribute("login");
+		/* userlogin 정보와 link 정보가 동일할 때만 !!! */
 		dto.setUser_no(login.getUser_no());
 		logger.info(">> [CONTROLLER-DAILY] update content"
 				+ "\n\t* user_no : " + dto.getUser_no()
@@ -102,6 +104,7 @@ public class DailyController {
 	public void dailyDelete(@PathVariable("todo_no") int todo_no) {
 		logger.info(">> [CONTROLLER-DAILY] delete content"
 				+ "\n\t* todo_no : " + todo_no);
+		/* userlogin 정보와 link 정보가 동일할 때만 !!! */
 		int res = userTodoBiz.delete(todo_no);
 		logger.info(">> [CONTROLLER-DAILY] success?: " + ((res == 1)?"yes":"no"));
 	}

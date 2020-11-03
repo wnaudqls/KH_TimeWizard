@@ -3,7 +3,6 @@ select object_name, object_type from user_objects
 -----------------------------------------------------
 
 DROP SEQUENCE USER_INFO_SEQ;
-
 DROP TABLE USER_INFO;
 
 CREATE SEQUENCE USER_INFO_SEQ;
@@ -31,14 +30,14 @@ INSERT INTO USER_INFO VALUES(USER_INFO_SEQ.NEXTVAL, 'test', 'test1234',
 '테스트1','test01@tiwi.com', 'USER', NULL, 'Y','test1', SYSDATE);
 
 INSERT INTO USER_INFO VALUES(USER_INFO_SEQ.NEXTVAL, 'ming', 'ming1234',
-'밍','mingyeung@naver.com','USER',NULL,'Y',SYSDATE, NULL);
+'밍','mingyeung@naver.com','USER',NULL,'Y', 'ming', SYSDATE);
 
 INSERT INTO USER_INFO VALUES(USER_INFO_SEQ.NEXTVAL, 'user', 'user1234',
-'유저','mddd','USER',NULL,'Y',SYSDATE, NULL);
+'유저','mddd','USER',NULL,'Y', 'user', SYSDATE);
 
 
 SELECT USER_NO, USER_ID, USER_PW, USER_NAME, USER_EMAIL, 
-USER_ROLE, USER_PHOTO, USER_ACTIVE, USER_REGDATE
+USER_ROLE, USER_PHOTO, USER_ACTIVE, USER_DISTINCT, USER_REGDATE
 FROM USER_INFO;
 
 SELECT *
@@ -117,4 +116,10 @@ VALUES(BOARD_NOTICE_SEQ.NEXTVAL, 'tiwi사용방법','문의해주세용', SYSDAT
 SELECT *
 FROM BOARD_NOTICE;
 
-
+drop table friend_list;
+drop sequence chat_seq;
+drop table chat;
+drop table user_todo;
+drop sequence user_todo_seq;
+drop table user_info;
+drop sequence user_info_seq;
