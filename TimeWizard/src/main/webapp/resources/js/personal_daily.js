@@ -13,7 +13,7 @@ function showDailyList(date){
 	const listDiv = document.getElementById("todo__list");
 	listDiv.innerHTML = "";
 	const xhr = new XMLHttpRequest();
-	xhr.open("POST", "daily/list/"+date);
+	xhr.open("POST", "/timewizard/daily/list/"+date);
 	xhr.send();
 	xhr.onreadystatechange = () => {
 		if (xhr.readyState == 4 && xhr.status == 200){
@@ -80,6 +80,7 @@ function showDailyList(date){
 				} /* for - array items */
 				listDiv.appendChild(items_div);
 			}/* response not null */
+			/* TODO c:when?으로 session의 user_no와 user_distinct check */
 			let insert_div = document.createElement("div");
 			insert_div.setAttribute("class","todo__insert");
 			insert_div.setAttribute("onclick","showInsertModal("+date+");");
@@ -351,7 +352,7 @@ function submitInsertModal(){
 	} else {
 		let input_date = document.getElementsByName("todo_date")[0].value;
 		const xhr = new XMLHttpRequest();
-		xhr.open("POST", "daily/insert");
+		xhr.open("POST", "/timewizard/daily/insert");
 		xhr.setRequestHeader("Content-type","application/json");
 		const data = {
 				todo_title: document.getElementsByName("todo_title")[0].value,
@@ -364,9 +365,6 @@ function submitInsertModal(){
 				todo_hashtag: document.getElementsByName("todo_hashtag")[0].textContent.trim(),
 				todo_date: input_date
 		};
-		console.log("starttime : " + input_starttime);
-		console.log("endtime : " + input_endtime);
-		console.log(data);
 		xhr.send(JSON.stringify(data));
 		xhr.onreadystatechange = () => {
 			if (xhr.readyState == 4 && xhr.status == 200){
@@ -388,7 +386,11 @@ function getDateForValue(days){
 }
 
 function setTimeForJSON(days, times){
-	return days + " " + times;
+	if (times == "" || times == null || times == undefined){
+		return "";
+	} else {
+		return days + " " + times;
+	}
 }
 
 function getTimeForValue(daytime){
@@ -447,7 +449,7 @@ function showDeleteConfirm(todo_no){
 
 function submitDeleteModal(todo_no){
 	const xhr = new XMLHttpRequest();
-	xhr.open("POST", "daily/delete/"+todo_no);
+	xhr.open("POST", "/timewizard/daily/delete/"+todo_no);
 	xhr.setRequestHeader("Content-type","application/json");
 	xhr.send();
 	xhr.onreadystatechange = () => {
@@ -460,7 +462,7 @@ function submitDeleteModal(todo_no){
 
 function showDetailModal(todo_no){
 	const xhr = new XMLHttpRequest();
-	xhr.open("POST", "daily/detail/"+todo_no);
+	xhr.open("POST", "/timewizard/daily/detail/"+todo_no);
 	xhr.send();
 	xhr.onreadystatechange = () => {
 		if (xhr.readyState == 4 && xhr.status == 200){
@@ -470,7 +472,6 @@ function showDetailModal(todo_no){
 			const modalArea = document.getElementsByClassName("modal__area")[0];
 			if (xhr.responseText != null ||xhr.responseText != ""){
 				item = JSON.parse(xhr.responseText);
-				console.log(item);
 				
 				let overlay_div = document.createElement("div");
 				overlay_div.setAttribute("class","modal__overlay");
@@ -697,7 +698,7 @@ function submitUpdateModal(todo_no){
 	} else {
 		let input_date = document.getElementsByName("todo_date")[0].value;
 		const xhr = new XMLHttpRequest();
-		xhr.open("POST", "daily/update");
+		xhr.open("POST", "/timewizard/daily/update");
 		xhr.setRequestHeader("Content-type","application/json");
 		const data = {
 				todo_no: todo_no,
@@ -711,7 +712,6 @@ function submitUpdateModal(todo_no){
 				todo_hashtag: document.getElementsByName("todo_hashtag")[0].textContent.trim(),
 				todo_date: input_date
 		};
-		console.log(data);
 		xhr.send(JSON.stringify(data));
 		xhr.onreadystatechange = () => {
 			if (xhr.readyState == 4 && xhr.status == 200){
@@ -724,5 +724,5 @@ function submitUpdateModal(todo_no){
 
 /* stopwatch/timer popup event */
 function showPopupStopwatch(todo_no){
-	window.open('stopwatch', 'window','width=300, height=190, left=0, top=100, status=no, resizable=no');
+	window.open('stopwatch', 'window_'+todo_no,'width=300, height=190, left=0, top=100, status=no, resizable=no');
 }

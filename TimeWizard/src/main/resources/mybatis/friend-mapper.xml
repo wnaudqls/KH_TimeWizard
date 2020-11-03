@@ -51,7 +51,7 @@
 	<!-- update 2번 -->
 	<update id="updateAccept" parameterType="FriendDto">
 		
-		    {
+<!-- 		    {
    CALL
       DECLARE
       BEGIN
@@ -71,6 +71,28 @@
 			(FRIEND_NO = #{friend_no} OR USER_NO = #{friend_no})
 		AND STATUS = 'SEND';
    END
+   } -->
+   		
+		    {
+   CALL
+      DECLARE
+      BEGIN
+         UPDATE FRIEND_LIST
+		SET STATUS = 'ACCEPT'
+		WHERE 
+			(FRIEND_NO = #{friend_no} AND USER_NO = #{friend_no})
+		OR
+			(FRIEND_NO = #{user_no} AND USER_NO = #{user_no})
+		AND STATUS = 'SEND';
+         
+         UPDATE FRIEND_LIST
+		SET STATUS = 'ACCEPT'
+		WHERE 
+			(FRIEND_NO = #{user_no} AND USER_NO = #{user_no})
+		OR
+			(FRIEND_NO = #{friend_no} AND USER_NO = #{friend_no})
+		AND STATUS = 'SEND';
+   END
    }
 	</update>
 	
@@ -83,16 +105,18 @@
 		UPDATE FRIEND_LIST
 		SET STATUS = 'DENY'
 		WHERE 
-			(FRIEND_NO = #{friend_no} OR USER_NO = #{friend_no})
-		AND
-			(FRIEND_NO = #{user_no} OR USER_NO = #{user_no})
+			(FRIEND_NO = #{user_no} AND USER_NO = #{friend_no})
+		OR
+			(FRIEND_NO = #{friend_no} AND USER_NO = #{user_no})
 		AND STATUS = 'SEND'
 	</update>
 	
 	<delete id="deleteDeny" parameterType="FriendDto">
 		DELETE FROM FRIEND_LIST
-		WHERE
-			USER_NO = #{user_no} 
+		WHERE 
+			(FRIEND_NO = #{user_no} AND USER_NO = #{friend_no})
+		OR
+			(FRIEND_NO = #{friend_no} AND USER_NO = #{user_no})
 		AND 
 			STATUS = 'DENY'
 	</delete>
