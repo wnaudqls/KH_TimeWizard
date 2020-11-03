@@ -4,19 +4,19 @@
 
 	<select id="selectList" resultType="UserInfoDto">
 		SELECT USER_NO, USER_ID, USER_PW, USER_NAME, USER_EMAIL, 
-		USER_ROLE, USER_PHOTO, USER_ACTIVE, USER_REGDATE
+		USER_ROLE, USER_PHOTO, USER_ACTIVE, USER_DISTINCT, USER_REGDATE
 		FROM USER_INFO
 		ORDER BY USER_NO
 	</select>
 	<select id="selectOneUserNo" parameterType="int" resultType="UserInfoDto">
 		SELECT USER_NO, USER_ID, USER_PW, USER_NAME, USER_EMAIL, 
-		USER_ROLE, USER_PHOTO, USER_ACTIVE, USER_REGDATE
+		USER_ROLE, USER_PHOTO, USER_ACTIVE, USER_DISTINCT, USER_REGDATE
 		FROM USER_INFO
 		WHERE USER_NO = #{user_no}
 	</select>
 	<select id="selectOneUserInfoDto" parameterType="UserInfoDto" resultType="UserInfoDto">
 		SELECT ui.USER_NO, ui.USER_ID, ui.USER_PW, ui.USER_NAME, ui.USER_EMAIL, 
-			ui.USER_ROLE, ui.USER_PHOTO, ui.USER_ACTIVE, ui.USER_REGDATE
+			ui.USER_ROLE, ui.USER_PHOTO, ui.USER_ACTIVE, ui.USER_REGDATE --, ui.USER_DISTINCT
 		FROM USER_INFO ui 
 		WHERE USER_ID = #{user_id}
 		AND USER_PW = #{user_pw}
@@ -25,11 +25,11 @@
 	<insert id="insert" parameterType="UserInfoDto">
 		INSERT INTO USER_INFO
 		VALUES(USER_INFO_SEQ.NEXTVAL, #{user_id}, #{user_pw}, #{user_name},
-		#{user_email}, 'USER', NULL, 'Y', SYSDATE)
+		#{user_email}, 'USER', NULL, 'Y', #{user_distinct}, SYSDATE)
 	</insert>
 	<update id="update" parameterType="UserInfoDto">
 		UPDATE USER_INFO SET USER_PW = #{user_pw}, USER_NAME = #{user_name},
-		USER_EMAIL = #{user_email}
+		USER_EMAIL = #{user_email}, USER_DISTINCT = #{user_distinct}
 		WHERE USER_NO = #{user_no}
 	</update>
 	<update id="delete" parameterType="int">

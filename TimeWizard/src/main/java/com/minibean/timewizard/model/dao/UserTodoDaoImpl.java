@@ -33,6 +33,18 @@ public class UserTodoDaoImpl implements UserTodoDao {
 		}
 		return result;
 	}
+	@Override
+	public int countList(int user_no) {
+		logger.info(">> [USERTODO] countList");
+		int res = 0;
+		try {
+			res = sqlSession.selectOne(NAMESPACE+"countList", user_no);
+		} catch (Exception e) {
+			logger.info("[ERROR] USERTODO :: countList");
+			e.printStackTrace();
+		}
+		return res;
+	}
 	
 	@Override
 	public List<UserTodoDto> selectList(HashMap<String, Object> params) {
