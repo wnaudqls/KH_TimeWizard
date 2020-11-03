@@ -42,7 +42,16 @@
 		</div>
 		
 		<div class="section" id="p4">
-			<p>Hello</p>
+			<div class="minibeanbox">
+				<div class="minibean">박진희</div>
+				<div class="minibean">배민경</div>
+				<div class="minibean">김산희</div>
+			</div>
+			<div class="minibeanbox">
+				<div class="minibean">정형빈</div>
+				<div class="minibean">주명빈</div>
+				<div class="minibean">윤용민</div>
+			</div>
 		</div>
 	</div>
 	
