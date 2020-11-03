@@ -17,8 +17,11 @@
 
 </head>
 <body>
-	
-	<h1>공지사항</h1>
+
+	<div class="top">
+		<h1>공지사항</h1>
+		<div class="home"><a href="main"><i class="fab fa-tumblr-square"></i></a></div>
+	</div>
 	
 	<br/>
 	

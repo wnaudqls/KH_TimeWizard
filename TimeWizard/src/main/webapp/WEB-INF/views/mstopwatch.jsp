@@ -77,7 +77,7 @@
 	
 	<br/><br/><br/>
 	
-	<div class="home"><a href="main"><i class="fas fa-home"></i></a></div>
+	<div class="home"><a href="main"><i class="fab fa-tumblr-square"></i></a></div>
 
 </body>
 </html>

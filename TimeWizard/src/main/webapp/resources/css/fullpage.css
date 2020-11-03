@@ -1,3 +1,9 @@
+:root {
+    --text-color: #f0f4f5;
+    --background-color: #263343;
+    --accent-color: #ff6b6b;
+}
+
 body {
 }
 
@@ -6,7 +12,7 @@ a {
 }
 
 #p1 {
-	background-color: #424242;
+	background-color: #263343;
 	color: #E0E0E0;
 	letter-spacing: 10px;
 	font-size: 50px;
@@ -124,7 +130,7 @@ a {
 	transition: all 0.2s ease-in-out;
 	transition-duration: 1s;
 	opacity: 0;
-	background-color: #66BB6A;
+	background-color: #ff6b6b;
 }
 
 .underline:hover:after {
@@ -143,7 +149,7 @@ a {
 }
 
 #p4 {
-
+	background-color: var(--background-color);
 }
 
 .start {
@@ -169,6 +175,8 @@ a {
 	cursor: pointer;
 	justify-content: center;
 	align-items: center;
+	transition: 0.4s;
+
 }
 
 .loginform:hover {
@@ -181,7 +189,24 @@ a {
 	margin-left: 3rem;
 }
 
+.minibeanbox {
+	display: flex;
+	margin-left: 15%;
+}
 
+.minibean {
+	border-radius: 10px;
+	width: 25%;
+	height: 40vh;
+	margin: 1rem;
+	background-color: white;
+	cursor: pointer;
+}
+
+.minibean:hover {
+	background-color: var(--accent-color);
+	color: white;
+}
 
 @media screen and (max-width: 1140px) {
 	#p1 {
@@ -207,6 +232,15 @@ a {
 	.middle {
 		margin-top: 20vh;
 		margin-left: 1rem;
+	}
+
+	.minibeanbox {
+		margin-left: 0;
+	}
+
+	.minibean {
+		border: 1px solid black;
+		height: 40vh;
 	}
 }
 
