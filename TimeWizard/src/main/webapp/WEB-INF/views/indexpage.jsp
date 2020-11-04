@@ -37,7 +37,8 @@
 			</div>
 		</div>
 		
-		<div class="section" id="p3">
+		<div class="section" id="p3"">
+			<div class="backimg" style="background-image:url(resources/img/bg2.jpg)"></div>
 			<p class="p3title">
 				TIWI STORY
 			</p>
