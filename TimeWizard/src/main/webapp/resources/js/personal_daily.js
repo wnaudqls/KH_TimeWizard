@@ -56,8 +56,9 @@ function showDailyList(date){
 					let stopwatch = document.createElement("button");
 					stopwatch.setAttribute("type","button");
 					stopwatch.setAttribute("class","stopwatch_"+i+" stopwatch");
-					stopwatch.setAttribute("onclick", "showPopupStopwatch("+items[i].todo_no+");");
-					
+					if (linkedUserNo == loginUserNo) {
+						stopwatch.setAttribute("onclick", "showPopupStopwatch("+items[i].todo_no+");");
+					}
 					let css = '.stopwatch_'+i+':hover { background-color: '+items[i].todo_color+';}'
 							+'.stopwatch_'+i+':hover .fas { color: white; }';
 					let style = document.createElement("style");						
@@ -738,5 +739,5 @@ function submitUpdateModal(todo_no){
 
 /* stopwatch/timer popup event */
 function showPopupStopwatch(todo_no){
-	window.open('stopwatch', 'window_'+todo_no,'width=300, height=190, left=0, top=100, status=no, resizable=no');
+	window.open('/timewizard/stopwatch', 'window_'+todo_no,'width=300, height=190, left=0, top=100, status=no, resizable=no');
 }

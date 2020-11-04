@@ -26,6 +26,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 			request.getRequestURI().contains("/login/snssignup") || 
 			request.getRequestURI().contains("/login/signupresult") || 
 			request.getRequestURI().contains("/login/kakaosuccess") || 
+			request.getRequestURI().contains("/user/*") || 
 			request.getRequestURI().contains("/mypage")||
 			request.getSession().getAttribute("login")!=null) {
 			

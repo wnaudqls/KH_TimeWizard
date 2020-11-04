@@ -20,8 +20,6 @@ public class MainController {
 	
 	@Autowired
 	private UserInfoBiz userInfoBiz;
-	@Autowired
-	private PersonalDailyCalendar personalDailyCalendar;
 	private Logger logger = LoggerFactory.getLogger(MainController.class);
 	
 	@RequestMapping(value="/")

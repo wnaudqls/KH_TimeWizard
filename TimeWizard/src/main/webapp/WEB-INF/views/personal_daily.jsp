@@ -1,3 +1,4 @@
+<%@page import="com.minibean.timewizard.utils.personal.PersonalDailyCalendar"%>
 <%@page import="com.minibean.timewizard.model.dto.UserInfoDto"%>
 <%@page import="java.util.Calendar"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -12,16 +13,10 @@
 </head>
 <body>
 <%
-	/* input type=date를 넣을지 today 버튼을 넣을지? -> 그러면 달력 부분에 링크 걸어주면 보기 좋지 않을까? */
-	Calendar cal = Calendar.getInstance();
-	int today_year = cal.get(Calendar.YEAR);
-	int today_month = cal.get(Calendar.MONTH) + 1;
-	int today_day = cal.get(Calendar.DATE);
-	String today = "" + today_year + (today_month<10 ? "0"+today_month : today_month) + (today_day<10 ? "0" + today_day : today_day);
-	int year = cal.get(Calendar.YEAR);
-	int month = cal.get(Calendar.MONTH) + 1;
-	int day = cal.get(Calendar.DATE);
-	String date = "" + year + (month<10 ? "0"+month : month) + (day<10 ? "0" + day : day);
+	PersonalDailyCalendar dailyCalendar = new PersonalDailyCalendar();
+	String month = dailyCalendar.getMonth();
+	String day = dailyCalendar.getDay();
+	String date = dailyCalendar.toString();
 	UserInfoDto linked = (UserInfoDto) session.getAttribute("linked");
 	UserInfoDto login = (UserInfoDto) session.getAttribute("login");
 %>
@@ -33,7 +28,7 @@
 					<a><i class="fas fa-caret-square-left"></i></a>
 					<a><i class="far fa-caret-square-left"></i></a>
 					<span class="month"><%=month %>월 </span>
-					<span class="mday"><%=day %> 일</span>
+					<span class="day"><%=day %> 일</span>
 					<a><i class="far fa-caret-square-right"></i></a>
 					<a><i class="fas fa-caret-square-right"></i></a>
 				</div>
