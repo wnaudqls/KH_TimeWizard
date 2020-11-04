@@ -15,6 +15,4 @@ public interface UserInfoBiz {
 	public int delete(int user_no);
 	public int idCheck(String id);//아이디 중복체크 용도
 	
-
-	
 }
