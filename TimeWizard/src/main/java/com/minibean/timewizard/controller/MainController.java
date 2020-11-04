@@ -13,12 +13,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.minibean.timewizard.model.biz.UserInfoBiz;
 import com.minibean.timewizard.model.dto.UserInfoDto;
+import com.minibean.timewizard.utils.personal.PersonalDailyCalendar;
 
 @Controller
 public class MainController {
 	
 	@Autowired
 	private UserInfoBiz userInfoBiz;
+	@Autowired
+	private PersonalDailyCalendar personalDailyCalendar;
 	private Logger logger = LoggerFactory.getLogger(MainController.class);
 	
 	@RequestMapping(value="/")
