@@ -31,6 +31,8 @@ public interface FriendDao {
 	//친구 차단 -> status : block
 	//update 2번
 	public int BlockUpdate(FriendDto dto);
+	
+	public int DeleteFriend(FriendDto dto);
 
 
 }
