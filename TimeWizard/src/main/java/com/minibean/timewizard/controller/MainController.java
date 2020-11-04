@@ -69,13 +69,13 @@ public class MainController {
 //		return "finalactionpage";
 		UserInfoDto dto = (UserInfoDto) session.getAttribute("login");
 		String user_distinct = dto.getUser_distinct();
-		UserInfoDto linked = userInfoBiz.selectOne(user_distinct);
-		session.setAttribute("linked", linked);
-		return "redirect:/user/"+user_distinct;
+		session.setAttribute("linked", dto);
+		logger.info("* URI : /timewizard/user/" + user_distinct);
+		return "redirect:./user/"+user_distinct;
 	}
 	
 	@RequestMapping(value="/user/{user_distinct}")
-	public String Main(@PathVariable String user_distinct, HttpSession session, Model model) {
+	public String Main(@PathVariable String user_distinct, HttpSession session) {
 		logger.info(">> [CONTROLLER-MAIN] move to (personal) page");
 		
 		UserInfoDto linked = userInfoBiz.selectOne(user_distinct);
