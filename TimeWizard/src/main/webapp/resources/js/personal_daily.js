@@ -13,7 +13,7 @@ function showDailyList(date){
 	const listDiv = document.getElementById("todo__list");
 	listDiv.innerHTML = "";
 	const xhr = new XMLHttpRequest();
-	xhr.open("POST", "daily/list/"+date);
+	xhr.open("POST", "/timewizard/daily/list/"+date);
 	xhr.send();
 	xhr.onreadystatechange = () => {
 		if (xhr.readyState == 4 && xhr.status == 200){
@@ -80,13 +80,17 @@ function showDailyList(date){
 				} /* for - array items */
 				listDiv.appendChild(items_div);
 			}/* response not null */
-			let insert_div = document.createElement("div");
-			insert_div.setAttribute("class","todo__insert");
-			insert_div.setAttribute("onclick","showInsertModal("+date+");");
-			let plus = document.createElement("i")
-			plus.setAttribute("class","fas fa-plus");
-			insert_div.appendChild(plus);
-			listDiv.appendChild(insert_div);
+			/* TODO c:when?으로 session의 user_no와 user_distinct check */
+			if (linkedUserNo == loginUserNo) {
+				let insert_div = document.createElement("div");
+				insert_div.setAttribute("class","todo__insert");
+				insert_div.setAttribute("onclick","showInsertModal("+date+");");
+				let plus = document.createElement("i")
+				plus.setAttribute("class","fas fa-plus");
+				insert_div.appendChild(plus);
+				listDiv.appendChild(insert_div);
+			}
+			
 		} else {
 			/* 로딩중 화면 */
 		}
@@ -351,7 +355,7 @@ function submitInsertModal(){
 	} else {
 		let input_date = document.getElementsByName("todo_date")[0].value;
 		const xhr = new XMLHttpRequest();
-		xhr.open("POST", "daily/insert");
+		xhr.open("POST", "/timewizard/daily/insert");
 		xhr.setRequestHeader("Content-type","application/json");
 		const data = {
 				todo_title: document.getElementsByName("todo_title")[0].value,
@@ -364,9 +368,6 @@ function submitInsertModal(){
 				todo_hashtag: document.getElementsByName("todo_hashtag")[0].textContent.trim(),
 				todo_date: input_date
 		};
-		console.log("starttime : " + input_starttime);
-		console.log("endtime : " + input_endtime);
-		console.log(data);
 		xhr.send(JSON.stringify(data));
 		xhr.onreadystatechange = () => {
 			if (xhr.readyState == 4 && xhr.status == 200){
@@ -388,7 +389,11 @@ function getDateForValue(days){
 }
 
 function setTimeForJSON(days, times){
-	return days + " " + times;
+	if (times == "" || times == null || times == undefined){
+		return "";
+	} else {
+		return days + " " + times;
+	}
 }
 
 function getTimeForValue(daytime){
@@ -447,7 +452,7 @@ function showDeleteConfirm(todo_no){
 
 function submitDeleteModal(todo_no){
 	const xhr = new XMLHttpRequest();
-	xhr.open("POST", "daily/delete/"+todo_no);
+	xhr.open("POST", "/timewizard/daily/delete/"+todo_no);
 	xhr.setRequestHeader("Content-type","application/json");
 	xhr.send();
 	xhr.onreadystatechange = () => {
@@ -460,7 +465,7 @@ function submitDeleteModal(todo_no){
 
 function showDetailModal(todo_no){
 	const xhr = new XMLHttpRequest();
-	xhr.open("POST", "daily/detail/"+todo_no);
+	xhr.open("POST", "/timewizard/daily/detail/"+todo_no);
 	xhr.send();
 	xhr.onreadystatechange = () => {
 		if (xhr.readyState == 4 && xhr.status == 200){
@@ -470,7 +475,6 @@ function showDetailModal(todo_no){
 			const modalArea = document.getElementsByClassName("modal__area")[0];
 			if (xhr.responseText != null ||xhr.responseText != ""){
 				item = JSON.parse(xhr.responseText);
-				console.log(item);
 				
 				let overlay_div = document.createElement("div");
 				overlay_div.setAttribute("class","modal__overlay");
@@ -479,10 +483,12 @@ function showDetailModal(todo_no){
 				let detail_div = document.createElement("div");
 				detail_div.setAttribute("class","modal__detail");
 				
+				
 				let form = document.createElement("form");
 				form.setAttribute("action","");
 				form.setAttribute("method","post");
 				form.setAttribute("id","update__form");
+				
 				
 				let close_button = document.createElement("button");
 				close_button.setAttribute("type","button");
@@ -491,13 +497,18 @@ function showDetailModal(todo_no){
 				let times = document.createElement("i");
 				times.setAttribute("class", "fas fa-times");
 				close_button.appendChild(times);
+				form.appendChild(close_button);
 				
-				/* TODO c:when?으로 session의 user_no와 user_distinct check */
-				let delete_button = document.createElement("button");
-				delete_button.setAttribute("type","button");
-				delete_button.setAttribute("class","button__delete");
-				delete_button.textContent = "삭제하기";
-				delete_button.setAttribute("onclick","showDeleteConfirm("+ item.todo_no +");");
+				
+				if (linkedUserNo == loginUserNo) {
+					let delete_button = document.createElement("button");
+					delete_button.setAttribute("type","button");
+					delete_button.setAttribute("class","button__delete");
+					delete_button.textContent = "삭제하기";
+					delete_button.setAttribute("onclick","showDeleteConfirm("+ item.todo_no +");");
+					form.appendChild(delete_button);
+				}
+				
 				
 				let title_input = document.createElement("input");
 				title_input.setAttribute("type","text");
@@ -505,6 +516,8 @@ function showDetailModal(todo_no){
 				title_input.setAttribute("name","todo_title");
 				title_input.setAttribute("id","todo_title");
 				title_input.setAttribute("value",item.todo_title);
+				form.appendChild(title_input);
+				
 				
 				let color_div = document.createElement("div");
 				color_div.setAttribute("class","todo__div");
@@ -517,12 +530,16 @@ function showDetailModal(todo_no){
 				color_input.setAttribute("value",item.todo_color);
 				color_div.appendChild(color_namespan);
 				color_div.appendChild(color_input);
+				form.appendChild(color_div);
+				
 				
 				let content_textarea = document.createElement("textarea");
 				content_textarea.setAttribute("class","todo__textarea");
 				content_textarea.setAttribute("name","todo_content");
 				content_textarea.setAttribute("placeholder","todo 상세 설명");
 				content_textarea.textContent = item.todo_content;
+				form.appendChild(content_textarea);
+				
 				
 				let category_div = document.createElement("div");
 				category_div.setAttribute("class","todo__div");
@@ -538,6 +555,8 @@ function showDetailModal(todo_no){
 				category_button.setAttribute("onclick","showCategoryModal();")
 				category_div.appendChild(category_namespan);
 				category_div.appendChild(category_button);
+				form.appendChild(category_div);
+				
 				
 				let hashtag_div = document.createElement("div");
 				hashtag_div.setAttribute("class","todo__div");
@@ -579,18 +598,8 @@ function showDetailModal(todo_no){
 				}
 				hashtag_div.appendChild(hashtag_namespan);
 				hashtag_div.appendChild(hashtag_editablediv);
-				
-				let date_div = document.createElement("div");
-				date_div.setAttribute("class","todo__div");
-				let date_namespan = document.createElement("span");
-				date_namespan.setAttribute("class","todo__subname");
-				date_namespan.textContent = "날짜";
-				let date_input = document.createElement("input");
-				date_input.setAttribute("type","date");
-				date_input.setAttribute("name","todo_date")
-				date_input.setAttribute("value", item.todo_date);
-				date_div.appendChild(date_namespan);
-				date_div.appendChild(date_input);
+				form.appendChild(hashtag_div);
+
 				
 				let time_div = document.createElement("div");
 				time_div.setAttribute("class","todo__div");
@@ -621,26 +630,34 @@ function showDetailModal(todo_no){
 				time_div.appendChild(starttime);
 				time_div.appendChild(between_span);
 				time_div.appendChild(endtime);
-				
-				/* TODO c:when?으로 session의 user_no와 user_distinct check */
-				let submit_button = document.createElement("button");
-				submit_button.setAttribute("class","todo__save");
-				submit_button.setAttribute("type","button");
-				submit_button.textContent = "저장";
-				submit_button.setAttribute("onclick","submitUpdateModal("+item.todo_no+");");
-				
-				form.appendChild(close_button);
-				form.appendChild(delete_button);
-				form.appendChild(title_input);
-				form.appendChild(color_div);
-				form.appendChild(content_textarea);
 				form.appendChild(time_div);
-				form.appendChild(category_div);
-				form.appendChild(hashtag_div);
-				form.appendChild(date_div);
-				form.appendChild(submit_button);
-				detail_div.appendChild(form);
 				
+				
+				let date_div = document.createElement("div");
+				date_div.setAttribute("class","todo__div");
+				let date_namespan = document.createElement("span");
+				date_namespan.setAttribute("class","todo__subname");
+				date_namespan.textContent = "날짜";
+				let date_input = document.createElement("input");
+				date_input.setAttribute("type","date");
+				date_input.setAttribute("name","todo_date")
+				date_input.setAttribute("value", item.todo_date);
+				date_div.appendChild(date_namespan);
+				date_div.appendChild(date_input);
+				form.appendChild(date_div);
+				
+				
+				if (linkedUserNo == loginUserNo) {
+					let submit_button = document.createElement("button");
+					submit_button.setAttribute("class","todo__save");
+					submit_button.setAttribute("type","button");
+					submit_button.textContent = "저장";
+					submit_button.setAttribute("onclick","submitUpdateModal("+item.todo_no+");");
+					form.appendChild(submit_button);
+				}
+				
+				
+				detail_div.appendChild(form);
 				modalArea.appendChild(overlay_div);
 				modalArea.appendChild(detail_div);
 				
@@ -671,7 +688,6 @@ function showDetailModal(todo_no){
 					}
 				});
 				
-				
 			} else {
 				/* response null */
 			}
@@ -679,7 +695,6 @@ function showDetailModal(todo_no){
 		}else{
 			/* fail or loading */
 		}
-		
 	}/* onreadystatechange */
 }
 
@@ -697,7 +712,7 @@ function submitUpdateModal(todo_no){
 	} else {
 		let input_date = document.getElementsByName("todo_date")[0].value;
 		const xhr = new XMLHttpRequest();
-		xhr.open("POST", "daily/update");
+		xhr.open("POST", "/timewizard/daily/update");
 		xhr.setRequestHeader("Content-type","application/json");
 		const data = {
 				todo_no: todo_no,
@@ -711,7 +726,6 @@ function submitUpdateModal(todo_no){
 				todo_hashtag: document.getElementsByName("todo_hashtag")[0].textContent.trim(),
 				todo_date: input_date
 		};
-		console.log(data);
 		xhr.send(JSON.stringify(data));
 		xhr.onreadystatechange = () => {
 			if (xhr.readyState == 4 && xhr.status == 200){
@@ -724,5 +738,5 @@ function submitUpdateModal(todo_no){
 
 /* stopwatch/timer popup event */
 function showPopupStopwatch(todo_no){
-	window.open('stopwatch', 'window','width=300, height=190, left=0, top=100, status=no, resizable=no');
+	window.open('stopwatch', 'window_'+todo_no,'width=300, height=190, left=0, top=100, status=no, resizable=no');
 }

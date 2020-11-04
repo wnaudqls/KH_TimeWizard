@@ -47,6 +47,19 @@ public class UserInfoDaoImpl implements UserInfoDao {
 		
 		return result;
 	}
+	@Override
+	public UserInfoDto selectOne(String user_distinct) {
+		logger.info(">> [USERINFO] selectOne by user_distinct");
+		UserInfoDto result = null;
+		
+		try {
+			result = sqlSession.selectOne(NAMESPACE+"selectOneUserDistinct", user_distinct);
+		} catch (Exception e) {
+			logger.info("[ERROR] USERINFO :: selectOne by user_distinct");
+			e.printStackTrace();
+		}
+		return result;
+	}
 
 	@Override
 	public UserInfoDto selectOne(UserInfoDto dto) {
@@ -113,7 +126,6 @@ public class UserInfoDaoImpl implements UserInfoDao {
 		int cnt=sqlSession.selectOne(NAMESPACE+"idCheck", id);
 		return cnt;
 	}
-
-
+	
 
 }

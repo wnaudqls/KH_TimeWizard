@@ -12,6 +12,7 @@
 
 <%
 	UserInfoDto UDto = (UserInfoDto)session.getAttribute("login");
+	System.out.println("user role in header : " + UDto.getUser_role());
 %>
 	
 	<nav class="navbar">
@@ -23,32 +24,31 @@
 			<!-- Group메뉴 -->
 			<li><a href="#"><i class="fas fa-users"></a></i></li>
 			<!-- Off-line 메뉴 -->
-			<li><a href="tiwimap"><i class="fas fa-binoculars"></i></a></li>
+			<li><a href="../tiwimap"><i class="fas fa-binoculars"></i></a></li>
 			<!-- 알림 -->
 			<li><a href="#"><i class="far fa-bell"></i></a></li>
 			<li>
-				<a href="#" class="web" onclick="window.open('stopwatch', 'window', 'width=300, height=190, left=0, top=100, status=no, resizable=no');return false">
+				<a href="#" class="web" onclick="window.open('/timewizard/stopwatch', 'window', 'width=300, height=190, left=0, top=100, status=no, resizable=no');return false">
 				<i class="fas fa-stopwatch"></i></a>
-				<a href="mstopwatch" class="mobile"><i class="fas fa-stopwatch"></i></a>
+				<a href="../mstopwatch" class="mobile"><i class="fas fa-stopwatch"></i></a>
 			</li>
 		</ul>
 		
 		<ul class="nav_icon">
 			<%
-			//로그인 되어있고 USER일때만 보이게!
+			//로그인 되어있고 ADMIN, USER일 때만 보이게!
 			if(UDto != null){
+				if(UDto.getUser_role().equals("ADMIN")){
 			%>
-			<c:choose>
-				<c:when test="${userinfodto.user_role eq 'ADMIN' }">
-					<li><a href="adminpage">${login.user_name }</a></li>
-					<li><a href="./logout">Logout</a></li>
-				</c:when>
-				<c:otherwise>
-					<li><a href="mypage">${login.user_name }</a></li>
-					<li><a href="./logout">Logout</a></li>
-				</c:otherwise>
-			</c:choose>
+					<li><a href="../adminpage">${login.user_name }</a></li>
+					<li><a href="/timewizard/logout">Logout</a></li>
 			<%
+			} else {
+			%>
+					<li><a href="../mypage">${login.user_name }</a></li>
+					<li><a href="/timewizard/logout">Logout</a></li>
+			<%
+			}
 			}
 			%>
 		</ul>

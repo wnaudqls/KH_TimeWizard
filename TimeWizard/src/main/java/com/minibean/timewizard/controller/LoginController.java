@@ -73,7 +73,7 @@ public class LoginController {
 		logger.info(">> [CONTROLLER-USERINFO] ajax login");
 		
 		UserInfoDto res = userInfoBiz.selectOne(dto);
-	
+		logger.info("user role : " + res.getUser_role());
 		boolean check = false;
 		if (res != null) {
 			// 로그인 값을 계속 가지고 있는 Session
@@ -144,7 +144,9 @@ public class LoginController {
 			return "redirect:./snssignup";
 		} else {
 			session.setAttribute("login", result);
+//			String user_distinct = result.getUser_distinct();
 			return "redirect:../main";
+//			return "redirect:../user/"+user_distinct;
 		}
 	}
 	

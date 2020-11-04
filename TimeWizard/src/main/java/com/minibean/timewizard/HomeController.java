@@ -34,49 +34,4 @@ public class HomeController {
 		return "home";
 	}
 	
-	
-	@RequestMapping(value="/")
-	public String index() {
-		logger.info(">> [CONTROLLER-HOME] go to index page");
-		return "index";
-	}
-	
-    @RequestMapping(value="/logout")
-	public String invalidate(HttpSession session) {
-		logger.info(">> [CONTROLLER-HOME] user logout");
-		session.invalidate();
-		return "redirect:login/loginform";
-	}
-	
-    /* test 용입니다 */
-	@RequestMapping(value="/success")
-	public String successPage() {
-		return "success";
-	}
-	
-	@RequestMapping(value="/finalnotice")
-	public String finalnotice() {
-		return "notice";
-	}
-
-	@RequestMapping(value="/finalnoticedetail")
-	public String finalnoticedetail() {
-		return "notice_detail";
-	}
-	
-	@RequestMapping(value="/finalstopwatch")
-	public String finalstopwatch() {
-		return "finalstopwatch";
-	}
-	
-	@RequestMapping(value="/finaltimer")
-	public String finaltimer() {
-		return "finaltimer";
-	}
-	
-	@RequestMapping(value="/daily")
-	public String personalDaily() {
-		return "personal_daily";
-	}
-
 }

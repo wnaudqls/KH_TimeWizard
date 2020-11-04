@@ -16,10 +16,17 @@
 	</select>
 	<select id="selectOneUserInfoDto" parameterType="UserInfoDto" resultType="UserInfoDto">
 		SELECT ui.USER_NO, ui.USER_ID, ui.USER_PW, ui.USER_NAME, ui.USER_EMAIL, 
-			ui.USER_ROLE, ui.USER_PHOTO, ui.USER_ACTIVE, ui.USER_REGDATE 
+			ui.USER_ROLE, ui.USER_PHOTO, ui.USER_ACTIVE, ui.USER_DISTINCT, ui.USER_REGDATE 
 		FROM USER_INFO ui 
 		WHERE USER_ID = #{user_id}
 		AND USER_PW = #{user_pw}
+		AND USER_ACTIVE = 'Y'
+	</select>
+	<select id="selectOneUserDistinct" parameterType="String" resultType="UserInfoDto">
+		SELECT USER_NO, USER_ID, USER_PW, USER_NAME, USER_EMAIL, 
+		USER_ROLE, USER_PHOTO, USER_ACTIVE, USER_DISTINCT, USER_REGDATE
+		FROM USER_INFO
+		WHERE USER_DISTINCT = #{user_distinct}
 		AND USER_ACTIVE = 'Y'
 	</select>
 	<insert id="insert" parameterType="UserInfoDto">
@@ -42,8 +49,6 @@
 		FROM USER_INFO
 		WHERE USER_ID = #{user_id}
 	</select>
-	
-	
 
 	
 

@@ -59,6 +59,7 @@ simple-broker: 서버로부터 값을 받아줄 경로
 		<interceptor>
 			<mapping path="/**/*"/>
 			<exclude-mapping path="/login/*"/>
+			<exclude-mapping path="/user/*"/>
 			<beans:bean class="com.minibean.timewizard.common.interceptor.LoginInterceptor"></beans:bean>
 		</interceptor>
 	</interceptors>
