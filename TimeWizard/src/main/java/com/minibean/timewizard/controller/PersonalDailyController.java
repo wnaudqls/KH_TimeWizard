@@ -32,24 +32,25 @@ public class PersonalDailyController {
 	public List<UserTodoDto> dailyList(HttpSession session, HttpServletRequest request, @PathVariable String yyyyMMdd) {
 		logger.info(">> [CONTROLLER-DAILY] todo list");
 		UserInfoDto login = (UserInfoDto) session.getAttribute("login");
-		int user_no = login.getUser_no();
+		int loginUser_no = login.getUser_no();
+		UserInfoDto linked = (UserInfoDto) session.getAttribute("linked");
+		int linkedUser_no = linked.getUser_no();
 		
 		String path = (String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
 		String date = path.split("/")[3]; // personal 경로 수정시 수정해야 함!
 		logger.info("PATH CHECK\n* path : " + path + "\n* yyyyMMdd : " + date);
 		/* parameter setting */
-		int newOrNot = userTodoBiz.countList(user_no);
+		int newOrNot = userTodoBiz.countList(linkedUser_no);
 		
 		/* userlogin 정보와 접속 정보가 동일할 떄만 */
-		if (newOrNot == 0) {
-			/* list가 null일 때 */
-			int res = userTodoBiz.insertExample(user_no);
+		if (loginUser_no == linkedUser_no && newOrNot == 0) {
+			int res = userTodoBiz.insertExample(linkedUser_no);
 			logger.info(">> example insert... - " + (res == 1?"성공":"실패"));
 			return dailyList(session, request, date);
 		} else {
 			/* 전체 list가 null이 아닐 때 */
 			HashMap<String, Object> hashmap = new HashMap<String, Object>();
-			hashmap.put("user_no", user_no);
+			hashmap.put("user_no", linkedUser_no);
 			hashmap.put("todo_date", date);
 			List<UserTodoDto> list = userTodoBiz.selectList(hashmap);
 			return list;

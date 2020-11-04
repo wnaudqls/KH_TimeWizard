@@ -21,6 +21,48 @@ public class MainController {
 	private UserInfoBiz userInfoBiz;
 	private Logger logger = LoggerFactory.getLogger(MainController.class);
 	
+	@RequestMapping(value="/")
+	public String index() {
+		logger.info(">> [CONTROLLER-HOME] go to index page");
+		return "index";
+	}
+	
+    @RequestMapping(value="/logout")
+	public String invalidate(HttpSession session) {
+		logger.info(">> [CONTROLLER-HOME] user logout");
+		session.invalidate();
+		// index로 이동 시켜도 되지 않을까요??
+		return "redirect:/timewizard/login/loginform";
+		// return "redirect:/timewizard";
+	}
+	
+    /* test 용입니다 */
+	@RequestMapping(value="/success")
+	public String successPage() {
+		return "success";
+	}
+	
+	/* 삭제해도 되는지 확인해주세요 @용민 */
+	@RequestMapping(value="/finalnotice")
+	public String finalnotice() {
+		return "notice";
+	}
+
+	@RequestMapping(value="/finalnoticedetail")
+	public String finalnoticedetail() {
+		return "notice_detail";
+	}
+	
+	@RequestMapping(value="/finalstopwatch")
+	public String finalstopwatch() {
+		return "finalstopwatch";
+	}
+	
+	@RequestMapping(value="/finaltimer")
+	public String finaltimer() {
+		return "finaltimer";
+	}
+	
 	@RequestMapping(value="/main")
 	public String PlainMain(HttpSession session) {
 		logger.info(">> [CONTROLLER-MAIN] move to main page");
@@ -31,8 +73,6 @@ public class MainController {
 		session.setAttribute("linked", linked);
 		return "redirect:/user/"+user_distinct;
 	}
-	
-	/* 이부분을 줄일 수 있으면 좋을 듯...? */
 	
 	@RequestMapping(value="/user/{user_distinct}")
 	public String Main(@PathVariable String user_distinct, HttpSession session, Model model) {

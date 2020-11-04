@@ -44,6 +44,7 @@ public class UserInfoBizImpl implements UserInfoBiz {
 			dto.setUser_distinct(userInfoUtils.makeDistinctString(dto.getUser_id(), dto.getUser_email()));
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
+			dto.setUser_distinct(dto.getUser_id());
 		}
 		return userInfoDao.insert(dto);
 	}

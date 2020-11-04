@@ -56,8 +56,8 @@
 	<script type="text/javascript" src="/timewizard/js/personal_daily-hashtag.js"></script>
 	<script type="text/javascript">
 	let pagedate = <%=date%>;
-	let linkedUser = <%=linked.getUser_no()%>;
-	const loginUser = <%=login.getUser_no()%>;
+	let linkedUserNo = <%=linked.getUser_no()%>;
+	const loginUserNo = <%=login.getUser_no()%>;
 	window.addEventListener('DOMContentLoaded', () => {
 		showDailyList(pagedate);
 	});
