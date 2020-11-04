@@ -34,7 +34,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 		
 		//session에 값이 없으면,
 		if(request.getSession().getAttribute("login")==null) {
-			response.sendRedirect("login/loginform");
+			response.sendRedirect("/timewizard/login/loginform");
 			return false;
 		}
 		
