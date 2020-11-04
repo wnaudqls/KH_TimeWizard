@@ -7,7 +7,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.minibean.timewizard.model.biz.UserInfoBiz;
 import com.minibean.timewizard.model.dto.UserInfoDto;
@@ -21,7 +23,7 @@ public class AdminController {
 	private UserInfoBiz userinfoBiz;
 	
 	@RequestMapping(value="/adminpage")
-	public String AdminPage(Model model, UserInfoDto user_no) {
+	public String adminPage(Model model, UserInfoDto user_no) {
 		logger.info("[adminpage]");
 		
 		model.addAttribute("list", userinfoBiz.selectList());
@@ -32,42 +34,17 @@ public class AdminController {
 	
 	// 회원 등급 변경 버튼 누르면 등급변경 페이지로 이동
 	@RequestMapping(value="/adminrole")
-	public String AdminRole(Model model, UserInfoDto dto, UserInfoDto user_no, UserInfoDto user_id, UserInfoDto user_role) {
+	public String adminRole(Model model, @RequestParam int user_no) {
 		logger.info("[admin role change]");
-		
-		model.addAttribute("dto", userinfoBiz.selectOne(dto));
-		// model.addAttribute("list", userinfoBiz.selectList());
-		
-		/* String member_id = request.getParameter("member_id");
-			String member_role = request.getParameter("member_role");
-			System.out.println(member_id);
-			System.out.println(member_role);
-			
-			//dto에 세팅
-			dto = new adDto(member_id, member_role);
-			
-			//dto 대신 adDao에서 맵에 담아도 됨
-			int res = dao.update(dto);
-			System.out.println(res);
-			
-			if (res > 0){
-				System.out.println("등급 변경 성공!");
-				RequestDispatcher dispatch = request.getRequestDispatcher("./adController?command=allMember");
-				dispatch.forward(request, response);
-			} else {
-				System.out.println("등급 변경 실패");
-				RequestDispatcher dispatch = request.getRequestDispatcher("admin/adrolemanager.jsp");
-				dispatch.forward(request, response);
-			}
-			
-			*/
+
+		model.addAttribute("dto", userinfoBiz.selectOne(user_no));
 		
 		return "adminrole";
 	}
 	
 	/* 강제 탈퇴 버튼 누르면 강제탈퇴 페이지로 이동 */
 	@RequestMapping(value="/admindelete")
-	public String AdminDelete(UserInfoDto dto, HttpSession session) throws Exception {
+	public String adminDelete(UserInfoDto dto, HttpSession session) throws Exception {
 		logger.info("[admin member delete]");
 		
 			session.invalidate();

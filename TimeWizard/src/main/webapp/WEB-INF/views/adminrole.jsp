@@ -1,4 +1,3 @@
-<%@page import="com.minibean.timewizard.model.dto.UserInfoDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -12,6 +11,9 @@
 </head>
 <body>
 
+<c:out value=>
+	${dto.user_name}
+</c:out>
 
 <form>
 	<table border="1">
@@ -26,17 +28,15 @@
 			<td>I   D</td>
 			<td>등      급</td>
 		</tr>
-		<c:forEach var="dto" items="${dto }">
 		<tr>
 			<td>${dto.user_no }</td>
 			<td>${dto.user_id }</td>
 			<td>
-				<select name="user_role">
-					
-				</select>
+				<input type="radio">
+				<label for="admin">관리자</label>
+				<label for="user">일반회원</label>
 			</td>
 		</tr>
-		</c:forEach>
 		<tr>
 			<td colspan="3">
 				<input class="btn" type="submit" value="변경 완료" />
