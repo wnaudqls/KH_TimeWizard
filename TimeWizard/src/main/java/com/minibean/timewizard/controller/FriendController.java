@@ -90,7 +90,7 @@ public class FriendController {
 		int res = friendBiz.AcceptUpdate(dto);
 		logger.info("친구추가 결과: {}",res);
 		if(res >= -1) {
-			template.convertAndSend("/subscribe/confirm/res/"+dto.getUser_no(),udto);
+			template.convertAndSend("/subscribe/confirm/res/"+dto.getUser_no(),udto.getUser_name());
 			logger.info("친구추가 성공");
 		}
 		
@@ -99,8 +99,8 @@ public class FriendController {
 	public void sendfnd(UserInfoDto dto) {
 		logger.info("confirm 작업");
 		dto = userBiz.selectOne(dto.getUser_no());
-		logger.info("신청한 사람: {}",dto);
-		template.convertAndSend("/subscribe/confirm/check/"+dto.getUser_no(),dto);
+		logger.info("신청한 사람: {}",dto.getUser_name());
+		template.convertAndSend("/subscribe/confirm/check/"+dto.getUser_no(),dto.getUser_name());
 		
 	}
 	
@@ -115,4 +115,16 @@ public class FriendController {
 		int res = friendBiz.DenyUpAndDel(dto);
 		logger.info("거절 결과: {}",res);
 	}
+	
+	
+	//친구 목록에서 삭제
+		@MessageMapping("/confirm/delete")
+		public void deletefriend(FriendDto dto ,UserInfoDto udto) {
+			logger.info("delete 작업");
+			udto = userBiz.selectOne(dto.getUser_no());
+			
+			logger.info("삭제하는 사람: {} \nuser_no: {}, friend_no: "+dto.getFriend_no(),udto.getUser_name(),dto.getUser_no());
+			int res = friendBiz.DeleteFriend(dto);
+			logger.info("삭제 결과: {}",res);
+		}
 }

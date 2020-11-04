@@ -49,7 +49,15 @@
 			</c:when>
 			<c:otherwise>
 				<c:forEach items="${flist }" var="fdto">
-					<p>이름 : ${fdto.user_name }</p>
+						<c:if test="${fdto.status == 'SEND' }">
+							<p>${fdto.user_name }님이 응답중 입니다.</p>
+						</c:if>
+					<c:if test="${fdto.status == 'ACCEPT'}">
+						<p>
+						이름 : ${fdto.user_name }<input type="button" value="친구삭제" onclick="deletefriend(${fdto.user_no},${login.user_no },'${fdto.user_name }')">
+						
+						</p> 
+					</c:if>
 				</c:forEach>
 			</c:otherwise>
 		</c:choose>
@@ -92,17 +100,6 @@ var fnd_no;
 	
 	//연결 했을시,
 	client.connect({}, function(){
-		 // 3. send(path, header, message)로 메시지를 보낼 수 있다.
-	    client.send("/publish/login/join", {}); 
-		 
-		 //친구추가를 한 user_no
-	    // 4. subscribe(path, callback)로 메시지를 받을 수 있다. callback 첫번째 파라미터의 body로 메시지의 내용이 들어온다.
-	    client.subscribe("/subscribe/login/res/", function (chat) {
-	   		console.log("chateueueueueueue : "+chat);
-	    });
-	    
-	    //친구추가를 받은 friend_no 
-	    //${login.user_name}을 쓴 이유는 친구신청을 받은 클라이언트만 값을 받아야 하기 때문에
 	    client.subscribe("/subscribe/alert/good/"+u_no, function (chat) {
 	    	var fnd = JSON.parse(chat.body);
 	    	var fnd_name = fnd['user_name'];
@@ -113,73 +110,81 @@ var fnd_no;
 	            icon: iconDataURI
 	        }
 	        //데스크탑 알림 요청
-	        var notification = new Notification("알람", options);
+	        var sendalert = new Notification("알람", options);
 	        
-	        //알림 후 5초 뒤,
+	        //알림 후 10초 뒤,
 	        setTimeout(function () {
-	            //얼람 메시지 닫기
-	            notification.close();
-	        }, 5000);
-	        
-		 
-		 	if(confirm(fnd_name+"님을 친구로 받아들이겠습니까?")){
-		 		//"수락"을 누르면 FriendController로 보내서 insert시키기
-		 		//ajax로?
-		 		client.send("/publish/confirm/accept",{},JSON.stringify({friend_no: fnd_no, user_no: u_no, user_name: uname}));
-		 		client.subscribe("/subscribe/confirm/res/"+u_no, function(chat){
-		 			var added = JSON.parse(chat.body);
-		 			message = added["user_name"]+"님과 이제 친구입니다";
-		 				options = {
-		 		            body: message,
-		 		            icon: iconDataURI
-		 		        }
-		 			notification = new Notification("친구추가 수락", options);
-			        
-			        //알림 후 5초 뒤,
-			        setTimeout(function () {
-			            //얼람 메시지 닫기
-			            notification.close();
-			        }, 10000);
-		 			location.href="friend";
-		 				
+	            //알람 메시지 닫기
+	            sendalert.close();
+	        	if(confirm(fnd_name+"님을 친구로 받아들이겠습니까?")){
+			 		//"수락"을 누르면 FriendController로 보내서 insert시키기
+			 		//ajax로?
+			 		client.send("/publish/confirm/accept",{},JSON.stringify({friend_no: fnd_no, user_no: u_no, user_name: uname}));
+			 		client.subscribe("/subscribe/confirm/res/"+u_no, function(chat){
+			 			var added = chat.body;
+			 			message = added+"님과 이제 친구입니다";
+			 				options = {
+			 		            body: message,
+			 		            icon: iconDataURI
+			 		        }
+			 			var acceptalert = new Notification("친구추가 수락", options);
+				        
+				        //알림 후 5초 뒤,
+				        setTimeout(function () {
+				            //얼람 메시지 닫기
+				            acceptalert.close();
+				        }, 5000);
+						client.send("/publish/confirm/fnd",{},JSON.stringify({user_no: fnd_no, friend_no: u_no}));
+			 			location.href="friend";
 					})
-					client.send("/publish/confirm/fnd",{},JSON.stringify({user_no: fnd_no}));
-		 			
-		 		
-		 		console.log("fnd : "+fnd+", "+"user : "+u_no);
-		 		
-		 	}else{
-		 		//"거절"을 누르면 FriendControlller로 보내서 update, delete시키기
-		 		//ajax로?
-		 		client.send("/publish/confirm/deny", {}, JSON.stringify({user_no: fnd_no, friend_no: u_no}));
-		 	}
-		 		
-		 	
-			//alert("알람수신 완료");	
-
+			 			
+			 		
+			 		console.log("fnd : "+fnd+", "+"user : "+u_no);
+			 		
+			 	}else{
+			 		//"거절"을 누르면 FriendControlller로 보내서 update, delete시키기
+			 		//ajax로?
+			 				
+			 		  message = fnd_name+"님의 친구 신청을 거부하셨습니다.";
+				        
+				         options = {
+				            body: message,
+				            icon: iconDataURI
+				        }
+				        	//데스크탑 알림 요청
+				       		var denyalert = new Notification("알람" ,options);
+						 	client.send("/publish/confirm/deny", {}, JSON.stringify({user_no: fnd_no, friend_no: u_no}));
+				        	setTimeout(function () {
+				            //얼람 메시지 닫기
+				            denyalert.close();
+				      	  }, 10000);
+	            
+	        		}
+	        	}, 5000);
 	    });
-	    client.subscribe("/subscribe/confirm/check/"+u_no, function chat() {
+	    client.subscribe("/subscribe/confirm/check/"+u_no, function (chat) {
 				
-	    	var added = JSON.parse(JSON.stringify(chat.body));
- 			message = added['user_name']+"님이 친구추가를 수락하셨습니다.";
+	    	var chk = chat.body;
+ 			var message = chk+"님이 친구추가를 수락하셨습니다.";
  				options = {
  		            body: message,
  		            icon: iconDataURI
  		        }
- 			notification = new Notification("친구추가 결과", options);
+ 			var checkalert = new Notification("친구 수락", options);
 	        
-	        //알림 후 5초 뒤,
+	        //알림 후 10초 뒤,
 	        setTimeout(function () {
 	            //얼람 메시지 닫기
-	            notification.close();
-	        }, 10000);
- 			location.href="friend";
- 				
-			})
+	            checkalert.close();
+	       	 	}, 10000); 		
+	        location.href="friend";
+	    	})
+	    	
+ 		
 		});
 	
 function alertsys(fno, mynum, fname){
-		    var message = "실험";
+		    var message = fname+"님에게 메세지를 전송했습니다.";
 	        
 	        var options = {
 	            body: message,
@@ -189,21 +194,48 @@ function alertsys(fno, mynum, fname){
 	        var chk = confirm(fname+'님을 친구추가 하시겠습니까?');
 	        if(chk){
 	        	//데스크탑 알림 요청
-	       		 var notification = new Notification(fname+"님에게 메세지를 전송했습니다.", options);
+	       		 var notification = new Notification("알람" ,options);
 	        
 	       		 //알림 후 5초 뒤,
 	        	setTimeout(function () {
 	            //얼람 메시지 닫기
 	            notification.close();
 	      	  }, 10000);
-				client.send("/publish/alert/friend", {},JSON.stringify({friend_no: fno, user_no: mynum, user_name: fname}));
 				alert("친구추가 메세지를 전송했습니다.");
+				client.send("/publish/alert/friend", {},JSON.stringify({friend_no: fno, user_no: mynum, user_name: fname}));
 	        }else{
 	        	alert("친구추가 메세지 전송을 취소했습니다.");
 	        	
 	        }
 
 	}
+	
+function deletefriend(fno,myno,fname){
+	
+	var rly = confirm(fname+"님을 목록에서 삭제하시겠습니까?");
+	
+	if(rly){
+		 var message = fname+"님이 목록에서 삭제되었습니다.";
+	     
+	     options = {
+	        body: message,
+	        icon: iconDataURI
+	    }
+	    	//데스크탑 알림 요청
+	   		
+		 	client.send("/publish/confirm/delete", {}, JSON.stringify({user_no: myno, friend_no: fno}));
+	    	setTimeout(function () {
+	    		var deletealert = new Notification("친구삭제" ,options);
+	        //얼람 메시지 닫기
+	        deletealert.close();
+	        location.href="friend";
+	  	  }, 2000);
+	    	
+	}
+else{
+	
+	}
+}
 	
 
 </script>
