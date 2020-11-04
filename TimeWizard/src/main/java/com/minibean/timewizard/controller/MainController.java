@@ -32,8 +32,8 @@ public class MainController {
 		logger.info(">> [CONTROLLER-HOME] user logout");
 		session.invalidate();
 		// index로 이동 시켜도 되지 않을까요??
-		return "redirect:/timewizard/login/loginform";
-		// return "redirect:/timewizard";
+//		return "redirect:/login/loginform";
+		 return "redirect:/";
 	}
 	
     /* test 용입니다 */

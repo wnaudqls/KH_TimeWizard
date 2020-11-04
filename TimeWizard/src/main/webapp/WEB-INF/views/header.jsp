@@ -41,12 +41,12 @@
 				if(UDto.getUser_role().equals("ADMIN")){
 			%>
 					<li><a href="adminpage">${login.user_name }</a></li>
-					<li><a href="./logout">Logout</a></li>
+					<li><a href="/timewizard/logout">Logout</a></li>
 			<%
 			} else {
 			%>
 					<li><a href="mypage">${login.user_name }</a></li>
-					<li><a href="./logout">Logout</a></li>
+					<li><a href="/timewizard/logout">Logout</a></li>
 			<%
 			}
 			}
