@@ -6,7 +6,7 @@
 	<!-- selectListF -->
 	<select id="selectListF" resultType="FriendDto" parameterType="int">
 		SELECT ui.USER_NO, ui.USER_ID ,ui.USER_NAME,
-			 ui.USER_PHOTO, ui.USER_ACTIVE
+			 ui.USER_PHOTO, ui.USER_ACTIVE, fl.STATUS
 		FROM FRIEND_LIST fl JOIN USER_INFO ui ON ui.USER_NO = fl.USER_NO
 		WHERE fl.FRIEND_NO =(
 			SELECT ui.USER_NO
@@ -80,9 +80,9 @@
          UPDATE FRIEND_LIST
 		SET STATUS = 'ACCEPT'
 		WHERE 
-			(FRIEND_NO = #{friend_no} AND USER_NO = #{friend_no})
+			(FRIEND_NO = #{friend_no} AND USER_NO = #{user_no})
 		OR
-			(FRIEND_NO = #{user_no} AND USER_NO = #{user_no})
+			(FRIEND_NO = #{user_no} AND USER_NO = #{friend_no})
 		AND STATUS = 'SEND';
          
          UPDATE FRIEND_LIST
@@ -133,6 +133,17 @@
 			(FRIEND_NO = #{user_no} OR USER_NO = #{user_no})
 		AND STATUS = 'SEND'
 	</update>
+	
+	
+	<delete id="deleteFriend" parameterType="FriendDto">
+		DELETE FROM FRIEND_LIST
+		WHERE 
+			(FRIEND_NO = #{friend_no} OR USER_NO = #{friend_no})
+		AND
+			(FRIEND_NO = #{user_no} OR USER_NO = #{user_no})
+		AND STATUS = 'ACCEPT'
+	
+	</delete>
 	
 	
 </mapper>

@@ -1,4 +1,6 @@
 function showMain(){
+	var mainTodayDate = document.querySelector('#main-date');
+    var mainTodayDay = document.querySelector('#main-day');
     mainTodayDay.innerHTML = dayList[today.getDay()];
     mainTodayDate.innerHTML = today.getDate();
 }

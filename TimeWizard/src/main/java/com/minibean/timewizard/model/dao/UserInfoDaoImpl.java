@@ -126,7 +126,6 @@ public class UserInfoDaoImpl implements UserInfoDao {
 		int cnt=sqlSession.selectOne(NAMESPACE+"idCheck", id);
 		return cnt;
 	}
-
-
+	
 
 }

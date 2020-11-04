@@ -20,7 +20,8 @@
 	<div class="adminbox">
 		<h1>관리자 페이지</h1>
 	</div>
-
+	
+	<form action="admindelete" method="post">
 	<div class="adminbox" id="userlist">
 		<table border="1">
 			<col width="100"/>
@@ -57,11 +58,8 @@
 					<td>${dto.user_active }</td>
 					<td>${dto.user_regdate }</td>
 					<td>${dto.user_role }</td>
-					<!-- 아래 부분 수정해서 버튼 누를 때
-					로그인한 관리자의 data가 아니라
-					클릭되는 유저의 data를 가져가야 함 -->
-					<td><a href="adminrole?${dto.user_no}">등급변경</a></td>
-					<td><a href="admindelete?${dto.user_no}">강제탈퇴</a></td>
+					<td><a href="adminrole?user_no=${dto.user_no }">등급변경</a></td>
+					<td><button type="submit" id="submit">강제탈퇴</button></td>
 				</tr>
 				</c:forEach>
 		</table>
@@ -69,7 +67,8 @@
 	<div class="admin_box" onclick="location.href='#'">
 		<span>Block List</span>
 	</div>
-	</div>	
+	</div>
+	</form>
 
 </body>
 </html>
