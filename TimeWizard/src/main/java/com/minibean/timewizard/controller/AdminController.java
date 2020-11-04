@@ -1,8 +1,6 @@
 package com.minibean.timewizard.controller;
 
-import java.util.List;
-
-import javax.servlet.RequestDispatcher;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,22 +65,16 @@ public class AdminController {
 		return "adminrole";
 	}
 	
-	/* 강제 탈퇴 버튼 누르면 강제탈퇴 페이지로 이동
+	/* 강제 탈퇴 버튼 누르면 강제탈퇴 페이지로 이동 */
 	@RequestMapping(value="/admindelete")
-	public String AdminDelete(Model model, UserInfoDto dto, UserInfoDto user_no, UserInfoDto user_id, UserInfoDto user_role) {
+	public String AdminDelete(UserInfoDto dto, HttpSession session) throws Exception {
 		logger.info("[admin member delete]");
 		
-		 UserInfoDto res = (UserInfoDto) );
-		boolean check = false;
-		if(res != 0) {
 			session.invalidate();
-			loginResponse("탈퇴 되었습니다.", "main/main.jsp", response);
-		} else {
-			loginResponse("탈퇴 실패하였습니다.", "MyinfoController?command=myinfo&member_id="+member_id, response);
-		}
+			logger.info("[탈퇴 실패]");
 		
 		return "adminpage";
-	} */
+	}
 	
 }
 	
