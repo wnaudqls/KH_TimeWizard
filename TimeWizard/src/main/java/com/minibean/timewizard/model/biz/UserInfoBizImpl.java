@@ -65,5 +65,10 @@ public class UserInfoBizImpl implements UserInfoBiz {
 		int cnt= userInfoDao.idCheck(id);
 		return cnt;
 	}
+	
+	@Override
+	public int updateRoleRes(UserInfoDto dto) {
+		return userInfoDao.updateRoleRes(dto);
+	}
 
 }

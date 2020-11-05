@@ -14,5 +14,6 @@ public interface UserInfoBiz {
 	public int update(UserInfoDto dto);
 	public int delete(int user_no);
 	public int idCheck(String id);//아이디 중복체크 용도
+	public int updateRoleRes(UserInfoDto dto);
 	
 }
