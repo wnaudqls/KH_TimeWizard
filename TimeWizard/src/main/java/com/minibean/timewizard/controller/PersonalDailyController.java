@@ -62,7 +62,9 @@ public class PersonalDailyController {
 		logger.info(">> [CONTROLLER-DAILY] detail content"
 				+ "\n\t* todo_title : " + dto.getTodo_title() 
 				+ "\n\t* todo_content : " + dto.getTodo_content()
+				+ "\n\t* todo_hashtag : " + dto.getTodo_hashtag()
 				+ "\n\t* todo_date : " + dto.getTodo_date());
+		logger.info(dto.getTodo_hashtag().split("^")[0]);
 		return dto;
 	}
 	
