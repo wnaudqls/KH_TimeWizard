@@ -1,5 +1,6 @@
 package com.minibean.timewizard.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.minibean.timewizard.model.biz.UserInfoBiz;
 import com.minibean.timewizard.model.dto.UserInfoDto;
-import com.minibean.timewizard.utils.personal.PersonalDailyCalendar;
 
 @Controller
 public class MainController {
@@ -36,6 +36,37 @@ public class MainController {
 //		return "redirect:/login/loginform";
 		 return "redirect:/";
 	}
+    
+    @RequestMapping(value="/error", method= RequestMethod.GET)
+    public String renderErrorPage(Model model, HttpServletRequest request) {
+        String errorMsg = "";
+        int httpErrorCode = getErrorCode(request);
+ 
+        switch (httpErrorCode) {
+            case 400: {
+                errorMsg = "Http Error Code: 400. Bad Request";
+                break;
+            }
+            case 401: {
+                errorMsg = "Http Error Code: 401. Unauthorized";
+                break;
+            }
+            case 404: {
+                errorMsg = "Http Error Code: 404. Resource not found";
+                break;
+            }
+            case 500: {
+                errorMsg = "Http Error Code: 500. Internal Server Error";
+                break;
+            }
+        }
+        model.addAttribute("message", errorMsg);
+        return "error";
+    }
+    
+    private int getErrorCode(HttpServletRequest request) {
+        return (Integer) request.getAttribute("javax.servlet.error.status_code");
+    }
 	
     /* test 용입니다 */
 	@RequestMapping(value="/success")

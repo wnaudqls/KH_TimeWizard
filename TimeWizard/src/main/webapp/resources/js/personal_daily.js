@@ -19,20 +19,21 @@ class Calendar{
 								this.year = this.date.getFullYear();
 								this.month = this.date.getMonth();
 								this.day = this.date.getDate();
-								}
+								};
+	setDate() { this.year = this.date.getFullYear(); this.month = this.date.getMonth(); this.day = this.date.getDate();}
 	getYear() { return this.date.getFullYear();};
-	setYear(year) { this.date.setFullYear(year); this.year = year;};
-	plusYear() { this.date.setFullYear(this.year + 1); this.year = this.date.getFullYear();};
-	minusYear() { this.date.setFullYear(this.year -1); this.year = this.date.getFullYear();};
+	setYear(year) { this.date.setFullYear(year); this.year = this.date.getFullYear(); this.month = this.date.getMonth(); this.day = this.date.getDate();};
+	plusYear() { this.date.setFullYear(this.year + 1); this.year = this.date.getFullYear(); this.month = this.date.getMonth(); this.day = this.date.getDate();};
+	minusYear() { this.date.setFullYear(this.year -1); this.year = this.date.getFullYear(); this.month = this.date.getMonth(); this.day = this.date.getDate();};
 	getMonth() { this.month = this.date.getMonth(); return this.month;};
-	setMonth(month) { this.date.setMonth(month); this.month = month;};
-	plusMonth() { this.date.setMonth(this.month + 1); this.month = this.date.getMonth();};
-	minusMonth() { this.date.setMonth(this.month - 1); this.month = this.date.getMonth();};
+	setMonth(month) { this.date.setMonth(month); this.year = this.date.getFullYear(); this.month = this.date.getMonth(); this.day = this.date.getDate();};
+	plusMonth() { this.date.setMonth(this.month + 1); this.year = this.date.getFullYear(); this.month = this.date.getMonth(); this.day = this.date.getDate();};
+	minusMonth() { this.date.setMonth(this.month - 1); this.year = this.date.getFullYear(); this.month = this.date.getMonth(); this.day = this.date.getDate();};
 	getDay() { this.day = this.date.getDate(); return this.day;};
-	setDay(day) { this.date.setDate(day); this.day = day;};
-	plusDay() { this.date.setDate(this.day + 1); this.day = this.date.getDate();};
-	minusDay() { this.date.setDate(this.day - 1); this.day = this.date.getDate();}
-	toString() { return "" + this.year + (this.month+1 < 10 ? "0" + this.month+1: this.month+1) + (this.day < 10 ? "0" + this.day : this.day);};
+	setDay(day) { this.date.setDate(day); this.year = this.date.getFullYear(); this.month = this.date.getMonth(); this.day = this.date.getDate();};
+	plusDay() { this.date.setDate(this.day + 1); this.year = this.date.getFullYear(); this.month = this.date.getMonth(); this.day = this.date.getDate();};
+	minusDay() { this.date.setDate(this.day - 1); this.year = this.date.getFullYear(); this.month = this.date.getMonth(); this.day = this.date.getDate();}
+	toString() { return "" + this.year + (this.month < 9 ? "0" + (this.month+1): (this.month+1)) + (this.day < 10 ? "0" + this.day : this.day);};
 }
 
 let pageDate = new Calendar();
@@ -50,15 +51,38 @@ let selectedCategory = "";
 
 window.addEventListener('DOMContentLoaded', () => {
 	showDailyList(pageDate.toString());
+	let blackleft = document.getElementsByClassName("date__change")[0];
+	let whiteleft = document.getElementsByClassName("date__change")[1];
+	let whiteright = document.getElementsByClassName("date__change")[2];
+	let blackright = document.getElementsByClassName("date__change")[3];
+	blackleft.addEventListener("click", ()=> {
+		pageDate.minusMonth();
+		console.log(pageDate.year + "/" + pageDate.month + "/" + pageDate.day);
+		showDailyList(pageDate.toString());
+	});
+	whiteleft.addEventListener("click", () => {
+		pageDate.minusDay();
+		showDailyList(pageDate.toString());
+	});
+	whiteright.addEventListener("click", () => {
+		pageDate.plusDay();
+		showDailyList(pageDate.toString());
+	});
+	blackright.addEventListener("click", () => {
+		pageDate.plusMonth();
+		showDailyList(pageDate.toString());
+	});
 });
 
+
 function showDailyList(date){
-	let month = date.substring(4,6);
-	let day = date.substring(6,8);
+	console.log(date);
+	let MM = date.substring(4,6);
+	let dd = date.substring(6,8);
 	let month_div = document.querySelector("div.date__month");
-	month_div.textContent = month + "월";
+	month_div.textContent = MM + "월";
 	let day_div = document.querySelector("div.date__day");
-	day_div.textContent = day + "일";
+	day_div.textContent = dd + "일";
 	const list_div = document.getElementById("todo__list");
 	list_div.innerHTML = "";
 	const xhr = new XMLHttpRequest();
@@ -632,6 +656,7 @@ function showDetailModal(todo_no){
 					for (i=0; i<splitedtexts.length-1; i++){
 						numbers[i] = document.createElement("span");
 						numbers[i].setAttribute("class","tag label label-info new");
+						numbers[i].setAttribute("contenteditable","false");
 						let removebutton = document.createElement("span");
 						removebutton.setAttribute("class","delHashtag");
 						removebutton.setAttribute("data-role","remove"); // what is data-role?
@@ -701,7 +726,6 @@ function showDetailModal(todo_no){
 					submit_button.setAttribute("onclick","submitUpdateModal("+item.todo_no+");");
 					form.appendChild(submit_button);
 				}
-				
 				
 				detail_div.appendChild(form);
 				modalArea.appendChild(overlay_div);

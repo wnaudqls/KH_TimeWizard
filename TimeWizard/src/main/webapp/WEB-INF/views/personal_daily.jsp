@@ -29,9 +29,6 @@
 					<div class="date__change"><i class="far fa-caret-square-right"></i></div>
 					<div class="date__change"><i class="fas fa-caret-square-right"></i></div>
 				</div>
-				<div class="date__input"><!-- 빨리 찾기 기능...? -->
-					<input type="date" id="date" value="${today }" />
-				</div>
 			</div>
 			<div id="todo__list">date's todo-list
 			</div>

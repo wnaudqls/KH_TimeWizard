@@ -9,6 +9,21 @@
 <body>
 
 	<h1>Error Page</h1>
-	
+	<p>${message }</p>
+	<script type="text/javascript">
+		window.addEventListener('DOMContentLoaded', () => {
+			window.setTimeout(showMessage(), 2500);
+			window.setTimeout(goToIndex, 5000);
+		});
+		function showMessage(){
+			let message = document.createElement("p");
+			message.setAttribute("style","color:slateblue");
+			message.textContent = "잠시 후 인덱스 화면으로 이동합니다...";
+			document.querySelector("p").appendChild(message);
+		}
+		function goToIndex(){
+			location.href="http://localhost:8787/timewizard";
+		}
+	</script>
 </body>
 </html>
