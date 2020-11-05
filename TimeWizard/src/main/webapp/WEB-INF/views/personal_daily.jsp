@@ -10,6 +10,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="/timewizard/css/personal_daily.css">
+<script type="text/javascript" src="/timewizard/js/personal_daily.js"></script>
+<script type="text/javascript" src="/timewizard/js/personal_daily-hashtag.js"></script>
 </head>
 <body>
 <%
@@ -25,12 +27,12 @@
 		<div class="list__area">
 			<div class="date__area">
 				<div class="date__status">
-					<a><i class="fas fa-caret-square-left"></i></a>
-					<a><i class="far fa-caret-square-left"></i></a>
-					<span class="month"><%=month %>월 </span>
-					<span class="day"><%=day %> 일</span>
-					<a><i class="far fa-caret-square-right"></i></a>
-					<a><i class="fas fa-caret-square-right"></i></a>
+					<div class="date__change"><i class="fas fa-caret-square-left"></i></div>
+					<div class="date__change"><i class="far fa-caret-square-left"></i></div>
+					<div class="date date__month"><%=month %>월</div>
+					<div class="date date__day"><%=day %>일</div>
+					<div class="date__change"><i class="far fa-caret-square-right"></i></div>
+					<div class="date__change"><i class="fas fa-caret-square-right"></i></div>
 				</div>
 				<div class="date__input"><!-- 빨리 찾기 기능...? -->
 					<input type="date" id="date" value="${today }" />
@@ -45,17 +47,12 @@
 	</div>
 	<div class="modal__area"></div>
 	<div class="modal__area"></div>
-	
 
-	<script type="text/javascript" src="/timewizard/js/personal_daily.js"></script>
-	<script type="text/javascript" src="/timewizard/js/personal_daily-hashtag.js"></script>
 	<script type="text/javascript">
 	let pagedate = <%=date%>;
 	let linkedUserNo = <%=linked.getUser_no()%>;
 	const loginUserNo = <%=login.getUser_no()%>;
-	window.addEventListener('DOMContentLoaded', () => {
-		showDailyList(pagedate);
-	});
+
 	</script>
 </body>
 </html>

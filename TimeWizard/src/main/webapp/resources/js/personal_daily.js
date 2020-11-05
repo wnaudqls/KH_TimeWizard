@@ -1,3 +1,5 @@
+function DailyCalendar(){}
+
 let category_array = [
 	{key:"기본",value:"block__basic"},
 	{key:"공부",value:"block__study"},
@@ -8,6 +10,10 @@ let category_array = [
 	{key:"기타",value:"block__etc"}
 ];
 let selectedCategory = "";
+
+window.addEventListener('DOMContentLoaded', () => {
+	showDailyList(pagedate);
+});
 
 function showDailyList(date){
 	const listDiv = document.getElementById("todo__list");
@@ -343,6 +349,13 @@ function submitCategory(){
 }
 
 function submitInsertModal(){
+	let tags = document.querySelectorAll("span.tag");
+	let i = 0;
+	let input_hashtag = "";
+	for (i = 0; i<tags.length; i++){
+		input_hashtag += tags[i].textContent;
+		input_hashtag += " ";
+	}
 	let input_complete = document.getElementsByName("todo_complete")[0];
 	let input_starttime = document.getElementsByName("todo_starttime")[0].value;
 	let input_endtime = document.getElementsByName("todo_endtime")[0].value;
@@ -366,7 +379,7 @@ function submitInsertModal(){
 				todo_complete: document.getElementsByName("todo_complete")[0].value,
 				todo_starttime: setTimeForJSON(input_date, input_starttime),
 				todo_endtime: setTimeForJSON(input_date, input_endtime),
-				todo_hashtag: document.getElementsByName("todo_hashtag")[0].textContent.trim(),
+				todo_hashtag: input_hashtag,
 				todo_date: input_date
 		};
 		xhr.send(JSON.stringify(data));
@@ -569,32 +582,21 @@ function showDetailModal(todo_no){
 				hashtag_editablediv.setAttribute("contenteditable","true");
 				hashtag_editablediv.setAttribute("name","todo_hashtag")
 				
-				if (item.todo_hashtag == null || item.todo_hashtag == ''){
-				} else if ( item.todo_hashtag.indexOf(" ") == -1){
-					let hashtag = document.createElement("span")
-					hashtag.setAttribute("class","tag label label-info new");
-					let removebutton = document.createElement("span");
-					removebutton.setAttribute("class","delHashtag");
-					removebutton.setAttribute("data-role","remove"); // what is data-role?
-					removebutton.setAttribute("aria-hidden","true"); //what is aria-hidden?
-					hashtag.textContent = item.todo_hashtag;
-					hashtag.appendChild(removebutton);
-					hashtag_editablediv.appendChild(hashtag);
-					hashtag_editablediv.innerHTML += " ";
-				}else {
-					let splitedtexts = item.todo_hashtag.split(" ");
+				if (item.todo_hashtag != null && item.todo_hashtag != ''){
+					let splitedtexts = item.todo_hashtag.split("^");
 					let i = 0;
-					for (i=0; i<splitedtexts.length; i++){
-						let hashtag = document.createElement("span")
-						hashtag.setAttribute("class","tag label label-info new");
+					let numbers = [];
+					for (i=0; i<splitedtexts.length-1; i++){
+						numbers[i] = document.createElement("span");
+						numbers[i].setAttribute("class","tag label label-info new");
 						let removebutton = document.createElement("span");
 						removebutton.setAttribute("class","delHashtag");
 						removebutton.setAttribute("data-role","remove"); // what is data-role?
 						removebutton.setAttribute("aria-hidden","true"); //what is aria-hidden?
-						hashtag.textContent = splitedtexts[i];
-						hashtag.appendChild(removebutton);
-						hashtag_editablediv.appendChild(hashtag);
-						hashtag_editablediv.innerHTML += " ";
+						numbers[i].textContent = splitedtexts[i];
+						numbers[i].appendChild(removebutton);
+						hashtag_editablediv.appendChild(numbers[i]);
+						hashtag_editablediv.appendChild(document.createTextNode(" "));
 					}
 				}
 				hashtag_div.appendChild(hashtag_namespan);
@@ -700,6 +702,13 @@ function showDetailModal(todo_no){
 }
 
 function submitUpdateModal(todo_no){
+	let tags = document.querySelectorAll("span.tag");
+	let i = 0;
+	let input_hashtag = "";
+	for (i = 0; i<tags.length; i++){
+		input_hashtag += tags[i].textContent;
+		input_hashtag += " ";
+	}
 	let input_complete = document.getElementsByName("todo_complete")[0];
 	let input_starttime = document.getElementsByName("todo_starttime")[0].value;
 	let input_endtime = document.getElementsByName("todo_endtime")[0].value;
@@ -724,7 +733,7 @@ function submitUpdateModal(todo_no){
 				todo_complete: document.getElementsByName("todo_complete")[0].value,
 				todo_starttime: setTimeForJSON(input_date, input_starttime),
 				todo_endtime: setTimeForJSON(input_date, input_endtime),
-				todo_hashtag: document.getElementsByName("todo_hashtag")[0].textContent.trim(),
+				todo_hashtag: input_hashtag,
 				todo_date: input_date
 		};
 		xhr.send(JSON.stringify(data));
