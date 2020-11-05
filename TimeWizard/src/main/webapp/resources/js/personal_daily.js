@@ -1,4 +1,41 @@
-function DailyCalendar(){}
+class Calendar{
+	constructor(){
+		this.date = new Date();
+		this.year = this.date.getFullYear();
+		this.month = this.date.getMonth(); // 0 ~ 11
+		this.day = this.date.getDate();
+	}
+	
+/*
+ * Uncaught SyntaxError: A class may only have one constructor
+ * 	constructor(year, month, day){ // month: 0~11
+ * 		this.date = new Date(year, month, day);
+ * 		this.year = this.date.getFullYear();
+ * 		this.month = this.date.getMonth();
+ * 		this.day = this.date.getDate();
+ * 	}
+ */
+	setDate(year, month, day) { this.date = new Date(year, month, day);
+								this.year = this.date.getFullYear();
+								this.month = this.date.getMonth();
+								this.day = this.date.getDate();
+								}
+	getYear() { return this.date.getFullYear();};
+	setYear(year) { this.date.setFullYear(year); this.year = year;};
+	plusYear() { this.date.setFullYear(this.year + 1); this.year = this.date.getFullYear();};
+	minusYear() { this.date.setFullYear(this.year -1); this.year = this.date.getFullYear();};
+	getMonth() { this.month = this.date.getMonth(); return this.month;};
+	setMonth(month) { this.date.setMonth(month); this.month = month;};
+	plusMonth() { this.date.setMonth(this.month + 1); this.month = this.date.getMonth();};
+	minusMonth() { this.date.setMonth(this.month - 1); this.month = this.date.getMonth();};
+	getDay() { this.day = this.date.getDate(); return this.day;};
+	setDay(day) { this.date.setDate(day); this.day = day;};
+	plusDay() { this.date.setDate(this.day + 1); this.day = this.date.getDate();};
+	minusDay() { this.date.setDate(this.day - 1); this.day = this.date.getDate();}
+	toString() { return "" + this.year + (this.month+1 < 10 ? "0" + this.month+1: this.month+1) + (this.day < 10 ? "0" + this.day : this.day);};
+}
+
+let pageDate = new Calendar();
 
 let category_array = [
 	{key:"기본",value:"block__basic"},
@@ -12,12 +49,18 @@ let category_array = [
 let selectedCategory = "";
 
 window.addEventListener('DOMContentLoaded', () => {
-	showDailyList(pagedate);
+	showDailyList(pageDate.toString());
 });
 
 function showDailyList(date){
-	const listDiv = document.getElementById("todo__list");
-	listDiv.innerHTML = "";
+	let month = date.substring(4,6);
+	let day = date.substring(6,8);
+	let month_div = document.querySelector("div.date__month");
+	month_div.textContent = month + "월";
+	let day_div = document.querySelector("div.date__day");
+	day_div.textContent = day + "일";
+	const list_div = document.getElementById("todo__list");
+	list_div.innerHTML = "";
 	const xhr = new XMLHttpRequest();
 	xhr.open("POST", "/timewizard/daily/list/"+date);
 	xhr.send();
@@ -85,7 +128,7 @@ function showDailyList(date){
 					item_div.appendChild(stopwatch_cell);
 					items_div.appendChild(item_div);
 				} /* for - array items */
-				listDiv.appendChild(items_div);
+				list_div.appendChild(items_div);
 			}/* response not null */
 			/* TODO c:when?으로 session의 user_no와 user_distinct check */
 			if (linkedUserNo == loginUserNo) {
@@ -95,7 +138,7 @@ function showDailyList(date){
 				let plus = document.createElement("i")
 				plus.setAttribute("class","fas fa-plus");
 				insert_div.appendChild(plus);
-				listDiv.appendChild(insert_div);
+				list_div.appendChild(insert_div);
 			}
 			
 		} else {

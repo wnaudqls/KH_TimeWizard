@@ -1,4 +1,3 @@
-<%@page import="com.minibean.timewizard.utils.personal.PersonalDailyCalendar"%>
 <%@page import="com.minibean.timewizard.model.dto.UserInfoDto"%>
 <%@page import="java.util.Calendar"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -15,10 +14,6 @@
 </head>
 <body>
 <%
-	PersonalDailyCalendar dailyCalendar = new PersonalDailyCalendar();
-	String month = dailyCalendar.getMonth();
-	String day = dailyCalendar.getDay();
-	String date = dailyCalendar.toString();
 	UserInfoDto linked = (UserInfoDto) session.getAttribute("linked");
 	UserInfoDto login = (UserInfoDto) session.getAttribute("login");
 %>
@@ -29,8 +24,8 @@
 				<div class="date__status">
 					<div class="date__change"><i class="fas fa-caret-square-left"></i></div>
 					<div class="date__change"><i class="far fa-caret-square-left"></i></div>
-					<div class="date date__month"><%=month %>월</div>
-					<div class="date date__day"><%=day %>일</div>
+					<div class="date date__month">월</div>
+					<div class="date date__day">일</div>
 					<div class="date__change"><i class="far fa-caret-square-right"></i></div>
 					<div class="date__change"><i class="fas fa-caret-square-right"></i></div>
 				</div>
@@ -49,7 +44,6 @@
 	<div class="modal__area"></div>
 
 	<script type="text/javascript">
-	let pagedate = <%=date%>;
 	let linkedUserNo = <%=linked.getUser_no()%>;
 	const loginUserNo = <%=login.getUser_no()%>;
 
