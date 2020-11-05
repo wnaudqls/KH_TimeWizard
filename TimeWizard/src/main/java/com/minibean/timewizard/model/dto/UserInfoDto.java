@@ -47,8 +47,22 @@ public class UserInfoDto {
 		this.user_regdate = user_regdate;
 		this.user_role = user_role;
 	}
-
-
+	
+	// update
+	public UserInfoDto(int user_no, String user_pw, String user_name, String user_email, String user_distinct) {
+		this.user_no = user_no;
+		this.user_pw = user_pw;
+		this.user_name = user_name;
+		this.user_email = user_email;
+		this.user_distinct = user_distinct;
+	}
+	
+	// updateRoleRes
+	public UserInfoDto(int user_no, String user_role) {
+		this.user_no = user_no;
+		this.user_role = user_role;
+	}
+	
 	public int getUser_no() {
 		return user_no;
 	}
