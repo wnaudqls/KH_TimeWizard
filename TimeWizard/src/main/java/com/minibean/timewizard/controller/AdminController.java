@@ -32,7 +32,7 @@ public class AdminController {
 		return "adminpage";
 	}
 	
-	// 관리자페이지에서 등급변경 버튼 누르면 등급변경 페이지로 이동
+	/* 관리자페이지에서 등급변경 버튼 누르면 등급변경페이지로 이동 */
 	@RequestMapping(value="/adminrole")
 	public String adminRole(Model model, @RequestParam int user_no) {
 		logger.info("[admin role change]");
@@ -42,22 +42,12 @@ public class AdminController {
 		return "adminrole";
 	}
 	
+	/* 등급변경페이지에서 변경완료 버튼 누르면 등급 변경 됨 */
 	@RequestMapping(value="/adminroleres")
 	public String adminRoleRes(UserInfoDto dto, UserInfoDto user_no, @RequestParam String user_role) {
 		logger.info("[admin role change result]");
-		logger.info("user_role : " + user_role);
-		logger.info("dto :"+ dto);
-		
-		// controller에서 해당 user_no를 받아서 해당 유저 dto 객체 생성하기
-		// dto = userinfoBiz.selectOne(user_no);
-		// controller에서 생성한 객체 dto에 setUser_role(String user_role)을 넣어 변경해주기
-		// dto.setUser_role(user_role);
-		// 그렇게 갱신된 객체 dto를 update(dto)해주기
-		
+
 		int res = userinfoBiz.updateRoleRes(dto);
-		
-		// update가 돌아 리턴된 integer 값을 받아서 logger.info 찍어주기
-		logger.info("res : "+res);
 
 		if(res != 0) {
 			System.out.println("등급 변경 성공");
@@ -68,15 +58,25 @@ public class AdminController {
 		return "redirect:adminpage?user_role="+dto.getUser_role();
 	}
 	
-	/* 강제 탈퇴 버튼 누르면 강제탈퇴 페이지로 이동 */
+	/* 비활성화 버튼 누르면 활성화=N */
 	@RequestMapping(value="/admindelete")
-	public String adminDelete(UserInfoDto dto, HttpSession session) throws Exception {
+	public String adminDelete(UserInfoDto dto, UserInfoDto user_no, @RequestParam String user_active) {
 		logger.info("[admin member delete]");
 		
-			session.invalidate();
-			logger.info("[탈퇴 실패]");
+		logger.info("user_no : "+user_no);
+		logger.info("user_active : "+user_active);
+		logger.info("dto : "+dto);
 		
-		return "adminpage";
+		int res = userinfoBiz.updateActive(dto);
+		
+		if(res != 0) {
+			System.out.println("강제탈퇴 성공");
+		} else {
+			System.out.println("강제탈퇴 실패");
+		}
+		
+		return "redirect:adminpage?user_active="+dto.getUser_active();
+		
 	}
 	
 }
