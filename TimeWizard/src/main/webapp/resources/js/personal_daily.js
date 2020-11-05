@@ -1,3 +1,43 @@
+class Calendar{
+	constructor(){
+		this.date = new Date();
+		this.year = this.date.getFullYear();
+		this.month = this.date.getMonth(); // 0 ~ 11
+		this.day = this.date.getDate();
+	}
+	
+/*
+ * Uncaught SyntaxError: A class may only have one constructor
+ * 	constructor(year, month, day){ // month: 0~11
+ * 		this.date = new Date(year, month, day);
+ * 		this.year = this.date.getFullYear();
+ * 		this.month = this.date.getMonth();
+ * 		this.day = this.date.getDate();
+ * 	}
+ */
+	setDate(year, month, day) { this.date = new Date(year, month, day);
+								this.year = this.date.getFullYear();
+								this.month = this.date.getMonth();
+								this.day = this.date.getDate();
+								};
+	setDate() { this.year = this.date.getFullYear(); this.month = this.date.getMonth(); this.day = this.date.getDate();}
+	getYear() { return this.date.getFullYear();};
+	setYear(year) { this.date.setFullYear(year); this.year = this.date.getFullYear(); this.month = this.date.getMonth(); this.day = this.date.getDate();};
+	plusYear() { this.date.setFullYear(this.year + 1); this.year = this.date.getFullYear(); this.month = this.date.getMonth(); this.day = this.date.getDate();};
+	minusYear() { this.date.setFullYear(this.year -1); this.year = this.date.getFullYear(); this.month = this.date.getMonth(); this.day = this.date.getDate();};
+	getMonth() { this.month = this.date.getMonth(); return this.month;};
+	setMonth(month) { this.date.setMonth(month); this.year = this.date.getFullYear(); this.month = this.date.getMonth(); this.day = this.date.getDate();};
+	plusMonth() { this.date.setMonth(this.month + 1); this.year = this.date.getFullYear(); this.month = this.date.getMonth(); this.day = this.date.getDate();};
+	minusMonth() { this.date.setMonth(this.month - 1); this.year = this.date.getFullYear(); this.month = this.date.getMonth(); this.day = this.date.getDate();};
+	getDay() { this.day = this.date.getDate(); return this.day;};
+	setDay(day) { this.date.setDate(day); this.year = this.date.getFullYear(); this.month = this.date.getMonth(); this.day = this.date.getDate();};
+	plusDay() { this.date.setDate(this.day + 1); this.year = this.date.getFullYear(); this.month = this.date.getMonth(); this.day = this.date.getDate();};
+	minusDay() { this.date.setDate(this.day - 1); this.year = this.date.getFullYear(); this.month = this.date.getMonth(); this.day = this.date.getDate();}
+	toString() { return "" + this.year + (this.month < 9 ? "0" + (this.month+1): (this.month+1)) + (this.day < 10 ? "0" + this.day : this.day);};
+}
+
+let pageDate = new Calendar();
+
 let category_array = [
 	{key:"기본",value:"block__basic"},
 	{key:"공부",value:"block__study"},
@@ -9,9 +49,42 @@ let category_array = [
 ];
 let selectedCategory = "";
 
+window.addEventListener('DOMContentLoaded', () => {
+	showDailyList(pageDate.toString());
+	let blackleft = document.getElementsByClassName("date__change")[0];
+	let whiteleft = document.getElementsByClassName("date__change")[1];
+	let whiteright = document.getElementsByClassName("date__change")[2];
+	let blackright = document.getElementsByClassName("date__change")[3];
+	blackleft.addEventListener("click", ()=> {
+		pageDate.minusMonth();
+		console.log(pageDate.year + "/" + pageDate.month + "/" + pageDate.day);
+		showDailyList(pageDate.toString());
+	});
+	whiteleft.addEventListener("click", () => {
+		pageDate.minusDay();
+		showDailyList(pageDate.toString());
+	});
+	whiteright.addEventListener("click", () => {
+		pageDate.plusDay();
+		showDailyList(pageDate.toString());
+	});
+	blackright.addEventListener("click", () => {
+		pageDate.plusMonth();
+		showDailyList(pageDate.toString());
+	});
+});
+
+
 function showDailyList(date){
-	const listDiv = document.getElementById("todo__list");
-	listDiv.innerHTML = "";
+	console.log(date);
+	let MM = date.substring(4,6);
+	let dd = date.substring(6,8);
+	let month_div = document.querySelector("div.date__month");
+	month_div.textContent = MM + "월";
+	let day_div = document.querySelector("div.date__day");
+	day_div.textContent = dd + "일";
+	const list_div = document.getElementById("todo__list");
+	list_div.innerHTML = "";
 	const xhr = new XMLHttpRequest();
 	xhr.open("POST", "/timewizard/daily/list/"+date);
 	xhr.send();
@@ -56,8 +129,9 @@ function showDailyList(date){
 					let stopwatch = document.createElement("button");
 					stopwatch.setAttribute("type","button");
 					stopwatch.setAttribute("class","stopwatch_"+i+" stopwatch");
-					stopwatch.setAttribute("onclick", "showPopupStopwatch("+items[i].todo_no+");");
-					
+					if (linkedUserNo == loginUserNo) {
+						stopwatch.setAttribute("onclick", "showPopupStopwatch("+items[i].todo_no+");");
+					}
 					let css = '.stopwatch_'+i+':hover { background-color: '+items[i].todo_color+';}'
 							+'.stopwatch_'+i+':hover .fas { color: white; }';
 					let style = document.createElement("style");						
@@ -78,7 +152,7 @@ function showDailyList(date){
 					item_div.appendChild(stopwatch_cell);
 					items_div.appendChild(item_div);
 				} /* for - array items */
-				listDiv.appendChild(items_div);
+				list_div.appendChild(items_div);
 			}/* response not null */
 			/* TODO c:when?으로 session의 user_no와 user_distinct check */
 			if (linkedUserNo == loginUserNo) {
@@ -88,7 +162,7 @@ function showDailyList(date){
 				let plus = document.createElement("i")
 				plus.setAttribute("class","fas fa-plus");
 				insert_div.appendChild(plus);
-				listDiv.appendChild(insert_div);
+				list_div.appendChild(insert_div);
 			}
 			
 		} else {
@@ -342,6 +416,13 @@ function submitCategory(){
 }
 
 function submitInsertModal(){
+	let tags = document.querySelectorAll("span.tag");
+	let i = 0;
+	let input_hashtag = "";
+	for (i = 0; i<tags.length; i++){
+		input_hashtag += tags[i].textContent;
+		input_hashtag += " ";
+	}
 	let input_complete = document.getElementsByName("todo_complete")[0];
 	let input_starttime = document.getElementsByName("todo_starttime")[0].value;
 	let input_endtime = document.getElementsByName("todo_endtime")[0].value;
@@ -365,7 +446,7 @@ function submitInsertModal(){
 				todo_complete: document.getElementsByName("todo_complete")[0].value,
 				todo_starttime: setTimeForJSON(input_date, input_starttime),
 				todo_endtime: setTimeForJSON(input_date, input_endtime),
-				todo_hashtag: document.getElementsByName("todo_hashtag")[0].textContent.trim(),
+				todo_hashtag: input_hashtag,
 				todo_date: input_date
 		};
 		xhr.send(JSON.stringify(data));
@@ -568,32 +649,22 @@ function showDetailModal(todo_no){
 				hashtag_editablediv.setAttribute("contenteditable","true");
 				hashtag_editablediv.setAttribute("name","todo_hashtag")
 				
-				if (item.todo_hashtag == null || item.todo_hashtag == ''){
-				} else if ( item.todo_hashtag.indexOf(" ") == -1){
-					let hashtag = document.createElement("span")
-					hashtag.setAttribute("class","tag label label-info new");
-					let removebutton = document.createElement("span");
-					removebutton.setAttribute("class","delHashtag");
-					removebutton.setAttribute("data-role","remove"); // what is data-role?
-					removebutton.setAttribute("aria-hidden","true"); //what is aria-hidden?
-					hashtag.textContent = item.todo_hashtag;
-					hashtag.appendChild(removebutton);
-					hashtag_editablediv.appendChild(hashtag);
-					hashtag_editablediv.innerHTML += " ";
-				}else {
-					let splitedtexts = item.todo_hashtag.split(" ");
+				if (item.todo_hashtag != null && item.todo_hashtag != ''){
+					let splitedtexts = item.todo_hashtag.split("^");
 					let i = 0;
-					for (i=0; i<splitedtexts.length; i++){
-						let hashtag = document.createElement("span")
-						hashtag.setAttribute("class","tag label label-info new");
+					let numbers = [];
+					for (i=0; i<splitedtexts.length-1; i++){
+						numbers[i] = document.createElement("span");
+						numbers[i].setAttribute("class","tag label label-info new");
+						numbers[i].setAttribute("contenteditable","false");
 						let removebutton = document.createElement("span");
 						removebutton.setAttribute("class","delHashtag");
 						removebutton.setAttribute("data-role","remove"); // what is data-role?
 						removebutton.setAttribute("aria-hidden","true"); //what is aria-hidden?
-						hashtag.textContent = splitedtexts[i];
-						hashtag.appendChild(removebutton);
-						hashtag_editablediv.appendChild(hashtag);
-						hashtag_editablediv.innerHTML += " ";
+						numbers[i].textContent = splitedtexts[i];
+						numbers[i].appendChild(removebutton);
+						hashtag_editablediv.appendChild(numbers[i]);
+						hashtag_editablediv.appendChild(document.createTextNode(" "));
 					}
 				}
 				hashtag_div.appendChild(hashtag_namespan);
@@ -656,7 +727,6 @@ function showDetailModal(todo_no){
 					form.appendChild(submit_button);
 				}
 				
-				
 				detail_div.appendChild(form);
 				modalArea.appendChild(overlay_div);
 				modalArea.appendChild(detail_div);
@@ -699,6 +769,13 @@ function showDetailModal(todo_no){
 }
 
 function submitUpdateModal(todo_no){
+	let tags = document.querySelectorAll("span.tag");
+	let i = 0;
+	let input_hashtag = "";
+	for (i = 0; i<tags.length; i++){
+		input_hashtag += tags[i].textContent;
+		input_hashtag += " ";
+	}
 	let input_complete = document.getElementsByName("todo_complete")[0];
 	let input_starttime = document.getElementsByName("todo_starttime")[0].value;
 	let input_endtime = document.getElementsByName("todo_endtime")[0].value;
@@ -723,7 +800,7 @@ function submitUpdateModal(todo_no){
 				todo_complete: document.getElementsByName("todo_complete")[0].value,
 				todo_starttime: setTimeForJSON(input_date, input_starttime),
 				todo_endtime: setTimeForJSON(input_date, input_endtime),
-				todo_hashtag: document.getElementsByName("todo_hashtag")[0].textContent.trim(),
+				todo_hashtag: input_hashtag,
 				todo_date: input_date
 		};
 		xhr.send(JSON.stringify(data));
@@ -738,5 +815,5 @@ function submitUpdateModal(todo_no){
 
 /* stopwatch/timer popup event */
 function showPopupStopwatch(todo_no){
-	window.open('stopwatch', 'window_'+todo_no,'width=300, height=190, left=0, top=100, status=no, resizable=no');
+	window.open('/timewizard/stopwatch', 'window_'+todo_no,'width=300, height=190, left=0, top=100, status=no, resizable=no');
 }
