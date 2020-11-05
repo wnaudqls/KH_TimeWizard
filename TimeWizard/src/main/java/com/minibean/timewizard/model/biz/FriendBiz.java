@@ -11,6 +11,8 @@ public interface FriendBiz {
 
 	// 나와 친구가 아닌 유저들 목록
 	public List<FriendDto> selectListN(int user_no);
+	
+	public int DeleteFriend(FriendDto dto);
 
 	
 	//친구추가 -> 친구 요청 -> status : send

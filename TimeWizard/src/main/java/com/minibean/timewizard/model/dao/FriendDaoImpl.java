@@ -123,5 +123,18 @@ public class FriendDaoImpl implements FriendDao {
 		return res;
 	}
 
+	@Override
+	public int DeleteFriend(FriendDto dto) {
+		// TODO Auto-generated method stub
+		
+		int res = 0;
+		try {
+			res = sqlSession.delete(NAMESPACE+"deleteFriend",dto);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return res;
+	}
 
 }

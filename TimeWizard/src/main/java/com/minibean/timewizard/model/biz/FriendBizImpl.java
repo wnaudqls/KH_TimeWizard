@@ -65,6 +65,12 @@ public class FriendBizImpl implements FriendBiz {
 		return friendDao.BlockUpdate(dto);
 	}
 
+	@Override
+	public int DeleteFriend(FriendDto dto) {
+		// TODO Auto-generated method stub
+		return friendDao.DeleteFriend(dto);
+	}
+
 
 
 

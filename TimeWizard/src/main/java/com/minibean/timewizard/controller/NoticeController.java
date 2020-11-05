@@ -12,6 +12,7 @@ import com.minibean.timewizard.model.biz.NoticeBiz;
 import com.minibean.timewizard.model.biz.NoticeBizImpl;
 import com.minibean.timewizard.model.dto.NoticeDto;
 import com.minibean.timewizard.model.dto.PagingDto;
+import com.minibean.timewizard.model.dto.ReplyDto;
 
 
 @Controller
@@ -112,13 +113,14 @@ public class NoticeController {
 			@RequestParam("notice_no") int notice_no,
 			PagingDto pagingdto, 
 			@RequestParam("nowpage")String nowpage,
-			@RequestParam("cntPerpage")String cntPerpage) {
+			@RequestParam("cntPerpage")String cntPerpage , ReplyDto replyDto) {
 		logger.info("[SELECT ONE]");
 		
 		NoticeDto dto = biz.selectOne(notice_no);
 		
 		model.addAttribute("dto", dto);
 		model.addAttribute("paging", pagingdto);
+		model.addAttribute("replyDto", replyDto);
 		
 		return "notice_detail";
 	}
