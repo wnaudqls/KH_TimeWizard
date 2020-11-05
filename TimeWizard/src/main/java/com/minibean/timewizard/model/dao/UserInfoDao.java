@@ -16,6 +16,6 @@ public interface UserInfoDao {
 	public int update(UserInfoDto dto);
 	public int delete(int user_no);
 	public int idCheck(String id);
-	
+	public int updateRoleRes(UserInfoDto dto);
 	
 }
