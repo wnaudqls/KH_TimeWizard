@@ -66,19 +66,32 @@ input[type=button]:hover, #searchBtn:hover {
 .fixedmain {
 	position: fixed;
 	top: 8rem;
-	width: 100%;
+	width: 90%;
+	margin-left: 10%;
 }
 
 .grouproom {
+	float: left;
+	width: 20%;
+	padding: 15px;
+}
+
+.groupimg {
+	border: 1px solid black;
+	border-radius: 4px 4px 0px 0px;
+	height: 10rem;
 }
 
 .grouptitle {
 	background-color: var(--background-color);
 	color: white;
+	padding: 4px;
 }
 
 .groupmain {
 	background-color: var(--color);
+	border-radius: 0px 0px 4px 4px;
+	padding: 4px;
 }
 
 .group1 {
@@ -109,15 +122,38 @@ input[type=button]:hover, #searchBtn:hover {
 
 
 @media screen and (max-width: 1140px) {
-	.fixedtop {
-		display: block;
-		height: 10rem;
-	}
 
-	.logo {
+	.fixedtop {
+		position: relative;
+		display: block;
+		z-index: 999;
+		background-color: white;
+		height: 10%;
 	}
 
 	.fixedmain {
-		top: 15rem;
+		position: relative;
+		display: block;
+		width: 100%;
+		top: 0;
+	}
+
+	.logo {
+		height: 10vh;
+	}
+
+	.grouproom {
+		display: block;
+		width: 75%;
 	}
 }
+
+
+
+
+
+
+
+
+
+

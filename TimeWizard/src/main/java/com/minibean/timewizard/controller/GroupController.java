@@ -63,7 +63,7 @@ public class GroupController {
 	
 		return "grouproom";
 	}
-	@GetMapping("/newroom")
+	@GetMapping("/groupnewroom")
 	public String make(Model model) {
 		return "groupnewroom";
 	}
@@ -78,7 +78,7 @@ public class GroupController {
 		}
 		else {
 			log.info("방 생성실패");
-			return "redirect:/newroom";
+			return "redirect:/groupnewroom";
 		}
 		
 	}
