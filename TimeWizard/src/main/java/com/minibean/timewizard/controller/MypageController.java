@@ -45,17 +45,12 @@ public class MypageController {
 		String user_pw = user.getUser_pw();
 		String new_pw = dto.getUser_pw();
 		
-		logger.info("user_pw :"+user_pw);
-		logger.info("new_pw :"+new_pw);
-		
 		//비밀번호 불일치로 탈퇴 실패
 		if(!(user_pw.equals(new_pw))) {
 			return "redirect:mypage";
 		} else {
 		
 			int res = userinfoBiz.delete(user_no);
-			
-			logger.info("탈퇴 res :"+res);
 			
 			if(res != 0) {
 				System.out.println("탈퇴 성공");
