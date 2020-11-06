@@ -12,13 +12,14 @@
 
 <%
 	UserInfoDto UDto = (UserInfoDto)session.getAttribute("login");
+	String user_distinct = UDto.getUser_distinct();
 	System.out.println("user role in header : " + UDto.getUser_role());
 %>
 	
 	<nav class="navbar">
 		<div class="nav_logo">
 			<i class="fas fa-magic"></i>
-			<a href="">TiWi</a>  <!-- 메인페이지로 -->
+			<a href="/timewizard/user/<%=user_distinct %>">TiWi</a>  <!-- 메인페이지로 -->
 		</div>
 		<ul class="nav_menu">
 			<!-- Group메뉴 -->
