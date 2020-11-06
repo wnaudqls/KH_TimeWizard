@@ -3,11 +3,10 @@
 <mapper namespace="reply-mapper">
 
 	<select id="replyList" resultType="ReplyDto">
-		SELECT REPLY_NO , NOTICE_NO, USER_NO, REPLY_CONTENT,
-		REPLY_REGDATE
+		SELECT *
 		FROM BOARD_REPLY
 		WHERE NOTICE_NO = #{notice_no}
-		ORDER BY REPLY_REGDATE DESC;
+		ORDER BY REPLY_REGDATE DESC
 	</select>
 	
 	<insert id="insertReply" parameterType="ReplyDto">

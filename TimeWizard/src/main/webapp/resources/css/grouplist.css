@@ -1,17 +1,102 @@
-#title{
-	
-	text-align: left;
+:root {
+    --text-color: #f0f4f5;
+    --background-color: #263343;
+	--accent-color: #ff6b6b;
+	--color: #E0E0E0;
+}
+
+body {
+	margin: 0;
+	overflow: auto;
+}
+
+input[type=button] {
+	background-color: var(--background-color);
+	color: white;
+	border-radius: 4px;
+	cursor: pointer;
+	transition: 0.4s;
+}
+
+input[type=button]:hover, #searchBtn:hover {
+	background-color: white;
+	color: var(--background-color);
+}
+
+.fixedtop {
+	position: fixed;
+	border-bottom: 1px solid var(--color);
+	width: 100%;
+	height: 5rem;
+	display: flex;
+	justify-content: space-between;
+}
+
+.logo {
+	display: flex;
+	padding: 8px 12px;
+}
+
+.titlelogo {
+	display: flex;
+	width: 100px;
+}
+
+.titlename {
+	display: flex;
+}
+
+.menu {
+	display: flex;
+	padding: 8px 12px;
+	height: 100%;
+}
+
+#searchBtn {
+	background-color: var(--background-color);
+	color: var(--color);
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+.createroom {
+	margin-left: 1rem;
+}
+
+.fixedmain {
+	position: fixed;
+	top: 8rem;
+	width: 100%;
+}
+
+.grouproom {
+}
+
+.grouptitle {
+	background-color: var(--background-color);
+	color: white;
+}
+
+.groupmain {
+	background-color: var(--color);
+}
+
+.group1 {
+	width: 10%;
+}
+
+.group2 {
+	width: 30%;
+}
+
+.groupid {
+	color: var(--accent-color);
 }
 
 #search{
 	width:200px;
-	text-align: center;
 }
 #searchArea{
-	
-	
-	margin-top:10%;
-	margin-left:40%;
 	
 }
 #example {
@@ -20,4 +105,19 @@
 	width: 1000px;
 	height: 1000px;
 	border: 1px solid black;
+}
+
+
+@media screen and (max-width: 1140px) {
+	.fixedtop {
+		display: block;
+		height: 10rem;
+	}
+
+	.logo {
+	}
+
+	.fixedmain {
+		top: 15rem;
+	}
 }
