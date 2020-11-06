@@ -16,9 +16,9 @@ public class UserTodoDto {
 	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date todo_date;
 	private String todo_complete;
-	@JsonFormat(pattern="yyyy-MM-dd HH:mm")
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm", timezone="Asia/Seoul")
 	private Date todo_starttime;
-	@JsonFormat(pattern="yyyy-MM-dd HH:mm")
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm", timezone="Asia/Seoul")
 	private Date todo_endtime;
 	
 	public UserTodoDto() {}

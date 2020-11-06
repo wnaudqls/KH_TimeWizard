@@ -11,9 +11,9 @@
 <body>
 
 <%
-	UserInfoDto UDto = (UserInfoDto)session.getAttribute("login");
-	String user_distinct = UDto.getUser_distinct();
-	System.out.println("user role in header : " + UDto.getUser_role());
+	UserInfoDto login = (UserInfoDto)session.getAttribute("login");
+	String user_distinct = login.getUser_distinct();
+	System.out.println("user role in header : " + login.getUser_role());
 %>
 	
 	<nav class="navbar">
@@ -38,8 +38,8 @@
 		<ul class="nav_icon">
 			<%
 			//로그인 되어있고 ADMIN, USER일 때만 보이게!
-			if(UDto != null){
-				if(UDto.getUser_role().equals("ADMIN")){
+			if(login != null){
+				if(login.getUser_role().equals("ADMIN")){
 			%>
 					<li><a href="../adminpage">${login.user_name }</a></li>
 					<li><a href="/timewizard/logout">Logout</a></li>
