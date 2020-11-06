@@ -36,8 +36,10 @@
 			</div>
 		</div>
 	</section>
+
 	<jsp:include page="friendlist.jsp"></jsp:include>
 	<jsp:include page="footer.jsp"></jsp:include>
+
 	
  
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.5/sockjs.min.js"></script>

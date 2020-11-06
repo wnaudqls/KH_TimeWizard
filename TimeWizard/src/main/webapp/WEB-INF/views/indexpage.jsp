@@ -37,6 +37,7 @@
 			</div>
 		</div>
 		
+
 		<div class="section" id="p3"">
 			<div class="backimg" style="background-image:url(resources/img/bg2.jpg)"></div>
 			<p class="p3title">
@@ -67,6 +68,7 @@
 				<div class="minibean"><a>주명빈</a></div>
 				<div class="minibean"><a>윤용민</a></div>
 			</div>
+
 		</div>
 	</div>
 	
