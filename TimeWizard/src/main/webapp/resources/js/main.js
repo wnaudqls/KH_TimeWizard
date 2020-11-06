@@ -18,6 +18,13 @@ $(document).ready(function(){
 
   });
  */
+  $('#p2').hover(function() {
+    $('.arrowbox').removeClass('bounce animated');
+  });
+
+  $('#p1').hover(function() {
+    $('.arrowbox').addClass('bounce animated');
+  });
 
 
 });
