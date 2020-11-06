@@ -57,6 +57,7 @@
 		
 		.write {
 			 margin: auto;
+			 width: 60%;
 		}
 	
 	
@@ -64,6 +65,10 @@
 		
 		body, html {
 			margin: 0;
+		}
+		
+		.write {
+			width: 90%;
 		}
 		
 		.spacetop {
@@ -107,7 +112,7 @@
 	<div class="writebox">
 		<h2 style="text-align: center;">공지사항 작성</h2>
 		
-		<div style="width: 60%;" class="write">
+		<div class="write">
 			<form method="post" action="./insertres">
 				<input type="hidden" name="nowpage" value="${paging.nowpage }">
 				<input type="hidden" name="cntPerpage" value="${paging.cntPerpage }">
