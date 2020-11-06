@@ -22,11 +22,10 @@
 
 	<div class="adminbox">
 		<h1>관리자 페이지</h1>
-		<a href="main?user_no=${dto.user_no }">돌아가기</a>
+		<a href="main?user_no=${login.user_no }">돌아가기</a>
 	</div>
 	
 	<form action="admindelete" method="post">
-	<input type="hidden" name="user_no" value="${dto.user_no}">
 	<div class="adminbox" id="userlist">
 		<table border="1">
 			<col width="100"/>
@@ -64,7 +63,7 @@
 					<td>${dto.user_regdate }</td>
 					<td>${dto.user_role }</td>
 					<td><a href="adminrole?user_no=${dto.user_no }">등급변경</a></td>
-					<td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">강제탈퇴</button></td>
+					<td><button type="button" name="disablebtn" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-value="${dto.user_no }"onclick="pass()">강제탈퇴</button></td>
 				</tr>
 				</c:forEach>
 		</table>
@@ -81,9 +80,10 @@
 		        </div>
 		        <div class="modal-body">
 		        	회원 아이디를 비활성화 하겠습니까?
+		        	<input type="hidden" id="userdelete" name="user_no">
 		        </div>
 		      <div class="modal-footer">
-		      	<input class="btn" type="submit" value="비활성화 " />
+		      	<input id="disbtn" class="btn" type="submit" value="비활성화 " />
 		       	<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
 		      </div>
 		    </div>
@@ -91,6 +91,12 @@
 		</div>
 	</div>
 	</form>
+<script type="text/javascript">
+$(document).on("click","button[name='disablebtn']",function(){
+	var num = $(this).data('value');
+	$("#userdelete").val(num);
+});
 
+</script>
 </body>
 </html>
