@@ -25,9 +25,8 @@
 		<a href="main?user_no=${dto.user_no }">돌아가기</a>
 	</div>
 	
-	<form name="activeInfo">
+	<form action="admindelete" method="post">
 	<input type="hidden" name="user_no" value="${dto.user_no}">
-	<input type="hidden" name="user_active" value="${dto.user_active}">
 	<div class="adminbox" id="userlist">
 		<table border="1">
 			<col width="100"/>
@@ -84,7 +83,7 @@
 		        	회원 아이디를 비활성화 하겠습니까?
 		        </div>
 		      <div class="modal-footer">
-		      	<button type="button" class="btn btn-primary" onclick="clickDel(activeInfo)">비활성화</button>
+		      	<input class="btn" type="submit" value="비활성화 " />
 		       	<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
 		      </div>
 		    </div>

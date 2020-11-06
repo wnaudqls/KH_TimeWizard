@@ -44,6 +44,10 @@ FROM USER_INFO;
 SELECT *
 FROM USER_INFO;
 
+UPDATE USER_INFO
+SET USER_ACTIVE = 'Y'
+WHERE USER_ID = 'user';
+
 
 --------------------------------
 

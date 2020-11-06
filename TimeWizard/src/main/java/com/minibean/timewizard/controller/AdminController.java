@@ -60,22 +60,21 @@ public class AdminController {
 	
 	/* 비활성화 버튼 누르면 활성화=N */
 	@RequestMapping(value="/admindelete")
-	public String adminDelete(UserInfoDto dto, UserInfoDto user_no, @RequestParam String user_active) {
+	public String adminDelete(UserInfoDto dto, @RequestParam int user_no) {
 		logger.info("[admin member delete]");
 		
 		logger.info("user_no : "+user_no);
-		logger.info("user_active : "+user_active);
 		logger.info("dto : "+dto);
 		
-		int res = userinfoBiz.updateActive(dto);
+			int res = userinfoBiz.delete(user_no);
+			
+			if(res != 0) {
+				System.out.println("강제탈퇴 성공");
+			} else {
+				System.out.println("강제탈퇴 실패");
+			}
 		
-		if(res != 0) {
-			System.out.println("강제탈퇴 성공");
-		} else {
-			System.out.println("강제탈퇴 실패");
-		}
-		
-		return "redirect:adminpage?user_active="+dto.getUser_active();
+		return "redirect:adminpage?user_no="+dto.getUser_active();
 		
 	}
 	
