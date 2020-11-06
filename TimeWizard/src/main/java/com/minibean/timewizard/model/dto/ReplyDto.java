@@ -3,7 +3,7 @@ package com.minibean.timewizard.model.dto;
 public class ReplyDto {
 
 	private int reply_no;
-	private String notice_no;
+	private int notice_no;
 	private String user_no;
 	private String reply_content;
 	private String reply_regdate;
@@ -13,7 +13,7 @@ public class ReplyDto {
 		
 	}
 	
-	public ReplyDto(int reply_no, String notice_no, String user_no, String reply_content, String reply_regdate) {
+	public ReplyDto(int reply_no, int notice_no, String user_no, String reply_content, String reply_regdate) {
 		super();
 		this.reply_no = reply_no;
 		this.notice_no = notice_no;
@@ -30,11 +30,11 @@ public class ReplyDto {
 		this.reply_no = reply_no;
 	}
 
-	public String getNotice_no() {
+	public int getNotice_no() {
 		return notice_no;
 	}
 
-	public void setNotice_no(String notice_no) {
+	public void setNotice_no(int notice_no) {
 		this.notice_no = notice_no;
 	}
 
