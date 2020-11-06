@@ -1,11 +1,4 @@
- $('.btn btn-primary').click(function(){
-	
-};
-
-
-
-function clickDel(activeInfo) {
-	activeInfo.action = "admindelete";
-	activeInfo.method = "post";
-	activeInfo.submit();
-};
+$(document).on("click","button[name='disablebtn']",function(){
+	var num = $(this).data('value');
+	$("#userdelete").val(num);
+});
