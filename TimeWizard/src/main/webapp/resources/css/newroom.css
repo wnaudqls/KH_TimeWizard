@@ -1,0 +1,74 @@
+:root {
+    --text-color: #f0f4f5;
+    --background-color: #263343;
+	--accent-color: #ff6b6b;
+	--color: #E0E0E0;
+}
+
+body {
+	font-family: 'Nanum Gothic Coding';
+	background-color: var(--background-color);
+	margin: 0;
+}
+
+form {
+	width: 40%;
+	height: 50vh;
+	background-color: white;
+	border-radius: 10px;
+	margin-left: 30%;
+	margin-top: 20vh;
+}
+
+#box {
+	padding-top: 10vh;
+}
+
+.createbox {
+	display: flex;
+	justify-content: center;
+	padding: 20px;
+	font-size: 30px;
+}
+
+.createtitle {
+	width: 15rem;
+}
+
+button {
+	background-color: var(--background-color);
+	color: white;
+	border-radius: 4px;
+	width: 25%;
+	cursor: pointer;
+	padding: 4px;
+	transition: 0.4s;
+}
+
+button:hover {
+	background-color: white;
+	color: var(--background-color);
+}
+
+
+@media screen and (max-width: 1140px) {
+	form {
+		width: 90%;
+		height: 55vh;
+		margin-left: 5%;
+		margin-top: 20vh;
+	}
+
+	.createbox {
+		font-size: 20px;
+	}
+}
+
+
+
+
+
+
+
+
+
