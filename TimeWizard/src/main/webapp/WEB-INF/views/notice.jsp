@@ -1,3 +1,4 @@
+<%@page import="com.minibean.timewizard.model.dto.UserInfoDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
@@ -27,6 +28,12 @@
 </head>
 <body>
 
+<%
+	UserInfoDto UDto = (UserInfoDto)session.getAttribute("login");
+	System.out.println("user role in header : " + UDto.getUser_role());
+%>
+
+
 	<div class="top">
 		<h1>공지사항</h1>
 		<div class="home"><a href="main"><i class="fab fa-tumblr-square"></i></a></div>
@@ -35,6 +42,11 @@
 	<br/><br/>
 	
 	<table id="noticeBoard">
+	<%
+		//로그인 되어있고 ADMIN일 때만 보이게!
+		if(UDto != null){
+			if(UDto.getUser_role().equals("ADMIN")){
+	%>
 		<colgroup>
 			<col width="50" />
 			<col width="300" />
@@ -50,7 +62,7 @@
 		<c:choose>
 			<c:when test="${empty list }">
 				<tr>
-					<th colspan="3" class="notice_text">----------작성된 글이 없습니다----------</th>
+					<th colspan="4" class="notice_text">----------작성된 글이 없습니다----------</th>
 				</tr>
 			</c:when>
 			<c:otherwise>
@@ -64,12 +76,60 @@
 				</c:forEach>
 			</c:otherwise>
 		</c:choose>
-		
+	<%
+		} else {
+	%>
+		<colgroup>
+			<col width="50" />
+			<col width="300" />
+			<col width="100" />
+		</colgroup>
 		<tr>
-			<th class="write" colspan="4" align="right">
-				<i class="fas fa-edit" onclick="location.href='insert?&nowpage=${paging.nowpage}&cntPerpage=${paging.cntPerpage }'"></i>
-			</th>
+			<th>번호</th>
+			<th>제목</th>
+			<th>작성일</th>
 		</tr>
+		<c:choose>
+			<c:when test="${empty list }">
+				<tr>
+					<th colspan="4" class="notice_text">----------작성된 글이 없습니다----------</th>
+				</tr>
+			</c:when>
+			<c:otherwise>
+				<c:forEach items="${list }" var="dto">
+					<tr>
+						<td>${dto.notice_no }</td>
+						<td><a href="./detail?notice_no=${dto.notice_no }&nowpage=${paging.nowpage }&cntPerpage=${paging.cntPerpage }">${dto.notice_title }</a></td>
+						<td>${dto.notice_regdate }</td>
+					</tr>
+				</c:forEach>
+			</c:otherwise>
+		</c:choose>
+	<%
+			}
+		}
+	%>	
+		
+		<%
+			//로그인 되어있고 ADMIN일 때만 보이게!
+			if(UDto != null){
+				if(UDto.getUser_role().equals("ADMIN")){
+		%>
+			<tr>
+				<th class="write" colspan="4" align="right">
+					<i class="fas fa-edit" onclick="location.href='insert?&nowpage=${paging.nowpage}&cntPerpage=${paging.cntPerpage }'"></i>
+				</th>
+			</tr>
+		<%
+			} else {
+		%>
+			<tr>
+				<th class="write" colspan="4" align="right"></th>
+			</tr>
+		<%
+				}
+			}
+		%>
 	</table>
 	
 	<br/><br/>
@@ -89,7 +149,6 @@
 		</form>
 	</div>
 
-		
 	<br/>
 	
 	<!-- search 후 페이징 -->
