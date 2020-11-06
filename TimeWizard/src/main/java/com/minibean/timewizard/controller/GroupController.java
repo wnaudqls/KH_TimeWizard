@@ -65,7 +65,7 @@ public class GroupController {
 	}
 	@GetMapping("/newroom")
 	public String make(Model model) {
-		return "newRoom";
+		return "groupnewroom";
 	}
 
 	@PostMapping(value="/createres")

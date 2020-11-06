@@ -5,52 +5,70 @@
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="resources/css/grouplist.css">
+<script src="https://kit.fontawesome.com/3049a69bf8.js" crossorigin="anonymous"></script>
+<style type="text/css">
+.fixedmain{
+display: flex;
+
+}
+.grouproom{
+	display: block;
+	border: 1px solid black;
+	
+}
+
+</style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
-<h1 id="title">
-그룹 리스트
-</h1>
-<hr>
-	<table border="1">
-		<c:choose>
-			<c:when test="${empty list }">
+
+<nav class="fixedtop">
+	<div class="logo">
+		<a class="titlelogo" href="main"><img alt="" src="resources/img/027-star 2.png"></a>
+		<a class="titlename" href="main"><img alt="" src="resources/img/TIME WIZARD.png"></a>
+	</div>
+		
+	<div class="menu">
+		<div id="searchArea">
+			<input type="text" id="search" placeholder="아이디 또는 방이름을 입력하세요" /> 
+			<button id="searchBtn"><a><i class="fas fa-search"></i></a></button>
+		</div>
+		<div class="createroom">
+			<input type="button" value="만들기" onclick="location.href='newroom'">
+		</div>
+	</div>
+</nav>
+
+<div class="fixedmain">
+	
+	<c:choose>
+		<c:when test="${empty list }">
 				<tr>
 					<td>아무것도 없습니다.</td>
 				</tr>
-			</c:when>
-			<c:otherwise>
-				<c:forEach var="dto" items="${list }">
-					<%-- <tr>
-						<th>번호</th>
-						<td>${dto.chat_no }</td>
-					</tr> --%>
-					<tr>
-						<th>방이름</th>	
-						<td>${dto.chat_title }</td>
-					</tr>
-					<tr>
-						<th>아이디</th>	
-						<td>${dto.user_id }</td>
-					</tr>
-					<%-- <tr>
-						<th>내용</th>
-						<td>${dto.chat_content }</td>
-					</tr> --%>
-					<tr>
-						<td colspan="2" align="right">
-							<input type="button" value="접속하기" onclick="location.href='joinroom/${dto.chat_title }'">
-						</td>
-					</tr>
+		</c:when>
+		<c:otherwise>
+			<c:forEach var="dto" items="${list }">
+				<div class="grouproom">
+					<div class="grouptitle">
+						<span class="group1">방이름</span>	
+						<span class="group2">${dto.chat_title }</span>
+					</div>
+					<div class="groupmain">
+						<span class="group1">아이디</span>	
+						<span class="groupid">${dto.user_id }</span>
+					</div>
+					<div align="right">
+						<input type="button" value="접속하기" onclick="location.href='joinroom/${dto.chat_title }'">
+					</div>
+				</div>
+				<div style="width:1rem"></div>
 				</c:forEach>
 			</c:otherwise>
 		</c:choose>
-	</table>
-	<input type="button" value="만들기" onclick="location.href='newroom'">
-	<div id="searchArea">
-		<input type="text" id="search" placeholder="아이디 , 방이름을 입력하십시오." /> 
-		<input type="button" id="searchBtn" value="검색하기" />
-	</div>
+</div>
+
+
 </body>
 </html>
