@@ -1,7 +1,8 @@
 :root {
     --text-color: #f0f4f5;
     --background-color: #263343;
-    --accent-color: #ff6b6b;
+	--accent-color: #ff6b6b;
+	--color: #E0E0E0;
 }
 
 body {
@@ -12,7 +13,7 @@ a {
 }
 
 #p1 {
-	background-color: #263343;
+	background-color: var(--background-color);
 	color: #E0E0E0;
 	letter-spacing: 10px;
 	font-size: 50px;
@@ -130,12 +131,13 @@ a {
 	transition: all 0.2s ease-in-out;
 	transition-duration: 1s;
 	opacity: 0;
-	background-color: #ff6b6b;
+
 }
 
 .underline:hover:after {
 	width: 100%;
 	opacity: 1;
+	background-color: #ff6b6b;
 }
 
 #p2 {
@@ -150,6 +152,10 @@ a {
 	align-items: center;
 	text-align: center;
 	color: white;
+}
+
+#p4 {
+	background-color: var(--background-color);
 }
 
 .backimg {
@@ -203,11 +209,6 @@ a {
 	cursor: pointer;
 }
 
-
-#p4 {
-	background-color: var(--background-color);
-}
-
 .start {
 	display: flex;
 	margin-left: 3rem;
@@ -232,7 +233,6 @@ a {
 	justify-content: center;
 	align-items: center;
 	transition: 0.4s;
-
 }
 
 .loginform:hover {
@@ -267,6 +267,7 @@ a {
 	color: white;
 }
 
+
 @media screen and (max-width: 1140px) {
 	#p1 {
 		font-size: 18px;
@@ -292,8 +293,7 @@ a {
 		margin-top: 20vh;
 		margin-left: 1rem;
 	}
-
-	.minibeanbox {
+		.minibeanbox {
 		margin-left: 0;
 	}
 
