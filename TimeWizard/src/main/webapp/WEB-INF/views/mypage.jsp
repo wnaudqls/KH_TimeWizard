@@ -61,6 +61,7 @@
 				<tr>
 					<td colspan="2" align="right">
 						<input type="submit" class="submitbox" value="수정" onclick="" />
+						<a href="userdeletepage?user_no=${login.user_no }">탈퇴</a>
 					</td>
 				</tr>
 			</table>
