@@ -1,6 +1,8 @@
 package com.minibean.timewizard.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -10,14 +12,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.minibean.timewizard.model.biz.FriendBiz;
 import com.minibean.timewizard.model.biz.UserInfoBiz;
 import com.minibean.timewizard.model.dto.FriendDto;
 import com.minibean.timewizard.model.dto.UserInfoDto;
 
-@Controller
+@RestController
 public class FriendController {
 	
 	@Autowired
@@ -31,25 +37,26 @@ public class FriendController {
 	
 	private Logger logger = LoggerFactory.getLogger(FriendController.class);
 	
-	@RequestMapping("/friend")
-	public String selectList(HttpSession session) {
+	@RequestMapping(value="/friend")
+	public Map<String, List<FriendDto>> selectList(HttpSession session, UserInfoDto dto) {
 		
-		UserInfoDto dto = (UserInfoDto)session.getAttribute("login");
+		 dto = (UserInfoDto)session.getAttribute("login");
 		
 		//나와 친구인 유저들 리스트
 		
 		List<FriendDto> list = friendBiz.selectListF(dto.getUser_no());
-		session.setAttribute("flist", list);
+		/* session.setAttribute("flist", list); */
 		//return "redirect:/main";
 		
 		
 		//나와 친구가 아닌 유저들 리스트
 		List<FriendDto> list2 = friendBiz.selectListN(dto.getUser_no());
-		session.setAttribute("nlist",list2);
-		
-		
-		return "redirect:/main";
-		
+		/* session.setAttribute("nlist",list2); */
+		logger.info("ajax결과: 접근성공");
+		Map<String, List<FriendDto>> map = new HashMap<String, List<FriendDto>>();
+		map.put("flist",list);
+		map.put("nlist",list2);
+		return map;
 	}
 	
 	//로그인 했을때, 클라이언트로 부터 값을 받을 경로
@@ -86,6 +93,7 @@ public class FriendController {
 		udto = userBiz.selectOne(dto.getFriend_no());
 		logger.info("accept 작업");
 		logger.info("신청한 사람: {}\n신청받은 사람: {}",dto.getUser_name(), udto.getUser_name());
+		logger.info("신청한 사람의 번호: {}\n신청받은 사람의 번호: {}",dto.getUser_no(),dto.getFriend_no());
 		
 		int res = friendBiz.AcceptUpdate(dto);
 		logger.info("친구추가 결과: {}",res);
@@ -96,11 +104,10 @@ public class FriendController {
 		
 	}
 	@MessageMapping("/confirm/fnd")
-	public void sendfnd(UserInfoDto dto) {
+	public void sendfnd(FriendDto dto) {
 		logger.info("confirm 작업");
-		dto = userBiz.selectOne(dto.getUser_no());
 		logger.info("신청한 사람: {}",dto.getUser_name());
-		template.convertAndSend("/subscribe/confirm/check/"+dto.getUser_no(),dto.getUser_name());
+		template.convertAndSend("/subscribe/confirm/check/"+dto.getFriend_no(),dto.getUser_name());
 		
 	}
 	
@@ -111,7 +118,7 @@ public class FriendController {
 		logger.info("deny 작업");
 		udto = userBiz.selectOne(dto.getUser_no());
 		
-		logger.info("거절한 사람: {} \nuser_no: {}, friend_no: "+dto.getFriend_no(),udto.getUser_name(),dto.getUser_no());
+		logger.info("거절당한 사람: {} \nuser_no: {}, friend_no: "+dto.getFriend_no(),udto.getUser_name(),dto.getUser_no());
 		int res = friendBiz.DenyUpAndDel(dto);
 		logger.info("거절 결과: {}",res);
 	}
