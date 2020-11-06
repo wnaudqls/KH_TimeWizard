@@ -26,6 +26,8 @@ public class LoginInterceptor implements HandlerInterceptor {
 			request.getRequestURI().contains("/login/snssignup") || 
 			request.getRequestURI().contains("/login/signupresult") || 
 			request.getRequestURI().contains("/login/kakaosuccess") || 
+			request.getRequestURI().contains("/user/*") || 
+			request.getRequestURI().contains("/error") || 
 			request.getRequestURI().contains("/mypage")||
 			request.getSession().getAttribute("login")!=null) {
 			
@@ -34,7 +36,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 		
 		//session에 값이 없으면,
 		if(request.getSession().getAttribute("login")==null) {
-			response.sendRedirect("login/loginform");
+			response.sendRedirect("/timewizard/login/loginform");
 			return false;
 		}
 		

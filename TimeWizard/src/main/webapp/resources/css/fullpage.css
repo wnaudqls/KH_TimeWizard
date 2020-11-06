@@ -1,3 +1,9 @@
+:root {
+    --text-color: #f0f4f5;
+    --background-color: #263343;
+    --accent-color: #ff6b6b;
+}
+
 body {
 }
 
@@ -6,7 +12,7 @@ a {
 }
 
 #p1 {
-	background-color: #424242;
+	background-color: #263343;
 	color: #E0E0E0;
 	letter-spacing: 10px;
 	font-size: 50px;
@@ -124,7 +130,7 @@ a {
 	transition: all 0.2s ease-in-out;
 	transition-duration: 1s;
 	opacity: 0;
-	background-color: #66BB6A;
+	background-color: #ff6b6b;
 }
 
 .underline:hover:after {
@@ -139,11 +145,67 @@ a {
 }
 
 #p3 {
-
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	color: white;
 }
 
-#p4 {
+.backimg {
+	position: fixed;
+	width: 100%;
+	height: 100vh;
+	filter: brightness(50%);
+	z-index: -999;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
 
+.p3title {
+	font-size: 50px;
+	font-weight: bold;
+	font-family: 'Josefin Sans';
+	margin-top: 13rem;
+	letter-spacing: 10px;
+}
+
+
+.p3title:after {
+    content: "";
+    display: flex;
+    width: 10%;
+	border-top: 3px solid var(--accent-color);
+	margin: auto;
+	margin-top: 2rem;
+}
+
+.p3main {
+	color: #E0E0E0;
+}
+
+.p3box {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 2rem;
+}
+
+.p3btn {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 10%;
+	height: 5vh;
+	background-color: var(--accent-color);
+	border-radius: 10px;
+	color: white;
+	cursor: pointer;
+}
+
+
+#p4 {
+	background-color: var(--background-color);
 }
 
 .start {
@@ -169,6 +231,8 @@ a {
 	cursor: pointer;
 	justify-content: center;
 	align-items: center;
+	transition: 0.4s;
+
 }
 
 .loginform:hover {
@@ -181,7 +245,27 @@ a {
 	margin-left: 3rem;
 }
 
+.minibeanbox {
+	display: flex;
+	margin-left: 15%;
+}
 
+.minibean {
+	border-radius: 10px;
+	width: 25%;
+	height: 40vh;
+	margin: 1rem;
+	background-color: white;
+	cursor: pointer;
+
+	text-align: center;
+
+}
+
+.minibean:hover {
+	background-color: var(--accent-color);
+	color: white;
+}
 
 @media screen and (max-width: 1140px) {
 	#p1 {
@@ -208,6 +292,36 @@ a {
 		margin-top: 20vh;
 		margin-left: 1rem;
 	}
+
+	.minibeanbox {
+		margin-left: 0;
+	}
+
+	.minibean {
+		border: 1px solid black;
+		height: 40vh;
+	}
+
+
+	.p3title {
+		margin-top: 7rem;
+		font-size: 34px;
+	}
+
+	.p3title:after {
+		width: 30%;
+	}
+
+	.p3main {
+		width: 90%;
+		margin-left: 5%;
+	}
+
+	.p3btn {
+		width: 30%;
+		height: 7vh;
+	}
+
 }
 
 
