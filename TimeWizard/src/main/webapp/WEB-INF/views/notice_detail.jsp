@@ -1,3 +1,4 @@
+<%@page import="com.minibean.timewizard.model.dto.UserInfoDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
@@ -54,12 +55,25 @@
 </style>
 </head>
 <body>
+
+<%
+	UserInfoDto UDto = (UserInfoDto)session.getAttribute("login");
+	System.out.println("user role in header : " + UDto.getUser_role());
+%>
 	
-	<h1>공지사항</h1>
+	<div class="top">
+		<h1>공지사항</h1>
+		<div class="home"><a href="main"><i class="fab fa-tumblr-square"></i></a></div>
+	</div>
 	
 	<br/>
 	
 	<table id="title">
+	<%
+		//로그인 되어있고 ADMIN, USER일 때만 보이게!
+		if(UDto != null){
+			if(UDto.getUser_role().equals("ADMIN")){
+	%>
 		<colgroup>
 			<col width="500" />
 			<col width="100" />
@@ -74,6 +88,26 @@
 			<th>(조회수)</th>
 			<th class="update" onclick="location.href='update?notice_no=${dto.notice_no }'"><i class="fas fa-wrench"></i></th>
 		</tr>
+	<%
+		} else {
+	%>
+		<colgroup>
+			<col width="500" />
+			<col width="100" />
+			<col width="200" />
+			<col width="100" />
+		</colgroup>
+		<tr>
+			<th>${dto.notice_title }</th>
+			<th>운영자 YM</th>
+			<th>${dto.notice_regdate }</th>
+			<th>(조회수)</th>
+		</tr>
+	<%
+			}
+		}
+	%>
+	
 	</table>
 	
 	<div id="content">
@@ -135,7 +169,11 @@
 	
 	<br/>
 <script src="js/notice_reply.js"></script>
+
+<script src="js/replyedit.js"></script>
+
 <script src="js/replyedit.js"></script>s
+
 	
 	
 <%--   <div id="comment_state">
