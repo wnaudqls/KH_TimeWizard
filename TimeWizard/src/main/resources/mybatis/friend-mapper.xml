@@ -38,7 +38,7 @@
       DECLARE
       BEGIN
          INSERT INTO FRIEND_LIST
-         VALUES(#{friend_no}, #{user_no}, 'SEND');
+         VALUES(#{friend_no}, #{user_no}, 'RESP');
          
          INSERT INTO FRIEND_LIST
          VALUES(#{user_no}, #{friend_no}, 'SEND');
@@ -72,28 +72,12 @@
 		AND STATUS = 'SEND';
    END
    } -->
-   		
-		    {
-   CALL
-      DECLARE
-      BEGIN
          UPDATE FRIEND_LIST
 		SET STATUS = 'ACCEPT'
 		WHERE 
-			(FRIEND_NO = #{friend_no} AND USER_NO = #{user_no})
+			(FRIEND_NO = #{friend_no} AND USER_NO = #{user_no} AND STATUS = 'SEND')
 		OR
-			(FRIEND_NO = #{user_no} AND USER_NO = #{friend_no})
-		AND STATUS = 'SEND';
-         
-         UPDATE FRIEND_LIST
-		SET STATUS = 'ACCEPT'
-		WHERE 
-			(FRIEND_NO = #{user_no} AND USER_NO = #{user_no})
-		OR
-			(FRIEND_NO = #{friend_no} AND USER_NO = #{friend_no})
-		AND STATUS = 'SEND';
-   END
-   }
+			(FRIEND_NO = #{user_no} AND USER_NO = #{friend_no} AND STATUS = 'RESP')
 	</update>
 	
 	
@@ -105,10 +89,10 @@
 		UPDATE FRIEND_LIST
 		SET STATUS = 'DENY'
 		WHERE 
-			(FRIEND_NO = #{user_no} AND USER_NO = #{friend_no})
+			(FRIEND_NO = #{user_no} AND USER_NO = #{friend_no} AND STATUS = 'RESP')
 		OR
-			(FRIEND_NO = #{friend_no} AND USER_NO = #{user_no})
-		AND STATUS = 'SEND'
+			(FRIEND_NO = #{friend_no} AND USER_NO = #{user_no} AND STATUS = 'SEND')
+		
 	</update>
 	
 	<delete id="deleteDeny" parameterType="FriendDto">

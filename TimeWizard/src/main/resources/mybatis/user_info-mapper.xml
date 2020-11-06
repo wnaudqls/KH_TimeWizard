@@ -59,5 +59,12 @@
 		WHERE user_no = #{user_no}
 	</update>
 	
+	<update id="updateActive" parameterType="UserInfoDto">
+		UPDATE USER_INFO
+		SET
+		USER_ACTIVE = #{user_active}
+		WHERE user_no = #{user_no}
+	</update>
+	
 
 </mapper>
