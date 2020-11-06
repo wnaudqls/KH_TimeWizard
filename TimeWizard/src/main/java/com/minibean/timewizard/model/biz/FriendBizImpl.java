@@ -51,7 +51,7 @@ public class FriendBizImpl implements FriendBiz {
 	public int DenyUpAndDel(FriendDto dto) {
 		
 		int update = friendDao.DenyUpdate(dto);
-		int delete = friendDao.DenyDelete(dto.getUser_no());
+		int delete = friendDao.DenyDelete(dto);
 		
 		return update+delete;
 	}
@@ -64,6 +64,13 @@ public class FriendBizImpl implements FriendBiz {
 		
 		return friendDao.BlockUpdate(dto);
 	}
+
+	@Override
+	public int DeleteFriend(FriendDto dto) {
+		// TODO Auto-generated method stub
+		return friendDao.DeleteFriend(dto);
+	}
+
 
 
 

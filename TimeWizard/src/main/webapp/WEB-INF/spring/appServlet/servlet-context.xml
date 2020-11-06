@@ -21,6 +21,7 @@
 	<resources location="/resources/" mapping="/resources/**" />
 	<resources location="/resources/css/" mapping="/css/**" />
 	<resources location="/resources/js/" mapping="/js/**" />
+	<resources location="/resources/img/" mapping="/img/**" />
 	<!-- <default-servlet-handler/> -->
 	
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
@@ -58,6 +59,7 @@ simple-broker: 서버로부터 값을 받아줄 경로
 		<interceptor>
 			<mapping path="/**/*"/>
 			<exclude-mapping path="/login/*"/>
+			<exclude-mapping path="/user/*"/>
 			<beans:bean class="com.minibean.timewizard.common.interceptor.LoginInterceptor"></beans:bean>
 		</interceptor>
 	</interceptors>

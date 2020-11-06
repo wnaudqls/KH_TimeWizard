@@ -37,12 +37,38 @@
 			</div>
 		</div>
 		
-		<div class="section" id="p3">
-			<p>Hello</p>
+
+		<div class="section" id="p3"">
+			<div class="backimg" style="background-image:url(resources/img/bg2.jpg)"></div>
+			<p class="p3title">
+				TIWI STORY
+			</p>
+			<p class="p3main">
+				Have you ever had a failure in what you planned?<br/>
+				Or is it difficult to know what kind of plan should I approach the goals I have set?<br/>
+				We thought. Magic to solve this problem!<br/>
+				Time wizard presents effective plans to save and not waste your time.<br/>
+				Start your perfect life with Time Wizard using the services and programs provided!
+			</p>
+			<div class="p3box">
+				<a href="login/loginform" class="p3btn">
+					GO TIWI
+				</a>
+			</div>
 		</div>
 		
 		<div class="section" id="p4">
-			<p>Hello</p>
+			<div class="minibeanbox">
+				<div class="minibean"><a>박진희</a></div>
+				<div class="minibean"><a>배민경</a></div>
+				<div class="minibean"><a>김산희</a></div>
+			</div>
+			<div class="minibeanbox">
+				<div class="minibean"><a>정형빈</a></div>
+				<div class="minibean"><a>주명빈</a></div>
+				<div class="minibean"><a>윤용민</a></div>
+			</div>
+
 		</div>
 	</div>
 	

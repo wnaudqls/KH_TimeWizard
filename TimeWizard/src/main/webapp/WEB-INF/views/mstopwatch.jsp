@@ -32,18 +32,28 @@
 	}
 	
 	.home {
-		float: right;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background-color: #2d3436;
+		height: 15vh;
+		text-align: center;
 	}
 	
 	.home a {
 		text-decoration: none;
+		color: white;
+		font-size: 36px;
+		letter-spacing: 10px;
+	}
+	
+/* 	.home a {
+		text-decoration: none;
 		font-size: 24px;
 		padding: 8px 12px;
 		color: black;
-	}
+	} */
 	
-}
-
 }
 	
 </style>
@@ -74,10 +84,15 @@
 			<i id="timer_reset" class="fas fa-stop-circle" onclick="reset()"></i>
 		</div>
 	</div>
+
 	
 	<br/><br/><br/>
 	
-	<div class="home"><a href="main"><i class="fas fa-home"></i></a></div>
+	<div class="home"><a href="main"><i class="fab fa-tumblr-square"></i></a></div>
+
+		
+	<div class="home"><a href="main">TIWI</a></div>
+
 
 </body>
 </html>

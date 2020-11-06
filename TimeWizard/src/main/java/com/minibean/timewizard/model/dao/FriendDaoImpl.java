@@ -95,11 +95,11 @@ public class FriendDaoImpl implements FriendDao {
 	}
 	
 	@Override
-	public int DenyDelete(int user_no) {
+	public int DenyDelete(FriendDto dto) {
 		int res = 0;
 		
 		try {
-			res = sqlSession.delete(NAMESPACE+"deleteDeny", user_no);
+			res = sqlSession.delete(NAMESPACE+"deleteDeny", dto);
 		} catch (Exception e) {
 			logger.info("[ERROR] DenyDelete DaoImpl");
 			e.printStackTrace();
@@ -123,5 +123,18 @@ public class FriendDaoImpl implements FriendDao {
 		return res;
 	}
 
+	@Override
+	public int DeleteFriend(FriendDto dto) {
+		// TODO Auto-generated method stub
+		
+		int res = 0;
+		try {
+			res = sqlSession.delete(NAMESPACE+"deleteFriend",dto);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return res;
+	}
 
 }

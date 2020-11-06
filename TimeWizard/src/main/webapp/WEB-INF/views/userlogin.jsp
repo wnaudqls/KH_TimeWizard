@@ -33,7 +33,7 @@
 				dataType: "json",
 				success: function(msg){
 					if (msg.check == true) {
-						location.href = '/timewizard/friend';
+						location.href = '/timewizard/main';
 					} else {
 						alert("ID 혹은 PW가 잘못 입력 되었습니다.");
 					}
@@ -58,11 +58,10 @@
 }
 
 body, html{
-  width: 100%;
-  height: 100%;
   margin: 0;
   font-family: 'Helvetica Neue', sans-serif;
   letter-spacing: 0.5px;
+  background-color: #263343;
 }
 
 .container{
@@ -205,41 +204,61 @@ body, html{
 a {
 	text-decoration: none;
 }
-.overlay {
+.overlaybox {
+	display: flex;
 	justify-content: center;
+	width: 100%;
 }
+.overlay {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 7%;
+	width: 30%;
+	background-color: white;
+	border-radius: 10px;
+}
+
+@media screen and (max-width: 1140px) {
+	body, html {
+		background-color: white;
+	}
+}
+
 </style>
 
 </head>
 <body>
-	<div class="overlay">
-		<div class="sign-in" id="sign-in-info">
-			<h1>Sign In</h1>
-			<div class="sns">
-				<a href="${google_url}">
-					<div class="icon">
-						구글
+	<div class="overlaybox">
+		<div class="overlay">
+			<div class="sign-in" id="sign-in-info">
+				<h1>Sign In</h1>
+				<div class="sns">
+					<a href="${google_url}">
+						<div class="icon">
+							구글
+						</div>
+					</a>
+					<a href="${naver_url}">
+						<div class="icon">
+							네이버
+						</div>
+					</a>
+					<div class="icon" id="kakao-login-btn">
+						카카오
 					</div>
-				</a>
-				<a href="${naver_url}">
-					<div class="icon">
-						네이버
+				</div>
+				<p class="small"> or user your account:
+				<div id="sign-in-form">
+					<div>
+						<input type="text" placeholder="Id" name="user_id" id="user_id" />
+						<input type="password" placeholder="Password" name="user_pw" id="user_pw"/><br/>
 					</div>
-				</a>
-				<div class="icon" id="kakao-login-btn">
-					카카오
-				</div>
-			</div>
-			<p class="small"> or user your account:
-			<div id="sign-in-form">
-				<div>
-					<input type="text" placeholder="Id" name="user_id" id="user_id" autofocus="autofocus" />
-					<input type="password" placeholder="Password" name="user_pw" id="user_pw"/><br/>
-				</div>
-				<div>
-					<p class="forgot-password">Forgot your password?</p>
-					<button class="control-button in" onclick="loginPrc()">Sign In</button>
-					<a href="./signup"><p>sign up</p></a>
+					<div>
+						<p class="forgot-password">Forgot your password?</p>
+						<button class="control-button in" onclick="loginPrc()">Sign In</button>
+						<a href="./signup"><p>sign up</p></a>
+					</div>
 				</div>
 			</div>
 		</div>
