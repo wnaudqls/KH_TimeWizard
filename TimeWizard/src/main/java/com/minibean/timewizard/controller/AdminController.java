@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.minibean.timewizard.model.biz.UserInfoBiz;
 import com.minibean.timewizard.model.dto.UserInfoDto;
@@ -23,16 +24,15 @@ public class AdminController {
 	private UserInfoBiz userinfoBiz;
 	
 	@RequestMapping(value="/adminpage")
-	public String adminPage(Model model, UserInfoDto user_no) {
+	public String adminPage(Model model) {
 		logger.info("[adminpage]");
 		
 		model.addAttribute("list", userinfoBiz.selectList());
-		// model.addAttribute("user_no", userinfoBiz.selectOne(user_no));
 		
 		return "adminpage";
 	}
 	
-	// 회원 등급 변경 버튼 누르면 등급변경 페이지로 이동
+	/* 관리자페이지에서 등급변경 버튼 누르면 등급변경페이지로 이동 */
 	@RequestMapping(value="/adminrole")
 	public String adminRole(Model model, @RequestParam int user_no) {
 		logger.info("[admin role change]");
@@ -42,15 +42,41 @@ public class AdminController {
 		return "adminrole";
 	}
 	
-	/* 강제 탈퇴 버튼 누르면 강제탈퇴 페이지로 이동 */
+	/* 등급변경페이지에서 변경완료 버튼 누르면 등급 변경 됨 */
+	@RequestMapping(value="/adminroleres")
+	public String adminRoleRes(UserInfoDto dto, UserInfoDto user_no, @RequestParam String user_role) {
+		logger.info("[admin role change result]");
+
+		int res = userinfoBiz.updateRoleRes(dto);
+
+		if(res != 0) {
+			System.out.println("등급 변경 성공");
+		} else {
+			System.out.println("등급 변경 실패");
+		}
+		
+		return "redirect:adminpage?user_role="+dto.getUser_role();
+	}
+	
+	/* 비활성화 버튼 누르면 활성화=N */
 	@RequestMapping(value="/admindelete")
-	public String adminDelete(UserInfoDto dto, HttpSession session) throws Exception {
+	public String adminDelete(UserInfoDto dto, UserInfoDto user_no, @RequestParam String user_active) {
 		logger.info("[admin member delete]");
 		
-			session.invalidate();
-			logger.info("[탈퇴 실패]");
+		logger.info("user_no : "+user_no);
+		logger.info("user_active : "+user_active);
+		logger.info("dto : "+dto);
 		
-		return "adminpage";
+		int res = userinfoBiz.updateActive(dto);
+		
+		if(res != 0) {
+			System.out.println("강제탈퇴 성공");
+		} else {
+			System.out.println("강제탈퇴 실패");
+		}
+		
+		return "redirect:adminpage?user_active="+dto.getUser_active();
+		
 	}
 	
 }

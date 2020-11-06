@@ -12,6 +12,9 @@
 <meta charset="UTF-8">
 <title>Admin Page</title>
 <script src="http://code.jquery.com/jquery-3.5.1.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <link rel="stylesheet" type="text/css" href="resources/css/adminpage.css">
 <script src="resources/js/adminpage.js" defer></script>
 </head>
@@ -19,9 +22,12 @@
 
 	<div class="adminbox">
 		<h1>관리자 페이지</h1>
+		<a href="main?user_no=${dto.user_no }">돌아가기</a>
 	</div>
 	
-	<form action="admindelete" method="post">
+	<form name="activeInfo">
+	<input type="hidden" name="user_no" value="${dto.user_no}">
+	<input type="hidden" name="user_active" value="${dto.user_active}">
 	<div class="adminbox" id="userlist">
 		<table border="1">
 			<col width="100"/>
@@ -59,14 +65,31 @@
 					<td>${dto.user_regdate }</td>
 					<td>${dto.user_role }</td>
 					<td><a href="adminrole?user_no=${dto.user_no }">등급변경</a></td>
-					<td><button type="submit" id="submit">강제탈퇴</button></td>
+					<td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">강제탈퇴</button></td>
 				</tr>
 				</c:forEach>
 		</table>
-
-	<div class="admin_box" onclick="location.href='#'">
-		<span>Block List</span>
-	</div>
+		
+		<!-- Modal -->
+		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLabel">회원 강제탈퇴</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		        </div>
+		        <div class="modal-body">
+		        	회원 아이디를 비활성화 하겠습니까?
+		        </div>
+		      <div class="modal-footer">
+		      	<button type="button" class="btn btn-primary" onclick="clickDel(activeInfo)">비활성화</button>
+		       	<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
 	</div>
 	</form>
 

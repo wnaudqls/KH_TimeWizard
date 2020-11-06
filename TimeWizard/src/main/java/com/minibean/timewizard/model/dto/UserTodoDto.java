@@ -3,10 +3,6 @@ package com.minibean.timewizard.model.dto;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.minibean.timewizard.utils.login.JsonNullAwareDeserializer;
 
 public class UserTodoDto {
 	

@@ -11,6 +11,7 @@
 		<typeAlias type="com.minibean.timewizard.model.dto.StopwatchDto" alias="StopwatchDto"/>
 		<typeAlias type="com.minibean.timewizard.model.dto.NoticeDto" alias="NoticeDto"/>
 		<typeAlias type="com.minibean.timewizard.model.dto.FriendDto" alias="FriendDto"/>
+		<typeAlias type="com.minibean.timewizard.model.dto.ReplyDto" alias="ReplyDto"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="/mybatis/user_info-mapper.xml" />
@@ -19,5 +20,6 @@
 		<mapper resource="/mybatis/stopwatch-mapper.xml"/>
 		<mapper resource="/mybatis/notice-mapper.xml"/>
 		<mapper resource="/mybatis/friend-mapper.xml"/>
+		<mapper resource="/mybatis/reply-mapper.xml"/>
 	</mappers>
 </configuration>

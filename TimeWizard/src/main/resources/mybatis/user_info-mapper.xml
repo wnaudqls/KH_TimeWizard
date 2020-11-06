@@ -50,6 +50,21 @@
 		WHERE USER_ID = #{user_id}
 	</select>
 
+	<update id="updateRoleRes" parameterType="UserInfoDto">
+		UPDATE USER_INFO
+		SET
+		<if test="user_role != null and user_role != ''">
+		USER_ROLE = #{user_role}
+		</if>
+		WHERE user_no = #{user_no}
+	</update>
+	
+	<update id="updateActive" parameterType="UserInfoDto">
+		UPDATE USER_INFO
+		SET
+		USER_ACTIVE = #{user_active}
+		WHERE user_no = #{user_no}
+	</update>
 	
 
 </mapper>

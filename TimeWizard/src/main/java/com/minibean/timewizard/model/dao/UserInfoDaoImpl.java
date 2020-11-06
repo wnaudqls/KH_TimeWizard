@@ -127,5 +127,34 @@ public class UserInfoDaoImpl implements UserInfoDao {
 		return cnt;
 	}
 	
+	@Override
+	public int updateRoleRes(UserInfoDto dto) {
+		logger.info(">> [USERINFO] update : user_role - " + dto.getUser_role());
+		int res = 0;
+		
+		try {
+			res = sqlSession.update(NAMESPACE+"updateRoleRes", dto);
+		} catch (Exception e) {
+			logger.info("[ERROR] USERINFO :: updateRoleRes");
+			e.printStackTrace();
+		}
+		
+		return res;
+	}
+	
+	@Override
+	public int updateActive(UserInfoDto dto) {
+		logger.info(">> [USERINFO] update : user_active - " + dto.getUser_active());
+		int res = 0;
+		
+		try {
+			res = sqlSession.update(NAMESPACE+"updateActive", dto);
+		} catch (Exception e) {
+			logger.info("[ERROR] USERINFO :: updateActive");
+			e.printStackTrace();
+		}
+		
+		return res;
+	}
 
 }
