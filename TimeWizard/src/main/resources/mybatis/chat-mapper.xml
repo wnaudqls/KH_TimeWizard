@@ -33,4 +33,3 @@
   	WHERE CHAT_TITLE = #{chat_title}
   </delete>
 </mapper>
-</mapper>
