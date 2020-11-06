@@ -63,7 +63,7 @@
 					<td>${dto.user_regdate }</td>
 					<td>${dto.user_role }</td>
 					<td><a href="adminrole?user_no=${dto.user_no }">등급변경</a></td>
-					<td><button type="button" name="disablebtn" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-value="${dto.user_no }"onclick="pass()">강제탈퇴</button></td>
+					<td><button type="button" name="disablebtn" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-value="${dto.user_no }">강제탈퇴</button></td>
 				</tr>
 				</c:forEach>
 		</table>
@@ -90,13 +90,5 @@
 		  </div>
 		</div>
 	</div>
-	</form>
-<script type="text/javascript">
-$(document).on("click","button[name='disablebtn']",function(){
-	var num = $(this).data('value');
-	$("#userdelete").val(num);
-});
-
-</script>
 </body>
 </html>
