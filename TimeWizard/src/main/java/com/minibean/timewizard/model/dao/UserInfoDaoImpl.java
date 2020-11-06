@@ -141,20 +141,5 @@ public class UserInfoDaoImpl implements UserInfoDao {
 		
 		return res;
 	}
-	
-	@Override
-	public int updateActive(UserInfoDto dto) {
-		logger.info(">> [USERINFO] update : user_active - " + dto.getUser_active());
-		int res = 0;
-		
-		try {
-			res = sqlSession.update(NAMESPACE+"updateActive", dto);
-		} catch (Exception e) {
-			logger.info("[ERROR] USERINFO :: updateActive");
-			e.printStackTrace();
-		}
-		
-		return res;
-	}
 
 }
