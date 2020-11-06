@@ -169,7 +169,11 @@
 	
 	<br/>
 <script src="js/notice_reply.js"></script>
+
 <script src="js/replyedit.js"></script>
+
+<script src="js/replyedit.js"></script>s
+
 	
 	
 <%--   <div id="comment_state">
