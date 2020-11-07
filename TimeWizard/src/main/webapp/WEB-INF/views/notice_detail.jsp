@@ -172,7 +172,7 @@
 
 <script src="js/replyedit.js"></script>
 
-<script src="js/replyedit.js"></script>s
+<script src="js/replyedit.js"></script>
 
 	
 	
