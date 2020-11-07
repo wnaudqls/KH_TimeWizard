@@ -1,6 +1,5 @@
 package com.minibean.timewizard.controller;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,30 +17,14 @@ import com.minibean.timewizard.model.biz.ChatBiz;
 import com.minibean.timewizard.model.biz.ChatBizImpl;
 import com.minibean.timewizard.model.dto.ChatDto;
 
-
-
-
-
-
 @Controller
 public class GroupController {
 	@Autowired
-	SimpMessagingTemplate template;
-	
-	Logger log = LoggerFactory.getLogger(GroupController.class);
-
-	
+	private SimpMessagingTemplate template;
 	@Autowired
 	private final ChatBiz biz = new ChatBizImpl();
-
 	
-	
-	
-	
-	@GetMapping("/")
-	public String index(Model model) {
-		return "index";
-	}
+	private Logger log = LoggerFactory.getLogger(GroupController.class);
 	
 	
 	@GetMapping("/grouplist")
@@ -49,20 +32,16 @@ public class GroupController {
 		 model.addAttribute("list", biz.selectList()); 
 		return "grouplist";
 	}
-
-
 	
 	@GetMapping("/joinroom/{name}")
 	public String room(@PathVariable("name") String name, Model model) {
 		 
-		  
 		ChatDto room = biz.selectOne(name); 
-		  
-		  
 		model.addAttribute("dto", room);
 	
 		return "grouproom";
 	}
+	
 	@GetMapping("/groupnewroom")
 	public String make(Model model) {
 		return "groupnewroom";

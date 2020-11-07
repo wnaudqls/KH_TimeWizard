@@ -73,11 +73,21 @@ public class MainController {
 	public String successPage() {
 		return "success";
 	}
+	@RequestMapping(value="/webrtctest")
+	public String webRTCTestPage() {
+		return "rtcmulticonnectiontest";
+	}
 	
 	/* 삭제해도 되는지 확인해주세요 @용민 */
 	@RequestMapping(value="/finalnotice")
 	public String finalnotice() {
 		return "notice";
+	}
+	
+	@RequestMapping("/indexpage")
+	public String Indexpage() {
+		logger.info("[indexpage]");
+		return "indexpage";
 	}
 
 	@RequestMapping(value="/finalnoticedetail")
