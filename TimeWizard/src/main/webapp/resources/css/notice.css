@@ -37,7 +37,7 @@
 	
 	.notice_list {
 		border-bottom: 1px solid black;
-	}
+	}	
 
 	#noticeBoard {
 		width: 80%;
@@ -92,6 +92,13 @@
 		cursor: pointer;
 		font-size: 24px;
 		padding: 20px 30px;
+	}
+	
+	.pagingdesign {
+	    width: 100%;
+	    display: flex;
+	    justify-content: center;
+	    align-items: center;
 	}
 
 
