@@ -57,7 +57,6 @@ window.addEventListener('DOMContentLoaded', () => {
 	let blackright = document.getElementsByClassName("date__change")[3];
 	blackleft.addEventListener("click", ()=> {
 		pageDate.minusMonth();
-		console.log(pageDate.year + "/" + pageDate.month + "/" + pageDate.day);
 		showDailyList(pageDate.toString());
 	});
 	whiteleft.addEventListener("click", () => {
@@ -76,7 +75,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
 function showDailyList(date){
-	console.log(date);
 	let MM = date.substring(4,6);
 	let dd = date.substring(6,8);
 	let month_div = document.querySelector("div.date__month");
@@ -449,10 +447,11 @@ function submitInsertModal(){
 				todo_hashtag: input_hashtag,
 				todo_date: input_date
 		};
+		console.log(setTimeForJSON(input_date, input_starttime));
 		xhr.send(JSON.stringify(data));
 		xhr.onreadystatechange = () => {
 			if (xhr.readyState == 4 && xhr.status == 200){
-				showDailyList(pagedate);
+				showDailyList(pageDate.toString());
 			}
 		}
 		closeFirstModal();
@@ -538,7 +537,7 @@ function submitDeleteModal(todo_no){
 	xhr.send();
 	xhr.onreadystatechange = () => {
 		if (xhr.readyState == 4 && xhr.status == 200){
-			showDailyList(pagedate);
+			showDailyList(pageDate.toString());
 		}
 	}
 	closeFirstModal();
@@ -806,7 +805,7 @@ function submitUpdateModal(todo_no){
 		xhr.send(JSON.stringify(data));
 		xhr.onreadystatechange = () => {
 			if (xhr.readyState == 4 && xhr.status == 200){
-				showDailyList(pagedate);
+				showDailyList(pageDate.toString());
 			}
 		}
 		closeFirstModal();
