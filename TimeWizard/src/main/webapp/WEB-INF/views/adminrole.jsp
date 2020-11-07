@@ -7,11 +7,13 @@
 <head>
 <meta charset="UTF-8">
 <title>User Role Change</title>
+<link href="/timewizard/css/actionpage.css" rel="stylesheet">
+<script src="https://kit.fontawesome.com/3049a69bf8.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" type="text/css" href="resources/css/adminrole.css">
 <script src="resources/js/adminrole.js" defer></script>
 </head>
 <body>
-
+<jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
 <form action="adminroleres" method="post">
 	<input type="hidden" name="user_no" value="${dto.user_no}">
 	<table border="1">
@@ -44,6 +46,6 @@
 		</tr>
 	</table>
 </form>
-
+<jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>

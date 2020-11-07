@@ -62,15 +62,17 @@ public class PersonalDailyController {
 		logger.info(">> [CONTROLLER-DAILY] detail content"
 				+ "\n\t* todo_title : " + dto.getTodo_title() 
 				+ "\n\t* todo_content : " + dto.getTodo_content()
-				+ "\n\t* todo_hashtag : " + dto.getTodo_hashtag()
 				+ "\n\t* todo_date : " + dto.getTodo_date());
-		logger.info(dto.getTodo_hashtag().split("^")[0]);
+		try {
+			logger.info(dto.getTodo_hashtag().split("^")[0]);
+		} catch (Exception e) {
+			logger.info("hashtag not found");
+		}
 		return dto;
 	}
 	
 	@PostMapping(value="/insert")
 	public void dailyInsert(@RequestBody UserTodoDto dto, HttpSession session) {
-		logger.info("\n\t* todo_starttime : " + dto.getTodo_starttime());
 		UserInfoDto login = (UserInfoDto) session.getAttribute("login");
 		/* userlogin 정보와 link 정보가 동일할 때만 !!! */
 		dto.setUser_no(login.getUser_no());

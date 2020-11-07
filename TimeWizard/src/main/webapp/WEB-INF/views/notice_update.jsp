@@ -5,8 +5,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link href="/timewizard/css/actionpage.css" rel="stylesheet">
+<script src="https://kit.fontawesome.com/3049a69bf8.js" crossorigin="anonymous"></script>
 </head>
 <body>
+<jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
 
 	<h1>공지사항 수정</h1>
 	
@@ -25,12 +28,13 @@
 			</tr>
 			<tr>
 				<td colspan="2" align="right">
-					<input type="button" value="취소" onclick="location.href='detail?notice_no=${dto.notice_no}'" />
+					<input type="button" value="취소" onclick="location.href='detail?notice_no=${dto.notice_no}&nowpage=${paging.nowpage }&cntPerpage=${paging.cntPerpage }'" />
 					<input type="submit" value="수정" />
 				</td>
 			</tr>
 		</table>
 	</form>
 
+<jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>
