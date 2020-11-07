@@ -9,6 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Time Wizard Map</title>
+<link href="/timewizard/css/actionpage.css" rel="stylesheet">
 <script src="https://kit.fontawesome.com/3049a69bf8.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" type="text/css" href="resources/css/tiwimap.css">
 <script src="resources/js/tiwimap.js" defer></script>

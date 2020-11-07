@@ -12,6 +12,7 @@
 <link href="resources/css/userpage.css" rel="stylesheet">
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="resources/js/mypage.js" defer></script>
+<link href="/timewizard/css/actionpage.css" rel="stylesheet">
 <script src="https://kit.fontawesome.com/3049a69bf8.js" crossorigin="anonymous"></script>
 
 <script type="text/javascript">

@@ -15,6 +15,8 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<link href="/timewizard/css/actionpage.css" rel="stylesheet">
+<script src="https://kit.fontawesome.com/3049a69bf8.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" type="text/css" href="resources/css/adminpage.css">
 <script src="resources/js/adminpage.js" defer></script>
 </head>
@@ -90,6 +92,7 @@
 		  </div>
 		</div>
 	</div>
+	</form>
 	<jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>
