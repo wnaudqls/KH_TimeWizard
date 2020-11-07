@@ -19,7 +19,7 @@
 <script src="resources/js/adminpage.js" defer></script>
 </head>
 <body>
-
+<jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
 	<div class="adminbox">
 		<h1>관리자 페이지</h1>
 		<a href="main?user_no=${login.user_no }">돌아가기</a>
@@ -90,5 +90,6 @@
 		  </div>
 		</div>
 	</div>
+	<jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>

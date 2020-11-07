@@ -80,6 +80,7 @@
 
 </head>
 <body>
+<jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
 
 	<%-- 	<h1>공지사항 작성</h1>
 	
@@ -123,6 +124,6 @@
 		</div>
 	</div>
 
-
+<jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>
