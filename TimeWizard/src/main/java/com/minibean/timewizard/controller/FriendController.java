@@ -118,9 +118,11 @@ public class FriendController {
 		logger.info("deny 작업");
 		udto = userBiz.selectOne(dto.getUser_no());
 		
-		logger.info("거절당한 사람: {} \nuser_no: {}, friend_no: "+dto.getFriend_no(),udto.getUser_name(),dto.getUser_no());
+		logger.info("거절당한 사람: {} \nuser_no: {}, friend_no: "+dto.getFriend_no(),dto.getUser_name(),dto.getUser_no());
 		int res = friendBiz.DenyUpAndDel(dto);
 		logger.info("거절 결과: {}",res);
+		template.convertAndSend("/subscribe/confirm/denychk/"+dto.getFriend_no(),udto.getUser_name());
+
 	}
 	
 	
@@ -133,5 +135,7 @@ public class FriendController {
 			logger.info("삭제하는 사람: {} \nuser_no: {}, friend_no: "+dto.getFriend_no(),udto.getUser_name(),dto.getUser_no());
 			int res = friendBiz.DeleteFriend(dto);
 			logger.info("삭제 결과: {}",res);
+			template.convertAndSend("/subscribe/confirm/deletechk/"+dto.getFriend_no(),udto.getUser_name());
+
 		}
 }
