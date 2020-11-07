@@ -13,24 +13,34 @@
 	<script>
 	//하루 날마다 보여줌
 	//날짜, 전체, 완료 보여주기
+	//한거랑+안한거=전체리스트
+	// [USER_TODO]
+	// - TODO_DATE 에서 시간빼고 날짜만
+	// - TODO_COMPLETE 각 갯수  : Y는 완료, N는 완료X
+	//** 각 유저에 맞게, 날짜에 맞게 가져오기
+	//** labels에는 날짜
+	//** datasets에는 완료한 갯수, 완료안한 갯수
+	
+	var day;
+	var allList;
+	var complete;
+	
+	
 	const data = {
 		    labels: ["12am-3am", "3am-6pm", "6am-9am", "9am-12am",
 		        "12pm-3pm", "3pm-6pm", "6pm-9pm"],
 		        
-		    datasets: [{
-		            name: "My All List", type: "bar",
-		            chartType: 'bar',
-		            values: [10, 5, 7, 12, 2, 3, 15]
-		        },
+		    datasets: [
 		        {
 		            name: "Complete List", type: "bar",
 		            chartType: 'bar',
-		            values: [6, 5, 6, 3, 1, 2, 11]}
-		     ],
-		     
-		     yMarkers: [{ label: "Marker", value: 30 }],
-
-		     yRegions: [{ label: "Region", start: 0, end: 20 }]
+		            values: [6, 5, 6, 8, 1, 12, 11]},
+		            
+		        {   name: "not Complete List", type: "bar",
+		            chartType: 'bar',
+		            values: [2, 1, 3, 5, 2, 10, 2]
+		        },
+		     ]
 		}
 
 		const chart = new frappe.Chart("#chart", {  // or a DOM element,

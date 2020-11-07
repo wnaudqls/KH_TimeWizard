@@ -31,6 +31,7 @@ REPLACE(TODO_HASHTAG, ' ', '^') AS TODO_TAG2
 FROM USER_TODO
 WHERE TODO_NO = 5;
 
+select * from user_todo;
 select * from user_info;
 
 select todo_no, todo_title, todo_starttime, todo_endtime
