@@ -13,6 +13,7 @@
 <script src="resources/js/userdeletepage.js" defer></script>
 </head>
 <body>
+<jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
 	<section id="container">
 			<form action="userdeleteres" method="post">
 			<input type="hidden" name="user_no" value="${dto.user_no}">
@@ -39,5 +40,6 @@
 			</div>
 			</form>
 		</section>
+		<jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>

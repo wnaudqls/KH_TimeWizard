@@ -57,7 +57,8 @@
 						</div>
 					</div>
 					<div style="width:1rem"></div>
-
+		</c:forEach>
+		</c:otherwise>
 		<c:otherwise>
 			<c:forEach var="dto" items="${list }">
 				<div class="grouproom">

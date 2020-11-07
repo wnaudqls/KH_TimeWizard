@@ -27,6 +27,7 @@
 
 </head>
 <body>
+<jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
 
 <%
 	UserInfoDto UDto = (UserInfoDto)session.getAttribute("login");
@@ -192,6 +193,7 @@
 			</c:if>
 	</div>
 
+<jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>
 

@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
 
 	<h1>공지사항 수정</h1>
 	
@@ -32,5 +33,6 @@
 		</table>
 	</form>
 
+<jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>
