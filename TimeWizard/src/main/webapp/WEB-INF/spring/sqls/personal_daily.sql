@@ -31,7 +31,10 @@ REPLACE(TODO_HASHTAG, ' ', '^') AS TODO_TAG2
 FROM USER_TODO
 WHERE TODO_NO = 5;
 
+select * from user_todo;
 select * from user_info;
+
+select * from user_todo where user_no=3;
 
 select todo_no, todo_title, todo_starttime, todo_endtime
 from user_todo
@@ -50,3 +53,27 @@ CREATE TABLE STOPWATCH(
 	END_TIME DATE NOT NULL,
 	CONSTRAINT STOPWATCH_TN_FK FOREIGN KEY(TODO_NO) REFERENCES USER_TODO(TODO_NO)
 );
+
+------------------
+------------------
+--weekly 테스트---
+SELECT * FROM USER_TODO
+WHERE USER_NO = 3;
+
+--해당 유저, 해당 날짜에서 "완료"한 LIST의 갯수만 나옴--
+SELECT COUNT(*)
+FROM USER_TODO
+WHERE TO_CHAR(TODO_DATE, 'YYYYMMDD') = 20201007
+AND TODO_COMPLETE = 'Y'
+AND USER_NO = 3
+
+--해당 유저, 해당 날짜에서 "완료못한"한 LIST의 갯수만 나옴--
+SELECT COUNT(*)
+FROM USER_TODO
+WHERE TO_CHAR(TODO_DATE, 'YYYYMMDD') = 20201007
+AND TODO_COMPLETE = 'N'
+AND USER_NO = 3
+
+--날짜만 출력됨--
+SELECT TO_CHAR(TODO_DATE,'YYYY-MM-DD')
+FROM USER_TODO;

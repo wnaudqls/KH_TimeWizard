@@ -251,7 +251,7 @@ a {
 				<p class="small"> or user your account:
 				<div id="sign-in-form">
 					<div>
-						<input type="text" placeholder="Id" name="user_id" id="user_id" />
+						<input type="text" placeholder="Id" name="user_id" id="user_id" autofocus="autofocus"/>
 						<input type="password" placeholder="Password" name="user_pw" id="user_pw"/><br/>
 					</div>
 					<div>
