@@ -262,6 +262,18 @@
 		    <artifactId>html2canvas</artifactId>
 		    <version>0.5.0-beta4</version>
 		</dependency>
+		
+		<!-- File Upload -->
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.8.0</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.4</version>
+		</dependency>
 
 	</dependencies>
 	<build>

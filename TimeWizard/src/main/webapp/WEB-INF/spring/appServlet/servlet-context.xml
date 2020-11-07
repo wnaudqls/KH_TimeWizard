@@ -30,8 +30,13 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+	<!-- 프로필 사진 업로드 -->
+	<beans:bean id="multipartResolver"
+	class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	<beans:property name="maxUploadSize" value="10485760"></beans:property>
+	</beans:bean>
+	
 	<context:component-scan base-package="com.minibean.timewizard" />
-
 
 	<!-- WEBSOCKET 추가 -->
 	<!-- 
@@ -63,10 +68,5 @@ simple-broker: 서버로부터 값을 받아줄 경로
 			<beans:bean class="com.minibean.timewizard.common.interceptor.LoginInterceptor"></beans:bean>
 		</interceptor>
 	</interceptors>
-	
-	<!-- 파일 업로드 객체 설정 -->
-	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<beans:property name="maxUploadSize" value="10485760"/><!-- 10MB -->
-	</beans:bean>
 
 </beans:beans>
