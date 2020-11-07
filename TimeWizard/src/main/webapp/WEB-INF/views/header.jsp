@@ -11,34 +11,30 @@
 <body>
 
 <%
-	UserInfoDto UDto = (UserInfoDto)session.getAttribute("login");
-	System.out.println("user role in header : " + UDto.getUser_role());
+	UserInfoDto login = (UserInfoDto)session.getAttribute("login");
+	String user_distinct = login.getUser_distinct();
+	System.out.println("user role in header : " + login.getUser_role());
 %>
 	
 	<nav class="navbar">
 		<div class="nav_logo">
 			<i class="fas fa-magic"></i>
-			<a href="">TiWi</a>  <!-- 메인페이지로 -->
+			<a href="/timewizard/user/<%=user_distinct %>">TiWi</a>  <!-- 메인페이지로 -->
 		</div>
 		<ul class="nav_menu">
+			<li><a href="/timewizard/user/<%=user_distinct %>"><i class="far fa-calendar-check"></i></a></li>
 			<!-- Group메뉴 -->
-			<li><a href="#"><i class="fas fa-users"></a></i></li>
+			<li><a href="/timewizard/grouplist"><i class="fas fa-users"></i></a></li>
 			<!-- Off-line 메뉴 -->
-			<li><a href="../tiwimap"><i class="fas fa-binoculars"></i></a></li>
+			<li><a href="/timewizard/tiwimap"><i class="fas fa-binoculars"></i></a></li>
 			<!-- 알림 -->
 			<li><a href="#"><i class="far fa-bell"></i></a></li>
-			<li>
-				<a href="#" class="web" onclick="window.open('/timewizard/stopwatch', 'window', 'width=300, height=190, left=0, top=100, status=no, resizable=no');return false">
-				<i class="fas fa-stopwatch"></i></a>
-				<a href="../mstopwatch" class="mobile"><i class="fas fa-stopwatch"></i></a>
-			</li>
 		</ul>
 		
 		<ul class="nav_icon">
 			<%
 			//로그인 되어있고 ADMIN, USER일 때만 보이게!
-			if(UDto != null){
-				if(UDto.getUser_role().equals("ADMIN")){
+			if(login.getUser_role().equals("ADMIN")){
 			%>
 					<li><a href="../adminpage">${login.user_name }</a></li>
 					<li><a href="/timewizard/logout">Logout</a></li>
@@ -48,7 +44,6 @@
 					<li><a href="../mypage">${login.user_name }</a></li>
 					<li><a href="/timewizard/logout">Logout</a></li>
 			<%
-			}
 			}
 			%>
 		</ul>

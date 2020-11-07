@@ -29,7 +29,14 @@ FROM USER_TODO;
 SELECT TODO_NO, REPLACE(TODO_HASHTAG, '\00A0', ' ') AS TODO_HASHTAG, 
 REPLACE(TODO_HASHTAG, ' ', '^') AS TODO_TAG2
 FROM USER_TODO
-WHERE TODO_NO = 3
+WHERE TODO_NO = 5;
+
+select * from user_info;
+
+select todo_no, todo_title, todo_starttime, todo_endtime
+from user_todo
+where user_no = 5
+order by todo_no;
 
 DROP SEQUENCE STOPWATCH_SEQ;
 DROP TABLE STOPWATCH;
