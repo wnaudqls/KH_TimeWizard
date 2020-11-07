@@ -137,4 +137,10 @@ public class MainController {
 		return "kakaoshare";
 	}
 
+	@RequestMapping(value = "/socketTest", method = RequestMethod.GET)
+	public String socketTest() {
+		return "socketTest";
+	}
+	
+	
 }
