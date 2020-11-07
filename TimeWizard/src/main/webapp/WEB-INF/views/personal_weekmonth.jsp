@@ -15,20 +15,22 @@
 	//날짜, 전체, 완료 보여주기
 	const data = {
 		    labels: ["12am-3am", "3am-6pm", "6am-9am", "9am-12am",
-		        "12pm-3pm", "3pm-6pm", "6pm-9pm"
-		    ],
-		    datasets: [
-		        {
+		        "12pm-3pm", "3pm-6pm", "6pm-9pm"],
+		        
+		    datasets: [{
 		            name: "My All List", type: "bar",
-		            values: [10, 5, 7, 12, 2, 3, 15],
-		            chartType: 'bar'
+		            chartType: 'bar',
+		            values: [10, 5, 7, 12, 2, 3, 15]
 		        },
 		        {
 		            name: "Complete List", type: "bar",
-		            values: [6, 5, 6, 3, 1, 2, 11],
-		            chartType: 'bar'
-		        }
-		    ]
+		            chartType: 'bar',
+		            values: [6, 5, 6, 3, 1, 2, 11]}
+		     ],
+		     
+		     yMarkers: [{ label: "Marker", value: 30 }],
+
+		     yRegions: [{ label: "Region", start: 0, end: 20 }]
 		}
 
 		const chart = new frappe.Chart("#chart", {  // or a DOM element,

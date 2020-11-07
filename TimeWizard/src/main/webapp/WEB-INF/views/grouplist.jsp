@@ -9,6 +9,7 @@
 	href="resources/css/grouplist.css">
 <script src="https://kit.fontawesome.com/3049a69bf8.js"
 	crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -47,14 +48,14 @@
 					<c:forEach var="dto" items="${list }">
 						<div class="grouproom">
 							<div class="grouptitle">
-								<span class="group1">방이름</span> <span class="group2">${dto.chat_title }</span>
+								<span class="group1">방이름</span> <span class="group2">${dto.group_title }</span>
 							</div>
 							<div class="groupmain">
 								<span class="group1">아이디</span> <span class="groupid">${dto.user_id }</span>
 							</div>
 							<div align="right">
 								<input type="button" value="접속하기"
-									onclick="location.href='joinroom/${dto.chat_title }'">
+									onclick="location.href='joinroom/${dto.group_title }'">
 							</div>
 						</div>
 						<div style="width: 1rem"></div>
@@ -64,7 +65,67 @@
 		</div>
 	</section>
 	<jsp:include page="friendlist.jsp"></jsp:include>
-	<jsp:include page="footer.jsp"></jsp:include>
+	<jsp:include page="footer.jsp"></jsp:include> 
 
 </body>
+
+<!-- <script type="text/javascript">
+
+자동갱신 ajax 코드
+var loop;
+$(document).ready(function () {
+	roomlist();
+
+});
+
+function roomlist(){
+	$.ajax({
+	    type: "post",
+	    url: "/timewizard/ajaxgrouplist",
+	    data: "",
+	    dataType: "json",
+	    contentType: "application/json",
+	    success: function(data){
+	    	var list = data.flist;
+	    	console.log(list);
+	    	$(".fixedmain").empty();
+	     	for(i in list){
+	    	
+  				if(list[i].group_public == "공개"){
+  					var name = list[i].group_title;
+  					$(".fixedmain").append(
+  				"<div class='grouproom'>"
+  					+"<div class='grouptitle'>"
+  							+"<span class='group1'>방이름</span>"
+  							+"<span class='group2'>"+name+"</span>"
+  							+"</div>"
+  				+"<div class='groupmain'>"
+							+"<span class='group1'>아이디</span>"
+							+"<span class='groupid'>"+list[i].user_id+"</span>"
+							+"</div>"
+				+"<div class='groupmain'>"
+							+"<span class='group1'>인원수</span>"
+							+"<span class='groupid'>"+list[i].group_client+"/"+list[i].group_su+"</span>"
+				+"</div>"
+				+"<div align='right'>"
+					+"<input type='button' value='접속하기' onclick='location.href="+"\"joinroom/"+name+"\"'/>"
+					+"</div>"
+				+"</div>"
+				+"<div style='width: 1rem'>"
+				+"</div>"
+  					
+  					
+  					);
+   				}
+	    	}
+	    
+	    },
+		error: function(data){
+			$(".fixedmain").append("<p>연결이 끊겼습니다.</p>");
+		}
+	    	
+	});
+	loop = setTimeout("roomlist()", 3000);
+}
+</script> -->
 </html>
