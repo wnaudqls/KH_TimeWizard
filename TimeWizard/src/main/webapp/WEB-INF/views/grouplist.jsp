@@ -57,30 +57,10 @@
 									onclick="location.href='joinroom/${dto.chat_title }'">
 							</div>
 						</div>
-					</div>
-					<div style="width:1rem"></div>
-		</c:forEach>
-		</c:otherwise>
-		<c:otherwise>
-			<c:forEach var="dto" items="${list }">
-				<div class="grouproom">
-					<div class="grouptitle">
-						<span class="group1">방이름</span>	
-						<span class="group2">${dto.chat_title }</span>
-					</div>
-					<div class="groupmain">
-						<span class="group1">아이디</span>	
-						<span class="groupid">${dto.user_id }</span>
-					</div>
-					<div align="right">
-						<input type="button" value="접속하기" onclick="location.href='joinroom/${dto.chat_title }'">
-					</div>
-				</div>
-				<div style="width:1rem"></div>
-				</c:forEach>
-				
-			</c:otherwise>
-		</c:choose>
+						<div style="width: 1rem"></div>
+					</c:forEach>
+				</c:otherwise>
+			</c:choose>
 		</div>
 	</section>
 	<jsp:include page="friendlist.jsp"></jsp:include>
