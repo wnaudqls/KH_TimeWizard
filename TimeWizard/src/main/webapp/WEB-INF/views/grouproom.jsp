@@ -7,11 +7,11 @@
 
 
 <meta charset="UTF-8">
-<title>채팅방: ${dto.chat_title }</title>
+<title>채팅방: ${dto.group_title }</title>
 </head>
 <body>
 <c:choose>
-		<c:when test="${empty dto.chat_title }">
+		<c:when test="${empty dto.group_title }">
 			방이 존재하지 않습니다.
 			<script type="text/javascript">
 			setTimeout(function(){
@@ -22,19 +22,27 @@
 			</script>
 		</c:when>
 		<c:otherwise>
-		<c:if test="${!empty dto.chat_password }">
+		<c:if test="${dto.group_client ge dto.group_su}">
+			<script type="text/javascript">
+					alert("인원수 초과.");
+					location.href="../grouplist";
+		
+			</script>
+		</c:if>
+		
+		
+		<c:if test="${!empty dto.group_pw }">
 			<script type="text/javascript">
 				var password = prompt("비밀번호를 입력하십시오.");
-				if(password == '${dto.chat_password }'){
-					alert("정답");
-				}else{
-					alert("틀리셧으니 내쫒아내겟습니다.");
+				if(password != '${dto.group_pw }'){
+					alert("비밀번호가 틀렸습니다.");
 					location.href="../grouplist";
 				}
 			</script>
 		</c:if>
+	
 
-			<h1 id="title">${dto.chat_title }</h1>
+			<h1 id="title">${dto.group_title }</h1>
 			<hr>
 			<div id="localvideo"></div>
 
@@ -43,7 +51,7 @@
 			<div id="remotevideo"></div>
 
 
-			<input type="hidden" value="${dto.chat_title }" id="rid">
+			<input type="hidden" value="${dto.group_title }" id="rid">
 			<!-- onkeyup: 키가 눌렀을때 나오는 이벤트(해당 태그를 선택한 상태여야함) -->
 			<div id="textarea">
 				<input type="text" id="message" onkeyup="enterkey()"
