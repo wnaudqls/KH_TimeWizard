@@ -26,6 +26,10 @@ var nlist;
 
 
 $(document).ready(function () {
+	friendlist();
+});
+
+function friendlist(){
 	$.ajax({
 	    type: "post",
 	    url: "/timewizard/friend",
@@ -35,34 +39,36 @@ $(document).ready(function () {
 	    success: function(data){
 	    	flist = data.flist;
 	    	nlist = data.nlist;
+	    	$(".friendlist").empty();
+	    	$(".userlist").empty();
 	    	if(flist == ''){
-	    		$(".friendsbar").append("<p>-- 친구를 추가하세요 ^_^ --</p>")
+	    		$(".friendlist").append("<p>-- 친구를 추가하세요 ^_^ --</p>")
 	    	}else{
 	    		for(i in flist){
 	    			var name = "\""+flist[i].user_name+"\"";
 	   				 console.log(name);
 	   				if(flist[i].status == "ACCEPT"){
-	    					$(".friendsbar").append("<p>이름:"+ flist[i].user_name +"</p>"+
+	    					$(".friendlist").append("<p>이름:"+ flist[i].user_name +"</p>"+
 	    					"<input type='button' value='친구삭제' onclick='deletefriend("+flist[i].user_no+","+ uno +","+name+")'>");
 	    			}else if(flist[i].status == "SEND"){
-    					$(".friendsbar").append("<p>"+ flist[i].user_name +"님이 응답 대기중 입니다.</p>");
+    					$(".friendlist").append("<p>"+ flist[i].user_name +"님이 응답 대기중 입니다.</p>");
     	    					
     	    		}else if(flist[i].status == "RESP"){
-	    					$(".friendsbar").append("<p>"+ flist[i].user_name +"님이 친구신청 하셨습니다."+
-	    					" <input type='button' value='수락' onclick='friendAccept("+flist[i].user_no+")'>"
-	    					+" <input type='button' value='거절' onclick='friendDeny("+flist[i].user_no+","+name+")'></p>");
+	    					$(".friendlist").append("<p>"+ flist[i].user_name +"님이 친구신청 하셨습니다.</p>"+
+	    					"<input type='button' value='수락' onclick='friendAccept("+flist[i].user_no+")'/> "
+	    					+" <input type='button' value='거절' onclick='friendDeny("+flist[i].user_no+","+name+")'>");
 	    			}
 	    		}
 	    		
 	    	}
-	    	$(".friendsbar").append("<hr>");
+	    	$(".userlist").append("<p>User List</p>");
 	    	if(nlist == ''){
-	    		$(".friendsbar").append("<p>-- 당신은 인싸>_&lt; --</p>")
+	    		$(".userlist").append("<p>-- 당신은 인싸>_&lt; --</p>");
 	    	}else{
 	    		for(i in nlist){
 	    			var name = "\""+nlist[i].user_name+"\"";
 	   				 console.log(name); 
-	    			$(".friendsbar").append("<p>이름:"+ nlist[i].user_name +"</p>"+
+	    			$(".userlist").append("<p>이름:"+ nlist[i].user_name +"</p>"+
 	    					"<input type='button' value='친구추가' onclick='alertsys("+nlist[i].user_no+","+ uno +","+name+")'>");
 	    		}
 	    	
@@ -70,10 +76,10 @@ $(document).ready(function () {
 	    	
 	    },
 	    error: function(data){
-	    	alert("ajax 통신오류");
+	    	$(".friendsbar").append("연결이 끊겼습니다.");
 	    }
 	});
-})
+}
 
 </script>
 </head>
@@ -85,7 +91,17 @@ $(document).ready(function () {
 		<button id="search_button"><i class="fas fa-search"></i></button>
 		<b>Your Friends</b>
 		<!-- 나와 친구인 유저들 -->
-
+		<div class="friendlist">
+		
+		
+		
+		</div>
+		<div class="userlist">
+		
+		
+		
+		</div>
+		
 		
 	</aside>
 
@@ -117,8 +133,8 @@ var uno = ${login.user_no};
     });
 	//연결 했을시,
 	client.connect({}, function(){
-	    client.subscribe("/subscribe/alert/good/"+uno, function (chat) {
-	    	var fnd = JSON.parse(chat.body);
+	    client.subscribe("/subscribe/alert/good/"+uno, function (data) {
+	    	var fnd = JSON.parse(data.body);
 	    	var fnd_name = fnd['user_name'];
 	    	var message = fnd_name+"님이 친구 신청을 하셨습니다.";
 	    	var fno = fnd["user_no"];
@@ -129,15 +145,16 @@ var uno = ${login.user_no};
 	        //데스크탑 알림 요청
 	        var sendalert = new Notification("알람", options);
 	        
-	        //알림 후 10초 뒤,
+	      //알림 후 3초 뒤 친구목록 다시 불러옴
 	        setTimeout(function () {
 	            //알람 메시지 닫기
-	            sendalert.close();
+	            friendlist();
+	            //sendalert.close();
 	        	}, 5000);
 	    });
-	    client.subscribe("/subscribe/confirm/check/"+uno, function (chat) {
+	    client.subscribe("/subscribe/confirm/check/"+uno, function (data) {
 				
-	    	var chk = chat.body;
+	    	var chk = data.body;
  			var message = chk+"님이 친구추가를 수락하셨습니다.";
  				options = {
  		            body: message,
@@ -145,16 +162,51 @@ var uno = ${login.user_no};
  		        }
  			var checkalert = new Notification("친구 수락", options);
 	        
-	        //알림 후 10초 뒤,
+ 				//알림 후 3초 뒤 친구목록 다시 불러옴
 	        setTimeout(function () {
 	            //얼람 메시지 닫기
-	            checkalert.close();
-	            location.reload();
-	       	 	}, 5000); 		
+	             friendlist();
+	            //checkalert.close();
+	           
+	       	 	}, 3000); 		
 	       
 	    	})
-	    	
- 		
+	    	client.subscribe("/subscribe/confirm/denychk/"+uno, function(data){
+	    		var chk = data.body;
+	 			var message = chk+"님이 친구신청을 거절하셨습니다.";
+	 				options = {
+	 		            body: message,
+	 		            icon: iconDataURI
+	 		        }
+	 			var checkalert = new Notification("알림", options);
+		        
+	 				//알림 후 3초 뒤 친구목록 다시 불러옴
+		        setTimeout(function () {
+		            //얼람 메시지 닫기
+		            friendlist();
+		            //checkalert.close();
+		           
+		       	 	}, 3000); 		
+		        
+	    	});
+	    client.subscribe("/subscribe/confirm/deletechk/"+uno, function(data){
+    		var chk = data.body;
+ 			var message = chk+"님이 친구목록에서 삭제하셨습니다.";
+ 				options = {
+ 		            body: message,
+ 		            icon: iconDataURI
+ 		        }
+ 			var checkalert = new Notification("알림", options);
+	        
+ 				//알림 후 3초 뒤 친구목록 다시 불러옴
+	        setTimeout(function () {
+	            //얼람 메시지 닫기
+	            friendlist();
+	            //checkalert.close();
+	           
+	       	 	}, 3000); 		
+	        
+    		});
 		});
 	
 function alertsys(fno, mynum, fname){
@@ -171,13 +223,14 @@ function alertsys(fno, mynum, fname){
 	       		 var notification = new Notification("알람" ,options);
 	       		alert("친구추가 메세지를 전송했습니다.");
 	       		client.send("/publish/alert/friend", {},JSON.stringify({friend_no: fno, user_no: mynum, user_name: fname}));
-	       		 //알림 후 5초 뒤,
+	       	//알림 후 3초 뒤 친구목록 다시 불러옴
 	        	setTimeout(function () {
 	            //얼람 메시지 닫기
-	            notification.close();
-	            location.reload();
+	            friendlist();
+	           // notification.close();
+	           
 	      	  }, 3000);
-				
+	        	 
 				
 				
 	        }else{
@@ -201,13 +254,15 @@ function deletefriend(fno,myno,fname){
 	    	//데스크탑 알림 요청
 	   		var deletealert = new Notification("친구삭제" ,options);
 		 	client.send("/publish/confirm/delete", {}, JSON.stringify({user_no: myno, friend_no: fno}));
+		 	
+		 	//알림 후 3초 뒤 친구목록 다시 불러옴
 	    	setTimeout(function () {
-	    		
+	    		friendlist();
 	        //얼람 메시지 닫기
-	        deletealert.close();
-	        location.reload();
-	  	  }, 2000);
-	    	
+	        //deletealert.close();
+	       
+	  	  }, 3000);
+	    	 
 	}
 else{
 	
@@ -226,13 +281,13 @@ function friendAccept(fno){
  		        }
  			var acceptalert = new Notification("친구추가 수락", options);
 	        
-	        //알림 후 5초 뒤,
+ 			//알림 후 3초 뒤 친구목록 다시 불러옴
 	        setTimeout(function () {
 	            //얼람 메시지 닫기
-	             
-	            acceptalert.close();
-	            location.reload();
-	        }, 5000);
+	              friendlist();
+	            //acceptalert.close();
+	           
+	        }, 3000);
 			client.send("/publish/confirm/fnd",{},JSON.stringify({user_no: uno, friend_no: fno, user_name: uname}));
  			
 		})
@@ -244,7 +299,7 @@ function friendDeny(fno,fname){
 	//"거절"을 누르면 FriendControlller로 보내서 update, delete시키기
 		//ajax로?
 				
-		  var message = fname+"님의 친구 신청을 거부하셨습니다.";
+		  var message = fname+"님의 친구 신청을 거절하셨습니다.";
         
          var options = {
             body: message,
@@ -253,12 +308,15 @@ function friendDeny(fno,fname){
         	//데스크탑 알림 요청
        		var denyalert = new Notification("알람" ,options);
 		 	client.send("/publish/confirm/deny", {}, JSON.stringify({friend_no: fno, user_no: uno, user_name: fname}));
+		 	
+		 	//알림 후 3초 뒤 친구목록 다시 불러옴
         	setTimeout(function () {
             //얼람 메시지 닫기
-            denyalert.close();
+            friendlist();
+            //denyalert.close();
             
-      	  }, 5000);
-        	location.reload();
+      	  }, 3000);
+        	
        		
 }
 </script>
