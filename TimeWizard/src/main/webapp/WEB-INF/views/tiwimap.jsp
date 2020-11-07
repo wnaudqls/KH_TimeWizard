@@ -22,20 +22,22 @@
 		<div class="map_wrap">
 			<div id="map"
 				style="width: 100%; height: 100%; position: relative; overflow: hidden;"></div>
-    <div id="menu_wrap" class="bg_white">
-        <div class="option">
-            <div>
-                    <input type="hidden" value="강남역 스터디룸" id="keyword" size="15" onsubmit="searchPlaces()">
-            </div>
-        </div>
-        <hr>
-        <ul id="placesList"></ul>
-        <div id="pagination"></div>
-    </div>
-</div>
-    </section>
-
+			<div id="menu_wrap" class="bg_white">
+				<div class="option">
+					<div>
+						<input type="hidden" value="강남역 스터디룸" id="keyword" size="15"
+							onsubmit="searchPlaces()">
+					</div>
+				</div>
+				<hr>
+				<ul id="placesList"></ul>
+				<div id="pagination"></div>
+			</div>
+		</div>
+	</section>
+	<jsp:include page="friendlist.jsp"></jsp:include>
 	<jsp:include page="footer.jsp"></jsp:include>
-	<script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=112d3ea1d6f9c231c512b356cb5c03ce&libraries=services,clusterer"></script>
+	<script type="text/javascript"
+		src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=112d3ea1d6f9c231c512b356cb5c03ce&libraries=services,clusterer"></script>
 </body>
 </html>
