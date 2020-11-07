@@ -61,15 +61,15 @@ function friendlist(){
 	    		}
 	    		
 	    	}
-	    	$(".userlist").append("<p>User List</p>");
+	    	$(".userlist").append("<p><b>User List</b></p>");
 	    	if(nlist == ''){
 	    		$(".userlist").append("<p>-- 당신은 인싸>_&lt; --</p>");
 	    	}else{
 	    		for(i in nlist){
 	    			var name = "\""+nlist[i].user_name+"\"";
 	   				 console.log(name); 
-	    			$(".userlist").append("<p>이름:"+ nlist[i].user_name +"</p>"+
-	    					"<input type='button' value='친구추가' onclick='alertsys("+nlist[i].user_no+","+ uno +","+name+")'>");
+	    			$(".userlist").append("<p>이름:"+ nlist[i].user_name+"&nbsp;"+
+	    					"<input type='button' value='친구추가' onclick='alertsys("+nlist[i].user_no+","+ uno +","+name+")'>" +"</p>");
 	    		}
 	    	
 	    	}
@@ -89,7 +89,7 @@ function friendlist(){
 		<p>friends</p>
 		<input type="text" placeholder="search.." id="search_text" />
 		<button id="search_button"><i class="fas fa-search"></i></button>
-		<b>Your Friends</b>
+		<p><b>Your Friends</b></p>
 		<!-- 나와 친구인 유저들 -->
 		<div class="friendlist">
 		

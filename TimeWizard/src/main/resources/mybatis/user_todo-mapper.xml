@@ -50,4 +50,25 @@
 	  	DELETE FROM USER_TODO
 	  	WHERE TODO_NO = #{todo_no}
 	</delete>
+	
+	
+	<!-- !!weekly 부분!!! -->
+	
+	<!-- 완료한 LIST 갯수 -->
+	<select id="CompleteCount">
+		SELECT COUNT(*)
+		FROM USER_TODO
+		WHERE TO_CHAR(TODO_DATE, 'YYYYMMDD') = #{todo_date}
+		AND TODO_COMPLETE = 'Y'
+		AND USER_NO = #{user_no}
+	</select>
+	
+	<!-- 완료못한 LIST 갯수 -->
+	<select id="NotCompleteCount">
+		SELECT COUNT(*)
+		FROM USER_TODO
+		WHERE TO_CHAR(TODO_DATE, 'YYYYMMDD') = #{todo_date}
+		AND TODO_COMPLETE = 'N'
+		AND USER_NO = #{user_no}
+	</select>
 </mapper>
