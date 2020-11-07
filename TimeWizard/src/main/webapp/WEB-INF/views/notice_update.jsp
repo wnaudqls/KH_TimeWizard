@@ -25,7 +25,7 @@
 			</tr>
 			<tr>
 				<td colspan="2" align="right">
-					<input type="button" value="취소" onclick="location.href='detail?notice_no=${dto.notice_no}'" />
+					<input type="button" value="취소" onclick="location.href='detail?notice_no=${dto.notice_no}&nowpage=${paging.nowpage }&cntPerpage=${paging.cntPerpage }'" />
 					<input type="submit" value="수정" />
 				</td>
 			</tr>

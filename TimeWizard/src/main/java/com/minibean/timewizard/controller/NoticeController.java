@@ -144,7 +144,7 @@ public class NoticeController {
 		int res = biz.insert(dto);
 		if (res > 0) {
 			
-			return "redirect:notice?nowpage="+nowpage+"&cntPerpage="+cntPerpage;
+			return "redirect:notice_list?nowpage="+nowpage+"&cntPerpage="+cntPerpage;
 		}
 		
 		return "notice_insert";
