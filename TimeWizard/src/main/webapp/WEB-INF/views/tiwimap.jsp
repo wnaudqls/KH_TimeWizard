@@ -15,7 +15,7 @@
 <script src="resources/js/tiwimap.js" defer></script>
 </head>
 <body>
-
+<jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
 	<section>
 		<div id="map_header">
 		<h2>Time Wizard Map</h2>
@@ -36,6 +36,7 @@
 </div>
     </section>
 
+	<jsp:include page="footer.jsp"></jsp:include>
 	<script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=112d3ea1d6f9c231c512b356cb5c03ce&libraries=services,clusterer"></script>
 </body>
 </html>
