@@ -9,10 +9,14 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<link href="resources/css/notice.css" rel="stylesheet">
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <link href="/timewizard/css/actionpage.css" rel="stylesheet">
 <script src="https://kit.fontawesome.com/3049a69bf8.js" crossorigin="anonymous"></script>
+<link href="resources/css/notice.css" rel="stylesheet">
+<script src="resources/js/notice.js" defer></script>
 <script>
 	$(document).ready(function(){
 		<c:if test="${search_text == null}">
@@ -154,67 +158,79 @@
 	<br/>
 	
 	<!-- search 후 페이징 -->
-	<div style="display:block; text-align: center;" id="searchpaging">
-		<c:if test="${paging.startpage != 1}">
-			<a href="notice?nowpage=${paging.startpage-1}&cntPerpage=${paging.cntPerpage}&searchType=${searchType }&search_text=${search_text}">&lt;</a>
-		</c:if>
-		<c:forEach begin="${paging.startpage}" end="${paging.endpage}" var="p">
-			<!-- when은 choose안에 꼭 들어가 있어야 한다. choose안에 otherwise는 없어도 된다. -->
-			<c:choose>
-				<c:when test="${p == paging.nowpage}">
-					<b>${p}</b>
-				</c:when>
-				<c:when test="${p != paging.nowpage}">
-					<a href="notice?nowpage=${p}&cntPerpage=${paging.cntPerpage}&searchType=${searchType }&search_text=${search_text}">${p}</a>
-				</c:when>
-			</c:choose>
-		</c:forEach>
-			<c:if test="${paging.endpage != paging.lastpage}">
-				<a href="notice?nowpage=${paging.endpage+1}&cntPerpage=${paging.cntPerpage}&searchType=${searchType }&search_text=${search_text}">&gt;</a>
-			</c:if>
+	<div class="pagingdesign">
+		<nav aria-label="Page navigation">
+			<ul style="display:block; text-align:center;" id="searchpaging" class="pagination">
+				<li>
+					<c:if test="${paging.startpage != 1}">
+						<a href="notice?nowpage=${paging.startpage-1}&cntPerpage=${paging.cntPerpage}&searchType=${searchType }&search_text=${search_text}" aria-label="Previous">
+								<span aria-hidden="true">&laquo;</span>
+							</a>
+					</c:if>
+				</li>
+				<li>
+					<c:forEach begin="${paging.startpage}" end="${paging.endpage}" var="p">
+						<!-- when은 choose안에 꼭 들어가 있어야 한다. choose안에 otherwise는 없어도 된다. -->
+						<c:choose>
+							<c:when test="${p == paging.nowpage}">
+								<a href="notice?nowpage=${p}&cntPerpage=${paging.cntPerpage}&searchType=${searchType }&search_text=${search_text}">${p}</a>
+							</c:when>
+							<c:when test="${p != paging.nowpage}">
+								<a href="notice?nowpage=${p}&cntPerpage=${paging.cntPerpage}&searchType=${searchType }&search_text=${search_text}">${p}</a>
+							</c:when>
+						</c:choose>
+					</c:forEach>
+				</li>
+				<li>
+					<c:if test="${paging.endpage != paging.lastpage}">
+						<a href="notice?nowpage=${paging.endpage+1}&cntPerpage=${paging.cntPerpage}&searchType=${searchType }&search_text=${search_text}" aria-label="Next">
+							<span aria-hidden="true">&raquo;</span>
+						</a>
+					</c:if>
+				</li>
+			</ul>
+		</nav>
 	</div>
+	
 	<!-- !페이징 부분! -->
-	<div style="display:block; text-align: center;" id="paging">
-		<c:if test="${paging.startpage != 1}">
-			<a href="notice_list?nowpage=${paging.startpage-1}&cntPerpage=${paging.cntPerpage}">&lt;</a>
-		</c:if>
-		<c:forEach begin="${paging.startpage}" end="${paging.endpage}" var="p">
-			<!-- when은 choose안에 꼭 들어가 있어야 한다. choose안에 otherwise는 없어도 된다. -->
-			<c:choose>
-				<c:when test="${p == paging.nowpage}">
-					<b>${p}</b>
-				</c:when>
-				<c:when test="${p != paging.nowpage}">
-					<a href="notice_list?nowpage=${p}&cntPerpage=${paging.cntPerpage}">${p}</a>
-				</c:when>
-			</c:choose>
-		</c:forEach>
-			<c:if test="${paging.endpage != paging.lastpage}">
-				<a href="notice_list?nowpage=${paging.endpage+1}&cntPerpage=${paging.cntPerpage}">&gt;</a>
-			</c:if>
+	<div class="pagingdesign">
+		<nav aria-label="Page navigation">
+			<ul style="display:block; text-align:center;" id="paging" class="pagination">
+				<li>
+					<c:if test="${paging.startpage != 1}">
+						<a href="notice_list?nowpage=${paging.startpage-1}&cntPerpage=${paging.cntPerpage}" aria-label="Previous">
+							<span aria-hidden="true">&laquo;</span>
+						</a>
+					</c:if>
+				</li>
+				<li>
+					<c:forEach begin="${paging.startpage}" end="${paging.endpage}" var="p">
+						<!-- when은 choose안에 꼭 들어가 있어야 한다. choose안에 otherwise는 없어도 된다. -->
+						<c:choose>
+							<c:when test="${p == paging.nowpage}">
+								<a href="notice_list?nowpage=${p}&cntPerpage=${paging.cntPerpage}">${p}</a>
+							</c:when>
+							<c:when test="${p != paging.nowpage}">
+								<a href="notice_list?nowpage=${p}&cntPerpage=${paging.cntPerpage}">${p}</a>
+							</c:when>
+						</c:choose>
+					</c:forEach>
+				</li>
+				<li>
+					<c:if test="${paging.endpage != paging.lastpage}">
+						<a href="notice_list?nowpage=${paging.endpage+1}&cntPerpage=${paging.cntPerpage}" aria-label="Next">
+							<span aria-hidden="true">&raquo;</span>
+						</a>
+					</c:if>
+				</li>
+			</ul>
+		</nav>
 	</div>
+	
 
 <jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
