@@ -10,7 +10,8 @@
 <title>채팅방: ${dto.chat_title }</title>
 </head>
 <body>
-		<c:if test="${empty dto.chat_title }">
+<c:choose>
+		<c:when test="${empty dto.chat_title }">
 			방이 존재하지 않습니다.
 			<script type="text/javascript">
 			setTimeout(function(){
@@ -19,7 +20,8 @@
 				   }, 3000);
 			
 			</script>
-		</c:if>
+		</c:when>
+		<c:otherwise>
 		<c:if test="${!empty dto.chat_password }">
 			<script type="text/javascript">
 				var password = prompt("비밀번호를 입력하십시오.");
@@ -61,6 +63,9 @@
 				<div id="messageArea"></div>
 			</div>
 
+<jsp:include page="friendlist.jsp"></jsp:include>
+</c:otherwise>
+</c:choose>
 			<script type="text/javascript"
 				src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 			<script type="text/javascript"
@@ -74,6 +79,7 @@
 				src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.js"></script>
 			<script type="text/javascript" src="../resources/js/chat.js"></script>
 	
+
 
 </body>
 
