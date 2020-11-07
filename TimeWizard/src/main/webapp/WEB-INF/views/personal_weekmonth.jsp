@@ -16,6 +16,7 @@
 	UserInfoDto login = (UserInfoDto)session.getAttribute("login");
 %>
 	<div id="chart" style="width: 1600px;"></div>
+	
 	<script>
 	//하루 날마다 보여줌
 	//날짜, 전체, 완료 보여주기
@@ -34,15 +35,18 @@
 	let notCompleteListCount;  //완료 못한 LIST 갯수
 
 	var user_no = ${login.user_no};
+	//var tododate;
+	var todocomple;
+	var userVal = {
+			"user_no": user_no
+	}
+	var tododate = new Array();
 
 	// 날짜 가져오기
 	// 해당 유저, 해당 날짜 가져오기
 	$(document).ready(function(){
 		daylist();
 	});
-	var userVal = {
-			"user_no": user_no
-	}
 	function daylist(){
 		$.ajax({
 			type: "post",
@@ -53,44 +57,50 @@
 			success: function(data){
 				var lst = data.list;
 				for(i in lst){
-					const tododate = lst[i].todo_date;
-				};
-			const data1 = {
-		        
-		   		 datasets: [
-		       	 {
-		      	      name: "Complete List", type: "bar",
-		          	  chartType: 'bar',
-		          	  values: [6, 5, 6, 8, 1, 12, 11]},
-		            
-		        {   name: "not Complete List", type: "bar",
-		            chartType: 'bar',
-		            values: [2, 1, 3, 5, 2, 10, 2]
-		       		 },
-		     		]
+					tododate = lst[i].todo_date;
+					console.log(tododate[i])
+					todocomple = lst[i].todo_complete;
 				}
-	
-
-			//차트 그리기
-			const chart = new frappe.Chart("#chart", {  // or a DOM element,
-		                                            // new Chart() in case of ES6 module with above usage
-		   	 title: "여기 제목을 뭐로 할까욤",
-		   	 data: data1,
-		   	 type: 'axis-mixed', // or 'bar', 'line', 'scatter', 'pie', 'percentage', 'axis-mixed'
-		   	 height: 300,
-		   	 colors: ['#eb2ac4', '#28eb38'],
-		   	 //stack bar
-		     barOptions: {
-		    		stacked: 1    // default 0, i.e. adjacent
-		    	}
-			})
+			
 			},
 			error: function(data){
 				alert("weekly 통신실패 ㅠㅠㅠ!!!");
 			}
 		});
 	}
-		
+	
+
+		console.log("tododate : "+tododate);
+	
+	
+	const data = {
+		    labels: ["12am-3am", "3am-6pm", "6am-9am", "9am-12am",
+		        "12pm-3pm", "3pm-6pm", "6pm-9pm"],
+		        
+		    datasets: [
+		        {
+		            name: "Complete List", type: "bar",
+		            chartType: 'bar',
+		            values: [6, 5, 6, 8, 1, 12, 11]},
+		            
+		        {   name: "not Complete List", type: "bar",
+		            chartType: 'bar',
+		            values: [2, 1, 3, 5, 2, 10, 2]
+		        },
+		     ]
+		}
+
+		const chart = new frappe.Chart("#chart", {  // or a DOM element,
+		                                            // new Chart() in case of ES6 module with above usage
+		    title: "여기 제목을 뭐로 할까욤",
+		    data: data,
+		    type: 'axis-mixed', // or 'bar', 'line', 'scatter', 'pie', 'percentage', 'axis-mixed'
+		    height: 300,
+		    colors: ['#eb2ac4', '#28eb38'],
+		    barOptions: {
+		    	  stacked: 1    // default 0, i.e. adjacent
+		    	}
+		})
 
 	</script>
 	
