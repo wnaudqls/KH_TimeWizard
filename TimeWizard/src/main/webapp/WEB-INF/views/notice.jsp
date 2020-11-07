@@ -16,7 +16,6 @@
 <link href="/timewizard/css/actionpage.css" rel="stylesheet">
 <script src="https://kit.fontawesome.com/3049a69bf8.js" crossorigin="anonymous"></script>
 <link href="resources/css/notice.css" rel="stylesheet">
-<script src="resources/js/notice.js" defer></script>
 <script>
 	$(document).ready(function(){
 		<c:if test="${search_text == null}">
