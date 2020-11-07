@@ -11,7 +11,7 @@
 <script src="resources/js/adminrole.js" defer></script>
 </head>
 <body>
-
+<jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
 <form action="adminroleres" method="post">
 	<input type="hidden" name="user_no" value="${dto.user_no}">
 	<table border="1">
@@ -44,6 +44,6 @@
 		</tr>
 	</table>
 </form>
-
+<jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>

@@ -36,7 +36,7 @@
 
 </head>
 <body>
-	
+	<jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
 	<div class="mypagebox">
 		<div class="mypagemenu" align="center">
 			<div class="profile" onclick="">프로필 사진부분</div>
@@ -119,6 +119,6 @@
 		<div class="home"><a href="main"><i class="fab fa-tumblr-square"></i></a></div>
 	</div>
 
-
+<jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>
