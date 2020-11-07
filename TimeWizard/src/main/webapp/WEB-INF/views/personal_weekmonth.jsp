@@ -20,10 +20,12 @@
 	//** 각 유저에 맞게, 날짜에 맞게 가져오기
 	//** labels에는 날짜
 	//** datasets에는 완료한 갯수, 완료안한 갯수
+	//** TODO_NO != TODO_DATE
 	
-	var day;
-	var allList;
-	var complete;
+
+	var labels; //날짜
+	var CompleteListCount;  //완료한 LIST 갯수
+	var notCompleteListCount;  //완료 못한 LIST 갯수
 	
 	
 	const data = {
