@@ -17,6 +17,7 @@ public class UserTodoBizImpl implements UserTodoBiz {
 	
 	@Override
 	public List<UserTodoDto> selectList(int user_no) {
+		
 		return userTodoDao.selectList(user_no);
 	}
 	
