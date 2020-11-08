@@ -5,6 +5,13 @@
 <html>
 <head>
 
+<link rel="stylesheet" type="text/css"
+	href="../resources/css/grouproom.css">
+<link
+	href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&family=Source+Sans+Pro:wght@200;400&family=Staatliches&display=swap"
+	rel="stylesheet">
+<script src="https://kit.fontawesome.com/3049a69bf8.js"
+	crossorigin="anonymous"></script>
 
 <meta charset="UTF-8">
 <title>채팅방: ${dto.group_title }</title>
@@ -42,37 +49,40 @@
 			</script>
 		</c:if>
 	
-
+<div class="contentsection">
 			<h1 id="title">${dto.group_title }</h1>
-			<hr>
+		
+		<div class="viewbox">
 			<div id="localvideo"></div>
 
 			<h2 id="clientnumber"></h2>
 
 			<div id="remotevideo"></div>
-
+		</div>
 
 			<input type="hidden" value="${dto.group_title }" id="rid">
 			<!-- onkeyup: 키가 눌렀을때 나오는 이벤트(해당 태그를 선택한 상태여야함) -->
+			<div>
+				<input type="text" id="message" onkeyup="enterkey()" placeholder="채팅을 입력하십시오." />
+				<input type="button" id="sendBtn" value="보내기" /> 
+				<input id="roomid" /> 
+				<input type="button" id="btn-open-room" value="방열기">
+				<input type="text" id="nickname" placeholder="이름을 입력헤주십시오." value="${login.user_name }" readonly> 
+				<input type="button" id="disconnect" value="접속끊기" onclick="disconnect();"> 
+			</div>
+			
 			<div id="textarea">
-				<input type="text" id="message" onkeyup="enterkey()"
-					placeholder="채팅을 입력하십시오." /> <input type="button" id="sendBtn"
-					value="submit" /> <input id="roomid" /> <input type="button"
-					id="btn-open-room" value="방열기">
-
-
 				<!-- 이 부분은 방 만들때 값을 받아서 넣어주면 될 듯함 -->
-
-				<input type="text" id="nickname" placeholder="이름을 입력헤주십시오."
-					value="${login.user_name }"> <input type="button" id="disconnect"
-					value="접속끊기" onclick="disconnect();"> 
-					<input type="button"id="connect" value="접속하기" onclick="connect()">
-					 <input type="number" id="maxClient" hidden="" />
+				<input type="button"id="connect" value="접속하기" onclick="connect()">
+				<input type="number" id="maxClient" hidden="" />
 
 				<div id="messageArea"></div>
 			</div>
-<input type="hidden" value="${dto.group_no}" id="group_no">
-<jsp:include page="friendlist.jsp"></jsp:include>
+		<input type="hidden" value="${dto.group_no}" id="group_no">
+
+</div>
+
+<jsp:include page="friendlist2.jsp"></jsp:include>
 </c:otherwise>
 </c:choose>
 			<script type="text/javascript"
@@ -91,7 +101,4 @@
 
 
 </body>
-
-<link rel="stylesheet" type="text/css"
-	href="../resources/css/grouproom.css">
 </html>
