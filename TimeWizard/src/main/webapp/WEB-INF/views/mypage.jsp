@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<!DOCTYPE html>
+<!DOCTYPE>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -39,13 +39,13 @@
 <body>
 	<div class="mypagebox">
 		<div class="mypagemenu" align="center">
-			<div class="profile" onclick="photo()">
+			<div class="priview">
 				${fileObj.file_title }
 			</div>
 			<form:form method="post" enctype="multipart/form-data" modelAttribute="uploadFile" action="upload">
 				<label><input type="file" name="file_title" /></label>
-				<p style="color: red; font-weight: bold;"><form:errors path="file_title" /></p>
 				<label><input type="submit" value="send" /></label>
+				<p style="color: red; font-weight: bold;"><form:errors path="file_title" /></p>
 			</form:form>
 			
 			<table>
