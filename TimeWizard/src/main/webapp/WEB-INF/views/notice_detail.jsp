@@ -12,10 +12,13 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
+<link
+	href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&family=Source+Sans+Pro:wght@200;400&family=Staatliches&display=swap"
+	rel="stylesheet">
 <link href="resources/css/noticedetail.css" rel="stylesheet">
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <link href="/timewizard/css/actionpage.css" rel="stylesheet">
-<script src="https://kit.fontawesome.com/3049a69bf8.js" crossorigin="anonymous"></script>>
+<script src="https://kit.fontawesome.com/3049a69bf8.js" crossorigin="anonymous"></script>
 <!-- <script src="js/bootstrap.min.js"></script> -->
 
 
@@ -62,13 +65,7 @@
 	System.out.println("user role in header : " + UDto.getUser_role());
 %>
 	
-	<div class="top">
-		<h1>공지사항</h1>
-		<div class="home"><a href="main"><i class="fab fa-tumblr-square"></i></a></div>
-	</div>
-	
-	<br/>
-	
+<div class="mainsection">
 	<table id="title">
 	<%
 		//로그인 되어있고 ADMIN, USER일 때만 보이게!
@@ -84,7 +81,7 @@
 		</colgroup>
 		<tr>
 			<th>${dto.notice_title }</th>
-			<th>운영자 YM</th>
+			<th>운영자 YM</th>	
 			<th>${dto.notice_regdate }</th>
 			<th>(조회수)</th>
 			<th class="update" onclick="location.href='update?notice_no=${dto.notice_no }'"><i class="fas fa-wrench"></i></th>
@@ -166,9 +163,9 @@
 
 			<!-- Reply List {e}-->
 
-		</div>		
+		</div>
+</div>	
 	
-	<br/>
 <script src="js/notice_reply.js"></script>
 
 <script src="js/replyedit.js"></script>

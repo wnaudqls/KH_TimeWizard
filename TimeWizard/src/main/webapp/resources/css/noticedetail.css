@@ -8,7 +8,9 @@ body{
 	font-family: 'Helvetica Neue', sans-serif
 }
 
-
+.mainsection {
+	height: 100vh;
+}
 
 .top {
 	display: flex;
@@ -28,6 +30,7 @@ body{
 	border-bottom: 1px solid black;
 	width: 80%;
 	margin-left: 10%;
+	margin-top: 5vh;
 }
 
 #content {
@@ -98,6 +101,10 @@ body{
 }
 
 @media screen and (max-width: 1140px) {
+	.mainsection {
+		height: 120vh;
+	}
+	
 	#title {
 		border-bottom: 1px solid black;
 		width: 90%;

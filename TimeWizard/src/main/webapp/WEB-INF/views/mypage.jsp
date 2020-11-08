@@ -37,7 +37,6 @@
 
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
 	<div class="mypagebox">
 		<div class="mypagemenu" align="center">
 			<form:form method="post" enctype="multipart/form-data" modelAttribute="uploadFile" action="upload">
@@ -127,6 +126,5 @@
 		<div class="home"><a href="main"><i class="fab fa-tumblr-square"></i></a></div>
 	</div>
 
-<jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>
