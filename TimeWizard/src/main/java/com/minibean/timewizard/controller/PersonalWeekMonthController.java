@@ -1,5 +1,6 @@
 package com.minibean.timewizard.controller;
 
+import java.lang.reflect.Array;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,12 +12,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.minibean.timewizard.model.biz.UserTodoBiz;
 import com.minibean.timewizard.model.dto.UserInfoDto;
 import com.minibean.timewizard.model.dto.UserTodoDto;
+import com.minibean.timewizard.model.dto.WeeklyDto;
 
 @RestController
 public class PersonalWeekMonthController {
@@ -24,28 +27,26 @@ public class PersonalWeekMonthController {
 	@Autowired
 	private UserTodoBiz userTodoBiz;
 	
-	private Logger logger = LoggerFactory.getLogger(PersonalDailyController.class);
+	private Logger logger = LoggerFactory.getLogger(PersonalWeekMonthController.class);
 	
 	
-	@RequestMapping("/weekly")
-	public Map<String, List<UserTodoDto>> selectList(HttpSession session,
-			UserInfoDto userinfoDto, Model model) {
+	@RequestMapping("/weekly/{user_no}")
+	public 	WeeklyDto selectList(@PathVariable String user_no) {
 		logger.info("[WEEKELY]");
 		
-		userinfoDto = (UserInfoDto)session.getAttribute("login");
 		
-		List<UserTodoDto> list = userTodoBiz.selectList(userinfoDto.getUser_no());
+		WeeklyDto dto = userTodoBiz.chart(Integer.parseInt(user_no));
 		
 		
-		logger.info("user_no : "+userinfoDto.getUser_no());
-		logger.info("list : "+list);
+		logger.info("user_no : "+Integer.parseInt(user_no));
+		logger.info("dto : "+dto.getThe_date());
+		logger.info("ddddddd : "+dto.getFullcount());
 		
-		Map<String, List<UserTodoDto>> map = new HashMap<String, List<UserTodoDto>>();
-		map.put("list",list);
-		
-		logger.info("map : "+map);
-		return map;
+		return dto;
 	}
+	
+	
+	
 	
 	
 

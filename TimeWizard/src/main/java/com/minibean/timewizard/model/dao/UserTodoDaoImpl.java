@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.minibean.timewizard.model.dto.UserTodoDto;
+import com.minibean.timewizard.model.dto.WeeklyDto;
 
 @Repository
 public class UserTodoDaoImpl implements UserTodoDao {
@@ -132,5 +133,20 @@ public class UserTodoDaoImpl implements UserTodoDao {
 		return res;
 	}
 	
+	//weekly
+	@Override
+	public WeeklyDto chart(int user_no) {
+		logger.info(">> [USERTODO] chart - " + user_no);
+		
+		WeeklyDto dto = null;
+		try {
+			dto = sqlSession.selectOne(NAMESPACE+"WeeklyChart", user_no);
+		} catch (Exception e) {
+			logger.info("[ERROR] USERTODO :: chart - " + user_no);
+			e.printStackTrace();
+		}
+		
+		return dto;
+	}
 
 }

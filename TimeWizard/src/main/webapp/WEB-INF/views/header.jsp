@@ -36,12 +36,12 @@
 			//로그인 되어있고 ADMIN, USER일 때만 보이게!
 			if(login.getUser_role().equals("ADMIN")){
 			%>
-					<li><a href="../adminpage">${login.user_name }</a></li>
+					<li><a href="/timewizard/adminpage">${login.user_name }</a></li>
 					<li><a href="/timewizard/logout">Logout</a></li>
 			<%
 			} else {
 			%>
-					<li><a href="../mypage">${login.user_name }</a></li>
+					<li><a href="/timewizard/mypage">${login.user_name }</a></li>
 					<li><a href="/timewizard/logout">Logout</a></li>
 			<%
 			}

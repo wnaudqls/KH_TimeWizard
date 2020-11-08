@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.minibean.timewizard.model.dto.UserTodoDto;
+import com.minibean.timewizard.model.dto.WeeklyDto;
 
 public interface UserTodoDao {
 	
@@ -17,5 +18,9 @@ public interface UserTodoDao {
 	public int insertExample(int user_no);
 	public int update(UserTodoDto dto);
 	public int delete(int todo_no);
+	
+	//weekly
+	//user_no, todo_date
+	public WeeklyDto chart(int user_no);
 
 }
