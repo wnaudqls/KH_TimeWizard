@@ -85,3 +85,5 @@ SELECT fl.FRIEND_NO
 			ON fl.FRIEND_NO = fl2.USER_NO
 			AND fl.USER_NO = fl2.FRIEND_NO
 			WHERE fl.USER_NO = 2)
+			
+	
