@@ -18,8 +18,8 @@ public class UploadFileBiz implements Validator {
 	public void validate(Object target, Errors errors) {
 		UploadFileDto file = (UploadFileDto) target;
 		
-		if(file.getMpfile().getSize() == 0) {
-			errors.rejectValue("mpfile", "fileNPE", "Please select a file");
+		if(file.getProfile().getSize() == 0) {
+			errors.rejectValue("profile", "fileNPE", "Please select a file");
 		}
 	}
 }

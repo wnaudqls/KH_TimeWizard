@@ -39,12 +39,12 @@
 <body>
 	<div class="mypagebox">
 		<div class="mypagemenu" align="center">
+			<div class="profile" onclick="photo()">
+				${fileObj.file_title }
+			</div>
 			<form:form method="post" enctype="multipart/form-data" modelAttribute="uploadFile" action="upload">
-				<div class="profile" onclick="photo()">
-					
-				</div>
-				<p style="color: red; font-weight: bold;"><form:errors path="mpfile" /></p><br/>
-				<label><input type="file" name="mpfile" /></label>
+				<label><input type="file" name="file_title" /></label>
+				<p style="color: red; font-weight: bold;"><form:errors path="file_title" /></p>
 				<label><input type="submit" value="send" /></label>
 			</form:form>
 			
