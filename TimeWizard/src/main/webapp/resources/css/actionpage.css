@@ -125,7 +125,7 @@ a {
 	float: left;
 	width: 14.93%;
 	height: 90vh;
-	border-left: 1px solid black;
+	border-left: 1px solid var(--color);
 	overflow: auto;
 }
 

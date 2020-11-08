@@ -7,6 +7,11 @@
 	
 	body {
 		margin: 0;
+		font-family: 'Staatliches';
+	}
+
+	.mainsection {
+		height: 90vh;
 	}
 
 	.top {
@@ -23,8 +28,13 @@
 		margin-left: 2rem;
 	}
 
+	th {
+		padding: 12px;
+	}
+
 	td {
 		text-align: center;
+		padding: 12px;
 	}
 	
 	a {
@@ -42,6 +52,7 @@
 	#noticeBoard {
 		width: 80%;
 		margin-left: 10%;
+		margin-top: 10vh;
 		border-bottom: 1px solid black;
 	}
 	
@@ -104,9 +115,14 @@
 
 @media screen and (max-width: 1140px) {
 	
+	.mainsection {
+		height: 110vh;
+	}
+
 	#noticeBoard {
 		width: 90%;
 		margin-left: 5%;
+		margin-top: 5vh;
 		border-bottom: 1px solid black;
 	}
 

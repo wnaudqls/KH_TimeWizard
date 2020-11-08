@@ -9,17 +9,20 @@
 <head>
 <meta charset="UTF-8">
 <title>Time Wizard Map</title>
+
+<link
+	href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&family=Source+Sans+Pro:wght@200;400&family=Staatliches&display=swap"
+	rel="stylesheet">
 <link href="/timewizard/css/actionpage.css" rel="stylesheet">
 <script src="https://kit.fontawesome.com/3049a69bf8.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" type="text/css" href="resources/css/tiwimap.css">
 <script src="resources/js/tiwimap.js" defer></script>
+
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
-	<section>
-		<div id="map_header">
-			<h2>Time Wizard Map</h2>
-		</div>
+	<section class="contentsection">
+		<div style="height: 10vh;"></div>
 		<div class="map_wrap">
 			<div id="map"
 				style="width: 100%; height: 100%; position: relative; overflow: hidden;"></div>
