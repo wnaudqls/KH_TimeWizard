@@ -17,7 +17,6 @@
 %>
 
 	<div id="chart" style="width: 1600px;"></div>
-	<input type="button" value="클릭" onclick="check()">
 	<script>
 	var user_no = ${linked.user_no};
 
@@ -91,9 +90,7 @@
 			    type: 'axis-mixed', // or 'bar', 'line', 'scatter', 'pie', 'percentage', 'axis-mixed'
 			    height: 300,
 			    colors: ['#eb2ac4', '#28eb38'],
-			    barOptions: {
-			    	  stacked: 1    // default 0, i.e. adjacent
-			    	}
+			  
 			})
 	}
 
