@@ -55,12 +55,21 @@
 		margin-top: 10vh;
 		border-bottom: 1px solid black;
 	}
+
+	form {
+		display: flex;
+	}
 	
 	#search {
 		width: 100%;
 		display: flex;
 		justify-content: center;
 		align-items: center;
+	}
+
+	.searchType {
+		display: flex;
+		width: 25%;
 	}
 	
 	#search_box {
