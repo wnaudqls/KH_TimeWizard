@@ -9,7 +9,9 @@ public interface GroupBiz {
 	public int insert(GroupDto chat);
 
 	public List<GroupDto> selectList();
-
+	
+	public List<GroupDto> searchList(String name);
+	
 	public GroupDto selectOne(String name);
 
 	public int clientplus(String name);

@@ -18,6 +18,7 @@
 	<mappers>
 		<mapper resource="/mybatis/user_info-mapper.xml" />
 		<mapper resource="/mybatis/chat-mapper.xml"/>
+		<mapper resource="/mybatis/group-mapper.xml"/>
 		<mapper resource="/mybatis/user_todo-mapper.xml"/>
 		<mapper resource="/mybatis/stopwatch-mapper.xml"/>
 		<mapper resource="/mybatis/notice-mapper.xml"/>
