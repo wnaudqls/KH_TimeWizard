@@ -34,6 +34,7 @@ public interface FriendBiz {
 	public int BlockUpdate(FriendDto dto);
 	
 	
-
+	//유저찾는 리스트
+	public List<FriendDto> searchList(FriendDto dto);
 	
 }

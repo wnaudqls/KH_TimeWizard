@@ -10,6 +10,7 @@
 <title>채팅방: ${dto.group_title }</title>
 </head>
 <body>
+
 <c:choose>
 		<c:when test="${empty dto.group_title }">
 			방이 존재하지 않습니다.
@@ -64,13 +65,13 @@
 
 				<input type="text" id="nickname" placeholder="이름을 입력헤주십시오."
 					value="${login.user_name }"> <input type="button" id="disconnect"
-					value="접속끊기" onclick="disconnect()"> <input type="button"
-					id="connect" value="접속하기" onclick="connect()"> <input
-					type="number" id="maxClient" hidden="" />
+					value="접속끊기" onclick="disconnect();"> 
+					<input type="button"id="connect" value="접속하기" onclick="connect()">
+					 <input type="number" id="maxClient" hidden="" />
 
 				<div id="messageArea"></div>
 			</div>
-
+<input type="hidden" value="${dto.group_no}" id="group_no">
 <jsp:include page="friendlist.jsp"></jsp:include>
 </c:otherwise>
 </c:choose>

@@ -33,6 +33,9 @@ public interface FriendDao {
 	public int BlockUpdate(FriendDto dto);
 	
 	public int DeleteFriend(FriendDto dto);
+	
+	//유저찾는 리스트
+	public List<FriendDto> searchList(FriendDto dto);
 
 
 }

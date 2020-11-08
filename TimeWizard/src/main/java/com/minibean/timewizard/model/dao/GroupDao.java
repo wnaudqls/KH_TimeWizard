@@ -6,12 +6,14 @@ import com.minibean.timewizard.model.dto.GroupDto;
 
 public interface GroupDao {
 
-	String namespace = "chat-mapper.";
+	String namespace = "group-mapper.";
 	
 	
 	public int insert(GroupDto chat);
 	
 	public List<GroupDto> selectList();
+	
+	public List<GroupDto> searchList(String name);
 	
 	public GroupDto selectOne(String name);
 
