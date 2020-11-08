@@ -28,42 +28,14 @@
 	//** labels에는 날짜(TODO_DATE)
 	//** datasets에는 완료한 갯수, 완료안한 갯수
 	//** TODO_NO != TODO_DATE
-	
 
-	//let dayy; //날짜 TODO_DATE
-	//let CompleteListCount;  //완료한 LIST 갯수
-	//let notCompleteListCount;  //완료 못한 LIST 갯수
-	
-	//날짜--------------------------
-	function getDate(date){
-		var year =date.getFullYear();
-		var month = (1 + date.getMonth());          //M
-	    month = month >= 10 ? month : '0' + month;  //month 두자리로 저장
-	    var day = date.getDate();                   //d
-	    day = day >= 10 ? day : '0' + day;          //day 두자리로 저장
-	    return  month + '월' + day+'일'; 
-	}
-	function getweek(){
-		for(var i=0; i<7; i++){
-			
-		}
-	}
-	var setting = new Date();
-	setting.setDate(setting.getDate()-2); //2일전(=6일뜸)
-	setting = getDate(setting);
-	console.log("setting : "+setting)
-	//날짜------------------------
+	const week = new Array();
 	
 	var user_no = ${login.user_no};
-	//var tododate;
-	var todocomple;
 	var userVal = {
 			"user_no": user_no
 	}
-	var week = new Array();
 
-	// 날짜 가져오기
-	// 해당 유저, 해당 날짜 가져오기
 	$(document).ready(function(){
 		chart();
 		daylist();
@@ -76,13 +48,11 @@
 			data: JSON.stringify(userVal),
 			contentType: "application/json",
 			success: function(data){
-				var lst = data.list;
-				for(i in lst){
-					tododate = lst[i].todo_date;
-					console.log("tododate : "+tododate[i])
-					todocomple = lst[i].todo_title;
-					console.log("todocomple : "+todocomple[i])
-				}
+				alert("weekly 성공!!");
+				let dd = data.the_date;
+				console.log("dd : "+dd);
+				//week = dd.split(',');
+				//console.log("week[2] : "+week[2]);
 			},
 			error: function(data){
 				alert("weekly 통신실패 ㅠㅠㅠ!!!");
@@ -92,7 +62,7 @@
 	//차트 부분
 	function chart(){
 		const data = {
-			    labels: week,
+			    labels: ["10월01일","10월02일","10월03일","10월04일","10월05일","10월06일","10월07일"],
 			    datasets: [
 			        {
 			            name: "Complete List", type: "bar",
@@ -108,7 +78,7 @@
 	
 			const chart = new frappe.Chart("#chart", {  // or a DOM element,
 			                                            // new Chart() in case of ES6 module with above usage
-			    title: "당신의 한 주",
+			    title: "✨당신의 한 주✨",
 			    data: data,
 			    type: 'axis-mixed', // or 'bar', 'line', 'scatter', 'pie', 'percentage', 'axis-mixed'
 			    height: 300,

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.minibean.timewizard.model.dao.UserTodoDao;
 import com.minibean.timewizard.model.dto.UserTodoDto;
+import com.minibean.timewizard.model.dto.WeeklyDto;
 
 @Service
 public class UserTodoBizImpl implements UserTodoBiz {
@@ -58,15 +59,9 @@ public class UserTodoBizImpl implements UserTodoBiz {
 
 	
 	//weekly
+	@Override
+	public WeeklyDto chart(int user_no) {
+		return userTodoDao.chart(user_no);
+	}
 	
-	@Override
-	public int countComplete(UserTodoDto dto) {
-		return userTodoDao.countComplete(dto);
-	}
-
-	@Override
-	public int countNotComplete(UserTodoDto dto) {
-		return userTodoDao.countNotComplete(dto);
-	}
-
 }

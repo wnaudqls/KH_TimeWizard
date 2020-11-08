@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.minibean.timewizard.model.dto.UserTodoDto;
+import com.minibean.timewizard.model.dto.WeeklyDto;
 
 public interface UserTodoDao {
 	
@@ -20,7 +21,6 @@ public interface UserTodoDao {
 	
 	//weekly
 	//user_no, todo_date
-	public int countComplete(UserTodoDto dto);
-	public int countNotComplete(UserTodoDto dto);
+	public WeeklyDto chart(int user_no);
 
 }

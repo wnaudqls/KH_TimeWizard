@@ -1,5 +1,6 @@
 package com.minibean.timewizard.controller;
 
+import java.lang.reflect.Array;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.minibean.timewizard.model.biz.UserTodoBiz;
 import com.minibean.timewizard.model.dto.UserInfoDto;
 import com.minibean.timewizard.model.dto.UserTodoDto;
+import com.minibean.timewizard.model.dto.WeeklyDto;
 
 @RestController
 public class PersonalWeekMonthController {
@@ -24,32 +26,27 @@ public class PersonalWeekMonthController {
 	@Autowired
 	private UserTodoBiz userTodoBiz;
 	
-	private Logger logger = LoggerFactory.getLogger(PersonalDailyController.class);
+	private Logger logger = LoggerFactory.getLogger(PersonalWeekMonthController.class);
 	
 	
 	@RequestMapping("/weekly")
-	public Map<String, List<UserTodoDto>> selectList(HttpSession session,
+	public Map<String, WeeklyDto> selectList(HttpSession session,
 			UserInfoDto userinfoDto, Model model) {
 		logger.info("[WEEKELY]");
 		
 		userinfoDto = (UserInfoDto)session.getAttribute("login");
 		
-		List<UserTodoDto> list = userTodoBiz.selectList(userinfoDto.getUser_no());
+		WeeklyDto dto = userTodoBiz.chart(userinfoDto.getUser_no());
 		
-		//완료한 list count(List에 담기)
+		Map<String, WeeklyDto> map = new HashMap<String, WeeklyDto>();
+		map.put("dto", dto);
 		
-		//완료못한 list count(List에 담기)
-		
-		//두개를 아래 map에 저장해서 넘기기 
-		
-		
+		String[] arr;
 		logger.info("user_no : "+userinfoDto.getUser_no());
-		logger.info("list : "+list);
+		//logger.info("map : "+map.get(dto));
+		//arr = dto.getThe_date().split(",");
+		//logger.info("the_date : "+arr);
 		
-		Map<String, List<UserTodoDto>> map = new HashMap<String, List<UserTodoDto>>();
-		map.put("list",list);
-		
-		logger.info("map : "+map);
 		return map;
 	}
 	
