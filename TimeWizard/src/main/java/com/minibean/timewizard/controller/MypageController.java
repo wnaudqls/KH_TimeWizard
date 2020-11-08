@@ -84,7 +84,7 @@ public class MypageController {
 	}
 	
 	@RequestMapping("/upload")
-	public String fileUpload(HttpServletRequest request, Model model, UploadFileDto dto, BindingResult result){
+	public String fileUpload(HttpServletRequest request, Model model, UploadFileDto dto, BindingResult result, UserInfoDto user_no){
 		
 		uploadfileBiz.validate(dto, result);
 		
@@ -92,12 +92,11 @@ public class MypageController {
 			return "mypage";
 		}
 		
-		MultipartFile file = dto.getMpfile();
-		String name = file.getOriginalFilename();
+		MultipartFile file = dto.getProfile();
+		String file_title = file.getOriginalFilename();
 		
 		UploadFileDto fileObj = new UploadFileDto();
-		fileObj.setName(name);
-		fileObj.setDesc(dto.getDesc());
+		fileObj.setFile_title(file_title);
 		
 		// upload
 		InputStream inputStream = null;
@@ -115,7 +114,7 @@ public class MypageController {
 				storage.mkdir();
 			}
 			
-			File newFile = new File(path + "/" + name);
+			File newFile = new File(path + "/" + file_title);
 			if (!newFile.exists()) {
 				newFile.createNewFile();
 			}
@@ -142,7 +141,9 @@ public class MypageController {
 		
 		model.addAttribute("fileObj", fileObj);
 		
-		return "redirect:mypage";
+		logger.info("profile user_no :"+user_no);
+		
+		return "redirect:mypage?user_no";
 	}
 
 }
