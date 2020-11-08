@@ -35,3 +35,16 @@ display:none;z-index: 1;background-color: rgb(0,0,0);background-color: rgba(0,0,
 #pagination {margin:10px auto;text-align: center;}
 #pagination a {display:inline-block;margin-right:10px;}
 #pagination .on {font-weight: bold; cursor: default;color:#777;}
+
+.contentsection {
+	float: left;
+	width: 85%;
+}
+
+.friendsbar {
+	float: left;
+	width: 14.93%;
+	height: 90vh;
+	border-left: 1px solid #E0E0E0;
+	overflow: auto;
+}

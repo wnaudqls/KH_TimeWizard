@@ -58,6 +58,16 @@ public class FriendController {
 		
 		return map;
 	}
+	@RequestMapping(value="/searchList")
+	public Map<String, List<FriendDto>> searchList(HttpSession session, @RequestBody FriendDto dto) {
+		List<FriendDto> list = friendBiz.searchList(dto);
+		/* session.setAttribute("nlist",list2); */
+		logger.info("ajax결과: 접근성공");
+		logger.info("검색한 유저이름: {}",dto.getUser_name());
+		Map<String, List<FriendDto>> map = new HashMap<String, List<FriendDto>>();
+		map.put("searchList",list);
+		return map;
+	}
 	
 	//로그인 했을때, 클라이언트로 부터 값을 받을 경로
 	@MessageMapping("/login/join")

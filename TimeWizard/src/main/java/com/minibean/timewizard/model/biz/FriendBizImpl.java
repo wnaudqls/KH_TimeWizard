@@ -71,6 +71,12 @@ public class FriendBizImpl implements FriendBiz {
 		return friendDao.DeleteFriend(dto);
 	}
 
+	@Override
+	public List<FriendDto> searchList(FriendDto dto) {
+		// TODO Auto-generated method stub
+		return friendDao.searchList(dto);
+	}
+
 
 
 

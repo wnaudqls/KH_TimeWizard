@@ -8,6 +8,20 @@
 body {
 	margin: 0;
 	overflow: auto;
+    font-family: 'Staatliches';
+}
+
+.contentsection {
+	float: left;
+	width: 85%;
+}
+
+.friendsbar {
+	float: left;
+	width: 14.93%;
+	height: 90vh;
+	border-left: 1px solid black;
+	overflow: auto;
 }
 
 input[type=button] {
@@ -24,7 +38,6 @@ input[type=button]:hover, #searchBtn:hover {
 }
 
 .fixedtop {
-	position: fixed;
 	border-bottom: 1px solid var(--color);
 	width: 100%;
 	height: 5rem;
@@ -52,6 +65,14 @@ input[type=button]:hover, #searchBtn:hover {
 	height: 100%;
 }
 
+#searchArea{
+	display: flex;
+}
+
+#search{
+	width: 100%;
+}
+
 #searchBtn {
 	background-color: var(--background-color);
 	color: var(--color);
@@ -63,11 +84,10 @@ input[type=button]:hover, #searchBtn:hover {
 	margin-left: 1rem;
 }
 
-.fixedmain {
-	position: fixed;
-	top: 8rem;
+.contentmain {
 	width: 90%;
 	margin-left: 10%;
+	margin-top: 3vh;
 }
 
 .grouproom {
@@ -106,12 +126,7 @@ input[type=button]:hover, #searchBtn:hover {
 	color: var(--accent-color);
 }
 
-#search{
-	width:200px;
-}
-#searchArea{
-	
-}
+
 #example {
 	margin-top: 5%;
 	margin-left: 20%;
