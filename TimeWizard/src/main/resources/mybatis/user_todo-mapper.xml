@@ -54,7 +54,7 @@
 	
 	<!-- !!weekly 부분!!! -->
 	
-	<select id="WeeklyChart" parameterType="int" resultType="TodoDto">
+	<select id="WeeklyChart" parameterType="int" resultType="WeeklyDto">
 SELECT 
 LISTAGG(THE_DATE, ', ') WITHIN GROUP(ORDER BY THE_DATE) "THE_DATE",
 LISTAGG(FULLCOUNT, ', ') WITHIN GROUP(ORDER BY THE_DATE) "FULLCOUNT",

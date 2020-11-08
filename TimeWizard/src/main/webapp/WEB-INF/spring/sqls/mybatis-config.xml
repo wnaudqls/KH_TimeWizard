@@ -13,6 +13,7 @@
 		<typeAlias type="com.minibean.timewizard.model.dto.NoticeDto" alias="NoticeDto"/>
 		<typeAlias type="com.minibean.timewizard.model.dto.FriendDto" alias="FriendDto"/>
 		<typeAlias type="com.minibean.timewizard.model.dto.ReplyDto" alias="ReplyDto"/>
+		<typeAlias type="com.minibean.timewizard.model.dto.WeeklyDto" alias="WeeklyDto"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="/mybatis/user_info-mapper.xml" />
