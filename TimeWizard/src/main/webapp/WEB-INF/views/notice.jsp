@@ -146,10 +146,12 @@
 	<!-- title, content 검색 가능 -->
 	<div id="search">
 		<form action="notice" method="post">
-			<select class="searchType" name="searchType">
-				<option value="nt_title">제목</option>
-				<option value="nt_content">내용</option>
-			</select>
+			<div class="searchType">
+				<select name="searchType">
+					<option value="nt_title">제목</option>
+					<option value="nt_content">내용</option>
+				</select>
+			</div>
 			<div id="search_box"> 
 				<input type="text" placeholder="search.." id="search_text" class="search_text" name="search_text"/>
 				<button type="submit" id="search_button" name="btnSearch"><a><i class="fas fa-search"></i></a></button>
