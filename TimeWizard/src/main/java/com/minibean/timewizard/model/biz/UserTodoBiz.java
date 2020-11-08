@@ -15,5 +15,11 @@ public interface UserTodoBiz {
 	public int insertExample(int user_no);
 	public int update(UserTodoDto dto);
 	public int delete(int todo_no);
+	
+	//weekly
+	//user_no, todo_date
+	public int countComplete(UserTodoDto dto);
+	public int countNotComplete(UserTodoDto dto);
+
 
 }

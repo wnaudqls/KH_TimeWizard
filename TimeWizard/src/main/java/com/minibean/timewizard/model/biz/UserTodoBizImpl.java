@@ -56,4 +56,17 @@ public class UserTodoBizImpl implements UserTodoBiz {
 		return userTodoDao.delete(todo_no);
 	}
 
+	
+	//weekly
+	
+	@Override
+	public int countComplete(UserTodoDto dto) {
+		return userTodoDao.countComplete(dto);
+	}
+
+	@Override
+	public int countNotComplete(UserTodoDto dto) {
+		return userTodoDao.countNotComplete(dto);
+	}
+
 }

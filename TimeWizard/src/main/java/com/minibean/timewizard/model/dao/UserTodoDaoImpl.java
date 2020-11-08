@@ -132,5 +132,33 @@ public class UserTodoDaoImpl implements UserTodoDao {
 		return res;
 	}
 	
+	
+	//weekly
+	
+	@Override
+	public int countComplete(UserTodoDto dto) {
+		logger.info(">> [USERTODO] countComplete - " + dto.getUser_no());
+		int res = 0;
+		try {
+			res = sqlSession.selectOne(NAMESPACE+"CompleteCount", dto);
+		} catch (Exception e) {
+			logger.info("[ERROR] USERTODO :: countComplete - " + dto.getUser_no());
+			e.printStackTrace();
+		}
+		return res;
+	}
+	@Override
+	public int countNotComplete(UserTodoDto dto) {
+		logger.info(">> [USERTODO] countNotComplete - " + dto.getUser_no());
+		int res = 0;
+		try {
+			res = sqlSession.selectOne(NAMESPACE+"countNotComplete", dto);
+		} catch (Exception e) {
+			logger.info("[ERROR] USERTODO :: countNotComplete - " + dto.getUser_no());
+			e.printStackTrace();
+		}
+		return res;
+	}
+	
 
 }

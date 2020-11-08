@@ -36,6 +36,12 @@ public class PersonalWeekMonthController {
 		
 		List<UserTodoDto> list = userTodoBiz.selectList(userinfoDto.getUser_no());
 		
+		//완료한 list count(List에 담기)
+		
+		//완료못한 list count(List에 담기)
+		
+		//두개를 아래 map에 저장해서 넘기기 
+		
 		
 		logger.info("user_no : "+userinfoDto.getUser_no());
 		logger.info("list : "+list);
@@ -46,6 +52,9 @@ public class PersonalWeekMonthController {
 		logger.info("map : "+map);
 		return map;
 	}
+	
+	
+	
 	
 	
 
