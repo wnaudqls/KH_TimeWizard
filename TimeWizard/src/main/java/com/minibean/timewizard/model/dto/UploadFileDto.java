@@ -3,27 +3,26 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class UploadFileDto {
 	
-	private String name;
-	private String desc;
-	private MultipartFile mpfile;
+	private int user_no;
+	private String file_title;
+	private MultipartFile profile;
 	
-	public String getName() {
-		return name;
+	public int getUser_no() {
+		return user_no;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setUser_no(int user_no) {
+		this.user_no = user_no;
 	}
-	public String getDesc() {
-		return desc;
+	public String getFile_title() {
+		return file_title;
 	}
-	public void setDesc(String desc) {
-		this.desc = desc;
+	public void setFile_title(String file_title) {
+		this.file_title = file_title;
 	}
-	public MultipartFile getMpfile() {
-		return mpfile;
+	public MultipartFile getProfile() {
+		return profile;
 	}
-	public void setMpfile(MultipartFile mpfile) {
-		this.mpfile = mpfile;
+	public void setProfile(MultipartFile profile) {
+		this.profile = profile;
 	}
-
 }

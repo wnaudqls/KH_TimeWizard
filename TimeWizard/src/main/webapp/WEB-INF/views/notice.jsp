@@ -9,10 +9,13 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
+<link
+	href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&family=Source+Sans+Pro:wght@200;400&family=Staatliches&display=swap"
+	rel="stylesheet">
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> -->
 <link href="/timewizard/css/actionpage.css" rel="stylesheet">
 <script src="https://kit.fontawesome.com/3049a69bf8.js" crossorigin="anonymous"></script>
 <link href="resources/css/notice.css" rel="stylesheet">
@@ -33,18 +36,18 @@
 <body>
 <jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
 
+<div class="mainsection">
 <%
 	UserInfoDto UDto = (UserInfoDto)session.getAttribute("login");
 	System.out.println("user role in header : " + UDto.getUser_role());
 %>
 
 
-	<div class="top">
+	<!-- <div class="top">
 		<h1>공지사항</h1>
 		<div class="home"><a href="main"><i class="fab fa-tumblr-square"></i></a></div>
-	</div>
+	</div> -->
 	
-	<br/><br/>
 	
 	<table id="noticeBoard">
 	<%
@@ -97,7 +100,7 @@
 		<c:choose>
 			<c:when test="${empty list }">
 				<tr>
-					<th colspan="4" class="notice_text">----------작성된 글이 없습니다----------</th>
+					<th colspan="3" class="notice_text">----------작성된 글이 없습니다----------</th>
 				</tr>
 			</c:when>
 			<c:otherwise>
@@ -225,7 +228,7 @@
 			</ul>
 		</nav>
 	</div>
-	
+</div>
 
 <jsp:include page="footer.jsp"></jsp:include>
 </body>
