@@ -25,9 +25,12 @@
 
 		<div class="menu">
 			<div id="searchArea">
-				<input type="text" id="search" placeholder="아이디 또는 방이름을 입력하세요" />
-				<button id="searchBtn">
+				<input type="text" id="search" placeholder="아이디 또는 방이름을 입력하세요" class="group_title"/>
+				<button id="searchBtn" onclick="searchRoom();">
 					<a><i class="fas fa-search"></i></a>
+				</button>
+				<button id="searchBtn" onclick="reset();">
+					초기화
 				</button>
 			</div>
 			<div class="createroom">
@@ -66,18 +69,94 @@
 	</section>
 	<jsp:include page="friendlist.jsp"></jsp:include>
 	<jsp:include page="footer.jsp"></jsp:include> 
+	
 
 </body>
 
-<!-- <script type="text/javascript">
+<script type="text/javascript">
 
-자동갱신 ajax 코드
+
 var loop;
 $(document).ready(function () {
 	roomlist();
 
 });
 
+
+function reset(){
+	var gtitle = document.getElementsByClassName("group_title")[0]
+	gtitle.value = "";
+	roomlist();
+}
+
+function searchRoom(){
+	
+	var gtitle = document.getElementsByClassName("group_title")[0].value;
+	console.log(gtitle);
+	var paramdata = {
+			"group_title": gtitle
+	}
+	if(gtitle == '' || gtitle.trim() == ''){
+		alert("방 이름이나 사용자의 이름을 적어주세요.");
+		
+	}else{
+	console.log(paramdata);
+	$.ajax({
+	    type: "post",
+	    url: "/timewizard/ajaxgroupselectlist",
+	    data: JSON.stringify(paramdata),
+	    dataType: "json",
+	    contentType: "application/json",
+	    success: function(data){
+	    	var list = data.selectlist;
+	    	console.log("리스트: "+list);
+	    	$(".fixedmain").empty();
+	    	
+	    	
+	    	if(list == '' || list == 'undefined' || list == null){
+	    		$(".fixedmain").append("찾으시는 방이 존재하지 않습니다.");
+	    	}else{
+	     	for(i in list){
+	    	
+  				if(list[i].group_public == "공개"){
+  					var name = list[i].group_title;
+  					$(".fixedmain").append(
+  				"<div class='grouproom'>"
+  					+"<div class='grouptitle'>"
+  							+"<span class='group1'>방이름</span>"
+  							+"<span class='group2'>"+name+"</span>"
+  							+"</div>"
+  				+"<div class='groupmain'>"
+							+"<span class='group1'>아이디</span>"
+							+"<span class='groupid'>"+list[i].user_id+"</span>"
+							+"</div>"
+				+"<div class='groupmain'>"
+							+"<span class='group1'>인원수</span>"
+							+"<span class='groupid'>"+list[i].group_client+"/"+list[i].group_su+"</span>"
+				+"</div>"
+				+"<div align='right'>"
+					+"<input type='button' value='접속하기' onclick='location.href="+"\"joinroom/"+name+"\"'/>"
+					+"</div>"
+				+"</div>"
+				+"<div style='width: 1rem'>"
+				+"</div>"
+  					
+  					
+  						);
+   					}
+	    		}
+	    	}
+	    
+	    },
+		error: function(data){
+			$(".fixedmain").empty();
+			$(".fixedmain").append("<p>연결이 끊겼습니다.</p>");
+		}
+	    	
+	});
+	clearTimeout(loop);
+	}
+}
 function roomlist(){
 	$.ajax({
 	    type: "post",
@@ -121,11 +200,12 @@ function roomlist(){
 	    
 	    },
 		error: function(data){
+			$(".fixedmain").empty();
 			$(".fixedmain").append("<p>연결이 끊겼습니다.</p>");
 		}
 	    	
 	});
 	loop = setTimeout("roomlist()", 3000);
 }
-</script> -->
+</script>
 </html>

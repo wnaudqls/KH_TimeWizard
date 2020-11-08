@@ -110,4 +110,17 @@ public class GroupDaoImpl implements GroupDao {
 		return room;
 	}
 
+	@Override
+	public List<GroupDto> searchList(String name) {
+		// TODO Auto-generated method stub
+		List<GroupDto> list = new ArrayList<GroupDto>();
+		try {
+			list = sqlSession.selectList(namespace + "searchList",name);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 }

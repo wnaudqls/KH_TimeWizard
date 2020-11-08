@@ -28,6 +28,48 @@ var nlist;
 $(document).ready(function () {
 	friendlist();
 });
+function searchfriend(){
+var uname = $("#search_text").val();
+console.log("유저이름: "+uname);
+var searchval = {
+			"user_name": uname
+		}
+console.log("searchval: "+searchval);
+	$.ajax({
+	    type: "post",
+	    url: "/timewizard/searchList",
+	    data: JSON.stringify(searchval),
+	    dataType: "json",
+	    contentType: "application/json",
+	    success: function(data){
+	    	searchList = data.searchList;
+	    	console.log("서치리스트: "+searchList);
+	    	$(".userlist").empty();
+	    	$(".userlist").append("<p>Search List</p>");
+	    	if(searchList == ''){
+	    		$(".userlist").append("<p>-- 검색하신 분을 찾지 못했습니다. --</p>")
+	    	}else{
+	    		for(i in searchList){
+	    			var user_name = searchList[i].user_name;
+	    			var name = "\""+searchList[i].user_name+"\"";
+	    			$(".userlist").append("<p>이름:"+ user_name +"</p>"+
+	    			"<input type='button' value='친구추가' onclick='alertsys("+searchList[i].user_no+","+ uno +","+name+")'>");
+	    		}
+	    		
+	    	}
+	    	
+	    },
+	    error: function(data){
+	    	$(".friendsbar").append("연결이 끊겼습니다.");
+	    }
+	});
+}
+function reset(){
+	var uname = $("#search_text");
+	$(uname).val("");
+	friendlist();
+	
+}
 
 function friendlist(){
 	$.ajax({
@@ -46,7 +88,6 @@ function friendlist(){
 	    	}else{
 	    		for(i in flist){
 	    			var name = "\""+flist[i].user_name+"\"";
-	   				 console.log(name);
 	   				if(flist[i].status == "ACCEPT"){
 	    					$(".friendlist").append("<p>이름:"+ flist[i].user_name +"</p>"+
 	    					"<input type='button' value='친구삭제' onclick='deletefriend("+flist[i].user_no+","+ uno +","+name+")'>");
@@ -88,14 +129,19 @@ function friendlist(){
 <aside class="friendsbar">
 		<p>friends</p>
 		<input type="text" placeholder="search.." id="search_text" />
-		<button id="search_button"><i class="fas fa-search"></i></button>
-		<b>Your Friends</b>
+		<button id="search_button" onclick="searchfriend();"><i class="fas fa-search" ></i>
+		</button>
+		<button id="search_button" onclick="reset();">
+			초기화
+		</button>
+		<p><b>Your Friends</b></p>
 		<!-- 나와 친구인 유저들 -->
 		<div class="friendlist">
 		
 		
 		
 		</div>
+		<hr>
 		<div class="userlist">
 		
 		

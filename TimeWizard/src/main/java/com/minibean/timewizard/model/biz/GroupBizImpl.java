@@ -52,6 +52,12 @@ public class GroupBizImpl implements GroupBiz{
 		// TODO Auto-generated method stub
 		return dao.clientnum(name);
 	}
+
+	@Override
+	public List<GroupDto> searchList(String name) {
+		// TODO Auto-generated method stub
+		return dao.searchList(name);
+	}
 	
 	 
 	 
