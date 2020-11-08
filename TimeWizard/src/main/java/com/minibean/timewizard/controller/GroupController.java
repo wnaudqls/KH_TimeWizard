@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,10 +29,19 @@ import com.minibean.timewizard.model.biz.GroupBiz;
 import com.minibean.timewizard.model.dto.ChatDto;
 import com.minibean.timewizard.model.dto.GroupDto;
 
+
+
+
+
+
 @Controller
 public class GroupController {
 	@Autowired
-	private SimpMessagingTemplate template;
+	SimpMessagingTemplate template;
+	
+	Logger log = LoggerFactory.getLogger(GroupController.class);
+
+	
 	@Autowired
 	private GroupBiz biz;
 	
@@ -44,7 +54,6 @@ public class GroupController {
 		 model.addAttribute("list", biz.selectList()); 
 		return "grouplist";
 	}
-
 
 	@RequestMapping("/ajaxgrouplist")
 	@ResponseBody
@@ -70,14 +79,14 @@ public class GroupController {
 	@GetMapping("/joinroom/{name}")
 	public String room(@PathVariable("name") String name, Model model) {
 		 
-
 		  
 		GroupDto room = biz.selectOne(name); 
+		  
+		  
 		model.addAttribute("dto", room);
 	
 		return "grouproom";
 	}
-	
 	@GetMapping("/groupnewroom")
 	public String make(Model model) {
 		return "groupnewroom";
