@@ -137,4 +137,19 @@ public class FriendDaoImpl implements FriendDao {
 		return res;
 	}
 
+	@Override
+	public List<FriendDto> searchList(FriendDto dto) {
+		// TODO Auto-generated method stub
+		List<FriendDto> list = new ArrayList<FriendDto>();
+		
+		try {
+			list = sqlSession.selectList(NAMESPACE+"searchList", dto);
+		} catch (Exception e) {
+			logger.info("[ERROR] Friend SelectListF DaoImpl");
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+
 }

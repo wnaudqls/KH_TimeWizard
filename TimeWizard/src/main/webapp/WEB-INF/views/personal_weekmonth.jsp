@@ -15,7 +15,7 @@
 	UserInfoDto linked = (UserInfoDto) session.getAttribute("linked");
 	UserInfoDto login = (UserInfoDto)session.getAttribute("login");
 %>
-	<div id="chart" style="width: 1600px;"></div>
+	<div id="chart" style="width: 100%;"></div>
 	<script>
 	//하루 날마다 보여줌
 	//날짜, 전체, 완료 보여주기
