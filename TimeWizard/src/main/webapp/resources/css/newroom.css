@@ -13,11 +13,11 @@ body {
 
 form {
 	width: 40%;
-	height: 60vh;
+	height: 70vh;
 	background-color: white;
 	border-radius: 10px;
 	margin-left: 30%;
-	margin-top: 20vh;
+	margin-top: 10vh;
 }
 
 #box {
@@ -54,9 +54,7 @@ button:hover {
 @media screen and (max-width: 1140px) {
 	form {
 		width: 90%;
-		height: 55vh;
 		margin-left: 5%;
-		margin-top: 20vh;
 	}
 
 	.createbox {

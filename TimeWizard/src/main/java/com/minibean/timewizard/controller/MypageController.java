@@ -1,5 +1,12 @@
 package com.minibean.timewizard.controller;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -7,10 +14,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.util.WebUtils;
 
+import com.minibean.timewizard.model.biz.UploadFileBiz;
 import com.minibean.timewizard.model.biz.UserInfoBiz;
+import com.minibean.timewizard.model.dto.UploadFileDto;
 import com.minibean.timewizard.model.dto.UserInfoDto;
 
 @Controller
@@ -20,6 +32,9 @@ public class MypageController {
 	
 	@Autowired
 	private UserInfoBiz userinfoBiz;
+	
+	@Autowired
+	private UploadFileBiz uploadfileBiz;
 	
 	@RequestMapping("/mypage")
 	public String Mypage() {
@@ -61,6 +76,74 @@ public class MypageController {
 			session.invalidate();
 			return "redirect:main";
 		}
+	}
+	
+	@RequestMapping("/form")
+	public String uploadForm() {
+		return "upload";
+	}
+	
+	@RequestMapping("/upload")
+	public String fileUpload(HttpServletRequest request, Model model, UploadFileDto dto, BindingResult result, UserInfoDto user_no){
+		
+		uploadfileBiz.validate(dto, result);
+		
+		if (result.hasErrors()) {
+			return "mypage";
+		}
+		
+		MultipartFile file = dto.getProfile();
+		String file_title = file.getOriginalFilename();
+		
+		UploadFileDto fileObj = new UploadFileDto();
+		fileObj.setFile_title(file_title);
+		
+		// upload
+		InputStream inputStream = null;
+		// download
+		OutputStream outputStream = null;
+		
+		try {
+			inputStream = file.getInputStream();
+			String path = WebUtils.getRealPath(request.getSession().getServletContext(), "/resources/storage");
+			
+			System.out.println("업로드 될 실제 경로 : " + path);
+			
+			File storage = new File(path);
+			if (!storage.exists()) {
+				storage.mkdir();
+			}
+			
+			File newFile = new File(path + "/" + file_title);
+			if (!newFile.exists()) {
+				newFile.createNewFile();
+			}
+			
+			outputStream = new FileOutputStream(newFile);
+			
+			int read = 0;
+			byte[] b = new byte[(int)file.getSize()];
+			
+			while((read=inputStream.read(b)) != -1) {
+				outputStream.write(b, 0, read);
+			}
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				inputStream.close();
+				outputStream.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		model.addAttribute("fileObj", fileObj);
+		
+		logger.info("profile user_no :"+user_no);
+		
+		return "redirect:mypage?user_no";
 	}
 
 }
