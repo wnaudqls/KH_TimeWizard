@@ -39,7 +39,7 @@ public class PayDaoImpl implements PayDao {
 		logger.info("pay selectOne daoimple - "+user_no);
 		List<PayDto> list = new ArrayList<PayDto>();
 		try {
-			list = sqlSession.selectOne(NAMESPACE+"PayselectOne", user_no);
+			list = sqlSession.selectList(NAMESPACE+"PayselectOne", user_no);
 		} catch (Exception e) {
 			logger.info("[ERROR] pay selectOne daoimpl");
 			e.printStackTrace();

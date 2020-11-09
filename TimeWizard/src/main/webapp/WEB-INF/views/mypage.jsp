@@ -150,13 +150,17 @@ function pay(e){
 					<td align="center">1</td>
 					<td align="center">5</td>
 					<td align="center">10</td>
-				</tr>
-				<tr>
-					<td align="center">(  )</td>
-					<td><input type="button" class="payname" name="timelapse" value="1000" onclick="pay(this);"></td>
-					<td><input type="button" class="payname" name="timelapse" value="5000" onclick="pay(this);"></td>
-					<td><input type="button" class="payname" name="timelapse" value="9000" onclick="pay(this);"></td>
-				</tr>
+				</tr>			
+					<c:forEach items="${list }" var="list">
+						<c:if test="${list.pay_name eq 'TIMELAPSE'}">
+							<tr>
+								<td align="center">( ${list. status} )</td>	
+								<td><input type="button" class="payname" name="timelapse" value="1000" onclick="pay(this);"></td>
+								<td><input type="button" class="payname" name="timelapse" value="5000" onclick="pay(this);"></td>
+								<td><input type="button" class="payname" name="timelapse" value="9000" onclick="pay(this);"></td>
+							</tr>
+						</c:if>
+				</c:forEach>
 			</table>
 			</form>
 		</div>

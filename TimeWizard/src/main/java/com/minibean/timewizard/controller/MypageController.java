@@ -56,6 +56,7 @@ public class MypageController {
 		List<PayDto> list = payBiz.selectOne(userinfodto.getUser_no());
 		model.addAttribute("list", list);
 
+		logger.info("mypage user_no : "+userinfodto.getUser_no());
 		logger.info("mypage dto : "+list);
 		
 		return "mypage";
@@ -167,35 +168,11 @@ public class MypageController {
 	/////////////
 	//pay
 	@RequestMapping("/pay")
-	public Map<String, Object> pay(int user_no, Model model,PayDto paydto,String name,String membership,String timelapse ) {
+	public String pay() {
 		logger.info("[pay controller]");
 		
-		logger.info("membership : "+membership);
-		logger.info("timelapse : "+timelapse);
-		
-		List<PayDto> list = payBiz.selectOne(user_no);
-		logger.info("getPay_name : "+paydto.getPay_name());
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-		
-		if(membership != null) { //membership을 결제하려면
-			//model.addAttribute("dto",paydto);
-			//model.addAttribute("price",membership);
-			map.put("list",list);
-			map.put("price",membership);
-			
-		
-			
-		}else if(!timelapse.isEmpty()) {//timelapse를 결제하려면
-			//model.addAttribute("dto",paydto);
-			//model.addAttribute("price",timelapse);
-			map.put("list",list);
-			map.put("price", timelapse);
-			
-		}
-		logger.info("map : "+map);
-		return map;
-		
+	
+		return "";
 	}
 
 }
