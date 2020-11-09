@@ -60,12 +60,15 @@ public class FriendController {
 	}
 	@RequestMapping(value="/searchList")
 	public Map<String, List<FriendDto>> searchList(HttpSession session, @RequestBody FriendDto dto) {
-		List<FriendDto> list = friendBiz.searchList(dto);
-		/* session.setAttribute("nlist",list2); */
 		logger.info("ajax결과: 접근성공");
-		logger.info("검색한 유저이름: {}",dto.getUser_name());
+		logger.info("검색한 사람의 번호: {}\n검색한 유저이름: {}",dto.getUser_no(),dto.getUser_name());
+		List<FriendDto> list = friendBiz.searchList(dto);
+		List<FriendDto> list2 = friendBiz.searchListN(dto);
+		/* session.setAttribute("nlist",list2); */
+		logger.info("리스트: "+list2);
 		Map<String, List<FriendDto>> map = new HashMap<String, List<FriendDto>>();
 		map.put("searchList",list);
+		map.put("searchListN",list2);
 		return map;
 	}
 	
