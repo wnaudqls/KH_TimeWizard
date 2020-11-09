@@ -29,12 +29,11 @@ $(document).ready(function () {
 	friendlist();
 });
 function searchfriend(){
-var uname = $("#search_text").val();
-console.log("유저이름: "+uname);
+var username = $("#search_text").val();
 var searchval = {
-			"user_name": uname
+			"user_name": username,
+			"user_no": uno
 		}
-console.log("searchval: "+searchval);
 	$.ajax({
 	    type: "post",
 	    url: "/timewizard/searchList",
@@ -43,21 +42,49 @@ console.log("searchval: "+searchval);
 	    contentType: "application/json",
 	    success: function(data){
 	    	searchList = data.searchList;
-	    	console.log("서치리스트: "+searchList);
+	    	searchListN = data.searchListN;
 	    	$(".userlist").empty();
-	    	$(".userlist").append("<p>Search List</p>");
+	    	$(".userlist").append("<p><b>Search List</b></p>");
 	    	if(searchList == ''){
 	    		$(".userlist").append("<p>-- 검색하신 분을 찾지 못했습니다. --</p>")
-	    	}else{
+	    	}else if(username == uname){
+	    		$(".userlist").append("<p>-- 자기 자신을 검색하셧습니다. --</p>");
+	    	}else if(username.trim() == ''){
+	    		$(".userlist").append("<p>-- 이름을 입력해주세요. --</p>");
+	    	}
+	    	else{
+	    	
 	    		for(i in searchList){
 	    			var user_name = searchList[i].user_name;
 	    			var name = "\""+searchList[i].user_name+"\"";
-	    			$(".userlist").append("<p>이름:"+ user_name +"</p>"+
-	    			"<input type='button' value='친구추가' onclick='alertsys("+searchList[i].user_no+","+ uno +","+name+")'>");
-	    		}
+	    			var user_no = searchList[i].user_no;
+	    			var friend_no = searchList[i].friend_no;
+	    			var status = searchList[i].status;
+	    			
+	    			if(status == "ACCEPT" && (friend_no == uno)){
+	    				$(".userlist").append("<p>이름:"+ user_name +"</p>"+
+	    				"<input type='button' value='친구삭제' onclick='deletefriend("+user_no+","+ uno +","+name+")'>");
+	    			}
+	    			else if(status == "RESP" && (friend_no == uno)){
+	    				$(".userlist").append("<p>"+ user_name +"님이 친구신청 하셨습니다.</p>"+
+		    				"<input type='button' value='수락' onclick='friendAccept("+user_no+")'/> "
+		    			+" <input type='button' value='거절' onclick='friendDeny("+user_no+","+name+")'>");
+	    				
+	    			}
+	    			else if(status == "SEND" && (friend_no == uno)){
 	    		
+	    				$(".userlist").append("<p>"+user_name +"님이 응답중 입니다.</p>");
+	    			}
+	    		}
+	    		for(i in searchListN){
+	    			var user_name = searchListN[i].user_name;
+	    			var name = "\""+searchListN[i].user_name+"\"";
+	    			var user_no = searchList[i].user_no;
+	  				
+	    			$(".userlist").append("<p>이름:"+ user_name +"</p>"+
+		    		"<input type='button' value='친구추가' onclick='alertsys("+user_no+","+ uno +","+name+")'>");
+	    		}
 	    	}
-	    	
 	    },
 	    error: function(data){
 	    	$(".friendsbar").append("연결이 끊겼습니다.");
@@ -79,6 +106,7 @@ function friendlist(){
 	    data: JSON.stringify(friendval),
 	    contentType: "application/json",
 	    success: function(data){
+	    	$("#search_text").val("");
 	    	flist = data.flist;
 	    	nlist = data.nlist;
 	    	$(".friendlist").empty();
@@ -92,7 +120,7 @@ function friendlist(){
 	    					$(".friendlist").append("<p>이름:"+ flist[i].user_name +"</p>"+
 	    					"<input type='button' value='친구삭제' onclick='deletefriend("+flist[i].user_no+","+ uno +","+name+")'>");
 	    			}else if(flist[i].status == "SEND"){
-    					$(".friendlist").append("<p>"+ flist[i].user_name +"님이 응답 대기중 입니다.</p>");
+    					$(".friendlist").append("<p>"+ flist[i].user_name +"님이 응답중 입니다.</p>");
     	    					
     	    		}else if(flist[i].status == "RESP"){
 	    					$(".friendlist").append("<p>"+ flist[i].user_name +"님이 친구신청 하셨습니다.</p>"+
@@ -108,7 +136,6 @@ function friendlist(){
 	    	}else{
 	    		for(i in nlist){
 	    			var name = "\""+nlist[i].user_name+"\"";
-	   				 console.log(name); 
 	    			$(".userlist").append("<p>이름:"+ nlist[i].user_name+"&nbsp;"+
 	    					"<input type='button' value='친구추가' onclick='alertsys("+nlist[i].user_no+","+ uno +","+name+")'>" +"</p>");
 	    		}
