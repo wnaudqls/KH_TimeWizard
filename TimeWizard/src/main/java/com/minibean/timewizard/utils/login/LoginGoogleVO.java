@@ -42,6 +42,8 @@ public class LoginGoogleVO {
     public String getAuthorizationUrl(HttpSession session) {
         String state = generateRandomString();
         setSession(session, state);
+        logger.info("\n[GOOGLE] * state : " + state + "\n* session state : "  + getSession(session));
+        logger.info("\n[GOOGLE] getSession" + getSession(session));
         
         final Map<String, String> additionalParams = new HashMap<String, String>();
         additionalParams.put("access_type", "offline");
@@ -57,8 +59,9 @@ public class LoginGoogleVO {
 
     public OAuth2AccessToken getAccessToken(HttpSession session, String code, String state)
             throws IOException, InterruptedException, ExecutionException {
+    	logger.info("\n[GOOGLE] getSession : " + getSession(session));
         String sessionState = getSession(session);
-        
+        logger.info("\n[GOOGLE] * state : " + state + "\n* session state : "  + getSession(session));
         if (StringUtils.pathEquals(sessionState, state)) {
             OAuth20Service oauthService = new ServiceBuilder(CLIENT_ID).apiSecret(CLIENT_SECRET).callback(REDIRECT_URI)
                     .build(LoginGoogleApi.instance());

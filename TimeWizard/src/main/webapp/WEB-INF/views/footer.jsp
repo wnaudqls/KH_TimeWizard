@@ -11,7 +11,7 @@
 	<!-- footer에 공지사항, 챗봇 -->
 	<footer class="footerbar">
 		<div class="footer_box">
-			<a href="../notice_list"><i class="fas fa-chalkboard-teacher"></i></a>
+			<a href="/timewizard/notice_list"><i class="fas fa-chalkboard-teacher"></i></a>
 			<a href="#"><i class="far fa-paper-plane"></i></a>
 		</div>
 	</footer>
