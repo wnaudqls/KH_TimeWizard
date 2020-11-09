@@ -48,7 +48,6 @@ public class FriendController {
 		/* session.setAttribute("flist", list); */
 		//return "redirect:/main";
 		
-		
 		//나와 친구가 아닌 유저들 리스트
 		List<FriendDto> list2 = friendBiz.selectListN(dto.getUser_no());
 		/* session.setAttribute("nlist",list2); */
@@ -56,6 +55,7 @@ public class FriendController {
 		Map<String, List<FriendDto>> map = new HashMap<String, List<FriendDto>>();
 		map.put("flist",list);
 		map.put("nlist",list2);
+		
 		return map;
 	}
 	@RequestMapping(value="/searchList")

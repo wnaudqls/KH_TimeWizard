@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,10 +37,16 @@
 
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
 	<div class="mypagebox">
 		<div class="mypagemenu" align="center">
-			<div class="profile" onclick="">프로필 사진부분</div>
+			<div class="profile" onclick="photo()">
+				${fileObj.file_title }
+			</div>
+			<form:form method="post" enctype="multipart/form-data" modelAttribute="uploadFile" action="upload">
+				<label><input type="file" name="file_title" /></label>
+				<p style="color: red; font-weight: bold;"><form:errors path="file_title" /></p>
+				<label><input type="submit" value="send" /></label>
+			</form:form>
 			
 			<table>
 				<tr>
@@ -120,6 +126,5 @@
 		<div class="home"><a href="main"><i class="fab fa-tumblr-square"></i></a></div>
 	</div>
 
-<jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>

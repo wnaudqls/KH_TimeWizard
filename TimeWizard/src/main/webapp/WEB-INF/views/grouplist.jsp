@@ -7,6 +7,9 @@
 <head>
 <link rel="stylesheet" type="text/css"
 	href="resources/css/grouplist.css">
+<link
+	href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&family=Source+Sans+Pro:wght@200;400&family=Staatliches&display=swap"
+	rel="stylesheet">
 <script src="https://kit.fontawesome.com/3049a69bf8.js"
 	crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -15,8 +18,10 @@
 <title>Insert title here</title>
 </head>
 <body>
+
 	<jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
-	<nav class="fixedtop">
+
+<!-- 	<nav class="fixedtop">
 		<div class="logo">
 			<a class="titlelogo" href="main"><img alt=""
 				src="resources/img/027-star 2.png"></a> <a class="titlename"
@@ -38,9 +43,22 @@
 					onclick="location.href='groupnewroom'">
 			</div>
 		</div>
-	</nav>
+	</nav> -->
+	
 	<section class="contentsection">
-		<div class="fixedmain">
+	<div class="menu">
+			<div id="searchArea">
+				<input type="text" id="search" placeholder="아이디 또는 방이름을 입력하세요" />
+				<button id="searchBtn">
+					<a><i class="fas fa-search"></i></a>
+				</button>
+			</div>
+			<div class="createroom">
+				<input type="button" value="만들기"
+					onclick="location.href='groupnewroom'">
+			</div>
+		</div>
+		<div class="contentmain">
 			<c:choose>
 				<c:when test="${empty list }">
 					<tr>
@@ -50,11 +68,14 @@
 				<c:otherwise>
 					<c:forEach var="dto" items="${list }">
 						<div class="grouproom">
+							<div class="groupimg">
+								img
+							</div>
 							<div class="grouptitle">
-								<span class="group1">방이름</span> <span class="group2">${dto.group_title }</span>
+								<span class="group2">${dto.group_title }</span>
 							</div>
 							<div class="groupmain">
-								<span class="group1">아이디</span> <span class="groupid">${dto.user_id }</span>
+								<span class="groupid">${dto.user_id }</span>
 							</div>
 							<div align="right">
 								<input type="button" value="접속하기"
@@ -67,7 +88,9 @@
 			</c:choose>
 		</div>
 	</section>
+	
 	<jsp:include page="friendlist.jsp"></jsp:include>
+	
 	<jsp:include page="footer.jsp"></jsp:include> 
 	
 
