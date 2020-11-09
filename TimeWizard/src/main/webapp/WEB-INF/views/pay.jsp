@@ -12,7 +12,7 @@
 <body>
 <%
 	PayDto paydto = (PayDto)request.getAttribute("dto");
-	String payname = (String)request.getAttribute("payname");
+	String price = (String)request.getAttribute("price");
 %>
 <script>
 IMP.init('imp26998959');
@@ -21,8 +21,8 @@ IMP.request_pay({
     pg : 'inicis', // version 1.1.0부터 지원.
     pay_method : 'card',
     merchant_uid : "merchant-" + new Date().getTime(),
-    name : '${payname}',
-    amount : 14000, //판매 가격
+    name : 'sdfsdf',
+    amount : "${price}", //판매 가격
     buyer_email : 'iamport@siot.do',
     buyer_name : '구매자이름',
     buyer_tel : '010-1234-5678',

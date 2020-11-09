@@ -107,10 +107,13 @@ function valideImageType(image) {
 		</div>
 		
 		<div class="mypagemenu" align="center">
+			<form>
+			<input type="hidden" name="user_no" value="${login.user_no }">
 			<table>
 				<tr>
 					<td><b>스트리밍 이용</b></td>
-					<td colspan="3" align="center"><input type="button" name="membership" value="9,900원" onclick="location.href='pay?user_no=${login.user_no}&payname=membership'"></td>
+					<!-- onclick="location.href='pay?user_no=${login.user_no}&payname=membership'"  -->
+					<td colspan="3" align="center"><input type="submit" name="membership" value="9900" onclick="javascript: form.action='/timewizard/pay';"></td>
 				</tr>
 				<tr>
 					<td align="center"><b>timelapse</b></td>
@@ -120,12 +123,18 @@ function valideImageType(image) {
 				</tr>
 				<tr>
 					<td align="center">( ${paydto.timelapse } )</td>
-					<td><input type="button" name="timelapse01" value="1000원" onclick="location.href='pay?user_no=${login.user_no}&payname=timelapse01'"></td>
-					<td><input type="button" name="timelapse05" value="5000원" onclick="location.href='pay?user_no=${login.user_no}&payname=timelapse05'"></td>
-					<td><input type="button" name="timelapse10" value="9000원" onclick="location.href='pay?user_no=${login.user_no}&payname=timelapse10'"></td>
+					<td><input type="submit" name="timelapse" value="1000" onclick="javascript: form.action='/timewizard/pay';"></td>
+					<td><input type="submit" name="timelapse" value="5000" onclick="javascript: form.action='/timewizard/pay';"></td>
+					<td><input type="submit" name="timelapse" value="9000" onclick="javascript: form.action='/timewizard/pay';"></td>
 				</tr>
 			</table>
+			</form>
 		</div>
+		<form action="pay">
+		<input type="hidden" name="user_no" value="${login.user_no }">
+			<input type="text" name="ddd" value="ddd">
+			<input type="submit" value="눌러">
+		</form>
 		<div class="home"><a href="main"><i class="fab fa-tumblr-square"></i></a></div>
 	</div>
 
