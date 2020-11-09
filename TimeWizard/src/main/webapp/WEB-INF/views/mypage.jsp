@@ -9,29 +9,29 @@
 <title>mypage</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&family=Source+Sans+Pro:wght@200;400&family=Staatliches&display=swap" rel="stylesheet">
-<link href="resources/css/userpage.css" rel="stylesheet">
+<link href="resources/css/mypage.css" rel="stylesheet">
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="resources/js/mypage.js" defer></script>
 <link href="/timewizard/css/actionpage.css" rel="stylesheet">
 <script src="https://kit.fontawesome.com/3049a69bf8.js" crossorigin="anonymous"></script>
-
 <script type="text/javascript">
 
-	const elImage = document.querySelector("#reviewImageFileOpenInput");
-	elImage.addEventListener("change", (evt) => {
-	  const image = evt.target.files[0];
-	  if(!validImageType(image)) { 
-	    console.warn("invalide image file type");
-	    return;
-	  }
-	});
-	
-	function valideImageType(image) {
-	  const result = ([ 'image/jpeg',
-	                    'image/png',
-	                    'image/jpg' ].indexOf(image.type) > -1);
-	  return result;
-	}
+const elImage = document.querySelector("#reviewImageFileOpenInput");
+elImage.addEventListener("change", (evt) => {
+  const image = evt.target.files[0];
+  if(!validImageType(image)) { 
+    console.warn("invalide image file type");
+    return;
+  }
+});
+
+function valideImageType(image) {
+  const result = ([ 'image/jpeg',
+                    'image/png',
+                    'image/jpg' ].indexOf(image.type) > -1);
+  return result;
+}
+
 	
 </script>
 
@@ -107,20 +107,20 @@
 		<div class="mypagemenu" align="center">
 			<table>
 				<tr>
-					<td><h5>스트리밍 이용</h5></td>
-					<td colspan="3" align="center">9,900원</td>
+					<td><b>스트리밍 이용</b></td>
+					<td colspan="3" align="center"><input type="button" value="9,900원" onclick="location.href='pay'"></td>
 				</tr>
 				<tr>
-					<td align="center"><h5>timelapse</h5></td>
+					<td align="center"><b>timelapse</b></td>
 					<td align="center">1</td>
 					<td align="center">5</td>
 					<td align="center">10</td>
 				</tr>
 				<tr>
 					<td>(남은 횟수)</td>
-					<td>1000원</td>
-					<td>5000원</td>
-					<td>9000원</td>
+					<td><input type="button" value="1000원" onclick="location.href='pay'"></td>
+					<td><input type="button" value="5000원" onclick="location.href='pay'"></td>
+					<td><input type="button" value="9000원" onclick="location.href='pay'"></td>
 				</tr>
 			</table>
 		</div>
