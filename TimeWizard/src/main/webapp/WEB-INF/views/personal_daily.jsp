@@ -42,6 +42,7 @@
 		</div>
 	</div>
 
+
 	<div class="modals__area">
 	    <div class="modal__area"></div>
 		<div class="modal__area"></div>
