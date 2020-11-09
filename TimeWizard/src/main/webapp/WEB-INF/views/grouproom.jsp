@@ -50,7 +50,7 @@
 			<div class="contentsection">
 				<h1 id="title">${dto.group_title }</h1>
 
-				<jsp:include page="rtcmulticonnectiontest.jsp"></jsp:include>
+				<jsp:include page="/WEB-INF/views/rtcmulticonnectiontest.jsp"></jsp:include>
 
 				<input type="hidden" value="${dto.group_title }" id="rid">
 				<!-- onkeyup: 키가 눌렀을때 나오는 이벤트(해당 태그를 선택한 상태여야함) -->
