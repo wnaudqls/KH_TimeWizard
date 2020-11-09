@@ -1,0 +1,305 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap');
+
+:root {
+    --text-color: #f0f4f5;
+    --background-color: #263343;
+	--accent-color: #ff6b6b;
+	--color: #E0E0E0;
+	
+	--light-color: whitesmoke;
+	--dark-color: #363636;
+	--primary-color: #00d1b2;
+	--primary-light-color: #ebfffc;
+	--primary-dark-color: #00947e;
+	--link-color: #3273dc;
+	--link-light-color: #eef3fc;
+	--link-dark-color: #2160c4;
+	--info-color: #3298dc;
+	--info-light-color: #eef6fc;
+	--info-dark-color: #1d72aa;
+	--success-color: #48c774;
+	--success-light-color: #effaf3;
+	--success-dark-color: #257942;
+	--warning-color: #ffdd57;
+	--warning-light-color: #fffbeb;
+	--warning-dark-color: #947600;
+	--danger-color: #f14668;
+	--danger-light-color: #feecf0;
+	--danger-dark-color: #cc0f35;
+}
+
+body{
+	font-family: 'Noto Sans KR';
+}
+
+button[type=button] {
+	align-items: center;
+	border: 1px solid transparent;
+	border-radius: 4px;
+	box-shadow: none;
+	display: inline-flex;
+	font-size: 0.8em;
+	height: 1.5em;
+	justify-content: flex-start;
+	line-height: 1.5;
+	padding-bottom: calc(0.5em - 1px);
+	padding-left: calc(0.75em - 1px);
+	padding-right: calc(0.75em - 1px);
+	padding-top: calc(0.5em - 1px);
+	position: relative;
+	vertical-align: top;
+	font-weight: 400;
+}
+button[type=button]:focus{
+	outline: none;
+}
+input, textarea, select {
+	background-color: white;
+	border-color: #dbdbdb;
+	border-radius: 4px;
+	color: #363636;
+	/* box-shadow: inset 0 0.0625em 0.125em rgba(10, 10, 10, 0.05); */
+}
+input:hover {
+	border-color: #b5b5b5;
+}
+input:focus, textarea:focus {
+	border-color: #3273dc;
+	box-shadow: 0 0 0 0.125em rgba(50, 115, 220, 0.25);
+}
+input[disabled], textarea[disabled] {
+	background-color: whitesmoke;
+	border-color: whitesmoke;
+	box-shadow: none;
+	color: #7a7a7a;
+}
+textarea{
+	resize:none;
+}
+
+/* * * * * * * * * * *
+ *      category     *
+ * * * * * * * * * * */
+.todo__block {
+  border-color: transparent;
+}
+
+.blaock__example {
+	background-color: var(--dark-color);
+	color: var(--light-color);
+}
+
+.block__basic {
+  background-color: var(--light-color);
+  color: var(--dark-color);
+}
+
+.block__study {
+	background-color: var(--primary-color);
+	color: white;
+}
+
+.block__health {
+	background-color: var(--danger-color);
+	color: white;
+}
+
+.block__life {
+	background-color: var(--success-color);
+	color: white;
+}
+
+.block__relax {
+	background-color: var(--link-color);
+	color: white;
+}
+
+.block__relation {
+  background-color: var(--warning-color);
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.block__etc {
+	background-color: slateblue;
+	color: white;
+}
+
+.notselected {
+	background-color: white;
+}
+
+/* * * * * * * * * * *
+ *      hashtag      *
+ * * * * * * * * * * */
+.todo__editable {
+	border: 1px solid #ddd;
+	padding: 10px;
+	font-size: 14px;
+}
+
+.label-info {
+	background-color: #5bc0de
+}
+
+.label {
+	display: inline;
+	padding: .2em .6em .3em;
+	font-size: 75%;
+	font-weight: 700;
+	line-height: 1;
+	color: #fff;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: baseline;
+	border-radius: .25em
+}
+
+a.label:focus, a.label:hover {
+	color: #fff;
+	text-decoration: none;
+	cursor: pointer
+}
+
+.label:empty {
+	display: none
+}
+
+.tag span[data-role="remove"] {
+	margin-left: 8px;
+	cursor: pointer;
+}
+
+.tag span[data-role="remove"]:after {
+	content: "x";
+	padding: 0px 2px;
+}
+
+.label-info {
+	background-color: #5bc0de
+}
+
+.label-info[href]:focus, .label-info[href]:hover {
+	background-color: #31b0d5
+}
+
+/* * * * * * * * * * *
+ *     date area     *
+ * * * * * * * * * * */
+ 
+ #con1 {
+ 	display: flex;
+ 	width: 100%;
+ }
+ 
+ .daily__part {
+ 	width: 100%;
+ 	padding: 20px 40px;
+ }
+ 
+.date__status{
+	justify-content: center;
+	display: flex;
+}
+.date__change {
+	justify-content: space-around;
+}
+ 
+ .list__area {
+ 	float: left;
+ 	width: 50%;
+ }
+ .todo__insert{
+ 	text-align: center;
+ }
+ 
+ .heatmap__area {
+ 	float: right;
+ 	width: 50%;
+ }
+
+
+/* * * * * * * * * * *
+ *      todo list    *
+ * * * * * * * * * * */
+ 
+ .todo__items {
+ 	margin: 1rem 0.5rem;
+ }
+.todo__item {
+	width: inherit;
+	display: flex;
+	height: 1.5rem;
+	justify-content: space-between;
+}
+
+.number__cell {
+	
+}
+.category__cell {
+	
+}
+.title__cell {
+	width: 50%;
+}
+.title__cell p {
+	margin: 0;
+}
+.stopwatch__cell {
+	
+}
+/* * * * * * * * * * *
+ *      1st modal    *
+ * * * * * * * * * * */
+ .modals__area{
+ }
+ .modal__overlay {
+	width: 100%; 
+	height: 100%; 
+	top: 0; 
+	bottom: 0; 
+	right: 0; 
+	left: 0;
+    z-index: 1042;
+    overflow: hidden;
+    position: fixed;
+    background: var(--dark-color);
+    opacity: .8;
+      display: block;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--dark-color);
+  padding:0;
+}
+ 
+ .modal__insert, .modal__detail {
+background-color: #FFF; 
+padding: 15px; 
+box-shadow: 0 0 8px rgba(0,0,0,0.6); 
+max-width: 500px; 
+width: 100%; 
+margin: auto; 
+position: fixed; 
+z-index: 1043; 
+left: 0; 
+right: 0; 
+top: 50%; 
+transform: translateY(-50%);
+-webkit-transform: translateY(-50%);
+-moz-transform: translateY(-50%);
+}
+
+/* * * * * * * * * * *
+ *   detail(update)  *
+ * * * * * * * * * * */
+ 
+ 
+/* * * * * * * * * * *
+ *        insert     *
+ * * * * * * * * * * */
+ 
+ 
+/* * * * * * * * * * *
+ *      2nd modal    *
+ * * * * * * * * * * */
+
