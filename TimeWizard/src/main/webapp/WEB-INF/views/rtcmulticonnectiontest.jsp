@@ -1,4 +1,3 @@
-<%@page import="com.minibean.timewizard.model.dto.UserInfoDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -7,9 +6,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://rawgit.com/muaz-khan/RTCMultiConnection/master/dist/RTCMultiConnection.min.js"></script>
-<script src="https://www.WebRTC-Experiment.com/RecordRTC.js"></script>
-<script src="https://www.webrtc-experiment.com/getHTMLMediaElement.js"></script>
 <script src="https://rtcmulticonnection.herokuapp.com/socket.io/socket.io.js"></script>
+<script src="https://www.WebRTC-Experiment.com/RecordRTC.js"></script>
 <style type="text/css">
 .local {
 	border: 1px solid red;
@@ -23,166 +21,97 @@
 </style>
 </head>
 <body>
-<%
-	UserInfoDto login = (UserInfoDto) session.getAttribute("login");
-	String name = login.getUser_name();
-%>
 	<div class="buttons__area">
-		<button id="enter-quit-button">Enter</button>
+		<button id="open-or-join-button">Open Or Join</button>
 	</div>
 	<div class="videos__container">
 		<div class="remote__videos__container"></div>
 		<div class="video__container local"></div>
 	</div>
 	<script type="text/javascript">
-	let link = window.location.href;
-	let name = "<%=name%>";
-	let roomid = ""; // group title?
-	let button = document.getElementById("enter-quit-button");
-	let localContainer = document.querySelector("div.local");
-	let remoteContainer = document.querySelector("div.remote__videos__container");
+	var connection = new RTCMultiConnection();
 	
-	let connection = new RTCMultiConnection();
+	//this line is VERY_important
 	connection.socketURL = 'https://rtcmulticonnection.herokuapp.com:443/';
-	connection.iceServers = [];
-	connection.iceServers.push({
-		urls: 'stun:stun.l.google.com:19302'
-	});
-	connection.iceServers.push({
-		url: 'turn:numb.viagenie.ca',
-		credential: 'muazkh',
-		username: 'webrtc@live.com'
-	});
+	
+	//if you want audio+video conferencing
 	connection.session = {
 	 audio: true,
 	 video: true
 	};
+	
 	connection.sdpConstraints.mandatory = {
 			OfferToReceiveAudio: true,
 			OfferToReceiveVideio: true
 	};
 	
-	connection.extra = {fullName: name};
-	connection.onstream = function(event){
-		/*
-		let existing = document.getElementById(event.streamid);
-		console.log(existing);
-    	if (existing && existing.parentNode) {
-			existing.parentNode.removeChild(existing);
-    	}
+	let localContainer = document.querySelector("div.local");
+	let remoteContainer = document.querySelector("div.remote__videos__container");
+    connection.onstream = function(event) {
+    	/* 
+    	 * var existing = document.getElementById(event.streamid);
+    	 * if (existing && existing.parentNode) {
+    	 * existing.parentNode.removeChild(existing);
+    	 * }
     	 */
-    	console.log(event);
-		event.mediaElement.removeAttribute("src");
-		event.mediaElement.removeAttribute("srcObject");
-		event.mediaElement.muted = true;
-		event.mediaElement.volume = 0;
-		
-		let video = document.createElement("video");
-		try {
-			video.setAttributeNode(document.createAttribute("autoplay"));
-			video.setAttributeNode(document.createAttribute("playsinline"));
-		} catch (e) {
-			video.setAttribute("autoplay", true);
-			video.setAttribute("playsinline", true);
-		}
-		if (event.type === "local") {
-			video.volume = 0;
-			try {
-				video.setAttributeNode(document.createAttribute("muted"));
-			} catch (e) {
-				video.setAttribute("muted", true);
-			}
-		}
-		video.srcObject = event.stream;
-    	console.log(event);
-		
-		var height =
-		  parseInt(connection.videosContainer.clientHeight / 3) - 100;
-		var width = 20;
-		var mediaElement = getHTMLMediaElement.getHTMLMediaElement(video, {
-			title: event.userid,
-			buttons: ["full-screen"],
-			width: width,
-			height: height,
-			showOnMouseEnter: false
-		});
-		
-		if (event.type == 'local'){
-			localContainer.appendChild(video);
-			localContainer.id = event.streamid;
-			let name_div = document.createElement("div");
-			name_div.setAttribute("class","video__name");
-			name_div.textContent = event.extra.fullName;
-			localContainer.appendChild(name_div);
-		} else if (event.type == 'remote'){
-			let remote_div = document.createElement("div");
-			remote_div.setAttribute("class","video__container remote");
-			remote_div.id = event.streamid;
-			let name_div = document.createElement("div");
-			name_div.setAttribute("class","video__name");
-			name_div.textContent = event.extra.fullName;
-			remote_div.appendChild(video);
-			remote_div.appendChild(name_div);
-			remoteContainer.appendChild(remote_div);
-		}
-    	console.log(event);
-	}
-	
-	connection.onstreamended = function(event) {
-	    let video_container = document.getElementById(event.streamid);
-	    if (video_container && video_container.parentNode) {
-	        video_container.parentNode.removeChild(video_container);
-	    }
-	};
+        event.mediaElement.removeAttribute("src");
+        event.mediaElement.removeAttribute("srcObject");
+        event.mediaElement.muted = true;
+        event.mediaElement.volume = 0;
+        
+        var video = document.createElement("video");
+        try {
+          video.setAttributeNode(document.createAttribute("autoplay"));
+          video.setAttributeNode(document.createAttribute("playsinline"));
+        } catch (e) {
+          video.setAttribute("autoplay", true);
+          video.setAttribute("playsinline", true);
+        }
+        if (event.type === "local") {
+          video.volume = 0;
+          try {
+            video.setAttributeNode(document.createAttribute("muted"));
+          } catch (e) {
+            video.setAttribute("muted", true);
+          }
+        }
+        video.srcObject = event.stream;
 
+        var height =
+          parseInt(connection.videosContainer.clientHeight / 3) - 100;
+        var width = 20;
+        var mediaElement = getHTMLMediaElement.getHTMLMediaElement(video, {
+          title: event.userid,
+          buttons: ["full-screen"],
+          width: width,
+          height: height,
+          showOnMouseEnter: false
+        });
+		if (event.type === 'local'){
+			localContainer.appendChild(event.mediaElement);
+		} else if (event.type === 'remote'){
+			let remote = document.createElement("div");
+			remote.setAttribute("class","video__container remote");
+			remote.appendChild(event.mediaElement);
+			remoteContainer.appendChild(remote);
+		}
+		/* 의미가 뭐지?? */
+        if (event.type === "local") {
+          connection.socket.on("disconnect", function() {
+            if (!connection.getAllParticipants().length) {
+              window.location.reload();
+            }
+          });
+        }
+     };
+	
+	let button = document.getElementById("open-or-join-button");
 	
 	button.addEventListener("click", () => {
-		if (button.textContent == 'Enter'){
-			connection.openOrJoin(roomid, function(isRoomCreated, roomid, error){
-				if(error){
-					alert("방을 생성할 수 없습니다.\n오류메시지 : " + error);
-					return;
-				}
-			});
-			button.textContent = 'Quit';
-		} else if (button.textContent == 'Quit'){
-			button.textContent = 'Enter';
-		}
+		button.disabled = true; // this.disabled not working
+		connection.openOrJoin('your-room-id');
 	});
-	</script>
-	<script type="text/javascript">
-	!(function() {
-	    var params = {},
-	        r = /([^&=]+)=?([^&]*)/g;
-
-	    function d(s) {
-	        return decodeURIComponent(s.replace(/\+/g, ' '));
-	    }
-	    var match, search = window.location.search;
-	    while (match = r.exec(search.substring(1)))
-	        params[d(match[1])] = d(match[2]);
-	    window.params = params;
-	})();
-    function addStreamStopListener(stream, callback) {
-        stream.addEventListener('ended', function() {
-            callback();
-            callback = function() {};
-        }, false);
-        stream.addEventListener('inactive', function() {
-            callback();
-            callback = function() {};
-        }, false);
-        stream.getTracks().forEach(function(track) {
-            track.addEventListener('ended', function() {
-                callback();
-                callback = function() {};
-            }, false);
-            track.addEventListener('inactive', function() {
-                callback();
-                callback = function() {};
-            }, false);
-        });
-    }
+	
 	</script>
 </body>
 </html>
