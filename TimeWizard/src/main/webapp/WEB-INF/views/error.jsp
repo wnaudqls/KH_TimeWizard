@@ -5,10 +5,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://kit.fontawesome.com/3914a9940d.js" crossorigin="anonymous"></script>
 </head>
 <body>
-
-	<h1>Error Page</h1>
+	
+	<h1><i class="fas fa-exclamation-triangle"></i></h1>
 	<p>${message }</p>
 	<script type="text/javascript">
 		window.addEventListener('DOMContentLoaded', () => {

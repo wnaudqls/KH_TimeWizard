@@ -36,14 +36,5 @@ public class HomeController {
 		return "home";
 	}
 	
-	
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String index() {
-		return "index";
-	}
-	@RequestMapping(value = "/socketTest", method = RequestMethod.GET)
-	public String socketTest() {
-		return "socketTest";
-	}
-	
+
 }
