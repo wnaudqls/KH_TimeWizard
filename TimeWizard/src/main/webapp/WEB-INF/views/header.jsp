@@ -12,6 +12,7 @@
 
 <%
 	UserInfoDto login = (UserInfoDto)session.getAttribute("login");
+	int user_no = login.getUser_no();
 	String user_distinct = login.getUser_distinct();
 	System.out.println("user role in header : " + login.getUser_role());
 %>

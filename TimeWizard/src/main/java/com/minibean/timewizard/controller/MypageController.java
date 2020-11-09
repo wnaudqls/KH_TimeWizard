@@ -5,6 +5,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -22,8 +24,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.WebUtils;
 
+import com.minibean.timewizard.model.biz.PayBiz;
 import com.minibean.timewizard.model.biz.UploadFileBiz;
 import com.minibean.timewizard.model.biz.UserInfoBiz;
+import com.minibean.timewizard.model.dto.PayDto;
 import com.minibean.timewizard.model.dto.UploadFileDto;
 import com.minibean.timewizard.model.dto.UserInfoDto;
 
@@ -38,9 +42,21 @@ public class MypageController {
 	@Autowired
 	private UploadFileBiz uploadfileBiz;
 	
-	@RequestMapping("/mypage/{user_no}")
-	public String Mypage(@PathVariable String user_no) {
+	@Autowired
+	private PayBiz payBiz;
+	
+	@RequestMapping("/mypage")
+	public String Mypage(HttpSession session,PayDto paydto, Model model) {
 		logger.info("[mypage]");
+		
+		UserInfoDto userinfodto = (UserInfoDto)session.getAttribute("login");
+		//int userno = Integer.parseInt(user_no);
+		paydto = payBiz.selectOne(userinfodto.getUser_no());
+		model.addAttribute("paydto", paydto);
+
+		logger.info("mypage user_no : "+paydto.getUser_no());
+		logger.info("mypage dto : "+paydto.getMembership());
+		
 		return "mypage";
 	}
 	
@@ -147,6 +163,7 @@ public class MypageController {
 		return "mypage";
 	}
 	
+	/////////////
 	//pay
 	@RequestMapping("/pay")
 	public String pay() {

@@ -1,3 +1,4 @@
+<%@page import="com.minibean.timewizard.model.dto.UserInfoDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -37,6 +38,7 @@ function valideImageType(image) {
 
 </head>
 <body>
+
 	<div class="mypagebox">
 		<div class="mypagemenu" align="center">
 			<div class="preview">
@@ -108,7 +110,7 @@ function valideImageType(image) {
 			<table>
 				<tr>
 					<td><b>스트리밍 이용</b></td>
-					<td colspan="3" align="center"><input type="button" value="9,900원" onclick="location.href='pay'"></td>
+					<td colspan="3" align="center"><input type="button" name="membership" value="9,900원" onclick="location.href='pay'"></td>
 				</tr>
 				<tr>
 					<td align="center"><b>timelapse</b></td>
@@ -117,10 +119,10 @@ function valideImageType(image) {
 					<td align="center">10</td>
 				</tr>
 				<tr>
-					<td>(남은 횟수)</td>
-					<td><input type="button" value="1000원" onclick="location.href='pay'"></td>
-					<td><input type="button" value="5000원" onclick="location.href='pay'"></td>
-					<td><input type="button" value="9000원" onclick="location.href='pay'"></td>
+					<td align="center">( ${paydto.timelapse } )</td>
+					<td><input type="button" name="timelapse01" value="1000원" onclick="location.href='pay'"></td>
+					<td><input type="button" name="timelapse05" value="5000원" onclick="location.href='pay'"></td>
+					<td><input type="button" name="timelapse10" value="9000원" onclick="location.href='pay'"></td>
 				</tr>
 			</table>
 		</div>
