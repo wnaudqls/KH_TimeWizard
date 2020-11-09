@@ -61,7 +61,7 @@
 	<script type="text/javascript">
 	let link = window.location.href;
 	let name = "<%=user_id%>";
-    let roomid = ${dto.group_title}; // group title?
+    let roomid = "${dto.group_title}"; // group title?
         
     let button = document.getElementById("enter-quit-button");
 	let localContainer = document.querySelector("div.local__video__area");
