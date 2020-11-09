@@ -112,7 +112,6 @@ function valideImageType(image) {
 			<table>
 				<tr>
 					<td><b>스트리밍 이용</b></td>
-					<!-- onclick="location.href='pay?user_no=${login.user_no}&payname=membership'"  -->
 					<td colspan="3" align="center"><input type="submit" name="membership" value="9900" onclick="javascript: form.action='/timewizard/pay';"></td>
 				</tr>
 				<tr>

@@ -46,12 +46,12 @@ public class MypageController {
 	private PayBiz payBiz;
 	
 	@RequestMapping("/mypage")
-	public String Mypage(HttpSession session,PayDto paydto, Model model) {
+	public String Mypage(HttpSession session, Model model) {
 		logger.info("[mypage]");
 		
 		UserInfoDto userinfodto = (UserInfoDto)session.getAttribute("login");
 		//int userno = Integer.parseInt(user_no);
-		paydto = payBiz.selectOne(userinfodto.getUser_no());
+		PayDto paydto = payBiz.selectOne(userinfodto.getUser_no());
 		model.addAttribute("paydto", paydto);
 
 		logger.info("mypage user_no : "+paydto.getUser_no());
@@ -168,17 +168,26 @@ public class MypageController {
 	@RequestMapping("/pay")
 	public String pay(int user_no, Model model,PayDto paydto,String name,String membership,String timelapse ) {
 		logger.info("[pay controller]");
-		logger.info("name : "+);
+		
 		logger.info("membership : "+membership);
 		logger.info("timelapse : "+timelapse);
 		
 		paydto = payBiz.selectOne(user_no);
 		logger.info("****:"+paydto.getTimelapse()+","+paydto.getMembership());
 		
-		model.addAttribute("dto",paydto);
-		model.addAttribute("price",membership);
+		if(membership != null) { //membership을 결제하려면
+			model.addAttribute("dto",paydto);
+			model.addAttribute("price",membership);
+			return "pay";
+			
+		}else if(!timelapse.isEmpty()) {//timelapse를 결제하려면
+			model.addAttribute("dto",paydto);
+			model.addAttribute("price",timelapse);
+			return "pay";
+		}
 		
-		return "pay";
+		return "redirect:mypage";
+		
 	}
 
 }
