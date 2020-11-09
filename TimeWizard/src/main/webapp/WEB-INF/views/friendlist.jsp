@@ -155,7 +155,7 @@ function friendlist(){
 
 <aside class="friendsbar">
 		<p>friends</p>
-		<input type="text" placeholder="search.." id="search_text" />
+		<input type="text" placeholder="search.." id="search_text" onkeyup="enterkey();" />
 		<button id="search_button" onclick="searchfriend();"><i class="fas fa-search" ></i>
 		</button>
 		<button id="search_button" onclick="reset();">
@@ -391,6 +391,12 @@ function friendDeny(fno,fname){
       	  }, 3000);
         	
        		
+}
+function enterkey(){
+	if (window.event.keyCode == 13) {
+		searchfriend();
+	}
+	
 }
 </script>
 </body>
