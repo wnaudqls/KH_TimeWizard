@@ -130,11 +130,6 @@ function valideImageType(image) {
 			</table>
 			</form>
 		</div>
-		<form action="pay">
-		<input type="hidden" name="user_no" value="${login.user_no }">
-			<input type="text" name="ddd" value="ddd">
-			<input type="submit" value="눌러">
-		</form>
 		<div class="home"><a href="main"><i class="fab fa-tumblr-square"></i></a></div>
 	</div>
 

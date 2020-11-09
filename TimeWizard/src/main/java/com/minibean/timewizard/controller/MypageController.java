@@ -168,7 +168,7 @@ public class MypageController {
 	@RequestMapping("/pay")
 	public String pay(int user_no, Model model,PayDto paydto,String name,String membership,String timelapse ) {
 		logger.info("[pay controller]");
-		logger.info("name : "+name);
+		logger.info("name : "+);
 		logger.info("membership : "+membership);
 		logger.info("timelapse : "+timelapse);
 		
