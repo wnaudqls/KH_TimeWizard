@@ -14,6 +14,7 @@
 		<typeAlias type="com.minibean.timewizard.model.dto.FriendDto" alias="FriendDto"/>
 		<typeAlias type="com.minibean.timewizard.model.dto.ReplyDto" alias="ReplyDto"/>
 		<typeAlias type="com.minibean.timewizard.model.dto.WeeklyDto" alias="WeeklyDto"/>
+		<typeAlias type="com.minibean.timewizard.model.dto.PayDto" alias="PayDto"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="/mybatis/user_info-mapper.xml" />
@@ -24,5 +25,6 @@
 		<mapper resource="/mybatis/notice-mapper.xml"/>
 		<mapper resource="/mybatis/friend-mapper.xml"/>
 		<mapper resource="/mybatis/reply-mapper.xml"/>
+		<mapper resource="/mybatis/pay-mapper.xml"/>
 	</mappers>
 </configuration>
