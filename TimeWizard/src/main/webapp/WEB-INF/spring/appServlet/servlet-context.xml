@@ -37,6 +37,12 @@
 	<beans:property name="defaultEncoding" value="UTF-8"></beans:property>
 	</beans:bean>
 	
+	<!-- 프로필 사진 저장 경로
+	<beans:bean id = "uploadPath" class="java.lang.String">
+	<beans:constructor-arg value="C:\KHDev\WorkSpace_Final\KH_TimeWizard\TimeWizard\src\main\webapp\resources\storage">
+	</beans:constructor-arg>
+	</beans:bean> -->
+	
 	<context:component-scan base-package="com.minibean.timewizard" />
 
 	<!-- WEBSOCKET 추가 -->

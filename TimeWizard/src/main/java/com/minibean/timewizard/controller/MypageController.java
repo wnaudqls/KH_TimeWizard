@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.WebUtils;
@@ -78,13 +79,13 @@ public class MypageController {
 		}
 	}
 	
-	@RequestMapping("/form")
+	@RequestMapping(value="/form")
 	public String uploadForm() {
-		return "upload";
+		return "mypage";
 	}
 	
-	@RequestMapping("/upload")
-	public String fileUpload(HttpServletRequest request, Model model, UploadFileDto dto, BindingResult result, UserInfoDto user_no){
+	@RequestMapping(value="/upload")
+	public String fileUpload(HttpServletRequest request, Model model, UploadFileDto dto, BindingResult result) {
 		
 		uploadfileBiz.validate(dto, result);
 		
@@ -97,6 +98,7 @@ public class MypageController {
 		
 		UploadFileDto fileObj = new UploadFileDto();
 		fileObj.setFile_title(file_title);
+		fileObj.setUser_no(dto.getUser_no());
 		
 		// upload
 		InputStream inputStream = null;
@@ -105,13 +107,13 @@ public class MypageController {
 		
 		try {
 			inputStream = file.getInputStream();
-			String path = WebUtils.getRealPath(request.getSession().getServletContext(), "/resources/storage");
+			String path = WebUtils.getRealPath(request.getSession().getServletContext(), "/resources/profileview");
 			
 			System.out.println("업로드 될 실제 경로 : " + path);
 			
-			File storage = new File(path);
-			if (!storage.exists()) {
-				storage.mkdir();
+			File profileview = new File(path);
+			if (!profileview.exists()) {
+				profileview.mkdir();
 			}
 			
 			File newFile = new File(path + "/" + file_title);
@@ -141,9 +143,7 @@ public class MypageController {
 		
 		model.addAttribute("fileObj", fileObj);
 		
-		logger.info("profile user_no :"+user_no);
-		
-		return "redirect:mypage?user_no";
+		return "mypage";
 	}
 
 }
