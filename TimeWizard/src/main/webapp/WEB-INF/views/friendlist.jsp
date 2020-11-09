@@ -134,7 +134,6 @@ function friendlist(){
 		<button id="search_button" onclick="reset();">
 			초기화
 		</button>
-
 		<p><b>Your Friends</b></p>
 		<!-- 나와 친구인 유저들 -->
 		<div class="friendlist">
