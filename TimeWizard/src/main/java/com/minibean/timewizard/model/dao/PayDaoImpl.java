@@ -35,17 +35,17 @@ public class PayDaoImpl implements PayDao {
 	
 	
 	@Override
-	public PayDto selectOne(int user_no) {
+	public List<PayDto> selectOne(int user_no) {
 		logger.info("pay selectOne daoimple - "+user_no);
-		PayDto dto = null;
+		List<PayDto> list = new ArrayList<PayDto>();
 		try {
-			dto = sqlSession.selectOne(NAMESPACE+"PayselectOne", user_no);
+			list = sqlSession.selectOne(NAMESPACE+"PayselectOne", user_no);
 		} catch (Exception e) {
 			logger.info("[ERROR] pay selectOne daoimpl");
 			e.printStackTrace();
 		}
 		
-		return dto;
+		return list;
 	}
 
 

@@ -3,12 +3,12 @@
 <mapper namespace="com.minibean.timewizard.pay">
 
 <select id="PayselectList" resultType="PayDto">
-	SELECT USER_NO, MEMBERSHIP, TIMELAPSE
+	SELECT USER_NO, PAY_NAME, STATUS
 	FROM PAY
 </select>
 
 <select id="PayselectOne" resultType="PayDto" parameterType="int">
-	SELECT 	USER_NO, MEMBERSHIP, TIMELAPSE
+	SELECT 	USER_NO, PAY_NAME, STATUS
 	FROM PAY
 	WHERE USER_NO = #{user_no}
 </select>

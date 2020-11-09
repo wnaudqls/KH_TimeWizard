@@ -7,6 +7,6 @@ import com.minibean.timewizard.model.dto.PayDto;
 public interface PayBiz {
 	
 	public List<PayDto> selectList();
-	public PayDto selectOne(int user_no);
+	public List<PayDto> selectOne(int user_no);
 
 }

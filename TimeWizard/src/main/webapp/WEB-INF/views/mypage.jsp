@@ -15,6 +15,7 @@
 <script src="resources/js/mypage.js" defer></script>
 <link href="/timewizard/css/actionpage.css" rel="stylesheet">
 <script src="https://kit.fontawesome.com/3049a69bf8.js" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script type="text/javascript">
 
 const elImage = document.querySelector("#reviewImageFileOpenInput");
@@ -33,6 +34,36 @@ function valideImageType(image) {
   return result;
 }
 
+//결제 pay
+let user_name = ${login.user_name};
+let membership;
+
+function pay(e){
+	var IMP = window.IMP;
+	IMP.init('imp26998959');
+	
+	IMP.request_pay({
+	    pg : 'inicis', // version 1.1.0부터 지원.
+	    pay_method : 'card',
+	    merchant_uid : "timewizard-" + new Date().getTime(),
+	    name : $(e).attr("name"), //상품이름
+	    amount : $(e).val(), //판매 가격
+	    buyer_email : '${login.user_email}',
+	    buyer_name : '${login.user_name}',
+	}, function(rsp) {
+	    if ( rsp.success ) {
+	        var msg = '결제가 완료되었습니다.';
+	        msg += '고유ID : ' + rsp.imp_uid;
+	        msg += '상점 거래ID : ' + rsp.merchant_uid;
+	        msg += '결제 금액 : ' + rsp.paid_amount;
+	        msg += '카드 승인번호 : ' + rsp.apply_num;
+	    } else {
+	        var msg = '결제에 실패하였습니다.';
+	        msg += '에러내용 : ' + rsp.error_msg;
+	    }
+	    alert(msg);
+	});
+}
 	
 </script>
 
@@ -112,7 +143,7 @@ function valideImageType(image) {
 			<table>
 				<tr>
 					<td><b>스트리밍 이용</b></td>
-					<td colspan="3" align="center"><input type="submit" name="membership" value="9900" onclick="javascript: form.action='/timewizard/pay';"></td>
+					<td colspan="3" align="center"><input type="button" class="payname"  name="membership" value="9900" onclick="pay(this);"></td>
 				</tr>
 				<tr>
 					<td align="center"><b>timelapse</b></td>
@@ -121,10 +152,10 @@ function valideImageType(image) {
 					<td align="center">10</td>
 				</tr>
 				<tr>
-					<td align="center">( ${paydto.timelapse } )</td>
-					<td><input type="submit" name="timelapse" value="1000" onclick="javascript: form.action='/timewizard/pay';"></td>
-					<td><input type="submit" name="timelapse" value="5000" onclick="javascript: form.action='/timewizard/pay';"></td>
-					<td><input type="submit" name="timelapse" value="9000" onclick="javascript: form.action='/timewizard/pay';"></td>
+					<td align="center">(  )</td>
+					<td><input type="button" class="payname" name="timelapse" value="1000" onclick="pay(this);"></td>
+					<td><input type="button" class="payname" name="timelapse" value="5000" onclick="pay(this);"></td>
+					<td><input type="button" class="payname" name="timelapse" value="9000" onclick="pay(this);"></td>
 				</tr>
 			</table>
 			</form>

@@ -6,7 +6,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -51,11 +53,10 @@ public class MypageController {
 		
 		UserInfoDto userinfodto = (UserInfoDto)session.getAttribute("login");
 		//int userno = Integer.parseInt(user_no);
-		PayDto paydto = payBiz.selectOne(userinfodto.getUser_no());
-		model.addAttribute("paydto", paydto);
+		List<PayDto> list = payBiz.selectOne(userinfodto.getUser_no());
+		model.addAttribute("list", list);
 
-		logger.info("mypage user_no : "+paydto.getUser_no());
-		logger.info("mypage dto : "+paydto.getMembership());
+		logger.info("mypage dto : "+list);
 		
 		return "mypage";
 	}
@@ -166,27 +167,34 @@ public class MypageController {
 	/////////////
 	//pay
 	@RequestMapping("/pay")
-	public String pay(int user_no, Model model,PayDto paydto,String name,String membership,String timelapse ) {
+	public Map<String, Object> pay(int user_no, Model model,PayDto paydto,String name,String membership,String timelapse ) {
 		logger.info("[pay controller]");
 		
 		logger.info("membership : "+membership);
 		logger.info("timelapse : "+timelapse);
 		
-		paydto = payBiz.selectOne(user_no);
-		logger.info("****:"+paydto.getTimelapse()+","+paydto.getMembership());
+		List<PayDto> list = payBiz.selectOne(user_no);
+		logger.info("getPay_name : "+paydto.getPay_name());
+		
+		Map<String, Object> map = new HashMap<String, Object>();
 		
 		if(membership != null) { //membership을 결제하려면
-			model.addAttribute("dto",paydto);
-			model.addAttribute("price",membership);
-			return "pay";
+			//model.addAttribute("dto",paydto);
+			//model.addAttribute("price",membership);
+			map.put("list",list);
+			map.put("price",membership);
+			
+		
 			
 		}else if(!timelapse.isEmpty()) {//timelapse를 결제하려면
-			model.addAttribute("dto",paydto);
-			model.addAttribute("price",timelapse);
-			return "pay";
+			//model.addAttribute("dto",paydto);
+			//model.addAttribute("price",timelapse);
+			map.put("list",list);
+			map.put("price", timelapse);
+			
 		}
-		
-		return "redirect:mypage";
+		logger.info("map : "+map);
+		return map;
 		
 	}
 

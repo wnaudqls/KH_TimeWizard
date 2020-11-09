@@ -9,5 +9,5 @@ public interface PayDao {
 	String NAMESPACE = "com.minibean.timewizard.pay.";
 	
 	public List<PayDto> selectList();
-	public PayDto selectOne(int user_no);
+	public List<PayDto> selectOne(int user_no);
 }

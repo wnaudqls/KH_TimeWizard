@@ -21,7 +21,7 @@ public class PayBizImpl implements PayBiz {
 	}
 
 	@Override
-	public PayDto selectOne(int user_no) {
+	public List<PayDto> selectOne(int user_no) {
 		
 		return paydao.selectOne(user_no);
 	}
