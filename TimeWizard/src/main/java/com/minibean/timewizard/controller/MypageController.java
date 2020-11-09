@@ -166,8 +166,14 @@ public class MypageController {
 	/////////////
 	//pay
 	@RequestMapping("/pay")
-	public String pay() {
+	public String pay(int user_no, String payname, Model model) {
 		logger.info("[pay controller]");
+		logger.info("membership : "+payname);
+		
+		PayDto paydto = payBiz.selectOne(user_no);
+		logger.info("****:"+paydto.getTimelapse()+","+paydto.getMembership());
+		model.addAttribute("dto",paydto);
+		model.addAttribute("payname",payname);
 		return "pay";
 	}
 

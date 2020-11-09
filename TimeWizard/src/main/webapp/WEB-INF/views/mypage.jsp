@@ -110,7 +110,7 @@ function valideImageType(image) {
 			<table>
 				<tr>
 					<td><b>스트리밍 이용</b></td>
-					<td colspan="3" align="center"><input type="button" name="membership" value="9,900원" onclick="location.href='pay'"></td>
+					<td colspan="3" align="center"><input type="button" name="membership" value="9,900원" onclick="location.href='pay?user_no=${login.user_no}&payname=membership'"></td>
 				</tr>
 				<tr>
 					<td align="center"><b>timelapse</b></td>
@@ -120,9 +120,9 @@ function valideImageType(image) {
 				</tr>
 				<tr>
 					<td align="center">( ${paydto.timelapse } )</td>
-					<td><input type="button" name="timelapse01" value="1000원" onclick="location.href='pay'"></td>
-					<td><input type="button" name="timelapse05" value="5000원" onclick="location.href='pay'"></td>
-					<td><input type="button" name="timelapse10" value="9000원" onclick="location.href='pay'"></td>
+					<td><input type="button" name="timelapse01" value="1000원" onclick="location.href='pay?user_no=${login.user_no}&payname=timelapse01'"></td>
+					<td><input type="button" name="timelapse05" value="5000원" onclick="location.href='pay?user_no=${login.user_no}&payname=timelapse05'"></td>
+					<td><input type="button" name="timelapse10" value="9000원" onclick="location.href='pay?user_no=${login.user_no}&payname=timelapse10'"></td>
 				</tr>
 			</table>
 		</div>

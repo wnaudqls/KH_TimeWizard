@@ -1,3 +1,4 @@
+<%@page import="com.minibean.timewizard.model.dto.PayDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -9,14 +10,18 @@
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 </head>
 <body>
+<%
+	PayDto paydto = (PayDto)request.getAttribute("dto");
+	String payname = (String)request.getAttribute("payname");
+%>
 <script>
 IMP.init('imp26998959');
 
 IMP.request_pay({
     pg : 'inicis', // version 1.1.0부터 지원.
     pay_method : 'card',
-    merchant_uid : 'merchant_' + new Date().getTime(),
-    name : '주문명:결제테스트',
+    merchant_uid : "merchant-" + new Date().getTime(),
+    name : '${payname}',
     amount : 14000, //판매 가격
     buyer_email : 'iamport@siot.do',
     buyer_name : '구매자이름',
