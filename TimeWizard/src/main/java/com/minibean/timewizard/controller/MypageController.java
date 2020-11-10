@@ -92,7 +92,7 @@ public class MypageController {
 		if(!(user_pw.equals(new_pw))) {
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
-			out.println("<script>alert('비밀번호가 불일치합니다.');</script>");
+			out.println("<script>alert('비밀번호가 불일치해서 탈퇴에 실패했습니다.');</script>");
 			out.flush();
 
 			return "mypage";
@@ -130,14 +130,16 @@ public class MypageController {
 		String user_pw = user.getUser_pw();
 		String new_pw = dto.getUser_pw();
 		
-		//비밀번호 불일치로 암호 변경 실패
+		//비밀번호 불일치로 암호 변경 실패 (모달창이 뜨지 않음)
 		if(!(user_pw.equals(new_pw))) {
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
-			out.println("<script>alert('비밀번호가 불일치합니다.');</script>");
+			out.println("<script>alert('비밀번호가 불일치해서 암호 변경에 실패했습니다.');</script>");
 			out.flush();
-			return "mypage";
+			return "userpwchange";
 		} else {
+			
+			// 비밀번호 일치하면 모달창 띄우기
 			
 			// if (새 비밀번호랑 새 비밀번호 확인이 같은 경우) {
 	
