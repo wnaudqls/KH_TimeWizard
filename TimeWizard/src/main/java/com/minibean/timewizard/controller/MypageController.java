@@ -53,16 +53,6 @@ public class MypageController {
 		logger.info("[mypage]");
 		
 		UserInfoDto userinfodto = (UserInfoDto)session.getAttribute("login");
-<<<<<<< HEAD
-		//int userno = Integer.parseInt(user_no);
-		PayDto dto = payBiz.selectOne(userinfodto.getUser_no());
-		model.addAttribute("dto", dto);
-
-		logger.info("mypage user_no : "+userinfodto.getUser_no());
-		// logger.info("mypage dto : "+dto.getUser_no()+", "+dto.getMembership()+", "+dto.getTimelapse());
-		
-		return "mypage";
-=======
 	
 			PayDto dto = payBiz.selectOne(userinfodto.getUser_no());
 			if(dto==null) {
@@ -76,7 +66,7 @@ public class MypageController {
 				return "mypage";
 					}
 			return "mypage";
->>>>>>> main
+
 	}
 	
 
