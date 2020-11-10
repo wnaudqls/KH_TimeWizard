@@ -259,44 +259,49 @@ $(document).ready(function() {
 
 // 비밀번호 체크
 	$(function() {
-		$("#alert-success").hide();
-		$("#alert-danger").hide();
-		$("#alert-check").hide();
+		//$("#alert-success").hide();
+		//$("#alert-danger").hide();
+		//$("#alert-check").hide();
 		$("input").keyup(function() {
-			var pwd1 = $("#pwd1").val();
-			var pwd2 = $("#pwd2").val();
+			var pwd1 = $("#pwd1").val().trim();
+			var pwd2 = $("#pwd2").val().trim();
 			
 			let num = /[0-9]/g;
 			let eng = /[a-z]/ig;
 			let spe = /[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi;
 			let blank = /₩s/;
 			
-			//두 비밀번호가 입력이 됐을때,
-			if (pwd1 != "" || pwd2 != "") {
-				if (pwd1 == pwd2) {
-					$("#pw_text").html('비밀번호가 일치합니다.');
-					$("#pw_text").css('color','navy');
-					//$("#alert-success").show();
-					//$("#alert-danger").hide();
-					//$("#alert-check").hide();
-					$("#submit").removeAttr("disabled");
-				} else {  //두 비밀번호가 다르면,
-					$("#pw_text").html('비밀번호가 일치하지 않습니다.');
-					$("#pw_text").css('color','red');
-					//$("#alert-success").hide();
-					//$("#alert-danger").show();
-					//$("#alert-check").hide();
-					$("#submit").attr("disabled", "disabled");
-				}
-				
+			if ((pwd1 == pwd2) && pwd1 != "") {
+				$("#pw_text").html('비밀번호가 일치합니다.');
+				$("#pw_text").css('color','navy');
+				//$("#alert-success").show();
+				//$("#alert-danger").hide();
+				//$("#alert-check").hide();
+				$("#submit").removeAttr("disabled");
+			
+			//두 비밀번호가 다르면,
+			} else if((pwd1 != pwd2) && pwd2 != ""){  
+				$("#pw_text").html('비밀번호가 일치하지 않습니다.');
+				$("#pw_text").css('color','red');
+				//$("#alert-success").hide();
+				//$("#alert-danger").show();
+				//$("#alert-check").hide();
+				$("#submit").attr("disabled", "disabled");
+					
+			}else if(pwd1.length < 6 || pwd1.length > 10 || pwd2.length < 6 || pwd2.length > 10){
+				$("#pw_text").html('6~10자 이내로 입력해주세요.');
+				$("#pw_text").css('color','red');
+				$("#submit").attr("disabled", "disabled");
+			}
 			//비밀번호가 입력이 안됐을때,
-			}else if(pwd1 == ""){
+			else if(pwd1 == "" || pwd2 == ""){
+				$("#pw_text").html('비밀번호를 입력해주세요.');
+				$("#pw_text").css('color','red');
 				//$("#password_check").show();
 				//$("#alert-success").hide();
 				//$("#alert-danger").hide();
-			}else if(pdw1.length <6 || pwd1 >10){
-				
 			}
+			
 		});
 	});
 
