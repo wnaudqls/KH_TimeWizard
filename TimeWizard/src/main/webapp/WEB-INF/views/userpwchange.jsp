@@ -12,6 +12,7 @@
 <link href="/timewizard/css/actionpage.css" rel="stylesheet">
 <script src="https://kit.fontawesome.com/3049a69bf8.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" type="text/css" href="resources/css/userpwchange.css">
+<script src="http://code.jquery.com/jquery-3.5.1.js"></script>
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
@@ -31,7 +32,7 @@
 					<input class="form-control" type="text" id="user_name" name="user_name" value="${dto.user_name }" readonly="readonly"/>
 				</div>
 				<div class="pwchangebox">
-					<button type="button" name="disablebtn" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-value="${dto.user_no }">비밀번호 변경하기</button>
+					<button type="button" name="disablebtn" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-value="${dto.user_no }">암호 변경하기</button>
 					<button class="cancle" type="button" onclick="location.href='mypage'">취소</button>
 				</div>
 			<div>
@@ -50,9 +51,9 @@
 								<h4 class="modal-title" id="myModalLabel">회원 비밀번호 변경</h4>
 							</div>
 							<div class="modal-body">
-								새 비밀번호 : <input type="text" id="newpw">
-					        	새 비밀번호 확인 : <input type="text" id="newpwagain">
-					        	비밀번호를 변경하시겠습니까?
+								새 비밀번호 : <input type="text" id="newpw"><br/>
+					        	새 비밀번호 확인 : <input type="text" id="newpwagain"><br/>
+					        	비밀번호를 변경하시겠습니까?<br/>
 					        	<input type="hidden" id="usernewpw" name="user_no">
 			        		</div>
 							<div class="modal-footer">
@@ -71,12 +72,13 @@
 		</section>
 		
 <script type="text/javascript">
+/* 모달창 jquery */
 	$(document).ready(function() {
 		var result = '<c:out value="${result}"/>';
 		checkModal(result);
 		history.replaceState({}, null, null);
 		function checkModal(result) {
-			if (result === '' || history.state) {
+			if (result === '' || history.state != null) {
 				return;
 			}
 			if (parseInt(result) > 0) {
@@ -84,7 +86,7 @@
 			}
 			$("#myModal").modal("show");
 		}
-			/* 모달창 jquery */
+	}
 </script>
 		
 		<jsp:include page="footer.jsp"></jsp:include>

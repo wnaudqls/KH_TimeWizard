@@ -58,7 +58,7 @@ public class MypageController {
 		model.addAttribute("dto", dto);
 
 		logger.info("mypage user_no : "+userinfodto.getUser_no());
-		logger.info("mypage dto : "+dto.getUser_no()+", "+dto.getMembership()+", "+dto.getTimelapse());
+		// logger.info("mypage dto : "+dto.getUser_no()+", "+dto.getMembership()+", "+dto.getTimelapse());
 		
 		return "mypage";
 	}
