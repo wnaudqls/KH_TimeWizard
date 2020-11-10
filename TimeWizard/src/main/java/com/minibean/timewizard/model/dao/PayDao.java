@@ -13,7 +13,9 @@ public interface PayDao {
 
 	public PayDto selectOne(int user_no);
 	
-	public int updateMembership(int user_no);
+	public int insertPay(PayDto dto);
+	
+	public int updateMembership(PayDto dto);
 	public int updateTimelapse(PayDto dto);
 
 }
