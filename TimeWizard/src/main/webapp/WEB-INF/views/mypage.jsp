@@ -141,29 +141,38 @@ function pay(e){
 			<form>
 			<input type="hidden" name="user_no" value="${login.user_no }">
 			<table>
+			<c:choose>
+			<c:when test="${dto.membership eq 'N' }">  
 				<tr>
 					<td><b>스트리밍 이용</b></td>
 					<td colspan="3" align="center"><input type="button" class="payname"  name="membership" value="9900" onclick="pay(this);"></td>
 				</tr>
+			</c:when>
+			<c:otherwise>
+				<tr>
+					<td><b>스트리밍 이용</b></td>
+					<td colspan="3" align="center"><input type="button" class="payname"  name="membership" value="9900" onclick="pay(this);" disabled></td>
+				</tr>
+			</c:otherwise>
+			</c:choose>
 				<tr>
 					<td align="center"><b>timelapse</b></td>
 					<td align="center">1</td>
 					<td align="center">5</td>
 					<td align="center">10</td>
 				</tr>			
-					<c:forEach items="${list }" var="list">
-						<c:if test="${list.pay_name eq 'TIMELAPSE'}">
+				
 							<tr>
-								<td align="center">( ${list. status} )</td>	
+								<td align="center">( ${dto.timelapse } )</td>	
 								<td><input type="button" class="payname" name="timelapse" value="1000" onclick="pay(this);"></td>
 								<td><input type="button" class="payname" name="timelapse" value="5000" onclick="pay(this);"></td>
 								<td><input type="button" class="payname" name="timelapse" value="9000" onclick="pay(this);"></td>
 							</tr>
-						</c:if>
-				</c:forEach>
+						
 			</table>
 			</form>
 		</div>
+		<input type="text" value="${dto.membership }">
 		<div class="home"><a href="main"><i class="fab fa-tumblr-square"></i></a></div>
 	</div>
 

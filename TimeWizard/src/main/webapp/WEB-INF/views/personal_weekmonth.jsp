@@ -7,10 +7,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://unpkg.com/frappe-charts@1.2.4/dist/frappe-charts.min.iife.js"></script>
+<script src="https://unpkg.com/frappe-charts@1.1.0"></script>
 </head>
 <body>
-<!-- maincontroller에서 받은 ㄱ값들 -->
 <%	
 	UserInfoDto linked = (UserInfoDto) session.getAttribute("linked");
 	UserInfoDto login = (UserInfoDto)session.getAttribute("login");
