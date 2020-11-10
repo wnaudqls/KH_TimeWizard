@@ -168,17 +168,21 @@ public class MypageController {
 	/////////////
 	//pay
 	@RequestMapping("/pay")
-	public String pay(int user_no) {
+	public String pay(int user_no, String price, String pay_name) {
 		logger.info("[pay controller]");
 		
 		//멤버쉽결제
+	
 		int res = payBiz.updateMembership(user_no);
 		logger.info("res : "+res);
+		logger.info("price : "+price);
+		logger.info("pay_name : "+pay_name);
 		if(res > 0) {
 			return "redirect:mypage";
 		}else {
 			return "mypage";
 		}
+		
 	
 		
 	}

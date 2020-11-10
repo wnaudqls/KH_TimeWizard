@@ -18,6 +18,8 @@ VALUES(4,'Y',5);
 select *
 from pay
 where user_no = 3
+
+delete from pay where user_no=3;
 -------------------------
 CREATE TABLE PAY(
 	USER_NO NUMBER NOT NULL,
