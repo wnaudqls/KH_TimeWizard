@@ -207,30 +207,50 @@ a {
 <script type="text/javascript">
 
 //아이디 중복체크 입니다.
-var idPass;
-var idRegex = /^[a-zA-Z0-9]{4,12}$/;
+
 
 $(document).ready(function() {
-
 	$('input[name=user_id]').blur(function() {
 		var idCheck = $('input[name=user_id]').val();
-		if (idRegex.test(idCheck)) {
+		if(idCheck == ""){
+			alert("아이디를 입력해주세요!");
+		}
+		
+		
 			$.ajax({
 
 				url : 'idcheck?user_id=' + idCheck,
 				type : 'get',
 
 				success : function(data) {
+					var idPass;
+					var idRegex = /^[A-Za-z0-9]{4,12}$/;
+					var idRegex2 = /[a-zA-Z0-9]/;
+					var han = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+					var han2 = /^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{4,12}$/;
 					var color;
 					var ans;
-					if (data > 0) {
+					if (data == 1) {
 						ans = '이미 존재하는 아이디입니다.';
-						color = '#FF6600';
+						color = 'red';
 						idPass = false;
 					} else {
+						if(idRegex.test(idCheck) && !han.test(idCheck)){
 						ans = '회원가입 가능한 아이디입니다.';
 						color = 'navy';
 						idPass = true;
+							
+						}else if((han.test(idCheck) && han2.test(idCheck))
+								|| (idRegex.test(idCheck))
+								|| ((idCheck.search(idRegex2) >= 0 && idCheck.search(han) >= 0)) && idCheck.length >= 4){
+							ans = '아이디는 영문, 숫자만 가능합니다.';
+							color = 'red';
+							idPass = false;
+						}else{
+							ans = '아이디는 4-12자 이내로 입력해주세요.';
+							color = 'red';
+							idPass = false;
+						}
 					}
 					
 					//#은 id
@@ -239,7 +259,7 @@ $(document).ready(function() {
 					
 				}
 			})
-		}
+		
 	});
 })
 
@@ -336,7 +356,7 @@ if(email_auto_code!=null){
 			<p class="small"> or user your email for registration:
 			<form id="sign-up-form" action="signupresult" method="post">
 				<div>
-					<input type="text" placeholder="Id" name="user_id" required="required" autofocus />
+					<input type="text" placeholder="아이디(4-12자리)" name="user_id" required="required"  autofocus />
 					<div id="idc"></div>
 				</div>	
 				<div>
@@ -344,12 +364,12 @@ if(email_auto_code!=null){
 					<input type="password" placeholder="Check Password" name="pw_check" id="pwd2"  required="required"  tabindex="3"/>
 					
 					<p class="alert alert-success" id="alert-success" style="color: navy; margin: 0;" >비밀번호가일치합니다.</p>
-					<p class="alert alert-danger" id="alert-danger" style="color: #FF6600; margin: 0;" >비밀번호가 일치하지않습니다.</p>
+					<p class="alert alert-danger" id="alert-danger" style="color: red; margin: 0;" >비밀번호가 일치하지않습니다.</p>
 				</div>		
 				<input type="email" placeholder="Email" name="user_email" id="user_email" required="required" />
 				<button type="button" onclick="emailSend();" class="email_button" >이메일 코드 전송</button> 
 					<div>
-						<input type="text" placeholder="인증번호를 입력 " id="email_auto_code" />
+						<input type="text" placeholder="인증번호 입력 " id="email_auto_code" />
 						<button type="button" onclick="emailCodeCheck();" class="email_button" id="email_auto_code">이메일인증</button>
 						<div id="email_check"></div>
 					</div>

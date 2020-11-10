@@ -24,8 +24,6 @@
             success: function(result) {
 
                	var htmls = "";
-               	
-              
 
 			if(result.length < 1){
 
