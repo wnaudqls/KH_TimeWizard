@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.minibean.timewizard.pay">
+
+<select id="PayselectList" resultType="PayDto">
+	SELECT USER_NO, MEMBERSHIP, TIMELAPSE
+	FROM PAY
+</select>
+
+<select id="PayselectOne" resultType="PayDto" parameterType="int">
+	SELECT 	USER_NO, MEMBERSHIP, TIMELAPSE
+	FROM PAY
+	WHERE USER_NO = #{user_no}
+</select>
+
+<update id="updateMembership" parameterType="int">
+	UPDATE PAY
+	SET MEMBERSHIP = 'Y'
+	WHERE USER_NO = #{user_no}
+</update>
+
+<update id="updateTimelapse">
+	UPDATE PAY
+	SET TIMELAPSE = 
+	WHERE USER_NO = #{user_no}
+</update>
+</mapper>

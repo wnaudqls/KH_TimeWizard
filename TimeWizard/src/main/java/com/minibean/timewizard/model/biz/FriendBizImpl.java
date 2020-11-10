@@ -77,6 +77,12 @@ public class FriendBizImpl implements FriendBiz {
 		return friendDao.searchList(dto);
 	}
 
+	@Override
+	public List<FriendDto> searchListN(FriendDto dto) {
+		// TODO Auto-generated method stub
+		return friendDao.searchListN(dto);
+	}
+
 
 
 

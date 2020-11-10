@@ -558,7 +558,7 @@ function showDetailModal(todo_no){
 				
 				let overlay_div = document.createElement("div");
 				overlay_div.setAttribute("class","modal__overlay");
-				overlay_div.setAttribute("onclick","closeFistModal();");
+				overlay_div.setAttribute("onclick","closeFirstModal(); closeSecondModal();");
 				
 				let detail_div = document.createElement("div");
 				detail_div.setAttribute("class","modal__detail");

@@ -5,6 +5,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -15,14 +19,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.WebUtils;
 
+import com.minibean.timewizard.model.biz.PayBiz;
 import com.minibean.timewizard.model.biz.UploadFileBiz;
 import com.minibean.timewizard.model.biz.UserInfoBiz;
+import com.minibean.timewizard.model.dto.PayDto;
 import com.minibean.timewizard.model.dto.UploadFileDto;
 import com.minibean.timewizard.model.dto.UserInfoDto;
 
@@ -37,9 +44,22 @@ public class MypageController {
 	@Autowired
 	private UploadFileBiz uploadfileBiz;
 	
+
+	@Autowired
+	private PayBiz payBiz;
+	
 	@RequestMapping("/mypage")
-	public String Mypage() {
+	public String Mypage(HttpSession session, Model model) {
 		logger.info("[mypage]");
+		
+		UserInfoDto userinfodto = (UserInfoDto)session.getAttribute("login");
+		//int userno = Integer.parseInt(user_no);
+		PayDto dto = payBiz.selectOne(userinfodto.getUser_no());
+		model.addAttribute("dto", dto);
+
+		logger.info("mypage user_no : "+userinfodto.getUser_no());
+		logger.info("mypage dto : "+dto.getUser_no()+", "+dto.getMembership()+", "+dto.getTimelapse());
+		
 		return "mypage";
 	}
 	
@@ -144,6 +164,27 @@ public class MypageController {
 		model.addAttribute("fileObj", fileObj);
 		
 		return "mypage";
+	}
+	
+	//pay
+	@RequestMapping("/pay")
+	public String pay(int user_no, String price, String pay_name) {
+		logger.info("[pay controller]");
+		
+		//멤버쉽결제
+	
+		int res = payBiz.updateMembership(user_no);
+		logger.info("res : "+res);
+		logger.info("price : "+price);
+		logger.info("pay_name : "+pay_name);
+		if(res > 0) {
+			return "redirect:mypage";
+		}else {
+			return "mypage";
+		}
+		
+	
+		
 	}
 
 }

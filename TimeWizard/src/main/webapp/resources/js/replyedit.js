@@ -5,6 +5,7 @@
 
 	$(document).on('click', '#insertReplyBtn', function(){
 		
+		
 		var reply_content = $('#reply_content').val();
 		var user_no = $('#user_no').val();
 		var notice_no = document.getElementById("nno").value;
@@ -48,27 +49,24 @@
             success: function(result) {
 
                	var htmls = "";
-
+               	
 
 	                    $(result).each(function(){
-
-	                     /*htmls += '<div class="media text-muted pt-3" id="reply_no' + this.reply_no + '">';*/
-	                     htmls += '<svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder:32x32">';
-	                     htmls += '<title>Placeholder</title>';
-	                     htmls += '<rect width="100%" height="100%" fill="#007bff"></rect>';
-	                     htmls += '<text x="50%" fill="#007bff" dy=".3em">32x32</text>';
-	                     htmls += '</svg>';
-	                     htmls += '<p class="media-body pb-3 mb-0 small lh-125 border-bottom horder-gray">';
-	                     htmls += '<span class="d-block">';
-	                     htmls += '<strong class="text-gray-dark">' + this.user_no + '</strong>';
-	                     htmls += '<span style="padding-left: 7px; font-size: 9pt">';
-	                     htmls += '<a href="javascript:void(0)" onclick="fn_editReply(' + this.reply_no + ', \'' + this.user_no + '\', \'' + this.reply_content + '\' )" style="padding-right:5px">수정</a>';
-	                     htmls += '<a href="javascript:void(0)" onclick="fn_deleteReply(' + this.reply_no + ')" >삭제</a>';
-	                     htmls += '</span>';
-	                     htmls += '</span>';
-	                     htmls += this.reply_content;
-	                     htmls += '</p>';
-	                     htmls += '</div>';
+   	
+	                    	 htmls += '<div class="reinsert">';
+		                     htmls += '<span class="d-block">';
+		                     htmls += '<strong> ID : '+user_id+'</strong>';
+		                     htmls += '<p>Comment &nbsp; : &nbsp;  ' +this.reply_content+'</p>';
+		                     htmls += '<h5> Date &nbsp; : '+this.reply_regdate+'</h5>';
+		                     htmls += '<span style="padding-left: 7px; font-size: 9pt">';
+		                     htmls += '<a href="javascript:void(0)" onclick="fn_editReply(' + this.reply_no + ', \'' + this.user_no + '\', \'' + this.reply_content + '\' )" style="padding-right:5px" >수정</a>';
+		                     htmls += '<a href="javascript:void(0)" onclick="fn_deleteReply(' + this.reply_no + ')">삭제</a>';
+		                     htmls += '</span>';
+		                     htmls += '</span>';
+		                     htmls += '</p>';
+		                     
+		                     htmls += '<div>';
+		                     htmls += '<p style="border-top: 1px solid #ccc;"></p>';
 
 
 	                });	//each end
@@ -102,16 +100,13 @@
 	
 // Update( 댓글 수정 )
 	function fn_editReply(reply_no, user_no, reply_content){
-
+		
+		
 		var htmls = "";
 		htmls += '<div class="media text-muted pt-3" id="reply_no' + reply_no + '">';
-		htmls += '<svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder:32x32">';
-		htmls += '<title>Placeholder</title>';
-		htmls += '<rect width="100%" height="100%" fill="#007bff"></rect>';
-		htmls += '<text x="50%" fill="#007bff" dy=".3em">32x32</text>';
-		htmls += '</svg>';
-		htmls += '<p class="media-body pb-3 mb-0 small lh-125 border-bottom horder-gray">';
+	
 		htmls += '<span class="d-block">';
+		htmls += '<div>'+uid+'</div>';
 		htmls += '<strong class="text-gray-dark">' + user_no + '</strong>';
 		htmls += '<span style="padding-left: 7px; font-size: 9pt">';
 		htmls += '<a href="javascript:void(0)" onclick="fn_updateReply(' + reply_no + ', \'' + user_no + '\')" style="padding-right:5px">저장</a>';
@@ -184,7 +179,9 @@
 // Delete ( 댓글 삭제 )
  
 	function fn_deleteReply(reply_no){
-
+		if(confirm(" 해당 댓글을 삭제하시겠습니까?")==true){
+			
+		
 		var paramData = {"reply_no": reply_no};
 
 		
@@ -214,5 +211,5 @@
 			}
 
 		});
-
+	}
 	}
