@@ -68,6 +68,8 @@ public class MypageController {
 			return "mypage";
 	}
 	
+
+
 	/* 유저 탈퇴 */
 	@RequestMapping("/userdeletepage")
 	public String UserDeletePage(Model model, @RequestParam int user_no) {
