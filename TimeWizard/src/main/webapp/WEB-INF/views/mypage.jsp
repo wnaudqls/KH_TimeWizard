@@ -71,8 +71,8 @@ function pay(e){
 }
 	
 </script>
-
 </head>
+
 <body>
 
 	<div class="mypagebox">
@@ -93,10 +93,6 @@ function pay(e){
 					<td><input type="text" name="" size=20 readonly value="${login.user_id }"></td>
 				</tr>
 				<tr>
-					<td>PW</td>
-					<td><input type="password" name="" size=20></td>
-				</tr>
-				<tr>
 					<td>NAME</td>
 					<td><input type="text" name="" size=20 readonly value="${login.user_name }"></td>
 				</tr>
@@ -106,8 +102,9 @@ function pay(e){
 				</tr>
 				<tr>
 					<td colspan="2" align="right">
-						<input type="submit" class="submitbox" value="수정" onclick="" />
-						<a href="userdeletepage?user_no=${login.user_no }">탈퇴</a>
+						<input type="submit" class="submitbox" value="수정" onclick="" /><br/>
+						<a href="userpwchange?user_no=${login.user_no }" class="btndesign">암호변경</a>
+						<a href="userdeletepage?user_no=${login.user_no }" class="btndesign">탈퇴</a>
 					</td>
 				</tr>
 			</table>

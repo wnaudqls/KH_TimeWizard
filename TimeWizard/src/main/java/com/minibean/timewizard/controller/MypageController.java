@@ -68,10 +68,11 @@ public class MypageController {
 			return "mypage";
 	}
 	
-	
+
+	/* 유저 탈퇴 */
 	@RequestMapping("/userdeletepage")
 	public String UserDeletePage(Model model, @RequestParam int user_no) {
-		logger.info("[admin role change]");
+		logger.info("[user delete page]");
 
 		model.addAttribute("dto", userinfoBiz.selectOne(user_no));
 		
@@ -81,7 +82,6 @@ public class MypageController {
 	@RequestMapping("/userdeleteres")
 	public String UserDelete(UserInfoDto dto, HttpSession session, @RequestParam int user_no) {
 		logger.info("[user delete Reusult]");
-		
 		
 		UserInfoDto user = (UserInfoDto) session.getAttribute("login");
 		String user_pw = user.getUser_pw();
@@ -105,6 +105,38 @@ public class MypageController {
 		}
 	}
 	
+	/* 비밀번호 변경 */
+	@RequestMapping("/userpwchange")
+	public String UserPwChange(Model model, @RequestParam int user_no) {
+		logger.info("[user password change]");
+
+		model.addAttribute("dto", userinfoBiz.selectOne(user_no));
+		
+		return "userpwchange";
+		
+	}
+	
+	@RequestMapping("/userpwchangeres")
+	public String UserPwChangeRes(UserInfoDto dto, HttpSession session, @RequestParam int user_no) {
+		logger.info("[user pw change Reusult]");
+		
+		UserInfoDto user = (UserInfoDto) session.getAttribute("login");
+		String user_pw = user.getUser_pw();
+		String new_pw = dto.getUser_pw();
+	
+		int res = userinfoBiz.update(dto);
+		  
+		if(res != 0) {
+			System.out.println("암호 변경 성공");
+		} else {
+			System.out.println("암호 변경 실패");
+		}
+		 
+		return "redirect:mypage?user_no="+dto.getUser_pw();
+		
+	}
+	
+	/* 프로필 사진 업로드 */
 	@RequestMapping(value="/form")
 	public String uploadForm() {
 		return "mypage";

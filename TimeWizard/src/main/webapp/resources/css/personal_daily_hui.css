@@ -187,14 +187,15 @@ a.label:focus, a.label:hover {
  *     date area     *
  * * * * * * * * * * */
  
- #con1 {
- 	display: flex;
+#daily__part {
  	width: 100%;
  }
  
- .daily__part {
+ .date__area {
+ 	display: flex;
  	width: 100%;
- 	padding: 20px 40px;
+ 	justify-content: center;
+ 	padding-top: 1rem;
  }
  
 .date__status{
@@ -204,6 +205,12 @@ a.label:focus, a.label:hover {
 .date__change {
 	justify-content: space-around;
 }
+
+.contents__area {
+ 	display: flex;
+ 	width: 100%;
+ 	padding: 1.5rem 3rem;
+ }
  
  .list__area {
  	float: left;
@@ -211,6 +218,11 @@ a.label:focus, a.label:hover {
  }
  .todo__insert{
  	text-align: center;
+ 	background-color: var(--light-color);
+ 	border-radius: 1rem;
+ 	margin: 0.5rem auto;
+    padding: 0.2rem 0;
+    width: 80%;
  }
  
  .heatmap__area {
@@ -230,7 +242,7 @@ a.label:focus, a.label:hover {
 	width: inherit;
 	display: flex;
 	height: 1.5rem;
-	justify-content: space-between;
+	justify-content: space-evenly;
 }
 
 .number__cell {

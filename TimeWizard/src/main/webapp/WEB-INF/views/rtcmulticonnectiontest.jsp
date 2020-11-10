@@ -12,9 +12,11 @@
 <script src="https://rtcmulticonnection.herokuapp.com/socket.io/socket.io.js"></script>
 <style type="text/css">
 .local__video__area {
+	width: 100%;
 	border: 1px solid red;
 }
 .remote__videos__area {
+	width: 100%;
 	display: flex;
 }
 .remote {
@@ -79,6 +81,13 @@
 			button.textContent = 'Quit';
 		} else if (button.textContent == 'Quit'){
 			connection.closeSocket();
+			connection.getAllParticipants().forEach(function(participantid){
+				connection.disconnectWith(participantid);
+			});
+		    connection.attachStreams.forEach(function(localStream) {
+		        localStream.stop();
+		    });
+		    connection.closeSocket();
 			button.textContent = 'Enter';
 		}
 	});
