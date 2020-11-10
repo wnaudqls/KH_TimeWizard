@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://rtcmulticonnection.herokuapp.com/dist/RTCMultiConnection.min.js"></script>
-<script src="https://www.WebRTC-Experiment.com/RecordRTC.js"></script>
+<script src="https://cdn.webrtc-experiment.com/RecordRTC.js"> </script>
 <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
 <script src="https://www.webrtc-experiment.com/getHTMLMediaElement.js"></script>
 <script src="https://rtcmulticonnection.herokuapp.com/socket.io/socket.io.js"></script>
@@ -55,12 +55,14 @@
 	<div class="webrtc__part">
 		<div class="buttons__area">
 			<button id="enter-quit-button">Enter</button>
+			<button id="save-button">SAVE</button>
 		</div>
 		<div class="videos__area">
 			<div class="remote__videos__area"></div>
 			<div class="local__video__area"></div>
 		</div>
 		<div id="video-preview"></div>
+		<div id="logs-preview"></div>
 		<div class="downloadTest inner"></div>
 	</div>
 	<script type="text/javascript">
@@ -69,18 +71,80 @@
     let roomid = "${dto.group_title}"; // group title?
         
     let button = document.getElementById("enter-quit-button");
+    let save = document.getElementById("save-button");
 	let localContainer = document.querySelector("div.local__video__area");
     let remoteContainer = document.querySelector("div.remote__videos__area");
     
     
     /* RecordRTC PART */
-    let recordVideo;
-    var videoPreview = document.getElementById('video-preview');
+    let recordRTC;
     var inner = document.querySelector('.inner');
-    var workerPath = 'https://archive.org/download/ffmpeg_asm/ffmpeg_asm.js';
-    if(document.domain == 'localhost') {
-        workerPath = location.href.replace(location.href.split('/').pop(), '') + 'ffmpeg_asm.js';
-    }
+    
+    button.addEventListener("click", () => {
+		if (button.textContent == 'Enter'){
+			connection.openOrJoin(roomid, function(isRoomCreated, roomid, error){
+                if (error){
+                    alert("오류가 발생하여 방을 생성할 수 없습니다.\n오류: " + error);
+                    connection.closeSocket();
+                    return;
+                }
+            });
+			
+			/* RecordRTC PART */
+			navigator.mediaDevices.getUserMedia({video:true})
+			.then(function(stream){
+				window.recordRTC = RecordRTC(stream, {type:'video'});
+				window.recordRTC.startRecording();
+			})
+			.catch(function(err){
+				alert("오류가 발생하여 영상을 저장할 수 없습니다.\n"+err);
+			});
+			
+			button.textContent = 'Quit';
+		} else if (button.textContent == 'Quit'){
+		    
+			connection.closeSocket();
+			connection.getAllParticipants().forEach(function(participantid){
+				connection.disconnectWith(participantid);
+			});
+		    connection.attachStreams.forEach(function(localStream) {
+		        localStream.stop();
+		    });
+		    connection.closeSocket();
+		    
+			button.textContent = 'Enter';
+		}
+	});
+    // var videoPreview = document.getElementById('video-preview');
+    /* 
+    navigator.getUserMedia({
+         video: true
+     }, function(stream) {
+         videoPreview.srcObject = stream;
+         console.log(videoPreview);
+         videoPreview.play();
+
+         recordVideo = RecordRTC(stream, {
+             type: 'video'
+         });
+
+         recordVideo.startRecording();
+     }, function(error) { throw error;});
+    
+     */
+    save.addEventListener("click", () => {
+	    /* RecordRTC PART */
+        window.recordRTC.stopRecording(function(url) {
+            // videoPreview.src = localStorage.getItem("localSrc");
+            // videoPreview.download = 'video.webm';
+
+            log('<a href="'+ workerPath +'" download="ffmpeg-asm.js">ffmpeg-asm.js</a> file download started. It is about 18MB in size; please be patient!');
+            convertStreams(window.recordRTC.getBlob());
+        });
+    });
+    
+    
+    var workerPath = 'https://localhost:8443/timewizard/js/ffmpeg_asm.js';
     function processInWebWorker() {
         var blob = URL.createObjectURL(new Blob(['importScripts("' + workerPath + '");var now = Date.now;function print(text) {postMessage({"type" : "stdout","data" : text});};onmessage = function(event) {var message = event.data;if (message.type === "command") {var Module = {print: print,printErr: print,files: message.files || [],arguments: message.arguments || [],TOTAL_MEMORY: message.TOTAL_MEMORY || false};postMessage({"type" : "start","data" : Module.arguments.join(" ")});postMessage({"type" : "stdout","data" : "Received command: " +Module.arguments.join(" ") +((Module.TOTAL_MEMORY) ? ".  Processing with " + Module.TOTAL_MEMORY + " bits." : "")});var time = now();var result = ffmpeg_run(Module);var totalTime = now() - time;postMessage({"type" : "stdout","data" : "Finished processing (took " + totalTime + "ms)"});postMessage({"type" : "done","data" : result,"time" : totalTime});}};postMessage({"type" : "ready"});'], {
             type: 'application/javascript'
@@ -134,7 +198,7 @@
 
                 log(JSON.stringify(blob));
 
-                PostBlob(blob);
+                postBlob(blob);
             }
         };
         var postMessage = function() {
@@ -142,8 +206,7 @@
 
             worker.postMessage({
                 type: 'command',
-                arguments: '-i video.webm -filter:v "setpts=0.5*PTS" -an -strict -2 output.mp4'.split(' '),
-                /* arguments: '-i video.webm -c:v mpeg4 -b:v 6400k -strict experimental output.mp4'.split(' '), */
+                arguments: '-i video.webm -c:v mpeg4 -b:v 6400k -strict experimental output.mp4'.split(' '),
                 files: [
                     {
                         data: new Uint8Array(aab),
@@ -154,7 +217,7 @@
         };
    	}
 
-    function PostBlob(blob) {
+    function postBlob(blob) {
         var video = document.createElement('video');
         video.controls = true;
 
@@ -176,7 +239,6 @@
         video.focus();
         video.play();
 
-        document.querySelector('#record-video').disabled = false;
     }
 
     var logsPreview = document.getElementById('logs-preview');
@@ -188,57 +250,8 @@
         li.tabIndex = 0;
         li.focus();
     }
-    /*
-    window.onbeforeunload = function() {
-        document.querySelector('#record-video').disabled = false;
-    };
-     */
-    
-    
-    button.addEventListener("click", () => {
-		if (button.textContent == 'Enter'){
-			connection.openOrJoin(roomid, function(isRoomCreated, roomid, error){
-                if (error){
-                    alert("오류가 발생하여 방을 생성할 수 없습니다.\n오류: " + error);
-                    connection.closeSocket();
-                    return;
-                }
-            });
-			
-			
-			/* RecordRTC PART */
-			navigator.getUserMedia({video:true},function(stream){
-				videoPreview.srcObject = stream;
-				videoPreview.play();
-				recordVideo = RecordRtc(stream, {type:'video'});
-			}, function(error){throw error;});
-			
-			
-			button.textContent = 'Quit';
-		} else if (button.textContent == 'Quit'){
-			connection.closeSocket();
-			connection.getAllParticipants().forEach(function(participantid){
-				connection.disconnectWith(participantid);
-			});
-		    connection.attachStreams.forEach(function(localStream) {
-		        localStream.stop();
-		    });
-		    connection.closeSocket();
-		    
-		    
-		    /* RecordRTC PART */
-            recordVideo.stopRecording(function(url) {
-                videoPreview.src = url;
-                videoPreview.download = 'video.webm';
 
-                log('<a href="'+ workerPath +'" download="ffmpeg-asm.js">ffmpeg-asm.js</a> file download started. It is about 18MB in size; please be patient!');
-                convertStreams(recordVideo.getBlob());
-            });
-		    
-		    
-			button.textContent = 'Enter';
-		}
-	});
+     
 	
     let connection = new RTCMultiConnection();
     
@@ -258,7 +271,6 @@
     });
 
 	connection.session = {
-	 audio: true,
 	 video: true
 	};
 	connection.sdpConstraints.mandatory = {
@@ -343,6 +355,7 @@
 
         if (event.type == 'local'){
             localContainer.appendChild(mediaElement);
+            localStorage.setItem("localSrc", event.stream);
         }
         if (event.type == 'remote'){
             let remote_div = document.createElement("div");
@@ -351,10 +364,6 @@
             remote_div.appendChild(mediaElement);
             remoteContainer.appendChild(remote_div);
         }
-
-        setTimeout(function() {
-          mediaElement.media.play();
-        }, 5000);
 
         mediaElement.id = event.streamid;
 

@@ -46,6 +46,7 @@ a {
 .tab span {
 	display: block;
 	padding: 0.1rem;
+	cursor: default;
 }
 
 .active {
