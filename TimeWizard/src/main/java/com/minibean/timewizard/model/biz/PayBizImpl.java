@@ -33,8 +33,8 @@ public class PayBizImpl implements PayBiz {
 	}
 
 	@Override
-	public int updateTimelapse(int count) {
-		return paydao.updateTimelapse(count);
+	public int updateTimelapse(PayDto dto) {
+		return paydao.updateTimelapse(dto);
 	}
 	
 	

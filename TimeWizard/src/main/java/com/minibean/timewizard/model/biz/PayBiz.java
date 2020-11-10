@@ -10,5 +10,5 @@ public interface PayBiz {
 	public PayDto selectOne(int user_no);
 	
 	public int updateMembership(int user_no);
-	public int updateTimelapse(int count);
+	public int updateTimelapse(PayDto dto);
 }

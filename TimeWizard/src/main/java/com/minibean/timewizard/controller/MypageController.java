@@ -190,21 +190,21 @@ public class MypageController {
 			logger.info("pay_name020202 : "+pay_name);
 			if(price.equals("1000")) {
 				logger.info("price01 : "+price);
-				int res = payBiz.updateTimelapse(dto.getTimelapse()+1);
+				int res = payBiz.updateTimelapse(new PayDto(user_no, null, dto.getTimelapse()+1));
 				logger.info("res : "+res);
 				if(res > 0) {
 					return "redirect:mypage";
 				}
 			}else if(price.equals("5000")) {
 				logger.info("price02 : "+price);
-				int res = payBiz.updateTimelapse(dto.getTimelapse()+5);
+				int res = payBiz.updateTimelapse(new PayDto(user_no, null, dto.getTimelapse()+5));
 				if(res > 0) {
 					return "redirect:mypage";
 				}
 
 			}else {
 				logger.info("price03 : "+price);
-				int res = payBiz.updateTimelapse(dto.getTimelapse()+10);
+				int res = payBiz.updateTimelapse(new PayDto(user_no, null, dto.getTimelapse()+10));
 				if(res > 0) {
 					return "redirect:mypage";
 				}

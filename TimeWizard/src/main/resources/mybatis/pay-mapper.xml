@@ -19,7 +19,7 @@
 	WHERE USER_NO = #{user_no}
 </update>
 
-<update id="updateTimelapse">
+<update id="updateTimelapse" parameterType="PayDto">
 	UPDATE PAY
 	SET TIMELAPSE = #{timelapse}
 	WHERE USER_NO = #{user_no}
