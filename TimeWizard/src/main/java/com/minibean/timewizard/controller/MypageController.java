@@ -172,17 +172,24 @@ public class MypageController {
 		logger.info("[pay controller]");
 		
 		//멤버쉽결제
-	
-		int res = payBiz.updateMembership(user_no);
-		logger.info("res : "+res);
-		logger.info("price : "+price);
-		logger.info("pay_name : "+pay_name);
-		if(res > 0) {
-			return "redirect:mypage";
-		}else {
-			return "mypage";
+		if(pay_name.equals("membership")) {
+			int res = payBiz.updateMembership(user_no);
+			logger.info("res : "+res);
+			logger.info("price : "+price);
+			logger.info("pay_name : "+pay_name);
+			if(res > 0) {
+				return "redirect:mypage";
+			}else {
+				return "mypage";
+			}
+			
+		}else {  //timelapse결제
+			if(price.equals("1000")) {
+				
+			}
+			
+			return "";
 		}
-		
 	
 		
 	}
