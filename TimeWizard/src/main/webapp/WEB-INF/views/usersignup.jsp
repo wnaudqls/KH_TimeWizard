@@ -207,16 +207,9 @@ a {
 <script type="text/javascript">
 
 //아이디 중복체크 입니다.
-
-
 $(document).ready(function() {
 	$('input[name=user_id]').blur(function() {
 		var idCheck = $('input[name=user_id]').val();
-		if(idCheck == ""){
-			alert("아이디를 입력해주세요!");
-		}
-		
-		
 			$.ajax({
 
 				url : 'idcheck?user_id=' + idCheck,
@@ -264,31 +257,51 @@ $(document).ready(function() {
 })
 
 
-
-
 // 비밀번호 체크
 	$(function() {
 		$("#alert-success").hide();
 		$("#alert-danger").hide();
+		$("#alert-check").hide();
 		$("input").keyup(function() {
 			var pwd1 = $("#pwd1").val();
 			var pwd2 = $("#pwd2").val();
+			
+			let num = /[0-9]/g;
+			let eng = /[a-z]/ig;
+			let spe = /[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi;
+			let blank = /₩s/;
+			
+			//두 비밀번호가 입력이 됐을때,
 			if (pwd1 != "" || pwd2 != "") {
 				if (pwd1 == pwd2) {
-					$("#alert-success").show();
-					$("#alert-danger").hide();
+					$("#pw_text").html('비밀번호가 일치합니다.');
+					$("#pw_text").css('color','navy');
+					//$("#alert-success").show();
+					//$("#alert-danger").hide();
+					//$("#alert-check").hide();
 					$("#submit").removeAttr("disabled");
-				} else {
-					$("#alert-success").hide();
-					$("#alert-danger").show();
+				} else {  //두 비밀번호가 다르면,
+					$("#pw_text").html('비밀번호가 일치하지 않습니다.');
+					$("#pw_text").css('color','red');
+					//$("#alert-success").hide();
+					//$("#alert-danger").show();
+					//$("#alert-check").hide();
 					$("#submit").attr("disabled", "disabled");
 				}
+				
+			//비밀번호가 입력이 안됐을때,
+			}else if(pwd1 == ""){
+				//$("#password_check").show();
+				//$("#alert-success").hide();
+				//$("#alert-danger").hide();
+			}else if(pdw1.length <6 || pwd1 >10){
+				
 			}
 		});
 	});
 
 //이메일 인증 메일 보내기
-
+//이메일 작성 안해도 코드가 보내짐...
 var arr = new Array();
  
 function emailSend(){
@@ -360,11 +373,13 @@ if(email_auto_code!=null){
 					<div id="idc"></div>
 				</div>	
 				<div>
-					<input type="password" placeholder="Password" name="user_pw" id="pwd1" required="required" tabindex="3"/>
-					<input type="password" placeholder="Check Password" name="pw_check" id="pwd2"  required="required"  tabindex="3"/>
-					
+					<input type="password" placeholder="비밀번호(6-10자 입력)" name="user_pw" id="pwd1" required="required" tabindex="3"/>
+					<input type="password" placeholder="비밀번호 확인" name="pw_check" id="pwd2"  required="required"  tabindex="3"/>
+					<div id="pw_text"></div>
+					<!-- 
 					<p class="alert alert-success" id="alert-success" style="color: navy; margin: 0;" >비밀번호가일치합니다.</p>
 					<p class="alert alert-danger" id="alert-danger" style="color: red; margin: 0;" >비밀번호가 일치하지않습니다.</p>
+					<p id="alert-check" style="color: red; margin: 0;">비밀번호를 입력해주세요.</p>  -->
 				</div>		
 				<input type="email" placeholder="Email" name="user_email" id="user_email" required="required" />
 				<button type="button" onclick="emailSend();" class="email_button" >이메일 코드 전송</button> 
