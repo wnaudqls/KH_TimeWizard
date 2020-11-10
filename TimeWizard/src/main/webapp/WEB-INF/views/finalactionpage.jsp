@@ -16,10 +16,10 @@
 		<div class="main_box">
 			<div class="tab_box">
 				<div class="tap active" onclick="openTab(event, 'con1')">
-					<a href="#">Tap 1</a>
+					<a href="#">daily</a>
 				</div>
 				<div class="tap" onclick="openTab(event, 'con2')">
-					<a href="#">Tap 2</a>
+					<a href="#">weekly & monthly</a>
 				</div>
 			</div>
 			<div class="content_box">

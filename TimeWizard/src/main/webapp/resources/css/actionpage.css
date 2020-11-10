@@ -7,73 +7,12 @@
 
 body {
     margin: 0;
-    font-family: 'Staatliches';
 }
 
 a {
     text-decoration: none;
 }
 
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: var(--background-color);
-    padding: 0px 12px;
-}
-
-.navbar a {
-	color: var(--text-color);
-}
-
-.nav_logo {
-    font-size: 24px;
-    color: var(--text-color);
-}
-
-.nav_logo i {
-    color: var(--accent-color);
-}
-
-.nav_menu {
-    display: flex;
-    list-style: none;
-    padding-left: 0;
-}
-
-.nav_menu li {
-    padding: 0px 12px;
-}
-
-.nav_menu li:hover {
-    background-color: var(--accent-color);
-    border-radius: 4px;
-}
-
-.nav_icon {
-    list-style: none;
-    color: var(--text-color);
-    display: flex;
-    padding-left: 0;	
-}
-
-.nav_icon li {
-    padding: 0px 12px;
-}
-
-.nav_icon li:hover {
-	background-color: var(--accent-color);
-	border-radius: 4px;
-	cursor: pointer;
-}
-
-.nav_toggle {
-    display: none;
-    position: absolute;
-    right: 25px;
-    font-size: 24px;
-    color: var(--accent-color);
-}
 
 .sectionbar {
 	float: left;
@@ -82,6 +21,8 @@ a {
 }
 
 .sectionbar a {
+	text-align: center;
+	font-size: 1rem;
 	color: black;	
 }
 
