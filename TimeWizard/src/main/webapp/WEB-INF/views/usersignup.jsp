@@ -259,9 +259,6 @@ $(document).ready(function() {
 
 // 비밀번호 체크
 	$(function() {
-		//$("#alert-success").hide();
-		//$("#alert-danger").hide();
-		//$("#alert-check").hide();
 		$("input").keyup(function() {
 			var pwd1 = $("#pwd1").val().trim();
 			var pwd2 = $("#pwd2").val().trim();
@@ -271,35 +268,42 @@ $(document).ready(function() {
 			let spe = /[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi;
 			let blank = /₩s/;
 			
+			//두 비밀번호가 같으면!!!
 			if ((pwd1 == pwd2) && pwd1 != "") {
-				$("#pw_text").html('비밀번호가 일치합니다.');
-				$("#pw_text").css('color','navy');
-				//$("#alert-success").show();
-				//$("#alert-danger").hide();
-				//$("#alert-check").hide();
-				$("#submit").removeAttr("disabled");
+				//두 비밀번호가 같아도, 길이가 6보다 작고 12보다 크면, 다시 입력하게
+				if(pwd1.length < 6 || pwd1.length > 10 || pwd2.length < 6 || pwd2.length > 10){
+					$("#pw_text").html('6~10자 이내로 입력해주세요.');
+					$("#pw_text").css('color','red');
+					$("#submit").attr("disabled", "disabled");
+				
+				//두 비밀번호가 같아도,영문, 숫자, 특수문자 중 2가지 이상 혼합하여 입력해주세요
+				}else if((pwd1.search(num) < 0 && pwd1.search(eng) < 0) 
+						|| (pwd1.search(eng) < 0 && pwd1.search(spe) < 0) 
+						|| (pwd1.search(spe) < 0 && (pwd1.search(num) < 0))){
+					$("#pw_text").html('영문, 숫자, 특수문자 중 2가지 이상 혼합하여 입력해주세요.');
+					$("#pw_text").css('color','red');
+				
+				//두 비밀번호가 같다면 && 길이가 6-10자 이내
+				}else{ 
+					$("#pw_text").html('비밀번호가 일치합니다.');
+					$("#pw_text").css('color','navy');
+					
+					$("#submit").removeAttr("disabled");
+				}
 			
 			//두 비밀번호가 다르면,
 			} else if((pwd1 != pwd2) && pwd2 != ""){  
 				$("#pw_text").html('비밀번호가 일치하지 않습니다.');
 				$("#pw_text").css('color','red');
-				//$("#alert-success").hide();
-				//$("#alert-danger").show();
-				//$("#alert-check").hide();
+				
 				$("#submit").attr("disabled", "disabled");
 					
-			}else if(pwd1.length < 6 || pwd1.length > 10 || pwd2.length < 6 || pwd2.length > 10){
-				$("#pw_text").html('6~10자 이내로 입력해주세요.');
-				$("#pw_text").css('color','red');
-				$("#submit").attr("disabled", "disabled");
 			}
 			//비밀번호가 입력이 안됐을때,
 			else if(pwd1 == "" || pwd2 == ""){
 				$("#pw_text").html('비밀번호를 입력해주세요.');
 				$("#pw_text").css('color','red');
-				//$("#password_check").show();
-				//$("#alert-success").hide();
-				//$("#alert-danger").hide();
+				
 			}
 			
 		});
@@ -381,10 +385,6 @@ if(email_auto_code!=null){
 					<input type="password" placeholder="비밀번호(6-10자 입력)" name="user_pw" id="pwd1" required="required" tabindex="3"/>
 					<input type="password" placeholder="비밀번호 확인" name="pw_check" id="pwd2"  required="required"  tabindex="3"/>
 					<div id="pw_text"></div>
-					<!-- 
-					<p class="alert alert-success" id="alert-success" style="color: navy; margin: 0;" >비밀번호가일치합니다.</p>
-					<p class="alert alert-danger" id="alert-danger" style="color: red; margin: 0;" >비밀번호가 일치하지않습니다.</p>
-					<p id="alert-check" style="color: red; margin: 0;">비밀번호를 입력해주세요.</p>  -->
 				</div>		
 				<input type="email" placeholder="Email" name="user_email" id="user_email" required="required" />
 				<button type="button" onclick="emailSend();" class="email_button" >이메일 코드 전송</button> 
