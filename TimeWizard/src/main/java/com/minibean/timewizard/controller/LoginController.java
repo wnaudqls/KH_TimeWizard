@@ -21,7 +21,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.minibean.timewizard.model.biz.PayBiz;
 import com.minibean.timewizard.model.biz.UserInfoBiz;
+import com.minibean.timewizard.model.dto.PayDto;
 import com.minibean.timewizard.model.dto.UserInfoDto;
 import com.minibean.timewizard.utils.login.LoginGoogleVO;
 import com.minibean.timewizard.utils.login.LoginNaverVO;
@@ -39,6 +41,9 @@ public class LoginController {
 	private LoginNaverVO loginNaverVO;
 	@Autowired
 	private LoginGoogleVO loginGoogleVO;
+	
+	@Autowired
+	private PayBiz paybiz;
 	
 	@Autowired
 	private void setLoginNaverVO(LoginNaverVO loginNaverVO) {
@@ -215,7 +220,9 @@ public class LoginController {
 		logger.info(">> [CONTROLLER-USERINFO] signup");
 		
 		int res = userInfoBiz.insert(dto);
-		if (res > 0) {
+		UserInfoDto inserted = userInfoBiz.selectOne(dto);
+		int insertPay = paybiz.insertPay(new PayDto(inserted.getUser_no(),"N",0));
+		if ((res + insertPay)==2) {
 			return "redirect:loginform";
 		} else {
 			logger.info("[ERROR] CONTROLLER-USERINFO :: signup form");

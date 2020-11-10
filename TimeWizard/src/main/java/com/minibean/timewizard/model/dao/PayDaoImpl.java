@@ -50,11 +50,11 @@ public class PayDaoImpl implements PayDao {
 
 
 	@Override
-	public int updateMembership(int user_no) {
-		logger.info("pay updateMembership daoimpl"+user_no);
+	public int updateMembership(PayDto dto) {
+		logger.info("pay updateMembership daoimpl"+dto);
 		int res = 0;
 		try {
-			res = sqlSession.update(NAMESPACE+"updateMembership",user_no);
+			res = sqlSession.update(NAMESPACE+"updateMembership",dto);
 		} catch (Exception e) {
 			logger.info("[ERROR] updateMembership daoimpl");
 			e.printStackTrace();
@@ -70,6 +70,19 @@ public class PayDaoImpl implements PayDao {
 			res = sqlSession.update(NAMESPACE+"updateTimelapse", dto);
 		} catch (Exception e) {
 			logger.info("[ERROR] updateTimelapse daoimpl");
+			e.printStackTrace();
+		}
+		return res;
+	}
+
+
+	@Override
+	public int insertPay(PayDto dto) {
+		int res = 0;
+		try {
+			res = sqlSession.insert(NAMESPACE+"insertPay", dto);
+		} catch (Exception e) {
+			logger.info("[ERROR] insertPay daoimpl");
 			e.printStackTrace();
 		}
 		return res;

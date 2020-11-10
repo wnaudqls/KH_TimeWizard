@@ -53,6 +53,7 @@ public class MypageController {
 		logger.info("[mypage]");
 		
 		UserInfoDto userinfodto = (UserInfoDto)session.getAttribute("login");
+<<<<<<< HEAD
 		//int userno = Integer.parseInt(user_no);
 		PayDto dto = payBiz.selectOne(userinfodto.getUser_no());
 		model.addAttribute("dto", dto);
@@ -61,8 +62,25 @@ public class MypageController {
 		// logger.info("mypage dto : "+dto.getUser_no()+", "+dto.getMembership()+", "+dto.getTimelapse());
 		
 		return "mypage";
+=======
+	
+			PayDto dto = payBiz.selectOne(userinfodto.getUser_no());
+			if(dto==null) {
+				logger.info("mypagedd dto : "+dto);
+				int res = payBiz.insertPay(new PayDto(userinfodto.getUser_no(),"N",0));
+				if (res > 0){
+					dto = payBiz.selectOne(userinfodto.getUser_no());
+				}
+				model.addAttribute("dto",dto);
+				logger.info("mypage user_no : " + userinfodto.getUser_no());
+				return "mypage";
+					}
+			return "mypage";
+>>>>>>> main
 	}
 	
+
+
 	/* 유저 탈퇴 */
 	@RequestMapping("/userdeletepage")
 	public String UserDeletePage(Model model, @RequestParam int user_no) {
@@ -208,7 +226,7 @@ public class MypageController {
 		//멤버쉽결제
 		if(pay_name.equals("membership")) {
 			logger.info("pay_name01010101 : "+pay_name);
-			int res = payBiz.updateMembership(user_no);
+			int res = payBiz.updateMembership(new PayDto(user_no,"Y",0));
 			logger.info("res : "+res);
 			logger.info("price : "+price);
 			logger.info("pay_name : "+pay_name);
