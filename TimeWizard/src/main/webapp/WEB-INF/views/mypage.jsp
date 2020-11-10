@@ -35,6 +35,7 @@ function valideImageType(image) {
 }
 
 //결제 pay
+let user_no = ${login.user_no};
 let user_name = ${login.user_name};
 let membership;
 
@@ -52,6 +53,8 @@ function pay(e){
 	    buyer_name : '${login.user_name}',
 	}, function(rsp) {
 	    if ( rsp.success ) {
+	    	alert("결제 완료!!${login.user_no}");
+	    	location.href="/timewizard/pay?user_no="+${login.user_no}
 	        var msg = '결제가 완료되었습니다.';
 	        msg += '고유ID : ' + rsp.imp_uid;
 	        msg += '상점 거래ID : ' + rsp.merchant_uid;
@@ -161,18 +164,15 @@ function pay(e){
 					<td align="center">5</td>
 					<td align="center">10</td>
 				</tr>			
-				
-							<tr>
-								<td align="center">( ${dto.timelapse } )</td>	
-								<td><input type="button" class="payname" name="timelapse" value="1000" onclick="pay(this);"></td>
-								<td><input type="button" class="payname" name="timelapse" value="5000" onclick="pay(this);"></td>
-								<td><input type="button" class="payname" name="timelapse" value="9000" onclick="pay(this);"></td>
-							</tr>
-						
+					<tr>
+						<td align="center" id="lastcount">( ${dto.timelapse } )</td>	
+						<td><input type="button" class="payname" name="timelapse" value="1000" onclick="pay(this);"></td>
+						<td><input type="button" class="payname" name="timelapse" value="5000" onclick="pay(this);"></td>
+						<td><input type="button" class="payname" name="timelapse" value="9000" onclick="pay(this);"></td>
+					</tr>	
 			</table>
 			</form>
 		</div>
-		<input type="text" value="${dto.membership }">
 		<div class="home"><a href="main"><i class="fab fa-tumblr-square"></i></a></div>
 	</div>
 
