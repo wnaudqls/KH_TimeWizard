@@ -5,12 +5,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -44,7 +46,6 @@ public class MypageController {
 	@Autowired
 	private UploadFileBiz uploadfileBiz;
 	
-
 	@Autowired
 	private PayBiz payBiz;
 	
@@ -53,19 +54,26 @@ public class MypageController {
 		logger.info("[mypage]");
 		
 		UserInfoDto userinfodto = (UserInfoDto)session.getAttribute("login");
-		//int userno = Integer.parseInt(user_no);
-		List<PayDto> list = payBiz.selectOne(userinfodto.getUser_no());
-		model.addAttribute("list", list);
+	
+			PayDto dto = payBiz.selectOne(userinfodto.getUser_no());
+			if(dto == null) {
+				int res = payBiz.insertPay(new PayDto(userinfodto.getUser_no(),"N",0));
+				if (res > 0){
+					dto = payBiz.selectOne(userinfodto.getUser_no());
+				}
+			}
+			model.addAttribute("dto",dto);
+			logger.info("mypage user_no : " + userinfodto.getUser_no());
+			return "mypage";
 
-		logger.info("mypage user_no : "+userinfodto.getUser_no());
-		logger.info("mypage dto : "+list);
-		
-		return "mypage";
 	}
 	
+
+
+	/* 유저 탈퇴 */
 	@RequestMapping("/userdeletepage")
 	public String UserDeletePage(Model model, @RequestParam int user_no) {
-		logger.info("[admin role change]");
+		logger.info("[user delete page]");
 
 		model.addAttribute("dto", userinfoBiz.selectOne(user_no));
 		
@@ -73,9 +81,8 @@ public class MypageController {
 	}
 	
 	@RequestMapping("/userdeleteres")
-	public String UserDelete(UserInfoDto dto, HttpSession session, @RequestParam int user_no) {
+	public String UserDelete(HttpServletResponse response, UserInfoDto dto, HttpSession session, @RequestParam int user_no) throws Exception {
 		logger.info("[user delete Reusult]");
-		
 		
 		UserInfoDto user = (UserInfoDto) session.getAttribute("login");
 		String user_pw = user.getUser_pw();
@@ -83,7 +90,12 @@ public class MypageController {
 		
 		//비밀번호 불일치로 탈퇴 실패
 		if(!(user_pw.equals(new_pw))) {
-			return "redirect:mypage";
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('비밀번호가 불일치합니다.');</script>");
+			out.flush();
+
+			return "mypage";
 		} else {
 		
 			int res = userinfoBiz.delete(user_no);
@@ -99,6 +111,54 @@ public class MypageController {
 		}
 	}
 	
+	/* 비밀번호 변경 */
+	@RequestMapping("/userpwchange")
+	public String UserPwChange(Model model, @RequestParam int user_no) {
+		logger.info("[user password change]");
+
+		model.addAttribute("dto", userinfoBiz.selectOne(user_no));
+		
+		return "userpwchange";
+		
+	}
+	
+	@RequestMapping("/userpwchangeres")
+	public String UserPwChangeRes(HttpServletResponse response, UserInfoDto dto, HttpSession session, @RequestParam int user_no) throws Exception {
+		logger.info("[user pw change Result]");
+		
+		UserInfoDto user = (UserInfoDto) session.getAttribute("login");
+		String user_pw = user.getUser_pw();
+		String new_pw = dto.getUser_pw();
+		
+		//비밀번호 불일치로 암호 변경 실패
+		if(!(user_pw.equals(new_pw))) {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('비밀번호가 불일치합니다.');</script>");
+			out.flush();
+			return "mypage";
+		} else {
+			
+			// if (새 비밀번호랑 새 비밀번호 확인이 같은 경우) {
+	
+			int res = userinfoBiz.update(dto);
+			  
+			if(res != 0) {
+				System.out.println("암호 변경 성공");
+			} else {
+				System.out.println("암호 변경 실패");
+			}
+		 
+			
+			/* } else {
+			System.out.println("새 비밀번호와 새 비밀번호 확인의 불일치로 암호 변경 실패");
+		} */
+			
+		return "redirect:mypage?user_no="+dto.getUser_pw();
+		}	
+	}
+	
+	/* 프로필 사진 업로드 */
 	@RequestMapping(value="/form")
 	public String uploadForm() {
 		return "mypage";
@@ -168,11 +228,52 @@ public class MypageController {
 	
 	//pay
 	@RequestMapping("/pay")
-	public String pay() {
+	public String pay(int user_no, String price, String pay_name) {
 		logger.info("[pay controller]");
 		
+		PayDto dto = payBiz.selectOne(user_no);
+		
+		//멤버쉽결제
+		if(pay_name.equals("membership")) {
+			logger.info("pay_name01010101 : "+pay_name);
+			int res = payBiz.updateMembership(new PayDto(user_no,"Y",0));
+			logger.info("res : "+res);
+			logger.info("price : "+price);
+			logger.info("pay_name : "+pay_name);
+			if(res > 0) {
+				return "redirect:mypage";
+			}else {
+				return "mypage";
+			}
+			
+		}else {  //timelapse결제
+			logger.info("pay_name020202 : "+pay_name);
+			if(price.equals("1000")) {
+				logger.info("price01 : "+price);
+				int res = payBiz.updateTimelapse(new PayDto(user_no, null, dto.getTimelapse()+1));
+				logger.info("res : "+res);
+				if(res > 0) {
+					return "redirect:mypage";
+				}
+			}else if(price.equals("5000")) {
+				logger.info("price02 : "+price);
+				int res = payBiz.updateTimelapse(new PayDto(user_no, null, dto.getTimelapse()+5));
+				if(res > 0) {
+					return "redirect:mypage";
+				}
+
+			}else {
+				logger.info("price03 : "+price);
+				int res = payBiz.updateTimelapse(new PayDto(user_no, null, dto.getTimelapse()+10));
+				if(res > 0) {
+					return "redirect:mypage";
+				}
+			}
+			
+			return "";
+		}
 	
-		return "";
+		
 	}
 
 }

@@ -54,17 +54,17 @@ button[type=button] {
 button[type=button]:focus{
 	outline: none;
 }
-input, textarea, select {
+input[type=text], input[type=time], input[type=date] textarea {
 	background-color: white;
-	border-color: #dbdbdb;
+	border-color: white;
 	border-radius: 4px;
 	color: #363636;
 	/* box-shadow: inset 0 0.0625em 0.125em rgba(10, 10, 10, 0.05); */
 }
-input:hover {
+input[type=text]:hover {
 	border-color: #b5b5b5;
 }
-input:focus, textarea:focus {
+input[type=text]:focus, textarea:focus {
 	border-color: #3273dc;
 	box-shadow: 0 0 0 0.125em rgba(50, 115, 220, 0.25);
 }
@@ -187,14 +187,15 @@ a.label:focus, a.label:hover {
  *     date area     *
  * * * * * * * * * * */
  
- #con1 {
- 	display: flex;
+#daily__part {
  	width: 100%;
  }
  
- .daily__part {
+ .date__area {
+ 	display: flex;
  	width: 100%;
- 	padding: 20px 40px;
+ 	justify-content: center;
+ 	padding-top: 1rem;
  }
  
 .date__status{
@@ -204,6 +205,20 @@ a.label:focus, a.label:hover {
 .date__change {
 	justify-content: space-around;
 }
+
+.date__change i {
+	font-size: 1.1rem;
+}
+
+.date__change:active i {
+	color: var(--accent-color);
+}
+
+.contents__area {
+ 	display: flex;
+ 	width: 100%;
+ 	padding: 1rem 3rem;
+ }
  
  .list__area {
  	float: left;
@@ -211,6 +226,16 @@ a.label:focus, a.label:hover {
  }
  .todo__insert{
  	text-align: center;
+ 	background-color: var(--light-color);
+ 	border-radius: 1rem;
+ 	margin: 0.5rem auto;
+    padding: 0.2rem 0;
+    width: 80%;
+ }
+ 
+ .todo__insert:hover {
+ 	background-color: var(--background-color);
+ 	color: var(--text-color);
  }
  
  .heatmap__area {
@@ -230,7 +255,7 @@ a.label:focus, a.label:hover {
 	width: inherit;
 	display: flex;
 	height: 1.5rem;
-	justify-content: space-between;
+	justify-content: space-evenly;
 }
 
 .number__cell {
@@ -247,6 +272,11 @@ a.label:focus, a.label:hover {
 }
 .stopwatch__cell {
 	
+}
+
+.no__todo__cell {
+	text-align: center;
+	font-color: var(--dark-color);
 }
 /* * * * * * * * * * *
  *      1st modal    *
