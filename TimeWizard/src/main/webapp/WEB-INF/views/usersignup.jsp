@@ -340,18 +340,18 @@ function emailSend(){
 //이메일 인증
 function emailCodeCheck(){
 
-arr[5] = false;
-
-
-var inputemailcode = $("#email_auto_code").val().trim();
-
-if(email_auto_code!=null){
-	$("#email_check").text("이메일 인증을 성공했습니다.").css({'color' : 'navy','font-size' : '16px'});
+	arr[5] = false;
 	
-	arr[5] = true;
-}else{
-	$("#email_check").text("이메일 인증을 실패했습니다. 다시 시도하여주십시오.").css({ 'color' : '#FF6600', 'font-size' : '13px'});
-}
+	
+	var inputemailcode = $("#email_auto_code").val().trim();
+	
+	if(email_auto_code!=null){
+		$("#email_check").text("이메일 인증을 성공했습니다.").css({'color' : 'navy','font-size' : '16px'});
+		
+		arr[5] = true;
+	}else{
+		$("#email_check").text("이메일 인증을 실패했습니다. 다시 시도하여주십시오.").css({ 'color' : '#FF6600', 'font-size' : '13px'});
+	}
 }  
 
 
