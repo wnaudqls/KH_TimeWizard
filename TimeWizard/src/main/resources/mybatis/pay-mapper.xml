@@ -21,7 +21,7 @@
 
 <update id="updateTimelapse">
 	UPDATE PAY
-	SET TIMELAPSE = 
+	SET TIMELAPSE = #{timelapse}
 	WHERE USER_NO = #{user_no}
 </update>
 </mapper>

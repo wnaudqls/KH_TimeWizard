@@ -63,4 +63,17 @@ public class PayDaoImpl implements PayDao {
 	}
 
 
+	@Override
+	public int updateTimelapse(int count) {
+		int res = 0;
+		try {
+			res = sqlSession.update(NAMESPACE+"updateTimelapse", count);
+		} catch (Exception e) {
+			logger.info("[ERROR] updateTimelapse daoimpl");
+			e.printStackTrace();
+		}
+		return res;
+	}
+
+
 }

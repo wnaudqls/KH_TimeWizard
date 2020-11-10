@@ -171,8 +171,11 @@ public class MypageController {
 	public String pay(int user_no, String price, String pay_name) {
 		logger.info("[pay controller]");
 		
+		PayDto dto = payBiz.selectOne(user_no);
+		
 		//멤버쉽결제
 		if(pay_name.equals("membership")) {
+			logger.info("pay_name01010101 : "+pay_name);
 			int res = payBiz.updateMembership(user_no);
 			logger.info("res : "+res);
 			logger.info("price : "+price);
@@ -184,8 +187,27 @@ public class MypageController {
 			}
 			
 		}else {  //timelapse결제
+			logger.info("pay_name020202 : "+pay_name);
 			if(price.equals("1000")) {
-				
+				logger.info("price01 : "+price);
+				int res = payBiz.updateTimelapse(dto.getTimelapse()+1);
+				logger.info("res : "+res);
+				if(res > 0) {
+					return "redirect:mypage";
+				}
+			}else if(price.equals("5000")) {
+				logger.info("price02 : "+price);
+				int res = payBiz.updateTimelapse(dto.getTimelapse()+5);
+				if(res > 0) {
+					return "redirect:mypage";
+				}
+
+			}else {
+				logger.info("price03 : "+price);
+				int res = payBiz.updateTimelapse(dto.getTimelapse()+10);
+				if(res > 0) {
+					return "redirect:mypage";
+				}
 			}
 			
 			return "";

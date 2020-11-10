@@ -1,14 +1,13 @@
 package com.minibean.timewizard.model.dto;
 
 public class PayDto {
-	
+
 	private int user_no;
 	private String membership;
 	private int timelapse;
 
-	
 	public PayDto() {
-		
+
 	}
 
 	public PayDto(int user_no, String membership, int timelapse) {
@@ -42,11 +41,5 @@ public class PayDto {
 	public void setTimelapse(int timelapse) {
 		this.timelapse = timelapse;
 	}
-	
-	
 
-
-	
-	
-	
 }
