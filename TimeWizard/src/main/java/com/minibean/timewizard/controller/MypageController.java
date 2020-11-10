@@ -58,17 +58,16 @@ public class MypageController {
 			if(dto==null) {
 				logger.info("mypagedd dto : "+dto);
 				int res = payBiz.insertPay(new PayDto(userinfodto.getUser_no(),"N",0));
-				if(res > 0) {
-					model.addAttribute("dto", dto);
-					logger.info("mypage user_no : "+userinfodto.getUser_no());				
-					return "mypage";
+				if (res > 0){
+					dto = payBiz.selectOne(userinfodto.getUser_no());
 				}
-			}
-			model.addAttribute("dto", dto);
-			logger.info("mypage user_no : "+userinfodto.getUser_no());
-
-		return "mypage";
+				model.addAttribute("dto",dto);
+				logger.info("mypage user_no : " + userinfodto.getUser_no());
+				return "mypage";
+					}
+			return "mypage";
 	}
+	
 	
 	@RequestMapping("/userdeletepage")
 	public String UserDeletePage(Model model, @RequestParam int user_no) {
