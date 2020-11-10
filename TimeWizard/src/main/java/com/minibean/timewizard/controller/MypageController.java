@@ -44,6 +44,7 @@ public class MypageController {
 	@Autowired
 	private UploadFileBiz uploadfileBiz;
 	
+
 	@Autowired
 	private PayBiz payBiz;
 	
@@ -165,7 +166,6 @@ public class MypageController {
 		return "mypage";
 	}
 	
-	/////////////
 	//pay
 	@RequestMapping("/pay")
 	public String pay(int user_no, String price, String pay_name) {

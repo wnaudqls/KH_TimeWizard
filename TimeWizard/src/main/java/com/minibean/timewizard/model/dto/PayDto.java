@@ -5,10 +5,12 @@ public class PayDto {
 	private int user_no;
 	private String membership;
 	private int timelapse;
+
 	
 	public PayDto() {
 		
 	}
+
 
 	public PayDto(int user_no, String membership, int timelapse) {
 		super();
@@ -25,8 +27,10 @@ public class PayDto {
 		this.user_no = user_no;
 	}
 
+
 	public String getMembership() {
 		return membership;
+
 	}
 
 	public void setMembership(String membership) {
