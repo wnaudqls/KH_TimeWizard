@@ -65,7 +65,6 @@ public class FriendController {
 		List<FriendDto> list = friendBiz.searchList(dto);
 		List<FriendDto> list2 = friendBiz.searchListN(dto);
 		/* session.setAttribute("nlist",list2); */
-		logger.info("리스트: "+list2);
 		Map<String, List<FriendDto>> map = new HashMap<String, List<FriendDto>>();
 		map.put("searchList",list);
 		map.put("searchListN",list2);
@@ -151,4 +150,15 @@ public class FriendController {
 			template.convertAndSend("/subscribe/confirm/deletechk/"+dto.getFriend_no(),udto.getUser_name());
 
 		}
+		
+		
+		//친구 요청 -> "거절"
+		@MessageMapping("/invite/send")
+		public void invite(FriendDto dto) {
+			logger.info("invite 작업");
+			logger.info("url:{} ",dto.getUrl());
+			template.convertAndSend("/subscribe/invite/res/"+dto.getFriend_no(),dto);
+
+		}
+		
 }

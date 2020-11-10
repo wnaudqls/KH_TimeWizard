@@ -34,7 +34,14 @@
 	SELECT ui.USER_NO, fl.FRIEND_NO, ui.USER_ID ,ui.USER_NAME,
 	ui.USER_PHOTO, ui.USER_ACTIVE, fl.STATUS
 	FROM FRIEND_LIST fl JOIN USER_INFO ui ON ui.USER_NO = fl.USER_NO(+)
-	WHERE LOWER(ui.USER_NAME) LIKE '%' || LOWER(#{user_name}) || '%'<!--이름이 포함된 -->
+	WHERE (LOWER(ui.USER_NAME) LIKE '%' || LOWER(#{user_name}) || '%')<!--이름이 포함된 -->
+	AND ui.USER_NAME 
+	NOT LIKE(
+			SELECT USER_NAME
+			FROM USER_INFO
+			WHERE USER_NO = #{user_no})
+	
+	
 	</select>
 	<select id="searchListN" resultType="FriendDto">
 	SELECT ui.USER_NAME, ui.USER_NO

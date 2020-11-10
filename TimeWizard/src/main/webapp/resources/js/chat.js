@@ -17,8 +17,7 @@ function disconnect(){
 }
 
 	//handler에서 정해준 서버 겅로로 설정
-	sock = new SockJS("/timewizard/webserver");
-	client = Stomp.over(sock)
+
 	// sock의 이벤트
 	client.connect({}, function(){
 		 // 3. send(path, header, message)로 메시지를 보낼 수 있다.
