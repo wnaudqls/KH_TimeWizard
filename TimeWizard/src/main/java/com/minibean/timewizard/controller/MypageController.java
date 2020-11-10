@@ -5,12 +5,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -82,7 +84,7 @@ public class MypageController {
 	}
 	
 	@RequestMapping("/userdeleteres")
-	public String UserDelete(UserInfoDto dto, HttpSession session, @RequestParam int user_no) {
+	public String UserDelete(HttpServletResponse response, UserInfoDto dto, HttpSession session, @RequestParam int user_no) throws Exception {
 		logger.info("[user delete Reusult]");
 		
 		UserInfoDto user = (UserInfoDto) session.getAttribute("login");
@@ -91,7 +93,12 @@ public class MypageController {
 		
 		//비밀번호 불일치로 탈퇴 실패
 		if(!(user_pw.equals(new_pw))) {
-			return "redirect:mypage";
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('비밀번호가 불일치합니다.');</script>");
+			out.flush();
+
+			return "mypage";
 		} else {
 		
 			int res = userinfoBiz.delete(user_no);
@@ -119,23 +126,39 @@ public class MypageController {
 	}
 	
 	@RequestMapping("/userpwchangeres")
-	public String UserPwChangeRes(UserInfoDto dto, HttpSession session, @RequestParam int user_no) {
-		logger.info("[user pw change Reusult]");
+	public String UserPwChangeRes(HttpServletResponse response, UserInfoDto dto, HttpSession session, @RequestParam int user_no) throws Exception {
+		logger.info("[user pw change Result]");
 		
 		UserInfoDto user = (UserInfoDto) session.getAttribute("login");
 		String user_pw = user.getUser_pw();
 		String new_pw = dto.getUser_pw();
-	
-		int res = userinfoBiz.update(dto);
-		  
-		if(res != 0) {
-			System.out.println("암호 변경 성공");
-		} else {
-			System.out.println("암호 변경 실패");
-		}
-		 
-		return "redirect:mypage?user_no="+dto.getUser_pw();
 		
+		//비밀번호 불일치로 암호 변경 실패
+		if(!(user_pw.equals(new_pw))) {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('비밀번호가 불일치합니다.');</script>");
+			out.flush();
+			return "mypage";
+		} else {
+			
+			// if (새 비밀번호랑 새 비밀번호 확인이 같은 경우) {
+	
+			int res = userinfoBiz.update(dto);
+			  
+			if(res != 0) {
+				System.out.println("암호 변경 성공");
+			} else {
+				System.out.println("암호 변경 실패");
+			}
+		 
+			
+			/* } else {
+			System.out.println("새 비밀번호와 새 비밀번호 확인의 불일치로 암호 변경 실패");
+		} */
+			
+		return "redirect:mypage?user_no="+dto.getUser_pw();
+		}	
 	}
 	
 	/* 프로필 사진 업로드 */
