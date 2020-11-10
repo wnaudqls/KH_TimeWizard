@@ -206,10 +206,18 @@ a.label:focus, a.label:hover {
 	justify-content: space-around;
 }
 
+.date__change i {
+	font-size: 1.1rem;
+}
+
+.date__change:active i {
+	color: var(--accent-color);
+}
+
 .contents__area {
  	display: flex;
  	width: 100%;
- 	padding: 1.5rem 3rem;
+ 	padding: 1rem 3rem;
  }
  
  .list__area {
@@ -223,6 +231,11 @@ a.label:focus, a.label:hover {
  	margin: 0.5rem auto;
     padding: 0.2rem 0;
     width: 80%;
+ }
+ 
+ .todo__insert:hover {
+ 	background-color: var(--background-color);
+ 	color: var(--text-color);
  }
  
  .heatmap__area {
@@ -259,6 +272,11 @@ a.label:focus, a.label:hover {
 }
 .stopwatch__cell {
 	
+}
+
+.no__todo__cell {
+	text-align: center;
+	font-color: var(--dark-color);
 }
 /* * * * * * * * * * *
  *      1st modal    *
