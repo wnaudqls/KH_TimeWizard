@@ -27,14 +27,19 @@ public class PayBizImpl implements PayBiz {
 	}
 
 	@Override
-	public int updateMembership(int user_no) {
+	public int updateMembership(PayDto dto) {
 		
-		return paydao.updateMembership(user_no);
+		return paydao.updateMembership(dto);
 	}
 
 	@Override
 	public int updateTimelapse(PayDto dto) {
 		return paydao.updateTimelapse(dto);
+	}
+
+	@Override
+	public int insertPay(PayDto dto) {
+		return paydao.insertPay(dto);
 	}
 	
 	
