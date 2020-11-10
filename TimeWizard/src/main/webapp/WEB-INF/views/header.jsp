@@ -23,7 +23,7 @@
 <link href="/timewizard/css/header.css" rel="stylesheet">
 
 <link href="/timewizard/css/actionpage.css" rel="stylesheet">
-<script src="/timewizard/js/actionpage.js" defer></script>
+<script src="/timewizard/js/header.js" defer></script>
 </head>
 <body>
 
