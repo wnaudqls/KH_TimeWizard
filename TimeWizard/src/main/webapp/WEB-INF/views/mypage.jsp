@@ -35,25 +35,30 @@ function valideImageType(image) {
 }
 
 //결제 pay
+let user_no = ${login.user_no};
 let user_name = ${login.user_name};
 let membership;
 
 function pay(e){
 	var IMP = window.IMP;
 	IMP.init('imp26998959');
-	
+	let name = $(e).attr("name");
+	let price = $(e).val();
 	IMP.request_pay({
 	    pg : 'inicis', // version 1.1.0부터 지원.
 	    pay_method : 'card',
 	    merchant_uid : "timewizard-" + new Date().getTime(),
-	    name : $(e).attr("name"), //상품이름
-	    amount : $(e).val(), //판매 가격
+	    name : name, //상품이름
+	    amount : price, //판매 가격
 	    buyer_email : '${login.user_email}',
 	    buyer_name : '${login.user_name}',
 	}, function(rsp) {
 	    if ( rsp.success ) {
+	    	
+	    	location.href="/timewizard/pay?user_no="+${login.user_no}+"&pay_name="+rsp.name+"&price="+rsp.paid_amount;
 	        var msg = '결제가 완료되었습니다.';
 	        msg += '고유ID : ' + rsp.imp_uid;
+ 	        msg += '상품이름 : '+ rsp.name;
 	        msg += '상점 거래ID : ' + rsp.merchant_uid;
 	        msg += '결제 금액 : ' + rsp.paid_amount;
 	        msg += '카드 승인번호 : ' + rsp.apply_num;
@@ -141,26 +146,32 @@ function pay(e){
 			<form>
 			<input type="hidden" name="user_no" value="${login.user_no }">
 			<table>
+			<c:choose>
+			<c:when test="${dto.membership eq 'N' }">  
 				<tr>
 					<td><b>스트리밍 이용</b></td>
 					<td colspan="3" align="center"><input type="button" class="payname"  name="membership" value="9900" onclick="pay(this);"></td>
 				</tr>
+			</c:when>
+			<c:otherwise>
+				<tr>
+					<td><b>스트리밍 이용</b></td>
+					<td colspan="3" align="center"><input type="button" name="membership" value="9900" onclick="pay(this);" disabled></td>
+				</tr>
+			</c:otherwise>
+			</c:choose>
 				<tr>
 					<td align="center"><b>timelapse</b></td>
 					<td align="center">1</td>
 					<td align="center">5</td>
 					<td align="center">10</td>
 				</tr>			
-					<c:forEach items="${list }" var="list">
-						<c:if test="${list.pay_name eq 'TIMELAPSE'}">
-							<tr>
-								<td align="center">( ${list. status} )</td>	
-								<td><input type="button" class="payname" name="timelapse" value="1000" onclick="pay(this);"></td>
-								<td><input type="button" class="payname" name="timelapse" value="5000" onclick="pay(this);"></td>
-								<td><input type="button" class="payname" name="timelapse" value="9000" onclick="pay(this);"></td>
-							</tr>
-						</c:if>
-				</c:forEach>
+					<tr>
+						<td align="center" id="lastcount">( ${dto.timelapse } )</td>	
+						<td><input type="button" class="payname" name="timelapse" value="1000" onclick="pay(this);"></td>
+						<td><input type="button" class="payname" name="timelapse" value="5000" onclick="pay(this);"></td>
+						<td><input type="button" class="payname" name="timelapse" value="9000" onclick="pay(this);"></td>
+					</tr>	
 			</table>
 			</form>
 		</div>

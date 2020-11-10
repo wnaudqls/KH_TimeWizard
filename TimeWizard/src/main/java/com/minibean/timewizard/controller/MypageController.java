@@ -54,11 +54,11 @@ public class MypageController {
 		
 		UserInfoDto userinfodto = (UserInfoDto)session.getAttribute("login");
 		//int userno = Integer.parseInt(user_no);
-		List<PayDto> list = payBiz.selectOne(userinfodto.getUser_no());
-		model.addAttribute("list", list);
+		PayDto dto = payBiz.selectOne(userinfodto.getUser_no());
+		model.addAttribute("dto", dto);
 
 		logger.info("mypage user_no : "+userinfodto.getUser_no());
-		logger.info("mypage dto : "+list);
+		logger.info("mypage dto : "+dto.getUser_no()+", "+dto.getMembership()+", "+dto.getTimelapse());
 		
 		return "mypage";
 	}
@@ -168,11 +168,23 @@ public class MypageController {
 	
 	//pay
 	@RequestMapping("/pay")
-	public String pay() {
+	public String pay(int user_no, String price, String pay_name) {
 		logger.info("[pay controller]");
 		
+		//멤버쉽결제
 	
-		return "";
+		int res = payBiz.updateMembership(user_no);
+		logger.info("res : "+res);
+		logger.info("price : "+price);
+		logger.info("pay_name : "+pay_name);
+		if(res > 0) {
+			return "redirect:mypage";
+		}else {
+			return "mypage";
+		}
+		
+	
+		
 	}
 
 }
