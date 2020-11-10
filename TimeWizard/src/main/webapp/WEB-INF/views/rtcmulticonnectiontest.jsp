@@ -78,7 +78,7 @@
     
     /* RecordRTC PART */
     let recordRTC;
-    var inner = document.querySelector('.inner');
+    var inner = document.querySelector('.inner'); // 다운로드 링크 삽입되는 div
     
     button.addEventListener("click", () => {
 		if (button.textContent == 'Enter'){
@@ -103,6 +103,7 @@
 			button.textContent = 'Quit';
 		} else if (button.textContent == 'Quit'){
 		    
+			window.recordRTC.stopRecording(); // 종료시에 모달창이 떠서 그냥 끌 건지 저장 처리를 할지 선택??
 			connection.closeSocket();
 			connection.getAllParticipants().forEach(function(participantid){
 				connection.disconnectWith(participantid);
@@ -112,33 +113,17 @@
 		    });
 		    connection.closeSocket();
 		    
+			/* webcam 계속 켜져있는 느낌...? */
+		    
 			button.textContent = 'Enter';
 		}
 	});
-    // var videoPreview = document.getElementById('video-preview');
-    /* 
-    navigator.getUserMedia({
-         video: true
-     }, function(stream) {
-         videoPreview.srcObject = stream;
-         console.log(videoPreview);
-         videoPreview.play();
-
-         recordVideo = RecordRTC(stream, {
-             type: 'video'
-         });
-
-         recordVideo.startRecording();
-     }, function(error) { throw error;});
     
-     */
     save.addEventListener("click", () => {
 	    /* RecordRTC PART */
         window.recordRTC.stopRecording(function(url) {
-            // videoPreview.src = localStorage.getItem("localSrc");
-            // videoPreview.download = 'video.webm';
-
-            log('<a href="'+ workerPath +'" download="ffmpeg-asm.js">ffmpeg-asm.js</a> file download started. It is about 18MB in size; please be patient!');
+        	console.log("STOP RECORDING");
+            // console.log('<a href="'+ workerPath +'" download="ffmpeg-asm.js">ffmpeg-asm.js</a> file download started. It is about 18MB in size; please be patient!');
             convertStreams(window.recordRTC.getBlob());
         });
     });
@@ -158,14 +143,16 @@
     var worker;
 
     function convertStreams(videoBlob) {
-        var aab;
-        var buffersReady;
-        var workerReady;
-        var posted;
+    	console.log("CONVERTSREAMS");
+        var aab; // fileReader.onload.videoBlob.result(); worker.postMessage(aab)
+        var buffersReady; // ??
+        var workerReady; // if message.type == 'ready' -> true
+        var posted; // var postMesssage = function() {}
 
         var fileReader = new FileReader();
         fileReader.onload = function() {
             aab = this.result;
+            console.log(aab);
             postMessage();
         };
         fileReader.readAsArrayBuffer(videoBlob);
@@ -177,36 +164,42 @@
         worker.onmessage = function(event) {
             var message = event.data;
             if (message.type == "ready") {
-                log('<a href="'+ workerPath +'" download="ffmpeg-asm.js">ffmpeg-asm.js</a> file has been loaded.');
+                // console.log('<a href="'+ workerPath +'" download="ffmpeg-asm.js">ffmpeg-asm.js</a> file has been loaded.');
 
                 workerReady = true;
+	            // console.log(buffersReady); // not if ready -> 21 * undefined
                 if (buffersReady)
                     postMessage();
             } else if (message.type == "stdout") {
-                log(message.data);
+                // console.log(message.data);
             } else if (message.type == "start") {
-                log('<a href="'+ workerPath +'" download="ffmpeg-asm.js">ffmpeg-asm.js</a> file received ffmpeg command.');
+                // console.log('<a href="'+ workerPath +'" download="ffmpeg-asm.js">ffmpeg-asm.js</a> file received ffmpeg command.');
             } else if (message.type == "done") {
-                log(JSON.stringify(message));
-
+       			// console.log("ONMESSAGE TYPE DONE");
+                console.log(JSON.stringify(message));
+				
+                console.log(message.time);
                 var result = message.data[0];
-                log(JSON.stringify(result));
+                console.log(JSON.stringify(result));
 
                 var blob = new File([result.data], 'test.mp4', {
                     type: 'video/mp4'
                 });
-
-                log(JSON.stringify(blob));
+	
+                // console.log(JSON.stringify(blob)); // {}
+				console.log("NEW FILE BLOB");
+                // console.log(JSON.stringify(blob)); // {}
 
                 postBlob(blob);
             }
         };
         var postMessage = function() {
+        	console.log("POSTMESSGAE");
             posted = true;
 
             worker.postMessage({
                 type: 'command',
-                arguments: '-i video.webm -c:v mpeg4 -b:v 6400k -strict experimental output.mp4'.split(' '),
+                arguments: '-i video.webm -filter:v setpts=0.5*PTS -an -strict -2 output.mp4'.split(' '),
                 files: [
                     {
                         data: new Uint8Array(aab),
@@ -218,38 +211,36 @@
    	}
 
     function postBlob(blob) {
+    	console.log("POSTBLOB");
+    	// 미리보기로 남긴다거나?
+    	/*
         var video = document.createElement('video');
         video.controls = true;
-
+		 */
         var source = document.createElement('source');
         source.src = URL.createObjectURL(blob);
         source.type = 'video/mp4; codecs=mpeg4';
+        /*
         video.appendChild(source);
         
         video.download = 'Play mp4 in VLC Player.mp4';
-
+		 */
         inner.appendChild(document.createElement('hr'));
         var h2 = document.createElement('h2');
         h2.innerHTML = '<a href="' + source.src + '" target="_blank" download="Play mp4 in VLC Player.mp4" style="font-size:200%;color:red;">Download Converted mp4 and play in VLC player!</a>';
         inner.appendChild(h2);
         h2.style.display = 'block';
+        /*
         inner.appendChild(video);
 
         video.tabIndex = 0;
         video.focus();
         video.play();
+         */
 
     }
 
     var logsPreview = document.getElementById('logs-preview');
-
-    function log(message) {
-        var li = document.createElement('li');
-        li.innerHTML = message;
-        logsPreview.appendChild(li);
-        li.tabIndex = 0;
-        li.focus();
-    }
 
      
 	
@@ -293,6 +284,7 @@
     connection.extra = {fullName: name};
     
 	connection.onstream = function(event){
+		console.log("CONNECTION ONSTREAM");
 		let existing = document.getElementById(event.streamid);
     	if (existing && existing.parentNode) {
 			existing.parentNode.removeChild(existing);
@@ -322,7 +314,6 @@
         }
 
         video.srcObject = event.stream;
-		console.log(event);
 		
 		let mediaElement = document.createElement("div");
 		mediaElement.setAttribute("class","media__container");
@@ -338,20 +329,12 @@
 		mediaElement_user.appendChild(userid_div);
 		mediaElement.appendChild(mediaElement_user);
 		mediaElement.appendChild(video);
-		console.log(mediaElement);
 		/* zoom mode, pip mode etc */
 		
-		/*
-		let mediaElement = getHTMLMediaElement(video, {
-            title:  "<img src='/timewizard/img/3J1kUZfY.jpg' class='title__photo' />" + event.extra.fullName,
-            buttons: ["full-screen"],
-			showOnMouseEnter: false
-        });
 		// img src 수정
 		// width 수정
 		// connection.videosContainer 설정 안함
 		// var width = parseInt(connection.videosContainer.clientWidth / 3) - 20;
-		*/
 
         if (event.type == 'local'){
             localContainer.appendChild(mediaElement);
@@ -371,6 +354,7 @@
 	}
 	
 	connection.onstreamended = function(event) {
+		console.log("CONNECTION ONSTREAM ENDED");
 	    let video_container = document.getElementById(event.streamid);
 	    if (video_container && video_container.parentNode) {
 	        video_container.parentNode.removeChild(video_container);
@@ -391,6 +375,6 @@
 	        params[d(match[1])] = d(match[2]);
 	    window.params = params;
 	})();
-	</script>
+</script>
 </body>
 </html>
