@@ -315,26 +315,26 @@ var arr = new Array();
  
 function emailSend(){
 
-arr[5] = false;
-var user_email = $("#user_email").val().trim();
-alert(user_email);
-
-$.ajax({
-	url : "./emailSend?user_email="+ user_email,
-	type : "get",
+	arr[5] = false;
+	var user_email = $("#user_email").val().trim();
+	alert(user_email);
 	
-	success : function(data){
-				console.log(data)
-				alert("이메일이 발송되었습니다. 인증번호를 확인 후 입력하여주십시오.");
-			 	//$(".email_auth_code").show();
-				$("#email_auto_code").focus();
-				//$("#emailcode").val(data);  
-				arr[5] = true;
-				
-	}, 	error : function(e){
-		alert("이메일 인증에 실패하셨습니다.")
-	}
-})
+	$.ajax({
+		url : "./emailSend?user_email="+ user_email,
+		type : "get",
+		
+		success : function(data){
+					console.log(data)
+					alert("이메일이 발송되었습니다. 인증번호를 확인 후 입력하여주십시오.");
+				 	//$(".email_auth_code").show();
+					$("#email_auto_code").focus();
+					//$("#emailcode").val(data);  
+					arr[5] = true;
+					
+		}, 	error : function(e){
+			alert("이메일 인증에 실패하셨습니다.")
+		}
+	})
 }
 
 //이메일 인증
