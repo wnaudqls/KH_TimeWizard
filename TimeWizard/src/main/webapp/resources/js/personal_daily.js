@@ -89,9 +89,10 @@ function showDailyList(date){
 	xhr.onreadystatechange = () => {
 		if (xhr.readyState == 4 && xhr.status == 200){
 			let items = "";
-			if (xhr.responseText != null ||xhr.responseText != ""){
+			if (xhr.responseText != null && xhr.responseText != "" && xhr.responseText != '[]'){
 				items = JSON.parse(xhr.responseText);
-				const items_div = document.createElement("div");
+				
+				let items_div = document.createElement("div");
 				items_div.setAttribute("class","todo__items");
 				let i = 0;
 				for (i = 0; i < items.length; i++) {
@@ -151,8 +152,27 @@ function showDailyList(date){
 					items_div.appendChild(item_div);
 				} /* for - array items */
 				list_div.appendChild(items_div);
+				
+			} else if (xhr.responseText == '[]') {
+				
+				let items_div = document.createElement("div");
+				items_div.setAttribute("class","todo__items");
+				
+				let item_div = document.createElement("div");
+				item_div.setAttribute("class","todo__item")
+				
+				let title_cell = document.createElement("div");
+				title_cell.setAttribute("class","cell title__cell no__todo__cell");
+				let title = document.createElement("p");
+				title.textContent = '등록된 일정이 없습니다';
+				title_cell.appendChild(title);
+				
+				item_div.appendChild(title_cell);
+				items_div.appendChild(item_div);
+				
+				list_div.appendChild(items_div);
 			}/* response not null */
-			/* TODO c:when?으로 session의 user_no와 user_distinct check */
+			
 			if (linkedUserNo == loginUserNo) {
 				let insert_div = document.createElement("div");
 				insert_div.setAttribute("class","todo__insert");
@@ -447,7 +467,6 @@ function submitInsertModal(){
 				todo_hashtag: input_hashtag,
 				todo_date: input_date
 		};
-		console.log(setTimeForJSON(input_date, input_starttime));
 		xhr.send(JSON.stringify(data));
 		xhr.onreadystatechange = () => {
 			if (xhr.readyState == 4 && xhr.status == 200){
