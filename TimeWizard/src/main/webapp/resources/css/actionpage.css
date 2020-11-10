@@ -37,16 +37,20 @@ a {
 
 .tab {
 	width: 50%;
-	font-size: 24px;
+	font-size: 1.5rem;
+	font-weight: 100;
+	text-align: center;
 	background-color: gray;
 }
 
 .tab span {
 	display: block;
+	padding: 0.1rem;
 }
 
 .active {
 	background-color: white;
+	font-weight: 400;
 }
 
 .content_box {

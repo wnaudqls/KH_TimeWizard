@@ -46,7 +46,6 @@ public class MypageController {
 	@Autowired
 	private UploadFileBiz uploadfileBiz;
 	
-
 	@Autowired
 	private PayBiz payBiz;
 	
@@ -57,16 +56,14 @@ public class MypageController {
 		UserInfoDto userinfodto = (UserInfoDto)session.getAttribute("login");
 	
 			PayDto dto = payBiz.selectOne(userinfodto.getUser_no());
-			if(dto==null) {
-				logger.info("mypagedd dto : "+dto);
+			if(dto == null) {
 				int res = payBiz.insertPay(new PayDto(userinfodto.getUser_no(),"N",0));
 				if (res > 0){
 					dto = payBiz.selectOne(userinfodto.getUser_no());
 				}
-				model.addAttribute("dto",dto);
-				logger.info("mypage user_no : " + userinfodto.getUser_no());
-				return "mypage";
-					}
+			}
+			model.addAttribute("dto",dto);
+			logger.info("mypage user_no : " + userinfodto.getUser_no());
 			return "mypage";
 
 	}
