@@ -6,7 +6,7 @@
 			content[i].classList.remove('on');
 		}
 		
-		tap = document.getElementsByClassName('tap');
+		tap = document.getElementsByClassName('tab');
 		for (i=0 ; i<tap.length ; i++) {
 			tap[i].classList.remove('active');
 		}
