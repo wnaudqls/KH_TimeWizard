@@ -53,7 +53,7 @@ public class MypageController {
 		logger.info("[mypage]");
 		
 		UserInfoDto userinfodto = (UserInfoDto)session.getAttribute("login");
-	
+
 			PayDto dto = payBiz.selectOne(userinfodto.getUser_no());
 			if(dto==null) {
 				logger.info("mypagedd dto : "+dto);
