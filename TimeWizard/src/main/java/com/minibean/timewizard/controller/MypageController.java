@@ -64,8 +64,9 @@ public class MypageController {
 				model.addAttribute("dto",dto);
 				logger.info("mypage user_no : " + userinfodto.getUser_no());
 				return "mypage";
-					}
-			return "mypage";
+			}
+		model.addAttribute("dto",dto);
+		return "mypage";
 	}
 	
 
