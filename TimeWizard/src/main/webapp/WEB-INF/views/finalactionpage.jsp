@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="/timewizard/js/tap.js" defer></script>
+<script src="/timewizard/js/tab.js" defer></script>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
@@ -15,11 +15,11 @@
 	<section class="sectionbar">
 		<div class="main_box">
 			<div class="tab_box">
-				<div class="tap active" onclick="openTab(event, 'con1')">
-					<a href="#">daily</a>
+				<div class="tab active" onclick="openTab(event, 'con1')">
+					<span>daily</span>
 				</div>
-				<div class="tap" onclick="openTab(event, 'con2')">
-					<a href="#">weekly & monthly</a>
+				<div class="tab" onclick="openTab(event, 'con2')">
+					<span>weekly & monthly</span>
 				</div>
 			</div>
 			<div class="content_box">
@@ -39,13 +39,3 @@
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
