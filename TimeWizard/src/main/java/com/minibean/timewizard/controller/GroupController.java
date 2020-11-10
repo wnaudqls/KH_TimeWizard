@@ -37,9 +37,9 @@ import com.minibean.timewizard.model.dto.GroupDto;
 @Controller
 public class GroupController {
 	@Autowired
-	SimpMessagingTemplate template;
+	private SimpMessagingTemplate template;
 	
-	Logger log = LoggerFactory.getLogger(GroupController.class);
+	private Logger log = LoggerFactory.getLogger(GroupController.class);
 
 	
 	@Autowired

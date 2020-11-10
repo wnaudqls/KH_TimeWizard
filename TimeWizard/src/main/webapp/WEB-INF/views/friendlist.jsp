@@ -25,8 +25,12 @@ var flist;
 var nlist;
 
 
+
 $(document).ready(function () {
+
 	friendlist();
+
+	
 });
 function searchfriend(){
 var username = $("#search_text").val();
@@ -53,7 +57,6 @@ var searchval = {
 	    		$(".userlist").append("<p>-- 이름을 입력해주세요. --</p>");
 	    	}
 	    	else{
-	    	
 	    		for(i in searchList){
 	    			var user_name = searchList[i].user_name;
 	    			var name = "\""+searchList[i].user_name+"\"";
@@ -61,20 +64,21 @@ var searchval = {
 	    			var friend_no = searchList[i].friend_no;
 	    			var status = searchList[i].status;
 	    			
-	    			if(status == "ACCEPT" && (friend_no == uno)){
+	    			
+	    				if(status == "ACCEPT" && (friend_no == uno)){
 	    				$(".userlist").append("<p>이름:"+ user_name +"</p>"+
 	    				"<input type='button' value='친구삭제' onclick='deletefriend("+user_no+","+ uno +","+name+")'>");
-	    			}
-	    			else if(status == "RESP" && (friend_no == uno)){
-	    				$(".userlist").append("<p>"+ user_name +"님이 친구신청 하셨습니다.</p>"+
+	    				}
+	    					else if(status == "RESP" && (friend_no == uno)){
+	    					$(".userlist").append("<p>"+ user_name +"님이 친구신청 하셨습니다.</p>"+
 		    				"<input type='button' value='수락' onclick='friendAccept("+user_no+")'/> "
-		    			+" <input type='button' value='거절' onclick='friendDeny("+user_no+","+name+")'>");
+		    				+" <input type='button' value='거절' onclick='friendDeny("+user_no+","+name+")'>");
 	    				
-	    			}
-	    			else if(status == "SEND" && (friend_no == uno)){
+	    				}
+	    					else if(status == "SEND" && (friend_no == uno)){
 	    		
-	    				$(".userlist").append("<p>"+user_name +"님이 응답중 입니다.</p>");
-	    			}
+	    					$(".userlist").append("<p>"+user_name +"님이 응답중 입니다.</p>");
+	    				}
 	    		}
 	    		for(i in searchListN){
 	    			var user_name = searchListN[i].user_name;
@@ -99,6 +103,8 @@ function reset(){
 }
 
 function friendlist(){
+	var url = location.href;
+	var inviteurl = "\""+url.split("/timewizard")[1]+"\"";
 	$.ajax({
 	    type: "post",
 	    url: "/timewizard/friend",
@@ -115,17 +121,28 @@ function friendlist(){
 	    		$(".friendlist").append("<p>-- 친구를 추가하세요 ^_^ --</p>")
 	    	}else{
 	    		for(i in flist){
+	    			var user_name = flist[i].user_name;
 	    			var name = "\""+flist[i].user_name+"\"";
-	   				if(flist[i].status == "ACCEPT"){
+	    			var user_no = flist[i].user_no;
+	    	
+	    			if(url.indexOf("joinroom")!== -1){
+	    				if((flist[i].status == "ACCEPT")){
 	    					$(".friendlist").append("<p>이름:"+ flist[i].user_name +"</p>"+
-	    					"<input type='button' value='친구삭제' onclick='deletefriend("+flist[i].user_no+","+ uno +","+name+")'>");
+		    					"<input type='button' value='초대하기' onclick='invitefriend("+user_no+","+ uno +","+inviteurl+","+name+")'>");
+	    				}
+	    			}
+	    			else {
+	    			if((flist[i].status == "ACCEPT")){
+	    					$(".friendlist").append("<p>이름:"+ flist[i].user_name +"</p>"+
+	    					"<input type='button' value='친구삭제' onclick='deletefriend("+user_no+","+ uno +","+name+")'>");
 	    			}else if(flist[i].status == "SEND"){
-    					$(".friendlist").append("<p>"+ flist[i].user_name +"님이 응답중 입니다.</p>");
+    					$(".friendlist").append("<p>"+ user_name +"님이 응답중 입니다.</p>");
     	    					
     	    		}else if(flist[i].status == "RESP"){
-	    					$(".friendlist").append("<p>"+ flist[i].user_name +"님이 친구신청 하셨습니다.</p>"+
-	    					"<input type='button' value='수락' onclick='friendAccept("+flist[i].user_no+")'/> "
-	    					+" <input type='button' value='거절' onclick='friendDeny("+flist[i].user_no+","+name+")'>");
+	    					$(".friendlist").append("<p>"+ user_name +"님이 친구신청 하셨습니다.</p>"+
+	    					"<input type='button' value='수락' onclick='friendAccept("+user_no+")'/> "
+	    					+" <input type='button' value='거절' onclick='friendDeny("+user_no+","+name+")'>");
+	    				}
 	    			}
 	    		}
 	    		
@@ -168,6 +185,7 @@ function friendlist(){
 		
 		
 		</div>
+		<hr>
 		<div class="userlist">
 		
 		
@@ -277,6 +295,30 @@ var uno = ${login.user_no};
 	            //checkalert.close();
 	           
 	       	 	}, 3000); 		
+	        
+    		});
+	    client.subscribe("/subscribe/invite/res/"+uno, function(data){
+    		var chk = JSON.parse(data.body);
+    		var name = chk['user_name']
+ 			var message = name+"님이 초대장을 보내셧습니다.";
+ 				options = {
+ 		            body: message,
+ 		            icon: iconDataURI
+ 		        }
+ 			var checkalert = new Notification("알림", options);
+	        
+ 				//알림 후 3초 뒤 친구목록 다시 불러옴
+	        setTimeout(function () {
+	            //얼람 메시지 닫기
+	            friendlist();
+	            //checkalert.close();
+	           	var check = confirm(name+"님의 초대를 수락하시겟습니까?");
+	           		if(check){
+	           			location.href = /timewizard/+chk['url']
+	           		}else{
+	           			
+	           		}
+	       	 	}, 2000); 		
 	        
     		});
 		});
@@ -395,6 +437,27 @@ function enterkey(){
 	if (window.event.keyCode == 13) {
 		searchfriend();
 	}
+	
+}
+function invitefriend(user_no, uno, url, name){
+	
+	  var message = name+"님에게 초대를 보냈습니다.";
+      
+      var options = {
+         body: message,
+         icon: iconDataURI
+     }
+     	//데스크탑 알림 요청
+    		var denyalert = new Notification("알람" ,options);
+		 	client.send("/publish/invite/send", {}, JSON.stringify({friend_no: user_no, user_no: uno, url: url, user_name: uname}));
+		 	
+		 	//알림 후 3초 뒤 친구목록 다시 불러옴
+     	setTimeout(function () {
+         //얼람 메시지 닫기
+         friendlist();
+         //denyalert.close();
+         
+   	  }, 3000);
 	
 }
 </script>
