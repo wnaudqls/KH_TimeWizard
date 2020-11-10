@@ -292,7 +292,7 @@ $(document).ready(function() {
 				}
 			
 			//두 비밀번호가 다르면,
-			} else if((pwd1 != pwd2) && pwd2 != ""){  
+			}else if((pwd1 != pwd2) && pwd2 != ""){  
 				$("#pw_text").html('비밀번호가 일치하지 않습니다.');
 				$("#pw_text").css('color','red');
 				
