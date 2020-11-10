@@ -5,10 +5,12 @@ public class PayDto {
 	private int user_no;
 	private String pay_name;
 	private int status;
+
 	
 	public PayDto() {
 		
 	}
+
 	
 	
 
@@ -28,6 +30,7 @@ public class PayDto {
 	public void setUser_no(int user_no) {
 		this.user_no = user_no;
 	}
+
 
 	public String getPay_name() {
 		return pay_name;
