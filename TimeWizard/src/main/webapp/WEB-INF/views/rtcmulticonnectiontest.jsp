@@ -79,6 +79,13 @@
 			button.textContent = 'Quit';
 		} else if (button.textContent == 'Quit'){
 			connection.closeSocket();
+			connection.getAllParticipants().forEach(function(participantid){
+				connection.disconnectWith(participantid);
+			});
+		    connection.attachStreams.forEach(function(localStream) {
+		        localStream.stop();
+		    });
+		    connection.closeSocket();
 			button.textContent = 'Enter';
 		}
 	});
