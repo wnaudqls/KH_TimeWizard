@@ -4,18 +4,18 @@ import java.sql.Date;
 
 public class GroupDto {
 
-	int group_no;
-	int group_su;
-	int group_client;
-	String user_id ;
-	String group_title;
-	String group_content;
-	String group_public;
-	Date group_regdate;
-	String group_hashtag;
+	private int group_no;
+	private int group_su;
+	private int group_client;
+	private String user_id;
+	private String group_title;
+	private String group_content;
+	private String group_public;
+	private Date group_regdate;
+	private String group_hashtag;
 
-	String group_pw;
-	String group_anyone;
+	private String group_pw;
+	private String group_anyone;
 	
 
 	public GroupDto() {
