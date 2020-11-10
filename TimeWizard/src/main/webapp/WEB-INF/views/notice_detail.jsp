@@ -25,17 +25,30 @@
 <style type="text/css">
  
 /*여기에 css 3개 추가했고 noticedetail.css에 추가한 부분은 주석으로 표시함 */
+
+	
+ a:link { color: brown; text-decoration: none;}
+ a:visited { color: black; text-decoration: none;}
+ a:hover { color: blue; text-decoration: underline;}
+
+/* 
  .form-control :focus{
  	outline : none;
- }
+ } */
 
 	
 	#notice-content{
 		height : 80%;
 	}
 	
+	.wrap_reply{
+		padding: 30px;
+    	border-top: 1px solid #ccc;
+   		background: #fafafa;
+	}
 	
 	
+/* 	
 	button{
 	
 		appearance: push-button;
@@ -52,13 +65,19 @@
     	border-style: outset;
    	 	border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
    	 	border-image: initial;
-}
+} */
 	
 
 </style>
+<script type="text/javascript">
+	
+	var user_id =${login.user_id};
+	
+</script>
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
+
 
 <%
 	UserInfoDto UDto = (UserInfoDto)session.getAttribute("login");
@@ -113,25 +132,22 @@
 			${dto.notice_content }
 		</div>
 		
-		<div style="margin-top : 20px">
-			<button type="button" class="btn btn-sm btn-primary" id="btnUpdate">수정</button>
-			<button type="button" class="btn btn-sm btn-primary" id="btnDelete">삭제</button>
-			<button type="button" class="btn btn-sm btn-primary" id="btnList">목록</button>
-		</div>
-
 		<!-- Reply Form {s} -->
 		
 		<form class="re_input">
-		<div class="my-3 p-3 bg-white rounded shadow-sm" style="padding-top: 10px"> 
+		<div class="my-3 p-3 bg-white rounded shadow-sm" > 
 			<form:form name="form" id="form" role="form" modelAttribute="replyDto" method="post">
-			<input id="nno" value="${dto.notice_no }"/>
+			<input type="hidden" id="nno" value="${dto.notice_no }"/>
 				
 				<div class="row">
 					<p style= "font : gulim">Reply</p>
+					<br><br>
 					<div class="col-sm-10">
 						<form:textarea path="reply_content" id="reply_content" class="form-control" rows="5" cols="70" style="resize: none;"
-						placeholder="악플달면 삼대가 망한다." ></form:textarea>
-						<input type="hidden" class="form-control" id="user_no" value="${login.user_no }">	
+						placeholder="댓글을 입력해주세요." ></form:textarea>
+							<input type="hidden" class="form-control" id="user_no" value="${login.user_no }">	
+							<input type="hidden" id="user_id" value="${login.user_id }"/>
+							<input type="hidden" id="reply_regdate" value="${replyDto.reply_regdate }"/>
 						<button type="button" class="btn btn-sm btn-primary" id="insertReplyBtn">댓글 저장 </button>
 					</div>
 					<div class="col-sm-2">
@@ -153,27 +169,24 @@
 
 			<!-- Reply List {s}-->
 
-			<div class="my-3 p-3 bg-white rounded shadow-sm" style="padding-top: 10px">
+			<div style="padding-top: 10px">
 
-				<h5 class="border-bottom pb-2 mb-0">Reply list</h5>
-
-				<div id="replyList"></div>
-
+				<h5> L i s t </h5>
+				<div class="wrap_reply" >
+					<p id="replyList"></p>
+				</div>	
 			</div> 
 
 			<!-- Reply List {e}-->
-
+	<script src="js/notice_reply.js"></script>
+	<script src="js/replyedit.js"></script>
 		</div>
 </div>	
 	
-<script src="js/notice_reply.js"></script>
 
-<script src="js/replyedit.js"></script>
 
-<script src="js/replyedit.js"></script>
 
-	
-	
+
 <%--   <div id="comment_state">
 		<div id="comment_total">전체 댓글 ()개</div>
 		<div id="comment_toggle">댓글 창 닫기▲</div>

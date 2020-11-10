@@ -9,7 +9,9 @@
 <title>Insert title here</title>
 <script type="text/javascript"
 	src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
 <script src="https://kit.fontawesome.com/3049a69bf8.js" crossorigin="anonymous"></script>
+
 <script type="text/javascript"
 	src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.5/sockjs.min.js"></script>
 <script type="text/javascript"
@@ -17,7 +19,9 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&family=Source+Sans+Pro:wght@200;400&family=Staatliches&display=swap"
 	rel="stylesheet">
+
 <link href="/timewizard/css/header.css" rel="stylesheet">
+
 <link href="/timewizard/css/actionpage.css" rel="stylesheet">
 <script src="/timewizard/js/header.js" defer></script>
 </head>
@@ -32,6 +36,7 @@
 
 	<nav class="navbar">
 		<div class="nav_logo">
+
 			<a href="/timewizard/user/<%=user_distinct %>">
 				<div class="logo_svg">
 					<img class="text" alt="star" src="/timewizard/img/logo_star.svg" />
@@ -39,6 +44,7 @@
 				</div>
 				<span class="logo_text">Time Wizard</span>
 			</a>
+
 			<!-- 메인페이지로 -->
 		</div>
 		<ul class="nav_menu">

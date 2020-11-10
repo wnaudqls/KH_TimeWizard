@@ -10,7 +10,16 @@ CREATE TABLE PAY(
 ALTER TABLE PAY MODIFY (MEMBERSHIP DEFAULT 'N');
 
 INSERT INTO PAY
-VALUES(3,'N',0);
+VALUES(3,'N',2);
+
+INSERT INTO PAY
+VALUES(4,'Y',5);
+
+select *
+from pay
+where user_no = 3
+
+delete from pay where user_no=3;
 -------------------------
 CREATE TABLE PAY(
 	USER_NO NUMBER NOT NULL,

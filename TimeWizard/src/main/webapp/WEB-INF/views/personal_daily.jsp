@@ -12,6 +12,7 @@
 <script type="text/javascript" src="/timewizard/js/personal_daily.js"></script>
 <script type="text/javascript" src="/timewizard/js/personal_daily-hashtag.js"></script>
 
+
 </head>
 <body>
 <%
@@ -44,6 +45,7 @@
 
 
 	<div class="modals__area">
+
 	    <div class="modal__area"></div>
 		<div class="modal__area"></div>
 	</div>
@@ -51,6 +53,7 @@
 	<script type="text/javascript">
 	let linkedUserNo = <%=linked.getUser_no()%>;
 	const loginUserNo = <%=login.getUser_no()%>;
+
 	</script>
 </body>
 </html>
