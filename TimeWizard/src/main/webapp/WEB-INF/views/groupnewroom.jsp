@@ -38,8 +38,15 @@ int group_no;
 	       	 	<input type="hidden" name="user_id" id="name" placeholder="이름을 입력해주세요" value="${login.user_id }">
 	       	
 	       	<div class="createbox">
-	       		<div class="createtitle">접근제한 설정</div>
-	       		<input type="text" name="group_public" id="name" placeholder="공개or비공개" required autofocus>
+	       		<div class="createpublic">접근제한 설정</div>
+	       		<!-- <input type="radio" name="group_public" id="name" value="공개">
+	       		공개
+	       		<input type="radio" name="group_public" id="name" value="비공개">
+	       		비공개 -->
+	       		<select name="group_public">
+	       			<option value="공개">공개</option>
+	       			<option value="비공개">비공개</option>
+	       		</select>
 	       	</div>
 	       	<div class="createbox">
 	       		<div class="createtitle">내용</div>
