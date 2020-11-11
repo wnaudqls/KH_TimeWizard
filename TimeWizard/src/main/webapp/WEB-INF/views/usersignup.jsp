@@ -230,7 +230,7 @@ $(document).ready(function() {
 					} else {
 						if(idRegex.test(idCheck) && !han.test(idCheck)){
 						ans = '회원가입 가능한 아이디입니다.';
-						color = 'navy';
+						color = '#ddd';
 						idPass = true;
 							
 						}else if((han.test(idCheck) && han2.test(idCheck))
@@ -254,6 +254,45 @@ $(document).ready(function() {
 			})
 		
 	});
+	
+	//이메일!!
+	$("#user_email").keyup(function(){
+		let user_email = $("#user_email").val().trim();
+		var emailjung = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
+		if(user_email == ""){
+			$("#email_text").html('이메일을 입력해주세요.');
+			$("#email_text").css('color','red');
+			$("#email_button").attr("disabled",true);
+		
+		}else if(emailjung.test(user_email)){
+			$("#email_text").html('알맞은 이메일입니다.');
+			$("#email_text").css('color','#ddd');
+			$("#email_button").attr("disabled",false);
+			
+			$("#email_button").click(function(){
+				$.ajax({
+					url : "./emailSend?user_email="+ user_email,
+					type : "get",
+					
+					success : function(data){
+								console.log(data)
+								alert("이메일이 발송되었습니다. 인증번호를 확인 후 입력하여주십시오.");
+							 	//$(".email_auth_code").show();
+								$("#email_auto_code").focus();
+								//$("#emailcode").val(data);  
+								arr[5] = true;
+								
+					}, 	error : function(e){
+						alert("이메일 인증에 실패하셨습니다.")
+					}
+				})
+			})
+		}else{
+			$("#email_text").html('알맞은 이메일형식이 아닙니다.');
+			$("#email_text").css('color','red');
+			$("#email_button").attr("disabled",true);
+		}
+	})
 })
 
 
@@ -286,7 +325,7 @@ $(document).ready(function() {
 				//두 비밀번호가 같다면 && 길이가 6-10자 이내
 				}else{ 
 					$("#pw_text").html('비밀번호가 일치합니다.');
-					$("#pw_text").css('color','navy');
+					$("#pw_text").css('color','#ddd');
 					
 					$("#submit").removeAttr("disabled");
 				}
@@ -309,34 +348,7 @@ $(document).ready(function() {
 		});
 	});
 
-//이메일 인증 메일 보내기
-//이메일 작성 안해도 코드가 보내짐...
 var arr = new Array();
- 
-function emailSend(){
-
-	arr[5] = false;
-	var user_email = $("#user_email").val().trim();
-	alert(user_email);
-	
-	$.ajax({
-		url : "./emailSend?user_email="+ user_email,
-		type : "get",
-		
-		success : function(data){
-					console.log(data)
-					alert("이메일이 발송되었습니다. 인증번호를 확인 후 입력하여주십시오.");
-				 	//$(".email_auth_code").show();
-					$("#email_auto_code").focus();
-					//$("#emailcode").val(data);  
-					arr[5] = true;
-					
-		}, 	error : function(e){
-			alert("이메일 인증에 실패하셨습니다.")
-		}
-	})
-}
-
 //이메일 인증
 function emailCodeCheck(){
 
@@ -387,7 +399,8 @@ function emailCodeCheck(){
 					<div id="pw_text"></div>
 				</div>		
 				<input type="email" placeholder="Email" name="user_email" id="user_email" required="required" />
-				<button type="button" onclick="emailSend();" class="email_button" >이메일 코드 전송</button> 
+				<div id="email_text"></div>
+				<button type="button" class="email_button" id="email_button">이메일 코드 전송</button> 
 					<div>
 						<input type="text" placeholder="인증번호 입력 " id="email_auto_code" />
 						<button type="button" onclick="emailCodeCheck();" class="email_button" id="email_auto_code">이메일인증</button>
