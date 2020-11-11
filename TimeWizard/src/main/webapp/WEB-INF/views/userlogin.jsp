@@ -255,7 +255,7 @@ a {
 						<input type="password" placeholder="Password" name="user_pw" id="user_pw"/><br/>
 					</div>
 					<div>
-						<p class="forgot-password">Forgot your password?</p>
+						<p class="forgot-password"><a href="/timewizard/findform">Forgot your id or password?</a></p>
 						<button class="control-button in" onclick="loginPrc()">Sign In</button>
 						<a href="./signup"><p>sign up</p></a>
 					</div>

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.minibean.timewizard.fileupload">
 	<select id="selectList" parameterType="int" resultType="FileUploadDto">
-		SELECT USER_NO, FILE_NAME, FILE_TYPE, FILE_SIZE, FILE_REGDATE
+		SELECT FILE_NO, USER_NO, FILE_NAME, FILE_TYPE, FILE_SIZE, FILE_REGDATE
 		FROM FILE_UPLOAD
 		WHERE USER_NO = #{user_no}
 		AND FILE_REGDATE >= TO_DATE(TO_CHAR((SYSDATE-6),'YYYYMMDD'),'YYYYMMDD')
@@ -10,7 +10,7 @@
 		<!-- SYSDATE - 6? SYSDATE - 7? -->
 	</select>
 	<select id="selectOne" parameterType="int" resultType="FileUploadDto">
-		SELECT USER_NO, FILE_NAME, FILE_TYPE, FILE_SIZE, FILE_REGDATE
+		SELECT FILE_NO, USER_NO, FILE_NAME, FILE_TYPE, FILE_SIZE, FILE_REGDATE
 		FROM FILE_UPLOAD
 		WHERE FILE_NO = #{file_no}
 	</select>
