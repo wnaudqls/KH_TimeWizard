@@ -207,30 +207,43 @@ a {
 <script type="text/javascript">
 
 //아이디 중복체크 입니다.
-var idPass;
-var idRegex = /^[a-zA-Z0-9]{4,12}$/;
-
 $(document).ready(function() {
-
 	$('input[name=user_id]').blur(function() {
 		var idCheck = $('input[name=user_id]').val();
-		if (idRegex.test(idCheck)) {
 			$.ajax({
 
 				url : 'idcheck?user_id=' + idCheck,
 				type : 'get',
 
 				success : function(data) {
+					var idPass;
+					var idRegex = /^[A-Za-z0-9]{4,12}$/;
+					var idRegex2 = /[a-zA-Z0-9]/;
+					var han = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+					var han2 = /^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{4,12}$/;
 					var color;
 					var ans;
-					if (data > 0) {
+					if (data == 1) {
 						ans = '이미 존재하는 아이디입니다.';
-						color = '#FF6600';
+						color = 'red';
 						idPass = false;
 					} else {
+						if(idRegex.test(idCheck) && !han.test(idCheck)){
 						ans = '회원가입 가능한 아이디입니다.';
 						color = 'navy';
 						idPass = true;
+							
+						}else if((han.test(idCheck) && han2.test(idCheck))
+								|| (idRegex.test(idCheck))
+								|| ((idCheck.search(idRegex2) >= 0 && idCheck.search(han) >= 0)) && idCheck.length >= 4){
+							ans = '아이디는 영문, 숫자만 가능합니다.';
+							color = 'red';
+							idPass = false;
+						}else{
+							ans = '아이디는 4-12자 이내로 입력해주세요.';
+							color = 'red';
+							idPass = false;
+						}
 					}
 					
 					//#은 id
@@ -239,60 +252,89 @@ $(document).ready(function() {
 					
 				}
 			})
-		}
+		
 	});
 })
-
-
 
 
 // 비밀번호 체크
 	$(function() {
-		$("#alert-success").hide();
-		$("#alert-danger").hide();
 		$("input").keyup(function() {
-			var pwd1 = $("#pwd1").val();
-			var pwd2 = $("#pwd2").val();
-			if (pwd1 != "" || pwd2 != "") {
-				if (pwd1 == pwd2) {
-					$("#alert-success").show();
-					$("#alert-danger").hide();
-					$("#submit").removeAttr("disabled");
-				} else {
-					$("#alert-success").hide();
-					$("#alert-danger").show();
+			var pwd1 = $("#pwd1").val().trim();
+			var pwd2 = $("#pwd2").val().trim();
+			
+			let num = /[0-9]/g;
+			let eng = /[a-z]/ig;
+			let spe = /[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi;
+			let blank = /₩s/;
+			
+			//두 비밀번호가 같으면!!!
+			if ((pwd1 == pwd2) && pwd1 != "") {
+				//두 비밀번호가 같아도, 길이가 6보다 작고 12보다 크면, 다시 입력하게
+				if(pwd1.length < 6 || pwd1.length > 10 || pwd2.length < 6 || pwd2.length > 10){
+					$("#pw_text").html('6~10자 이내로 입력해주세요.');
+					$("#pw_text").css('color','red');
 					$("#submit").attr("disabled", "disabled");
+				
+				//두 비밀번호가 같아도,영문, 숫자, 특수문자 중 2가지 이상 혼합하여 입력해주세요
+				}else if((pwd1.search(num) < 0 && pwd1.search(eng) < 0) 
+						|| (pwd1.search(eng) < 0 && pwd1.search(spe) < 0) 
+						|| (pwd1.search(spe) < 0 && (pwd1.search(num) < 0))){
+					$("#pw_text").html('영문, 숫자, 특수문자 중 2가지 이상 혼합하여 입력해주세요.');
+					$("#pw_text").css('color','red');
+				
+				//두 비밀번호가 같다면 && 길이가 6-10자 이내
+				}else{ 
+					$("#pw_text").html('비밀번호가 일치합니다.');
+					$("#pw_text").css('color','navy');
+					
+					$("#submit").removeAttr("disabled");
 				}
+			
+			//두 비밀번호가 다르면,
+			}else if((pwd1 != pwd2) && pwd2 != ""){  
+				$("#pw_text").html('비밀번호가 일치하지 않습니다.');
+				$("#pw_text").css('color','red');
+				
+				$("#submit").attr("disabled", "disabled");
+					
 			}
+			//비밀번호가 입력이 안됐을때,
+			else if(pwd1 == "" || pwd2 == ""){
+				$("#pw_text").html('비밀번호를 입력해주세요.');
+				$("#pw_text").css('color','red');
+				
+			}
+			
 		});
 	});
 
 //이메일 인증 메일 보내기
-
+//이메일 작성 안해도 코드가 보내짐...
 var arr = new Array();
  
 function emailSend(){
 
-arr[5] = false;
-var user_email = $("#user_email").val().trim();
-alert(user_email);
-
-$.ajax({
-	url : "./emailSend?user_email="+ user_email,
-	type : "get",
+	arr[5] = false;
+	var user_email = $("#user_email").val().trim();
+	alert(user_email);
 	
-	success : function(data){
-				console.log(data)
-				alert("이메일이 발송되었습니다. 인증번호를 확인 후 입력하여주십시오.");
-			 	//$(".email_auth_code").show();
-				$("#email_auto_code").focus();
-				//$("#emailcode").val(data);  
-				arr[5] = true;
-				
-	}, 	error : function(e){
-		alert("이메일 인증에 실패하셨습니다.")
-	}
-})
+	$.ajax({
+		url : "./emailSend?user_email="+ user_email,
+		type : "get",
+		
+		success : function(data){
+					console.log(data)
+					alert("이메일이 발송되었습니다. 인증번호를 확인 후 입력하여주십시오.");
+				 	//$(".email_auth_code").show();
+					$("#email_auto_code").focus();
+					//$("#emailcode").val(data);  
+					arr[5] = true;
+					
+		}, 	error : function(e){
+			alert("이메일 인증에 실패하셨습니다.")
+		}
+	})
 }
 
 //이메일 인증
@@ -336,20 +378,18 @@ if(email_auto_code!=null){
 			<p class="small"> or user your email for registration:
 			<form id="sign-up-form" action="signupresult" method="post">
 				<div>
-					<input type="text" placeholder="Id" name="user_id" required="required" autofocus />
+					<input type="text" placeholder="아이디(4-12자리)" name="user_id" required="required"  autofocus />
 					<div id="idc"></div>
 				</div>	
 				<div>
-					<input type="password" placeholder="Password" name="user_pw" id="pwd1" required="required" tabindex="3"/>
-					<input type="password" placeholder="Check Password" name="pw_check" id="pwd2"  required="required"  tabindex="3"/>
-					
-					<p class="alert alert-success" id="alert-success" style="color: navy; margin: 0;" >비밀번호가일치합니다.</p>
-					<p class="alert alert-danger" id="alert-danger" style="color: #FF6600; margin: 0;" >비밀번호가 일치하지않습니다.</p>
+					<input type="password" placeholder="비밀번호(6-10자 입력)" name="user_pw" id="pwd1" required="required" tabindex="3"/>
+					<input type="password" placeholder="비밀번호 확인" name="pw_check" id="pwd2"  required="required"  tabindex="3"/>
+					<div id="pw_text"></div>
 				</div>		
 				<input type="email" placeholder="Email" name="user_email" id="user_email" required="required" />
 				<button type="button" onclick="emailSend();" class="email_button" >이메일 코드 전송</button> 
 					<div>
-						<input type="text" placeholder="인증번호를 입력 " id="email_auto_code" />
+						<input type="text" placeholder="인증번호 입력 " id="email_auto_code" />
 						<button type="button" onclick="emailCodeCheck();" class="email_button" id="email_auto_code">이메일인증</button>
 						<div id="email_check"></div>
 					</div>

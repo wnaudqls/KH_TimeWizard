@@ -15,7 +15,7 @@
 	UserInfoDto login = (UserInfoDto)session.getAttribute("login");
 %>
 
-	<div id="chart" style="width: 1600px;"></div>
+	<div id="chart" style="width: 80%;"></div>
 	<script>
 	var user_no = ${linked.user_no};
 
