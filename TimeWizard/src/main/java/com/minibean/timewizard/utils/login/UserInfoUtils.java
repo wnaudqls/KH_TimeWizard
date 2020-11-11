@@ -3,6 +3,7 @@ package com.minibean.timewizard.utils.login;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Scanner;
+import java.util.UUID;
 
 import org.springframework.stereotype.Component;
 
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Component;
 public class UserInfoUtils {
 	
 	public String makeDistinctString(String id, String email) throws NoSuchAlgorithmException {
+		/*
 	    MessageDigest md = MessageDigest.getInstance("SHA-256");
 	    StringBuffer temp = new StringBuffer();
 	    int randomNum = (int) (Math.random()*100 + 1);
@@ -25,5 +27,8 @@ public class UserInfoUtils {
 	    String result = beforeResult.toString();
 	    System.out.println(result);
 	    return result.substring(0, 8) + "-" + result.substring(8, 14) + "-" + result.substring(14, 18) + "-" + result.substring(18,24) + "-" + result.substring(24, 32);
+	     */
+		UUID uuid = UUID.randomUUID();
+		return uuid.toString();
 	}
 }
