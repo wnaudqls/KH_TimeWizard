@@ -7,20 +7,27 @@ public class ReplyDto {
 	private String user_no;
 	private String reply_content;
 	private String reply_regdate;
+	private String user_name;
+	private String user_id;
 	
 	
 	public ReplyDto() {
 		
 	}
 	
-	public ReplyDto(int reply_no, int notice_no, String user_no, String reply_content, String reply_regdate) {
+	public ReplyDto(int reply_no, int notice_no, String user_no, String reply_content, String reply_regdate,
+			String user_name, String user_id) {
 		super();
 		this.reply_no = reply_no;
 		this.notice_no = notice_no;
 		this.user_no = user_no;
 		this.reply_content = reply_content;
 		this.reply_regdate = reply_regdate;
+		this.user_name = user_name;
+		this.user_id = user_id;
 	}
+
+
 
 	public int getReply_no() {
 		return reply_no;
@@ -60,6 +67,22 @@ public class ReplyDto {
 
 	public void setReply_regdate(String reply_regdate) {
 		this.reply_regdate = reply_regdate;
+	}
+
+	public String getUser_name() {
+		return user_name;
+	}
+
+	public void setUser_name(String user_name) {
+		this.user_name = user_name;
+	}
+
+	public String getUser_id() {
+		return user_id;
+	}
+
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
 	}
 	
 	
