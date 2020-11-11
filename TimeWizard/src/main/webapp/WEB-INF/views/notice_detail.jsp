@@ -186,7 +186,6 @@
 
 
 
-
 <%--   <div id="comment_state">
 		<div id="comment_total">전체 댓글 ()개</div>
 		<div id="comment_toggle">댓글 창 닫기▲</div>
