@@ -76,12 +76,14 @@ function pay(e){
 <body>
 
 	<div class="mypagebox">
+
 		<div class="mypagemenu" align="center">
 			<div class="preview">
 				<img id="frame" />
 				${fileObj.file_title }
 			</div>
 			<form:form method="post" enctype="multipart/form-data" modelAttribute="uploadFile" action="upload">
+<<<<<<< HEAD
 				<label><input type="file" class="mypagebtn" accept="image/*" id="image" name="file_title" /></label>
 				<label><input type="submit" class="mypagebtn" value="send" /></label>
 				<p style="color: red; font-weight: bold;"><form:errors path="file_title" /></p>
@@ -108,6 +110,41 @@ function pay(e){
 					</td>
 				</tr>
 			</table>
+=======
+				<div class="userchange">
+					<label><input type="file" accept="image/*" id="image" name="file_title" /></label>
+					<label><input type="submit" value="send" /></label>
+					<p style="color: red; font-weight: bold;"><form:errors path="file_title" /></p>
+				</div>
+			</form:form>
+			
+			<form action="userInfoChange">
+				<input type="hidden" name="user_no" value="${dto.user_no}">
+				<div class="userchange">
+					<table>
+						<tr>
+							<td>ID</td>
+							<td><input type="text" name="user_id" size=20 readonly value="${login.user_id }"></td>
+						</tr>
+						<tr>
+							<td>NAME</td>
+							<td><input type="text" name="user_name" size=20 value="${login.user_name }"></td>
+						</tr>
+						<tr>
+							<td>EMAIL</td>
+							<td><input type="email" name="user_email" size=20 value="${login.user_email }"></td>
+						</tr>
+						<tr>
+							<td colspan="2" align="right">
+								<input type="submit" class="submitbox" value="수정" /><br/>
+								<a href="userpwchange?user_no=${login.user_no }" class="btndesign">암호변경</a>
+								<a href="userdeletepage?user_no=${login.user_no }" class="btndesign">탈퇴</a>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</form>
+>>>>>>> main
 		</div>
 	
 		<div class="mypagemenu" align="center">
