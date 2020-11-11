@@ -124,29 +124,35 @@ public class MypageController {
 	}
 	
 	@RequestMapping("/userpwchangeres")
-	public String UserPwChangeRes(HttpServletResponse response, HttpSession session, UserInfoDto dto, @RequestParam String user_newestpw, @RequestParam int user_no) throws Exception {
+	public String UserPwChangeRes(HttpServletResponse response, HttpSession session, UserInfoDto dto, @RequestParam String user_newestpw_check, @RequestParam String user_newestpw, @RequestParam int user_no) throws Exception {
 		logger.info("[user pw change Result]");
 		
 		UserInfoDto user = (UserInfoDto) session.getAttribute("login");
 		String user_pw = user.getUser_pw();
 		String new_pw = dto.getUser_pw();
 		dto.setUser_newestpw(user_newestpw);
+		dto.setUser_newestpw_check(user_newestpw_check);
 		String newestpw = dto.getUser_newestpw();
+		String newestpwcheck = dto.getUser_newestpw_check();
 		
 		//기존 비밀번호 불일치로 암호 변경 실패
 		if(!(user_pw.equals(new_pw))) {
 			
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
-			out.println("<script>alert('비밀번호가 불일치해서 암호 변경에 실패했습니다.');</script>");
+			out.println("<script>alert('기존 패스워드가 불일치합니다. 암호 변경에 실패했습니다.');</script>");
 			out.flush();
 			return "mypage";
 			
 		} else {
 			
+			// 새 비밀번호와 새 비밀번호 확인이 일치하면
+			if (newestpw.equals(newestpwcheck)) {
+			
 			logger.info("user_newestpw :"+newestpw);
 			logger.info("user_no :"+user_no);
 			
+			// 비밀번호 변경
 			int res = userinfoBiz.pwChangeRes(dto);
 			  
 			if(res != 0) {
@@ -157,13 +163,19 @@ public class MypageController {
 				out.println("<script>alert('비밀번호가 변경되었습니다. 변경된 비밀번호로 다시 로그인하실 수 있습니다.'); </script>");
 				out.flush();
 				session.invalidate();
-				return "mypage";
-				
+				}
+			
 			} else {
+				
 				System.out.println("암호 변경 실패");
-				return "redirect:userpwchange";
+				response.setContentType("text/html; charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				out.println("<script>alert('새 비밀번호와 새 비밀번호 확인이 일치하지 않습니다. 암호 변경에 실패했습니다.'); </script>");
+				out.flush();
 			
 			 }
+		}
+		return "mypage";
 		}
 	
 	/* 프로필 사진 업로드 */
