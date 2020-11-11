@@ -158,11 +158,8 @@ public class MypageController {
 			if(res != 0) {
 				
 				System.out.println("암호 변경 성공");
-				response.setContentType("text/html; charset=UTF-8");
-				PrintWriter out = response.getWriter();
-				out.println("<script>alert('비밀번호가 변경되었습니다. 변경된 비밀번호로 다시 로그인하실 수 있습니다.'); </script>");
-				out.flush();
 				session.invalidate();
+				return "redirect:/login/loginform";
 				}
 			
 			} else {

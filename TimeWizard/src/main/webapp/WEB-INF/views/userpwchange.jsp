@@ -34,11 +34,11 @@
 				</div>
 				<div class="pwchangebox">
 					<label class="control-label" for="newestPass">새 비밀번호</label>
-					<input class="form-control" type="text" id="user_newestpw" name="user_newestpw" /><br/>
+					<input class="form-control" type="password" id="user_newestpw" name="user_newestpw" /><br/>
 				</div>
 				<div class="pwchangebox">
 					<label class="control-label" for="newestPassConfirm">새 비밀번호 확인</label>
-					<input class="form-control" type="text" id="user_newestpw_check" name="user_newestpw_check" /><br/>
+					<input class="form-control" type="password" id="user_newestpw_check" name="user_newestpw_check" /><br/>
 				</div>
 				<div class="pwchangebox">
 					비밀번호를 변경하시겠습니까?<br/>

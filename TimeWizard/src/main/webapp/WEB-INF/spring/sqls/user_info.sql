@@ -55,6 +55,10 @@ UPDATE USER_INFO
 SET USER_PW = 'test1234'
 WHERE USER_ID = 'test';
 
+UPDATE USER_INFO
+SET USER_PW = 'user1234'
+WHERE USER_ID = 'user';
+
 
 --------------------------------
 
