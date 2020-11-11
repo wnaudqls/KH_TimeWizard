@@ -50,6 +50,8 @@
 <%
 	UserInfoDto login = (UserInfoDto)session.getAttribute("login");
 	String user_id = (login.getUser_id().length() > 8)? login.getUser_id().substring(0,8):login.getUser_id();
+	String user_photo = login.getUser_photo();
+	/* 대표  프로필 사진 업로드해서 3항연산자로 없는 경우, 해당 사진 가져오기 */
 %>
 <body>
 	<div class="webrtc__part">
@@ -67,13 +69,14 @@
 	</div>
 	<script type="text/javascript">
 	let link = window.location.href;
-	let name = "<%=user_id%>";
+	let id = "<%=user_id%>";
+	let photo = "<%=user_photo%>";
     let roomid = "${dto.group_title}"; // group title?
         
     let button = document.getElementById("enter-quit-button");
     let save = document.getElementById("save-button");
 	let localContainer = document.querySelector("div.local__video__area");
-    let remoteContainer = document.querySelector("div.remote__videos__area");
+    let videoContainer = document.querySelector("div.videos__area");
     
     
     /* RecordRTC PART */
@@ -289,7 +292,7 @@
         audio: true
     }
 	
-    connection.extra = {fullName: name};
+    connection.extra = {userid: name, userphoto: photo};
     
 	connection.onstream = function(event){
 		console.log("CONNECTION ONSTREAM");
@@ -329,9 +332,10 @@
 		mediaElement_user.setAttribute("class","media__user__status");
 		let userid_div = document.createElement("div");
 		userid_div.setAttribute("class","user__id");
-		userid_div.textContent = event.extra.fullName;
+		userid_div.textContent = event.extra.userid;
 		let userphoto_img = document.createElement("img");
-		userphoto_img.setAttribute("src","/timewizard/img/3J1kUZfY.jpg");
+		userphoto_img.setAttribute("src","/timewizard/image/" + userphoto);
+		/* TODO: get user photo */
 		userphoto_img.setAttribute("class","user__photo");
 		mediaElement_user.appendChild(userphoto_img);
 		mediaElement_user.appendChild(userid_div);
@@ -353,7 +357,7 @@
             remote_div.setAttribute("class","video__container remote");
             remote_div.id = event.streamid;
             remote_div.appendChild(mediaElement);
-            remoteContainer.appendChild(remote_div);
+            videoContainer.appendChild(remote_div);
         }
 
         mediaElement.id = event.streamid;
