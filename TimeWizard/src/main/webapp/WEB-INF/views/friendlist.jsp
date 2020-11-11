@@ -66,7 +66,7 @@ var searchval = {
 	    			
 	    			
 	    				if(status == "ACCEPT" && (friend_no == uno)){
-	    				$(".userlist").append("<p>이름:"+ user_name +"</p>"+
+	    				$(".userlist").append("<p>"+ user_name +"</p>"+
 	    				"<input type='button' value='친구삭제' onclick='deletefriend("+user_no+","+ uno +","+name+")'>");
 	    				}
 	    					else if(status == "RESP" && (friend_no == uno)){
@@ -133,7 +133,7 @@ function friendlist(){
 	    			}
 	    			else {
 	    			if((flist[i].status == "ACCEPT")){
-	    					$(".friendlist").append("<p>이름:"+ flist[i].user_name +"</p>"+
+	    					$(".friendlist").append("<p>"+ flist[i].user_name +"</p>"+
 	    					"<input type='button' value='친구삭제' onclick='deletefriend("+user_no+","+ uno +","+name+")'>");
 	    			}else if(flist[i].status == "SEND"){
     					$(".friendlist").append("<p>"+ user_name +"님이 응답중 입니다.</p>");
@@ -153,7 +153,7 @@ function friendlist(){
 	    	}else{
 	    		for(i in nlist){
 	    			var name = "\""+nlist[i].user_name+"\"";
-	    			$(".userlist").append("<p>이름:"+ nlist[i].user_name+"&nbsp;"+
+	    			$(".userlist").append("<p>"+ nlist[i].user_name+"&nbsp;"+
 	    					"<input type='button' value='친구추가' onclick='alertsys("+nlist[i].user_no+","+ uno +","+name+")'>" +"</p>");
 	    		}
 	    	
