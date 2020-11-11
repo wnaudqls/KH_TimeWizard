@@ -92,7 +92,6 @@ function pay(e){
 			
 			<form action="userInfoChange">
 				<input type="hidden" name="user_no" value="${dto.user_no}">
-				<input type="hidden" name="user_distinct" value="${dto.user_distinct}">
 				<div class="userchange">
 					<table>
 						<tr>
@@ -109,7 +108,7 @@ function pay(e){
 						</tr>
 						<tr>
 							<td colspan="2" align="right">
-								<input type="submit" class="submitbox" value="수정" onclick="" /><br/>
+								<input type="submit" class="submitbox" value="수정" /><br/>
 								<a href="userpwchange?user_no=${login.user_no }" class="btndesign">암호변경</a>
 								<a href="userdeletepage?user_no=${login.user_no }" class="btndesign">탈퇴</a>
 							</td>
@@ -117,6 +116,7 @@ function pay(e){
 					</table>
 				</div>
 			</form>
+		</div>
 	
 		<div class="mypagemenu" align="center">
 			<table>
