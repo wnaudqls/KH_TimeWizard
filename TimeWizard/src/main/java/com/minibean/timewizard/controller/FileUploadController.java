@@ -118,7 +118,6 @@ public class FileUploadController {
 		if (fileExtension.equalsIgnoreCase("jpg") || fileExtension.equalsIgnoreCase("jpeg") 
 			|| fileExtension.equalsIgnoreCase("png") || fileExtension.equalsIgnoreCase("gif")) {
 			dto.setFile_type("P");
-			dto.setFile_size((int)file.getSize());
 		} else if (fileExtension.equalsIgnoreCase("mp4")) {
 			dto.setFile_type("V");
 		}
