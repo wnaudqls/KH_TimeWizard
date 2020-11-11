@@ -8,7 +8,7 @@ function disconnect(){
 	client.send("/publish/chat/disconnect", {}, JSON.stringify({chat_title: rid, type:'LEAVE', user_id: nickname}));
 	client.subscribe("/subscribe/chat/room/"+rid, function (chat) {
 	        var val = JSON.parse(chat.body);
-	        $("#messageArea").append(content.user_id+": "+ content.chat_content+ "<br>");
+	        $("#messageArea").prepend(content.user_id+": "+ content.chat_content+ "<br>");
 	    });
 	document.getElementById("disconnect").style.display="none";
 	document.getElementById("connect").style.display="inline";
@@ -25,11 +25,11 @@ function disconnect(){
 	    // 4. subscribe(path, callback)로 메시지를 받을 수 있다. callback 첫번째 파라미터의 body로 메시지의 내용이 들어온다.
 	    client.subscribe("/subscribe/chat/room/"+rid, function (chat) {
 	        var content = JSON.parse(chat.body);
-	        $("#messageArea").append(content.user_id+": "+ content.chat_content+ "<br>")
+	        $("#messageArea").prepend(content.user_id+": "+ content.chat_content+ "<br>")
 	    });
 		 client.subscribe("/subscribe/chat/join/"+rid, function (chat) {
 	        var content = JSON.parse(chat.body);
-	        $("#messageArea").append(content.chat_content+ "<br>");
+	        $("#messageArea").prepend(content.chat_content+ "<br>");
 			
 	    });
 	})

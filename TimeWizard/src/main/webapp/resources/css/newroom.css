@@ -34,6 +34,9 @@ form {
 .createtitle {
 	width: 15rem;
 }
+.createpublic {
+	width: 22.5rem;
+}
 
 button {
 	background-color: var(--background-color);
