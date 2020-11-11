@@ -16,23 +16,33 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
+
 	<section id="container">
-			<form action="userpwchangeres" method="post">
+			<form action="userpwchangeres" method="post" modelAttribute="password" onsubmit="return check();">
 			<input type="hidden" name="user_no" value="${dto.user_no}">
 				<div class="pwchangebox">
 					<label class="control-label" for="userId">아이디</label>
 					<input class="form-control" type="text" id="user_id" name="user_id" value="${dto.user_id }" readonly="readonly"/>
 				</div>
 				<div class="pwchangebox">
-					<label class="control-label" for="userPass">패스워드</label>
-					<input class="form-control" type="password" id="user_pw" name="user_pw" />
-				</div>
-				<div class="pwchangebox">
 					<label class="control-label" for="userName">성명</label>
 					<input class="form-control" type="text" id="user_name" name="user_name" value="${dto.user_name }" readonly="readonly"/>
 				</div>
 				<div class="pwchangebox">
-					<button type="button" id="modalopen" data-toggle="modal" data-value="${dto.user_no }">암호 변경하기</button>
+					<label class="control-label" for="userPass">패스워드</label>
+					<input class="form-control" type="password" id="user_pw" name="user_pw" /><br/>
+				</div>
+				<div class="pwchangebox">
+					<label class="control-label" for="newestPass">새 비밀번호</label>
+					<input class="form-control" type="text" id="newest_pw" name="newest_pw" /><br/>
+				</div>
+				<div class="pwchangebox">
+					<label class="control-label" for="newestPassConfirm">새 비밀번호 확인</label>
+					<input class="form-control" type="text" id="newest_pw_confirm" name="newest_pw_confirm" /><br/>
+				</div>
+				<div class="pwchangebox">
+					비밀번호를 변경하시겠습니까?<br/>
+					<input id="disbtn" class="btn" type="submit" value="변경하기 " />
 					<button type="button" onclick="location.href='mypage'">취소</button>
 				</div>
 			<div>
@@ -40,39 +50,8 @@
 					비밀번호가 맞지 않습니다.
 				</c:if>
 			</div>
-			
-			<!-- Modal -->
-			<div class="modal fade" id="modal" tabindex="-1" role="dialog"
-					aria-labelledby="modalLabel" aria-hidden="true">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h4 class="modal-title" id="modalLabel">회원 비밀번호 변경</h4>
-							</div>
-							<div class="modal-body">
-								새 비밀번호 : <input type="text" id="newpw"><br/>
-					        	새 비밀번호 확인 : <input type="text" id="newpwagain"><br/>
-					        	비밀번호를 변경하시겠습니까?<br/>
-					        	<input type="hidden" id="usernewpw" name="user_no">
-			        		</div>
-							<div class="modal-footer">
-								<input id="disbtn" class="btn" type="submit" value="변경하기 " />
-							</div>
-						</div>
-						<!-- /.modal-content -->
-					</div>
-					<!-- /.modal-dialog -->
-				</div>
-				<!-- /.modal -->
-				
 			</form>
 		</section>
-		
-<script type="text/javascript">
-document.getElementById("modalopen").onclick = function() {
-    document.getElementById("modal").style.display="block";
-}
-</script>
 		
 		<jsp:include page="footer.jsp"></jsp:include>
 </body>
