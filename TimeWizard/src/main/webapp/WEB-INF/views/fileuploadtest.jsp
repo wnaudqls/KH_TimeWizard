@@ -53,6 +53,7 @@
 		xhr.onreadystatechange = () => {
 			if (xhr.readyState == 4 && xhr.status == 200){
 				if (xhr.responseText != null && xhr.responseText != "" && xhr.responseText != '[]'){
+					console.log(JSON.parse(xhr.responseText));
 					let files = JSON.parse(xhr.responseText);
 					let i = 0;
 					
@@ -78,12 +79,22 @@
 						
 						let download_cell = document.createElement("div");
 						download_cell.setAttribute("class","cell download__cell");
+						/*
 						if (user_no == files[i].user_no){
 							download_cell.setAttribute("onclick","downloadFile("+ files[i].file_no + ");")
 						}
 						let file_download = document.createElement("i");
 						file_download.setAttribute("class","fas fa-file-download");
 						download_cell.appendChild(file_download);
+						 */
+						let form = document.createElement("form");
+						form.setAttribute("action","/timewizard/file/download/"+files[i].file_no);
+						form.setAttribute("method","POST");
+						let submit = document.createElement("input");
+						submit.setAttribute("type","submit");
+						submit.setAttribute("value","download");
+						form.appendChild(submit);
+						download_cell.appendChild(form);
 						
 						file_div.appendChild(number_cell);
 						file_div.appendChild(title_cell);
@@ -101,13 +112,23 @@
 	
 	function downloadFile(file_no){
 		const xhr = new XMLHttpRequest();
-		xhr.open("POST","/timewizard/file/list/"+user_no);
+		xhr.open("POST","/timewizard/file/download/"+file_no);
 		xhr.send();
 		xhr.onreadystatechange = () => {
 			if (xhr.readyState == 4 && xhr.status == 200){
-				alert("download?");
-				if (xhr.responseText != null && xhr.responseText != "" && xhr.responseText != '[]'){
-					
+				if (xhr.responseText != null && xhr.responseText  != "" && xhr.responseText != '[]'){
+					/*
+					let item = JSON.parse(xhr.responseText);
+					console.log(item);
+					let blob = new Blob([item.bytes], {type: item.mime});
+					console.log(blob);
+					let link = document.createElement("a");
+					link.href = window.URL.createObjectURL(blob);
+					let fileName = "timewizard_" + new Date().getTime();
+					link.download = fileName + "." + item.extension;
+					link.click();
+					 */
+					return xhr.responseText;
 				} /* not empty responseText */
 			} /* readyState 4 status 200 */
 		} /* onreadystatechange */
