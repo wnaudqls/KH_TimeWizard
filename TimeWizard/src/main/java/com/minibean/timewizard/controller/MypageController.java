@@ -253,24 +253,25 @@ public class MypageController {
 	
 	/* NAME, EMAIL 변경 */
 	@RequestMapping("/userInfoChange")
-	public String userInfoChange(UserInfoDto dto, @RequestParam int user_no, @RequestParam String user_name, @RequestParam String user_email, @RequestParam String user_distinct) {
+	public String userInfoChange(UserInfoDto dto, @RequestParam int user_no, @RequestParam String user_name, @RequestParam String user_email) {
 		logger.info("[user name or email change]");
 		
 		logger.info("user_no : "+user_no);
 		logger.info("user_name : "+user_name);
 		logger.info("user_email : "+user_email);
-		logger.info("user_distinct :"+user_distinct);
 		
-		 int res = userinfoBiz.update(dto);
+		 int res = userinfoBiz.userInfoChange(dto);
 		 
 		  if(res != 0) {
-			  System.out.println("이름, 이메일 변경 성공");
+			 // session.setAttribute(, login.userinfobiz.selectOne)
+			  // 이렇게 해서 안 되면 login을 컨트롤러가 아니라 mypage.jsp 이용해서 뿌려주기
+			  logger.info("이름, 이메일 변경 성공");
+			  System.out.println();
 		  } else {
 			  System.out.println("이름, 이메일 변경 실패");
 		  }
-		 
 		
-		return "redirect:/userInfoChange";
+		return "redirect:mypage";
 		
 	}
 	

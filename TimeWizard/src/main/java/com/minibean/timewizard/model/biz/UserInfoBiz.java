@@ -16,5 +16,6 @@ public interface UserInfoBiz {
 	public int idCheck(String id);//아이디 중복체크 용도
 	public int updateRoleRes(UserInfoDto dto);
 	public int pwChangeRes(UserInfoDto dto);
+	public int userInfoChange(UserInfoDto dto);
 	
 }
