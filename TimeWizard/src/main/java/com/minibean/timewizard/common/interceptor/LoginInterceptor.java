@@ -29,6 +29,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 			request.getRequestURI().contains("/user/*") || 
 			request.getRequestURI().contains("/error") || 
 			request.getRequestURI().contains("/mypage")||
+			request.getRequestURI().contains("/findform") ||
 			request.getSession().getAttribute("login")!=null) {
 			
 			return true;

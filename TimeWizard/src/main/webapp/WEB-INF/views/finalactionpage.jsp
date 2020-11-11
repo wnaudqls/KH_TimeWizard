@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>TimeWizard</title>
 <script src="/timewizard/js/tab.js" defer></script>
 </head>
 <body>
