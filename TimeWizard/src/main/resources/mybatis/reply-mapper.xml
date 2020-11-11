@@ -3,10 +3,12 @@
 <mapper namespace="reply-mapper">
 
 	<select id="replyList" resultType="ReplyDto">
-		SELECT *
-		FROM BOARD_REPLY
-		WHERE NOTICE_NO = #{notice_no}
-		ORDER BY REPLY_REGDATE DESC
+		SELECT USER_INFO.USER_NAME, USER_INFO.USER_ID, REPLY_NO, NOTICE_NO, REPLY_CONTENT, BOARD_REPLY.USER_NO,REPLY_REGDATE
+		FROM BOARD_REPLY 
+		JOIN USER_INFO ON BOARD_REPLY.USER_NO = USER_INFO.USER_NO
+		WHERE NOTICE_NO= #{notice_no}
+		ORDER BY REPLY_NO ASC
+	
 	</select>
 	
 	<insert id="insertReply" parameterType="ReplyDto">

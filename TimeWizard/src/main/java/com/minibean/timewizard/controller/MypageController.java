@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -70,7 +71,6 @@ public class MypageController {
 	}
 	
 
-
 	/* 유저 탈퇴 */
 	@RequestMapping("/userdeletepage")
 	public String UserDeletePage(Model model, @RequestParam int user_no) {
@@ -124,42 +124,56 @@ public class MypageController {
 	}
 	
 	@RequestMapping("/userpwchangeres")
-	public String UserPwChangeRes(HttpServletResponse response, UserInfoDto dto, HttpSession session, @RequestParam int user_no) throws Exception {
+	public String UserPwChangeRes(HttpServletResponse response, HttpSession session, UserInfoDto dto, @RequestParam String user_newestpw_check, @RequestParam String user_newestpw, @RequestParam int user_no) throws Exception {
 		logger.info("[user pw change Result]");
 		
 		UserInfoDto user = (UserInfoDto) session.getAttribute("login");
 		String user_pw = user.getUser_pw();
 		String new_pw = dto.getUser_pw();
+		dto.setUser_newestpw(user_newestpw);
+		dto.setUser_newestpw_check(user_newestpw_check);
+		String newestpw = dto.getUser_newestpw();
+		String newestpwcheck = dto.getUser_newestpw_check();
 		
-		//비밀번호 불일치로 암호 변경 실패 (모달창이 뜨지 않음)
+		//기존 비밀번호 불일치로 암호 변경 실패
 		if(!(user_pw.equals(new_pw))) {
+			
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
-			out.println("<script>alert('비밀번호가 불일치해서 암호 변경에 실패했습니다.');</script>");
+			out.println("<script>alert('기존 패스워드가 불일치합니다. 암호 변경에 실패했습니다.');</script>");
 			out.flush();
-			return "userpwchange";
+			return "mypage";
+			
 		} else {
 			
-			// 비밀번호 일치하면 모달창 띄우기
+			// 새 비밀번호와 새 비밀번호 확인이 일치하면
+			if (newestpw.equals(newestpwcheck)) {
 			
-			// if (새 비밀번호랑 새 비밀번호 확인이 같은 경우) {
-	
-			int res = userinfoBiz.update(dto);
+			logger.info("user_newestpw :"+newestpw);
+			logger.info("user_no :"+user_no);
+			
+			// 비밀번호 변경
+			int res = userinfoBiz.pwChangeRes(dto);
 			  
 			if(res != 0) {
+				
 				System.out.println("암호 변경 성공");
+				session.invalidate();
+				return "redirect:/login/loginform";
+				}
+			
 			} else {
+				
 				System.out.println("암호 변경 실패");
-			}
-		 
+				response.setContentType("text/html; charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				out.println("<script>alert('새 비밀번호와 새 비밀번호 확인이 일치하지 않습니다. 암호 변경에 실패했습니다.'); </script>");
+				out.flush();
 			
-			/* } else {
-			System.out.println("새 비밀번호와 새 비밀번호 확인의 불일치로 암호 변경 실패");
-		} */
-			
-		return "redirect:mypage?user_no="+dto.getUser_pw();
-		}	
-	}
+			 }
+		}
+		return "mypage";
+		}
 	
 	/* 프로필 사진 업로드 */
 	@RequestMapping(value="/form")

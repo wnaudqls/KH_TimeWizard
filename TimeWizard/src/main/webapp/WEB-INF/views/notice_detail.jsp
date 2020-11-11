@@ -148,6 +148,7 @@
 							<input type="hidden" class="form-control" id="user_no" value="${login.user_no }">	
 							<input type="hidden" id="user_id" value="${login.user_id }"/>
 							<input type="hidden" id="reply_regdate" value="${replyDto.reply_regdate }"/>
+							<input type="hidden" id="user_name" value="${replyDto.user_name }">
 						<button type="button" class="btn btn-sm btn-primary" id="insertReplyBtn">댓글 저장 </button>
 					</div>
 					<div class="col-sm-2">
@@ -183,7 +184,6 @@
 		</div>
 </div>	
 	
-
 
 
 
