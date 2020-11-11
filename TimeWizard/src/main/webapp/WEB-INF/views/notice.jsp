@@ -30,7 +30,10 @@
 			$("#searchpaging").css("display", "block");
 			$("#paging").css("display", "none");
 		</c:if>
+		
 	});
+	
+
 </script>
 
 </head>
@@ -200,7 +203,7 @@
 	<!-- !페이징 부분! -->
 	<div class="pagingdesign">
 		<nav aria-label="Page navigation">
-			<ul style="display:block; text-align:center;" id="paging" class="pagination">
+			<ul style="display:flex; text-align:center;" id="paging" class="pagination">
 				<li>
 					<c:if test="${paging.startpage != 1}">
 						<a href="notice_list?nowpage=${paging.startpage-1}&cntPerpage=${paging.cntPerpage}" aria-label="Previous">
@@ -234,6 +237,7 @@
 </div>
 
 <jsp:include page="footer.jsp"></jsp:include>
+
 </body>
 </html>
 
