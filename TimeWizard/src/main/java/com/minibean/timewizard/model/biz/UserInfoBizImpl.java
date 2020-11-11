@@ -75,5 +75,10 @@ public class UserInfoBizImpl implements UserInfoBiz {
 	public int pwChangeRes(UserInfoDto dto) {
 		return userInfoDao.pwChangeRes(dto);
 	}
+	
+	@Override
+	public int userInfoChange(UserInfoDto dto) {
+		return userInfoDao.userInfoChange(dto);
+	}
 
 }

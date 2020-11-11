@@ -45,7 +45,6 @@ public class FileUploadController {
 	@Autowired
 	private FileUploadBiz fileUploadBiz;
 	
-	private String uploadPath;
 	private Logger logger = LoggerFactory.getLogger(FileUploadController.class);
 
 	@PostMapping(value="/list/{user_no}")
@@ -78,8 +77,7 @@ public class FileUploadController {
 		try {
 			
 			inputStream = file.getInputStream();
-			uploadPath = WebUtils.getRealPath(request.getSession().getServletContext(), "/resources/image");
-			// TODO : change path
+			String uploadPath = WebUtils.getRealPath(request.getSession().getServletContext(), "/resources/image");
 			logger.info("\n* uploaded file path : " + uploadPath 
 					+ "\n* file original name : " + file.getOriginalFilename());
 			
@@ -123,8 +121,6 @@ public class FileUploadController {
 			dto.setFile_size((int)file.getSize());
 		} else if (fileExtension.equalsIgnoreCase("mp4")) {
 			dto.setFile_type("V");
-		} else {
-			dto.setFile_type("T"); // 빼야함!
 		}
 		
 		int res = fileUploadBiz.insert(dto);
@@ -135,28 +131,26 @@ public class FileUploadController {
 	
 	@RequestMapping(value="/download/{file_no}")
 	public byte[] fileDownload(HttpServletRequest request, HttpServletResponse response, @PathVariable int file_no) {
+//	public Map<String, Object> fileDownload(HttpServletRequest request, HttpServletResponse response, @PathVariable int file_no) {
+		Map<String, Object> answer = new HashMap<String, Object>();
 		
 		FileUploadDto dto = fileUploadBiz.selectOne(file_no);
+		String extension = FilenameUtils.getExtension(dto.getFile_name());
+		String mime_front = (dto.getFile_type().equals("P"))?"image":"video";
+		String mime_back = (extension.toLowerCase().equals("jpg"))?"jpeg":extension.toLowerCase();
+		answer.put("mime", mime_front + "/" + mime_back);
+		answer.put("extension", extension);
 		
 		byte[] down = null;
 		
 		try {
-			uploadPath = WebUtils.getRealPath(request.getSession().getServletContext(), "/resources/image");
-			// TODO: change upload path
-			// upload 경로와 동일한 실제 경로 부여
+			String uploadPath = WebUtils.getRealPath(request.getSession().getServletContext(), "/resources/image");
 			File file = new File(uploadPath + "/" + dto.getFile_name());
 			
 			down = FileCopyUtils.copyToByteArray(file);
-			// FileCopyUtils : 파일과 stream 복사에 사용되는 간단한 유틸리티 메서드
-			// copyToByteArray(file) : 주어진 입력 파일의 컨텐트를 새로운 바이트 배열로 복사
 			String filename = new String(file.getName().getBytes(), "8859_1");
 			
 			response.setHeader("Content-Disposition", "attachment; filename=\""+filename +"\"");
-			// HTTP 응답에서 컨텐츠가 브라우저에서
-			// 1. inline (기본값, 웹페이지 내부 또는 웹페이지로 표시될 수 있음)
-			// 2. attachment (다운로드해야 함)
-			// 알려주는 헤더
-			response.setContentLength(down.length);
 			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -165,8 +159,10 @@ public class FileUploadController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+		answer.put("bytes", down);
+
 		return down;
+//		return answer;
 		
 	}
 	
