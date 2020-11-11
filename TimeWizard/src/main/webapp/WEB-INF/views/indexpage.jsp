@@ -27,7 +27,7 @@
 			</div>
 		</div>
 		
-		<div class="section" id="p2" style="background-image:url(resources/img/bg1.jpg)">
+		<div class="section" id="p2" style="background-image:url(resources/image/bg1.jpg)">
 			<div class="start">
 				<a class="title">플래너의 시작, TIWI와 함께</a>
 				<a href="login/loginform" class="loginform">시작하러 가기</a>
@@ -39,7 +39,7 @@
 		
 
 		<div class="section" id="p3"">
-			<div class="backimg" style="background-image:url(resources/img/bg2.jpg)"></div>
+			<div class="backimg" style="background-image:url(resources/image/bg2.jpg)"></div>
 			<p class="p3title">
 				TIWI STORY
 			</p>

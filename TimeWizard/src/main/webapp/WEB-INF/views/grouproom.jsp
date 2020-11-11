@@ -61,7 +61,7 @@ window.onpageshow = function (event)
 				<h1 id="title">${dto.group_title }</h1>
 
 
-				<jsp:include page="/WEB-INF/views/rtcmulticonnectiontest.jsp"></jsp:include>
+				<jsp:include page="/WEB-INF/views/rtcmulticonnection.jsp"></jsp:include>
 
 
 				<input type="hidden" value="${dto.group_title }" id="rid">

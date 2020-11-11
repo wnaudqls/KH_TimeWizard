@@ -22,6 +22,7 @@
 	<a href="kakaomes">share</a>
 	<a href="indexpage">index</a>
 	<a href="webrtctest">webrtc test</a>
+	<a href="fileuploadtest">fileupload test</a>
 	
 </body>
 </html>

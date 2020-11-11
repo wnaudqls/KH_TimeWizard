@@ -125,7 +125,7 @@ public class MypageController {
 	}
 	
 	@RequestMapping("/userpwchangeres")
-	public String UserPwChangeRes(HttpServletResponse response, HttpSession session, UserInfoDto dto, @RequestParam String user_newestpw_check, @RequestParam String user_newestpw, @RequestParam int user_no) throws Exception {
+	public void UserPwChangeRes(HttpServletResponse response, HttpSession session, UserInfoDto dto, @RequestParam String user_newestpw_check, @RequestParam String user_newestpw, @RequestParam int user_no) throws Exception {
 		logger.info("[user pw change Result]");
 		
 		UserInfoDto user = (UserInfoDto) session.getAttribute("login");
@@ -145,9 +145,8 @@ public class MypageController {
 			
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
-			out.println("<script>alert('기존 패스워드가 불일치합니다. 암호 변경에 실패했습니다.');</script>");
+			out.println("<script>alert('기존 패스워드가 불일치합니다. 암호 변경에 실패했습니다.'); location.href='/timewizard/mypage'</script>");
 			out.flush();
-			return "mypage";
 			
 		} else {
 			
@@ -163,8 +162,11 @@ public class MypageController {
 			if(res != 0) {
 				
 				System.out.println("암호 변경 성공");
+				response.setContentType("text/html; charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				out.println("<script>alert('비밀번호가 변경되었습니다. 변경된 비밀번호로 다시 로그인하실 수 있습니다.'); location.href='/timewizard/login/loginform';</script>");
+				out.flush();
 				session.invalidate();
-				return "redirect:/login/loginform";
 				}
 			
 			} else {
@@ -172,12 +174,11 @@ public class MypageController {
 				System.out.println("암호 변경 실패");
 				response.setContentType("text/html; charset=UTF-8");
 				PrintWriter out = response.getWriter();
-				out.println("<script>alert('새 비밀번호와 새 비밀번호 확인이 일치하지 않습니다. 암호 변경에 실패했습니다.'); </script>");
+				out.println("<script>alert('새 비밀번호와 새 비밀번호 확인이 일치하지 않습니다. 암호 변경에 실패했습니다.'); location.href='/timewizard/mypage'; </script>");
 				out.flush();
 			
 			 }
-		}
-		return "mypage";
+			}
 		}
 	
 	
