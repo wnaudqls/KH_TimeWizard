@@ -18,5 +18,6 @@ public interface UserInfoDao {
 	public int idCheck(String id);
 	public int updateRoleRes(UserInfoDto dto);
 	public int pwChangeRes(UserInfoDto dto);
+	public int userInfoChange(UserInfoDto dto);
 	
 }
