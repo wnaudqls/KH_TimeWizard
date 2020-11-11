@@ -71,7 +71,6 @@ public class MypageController {
 	}
 	
 
-
 	/* 유저 탈퇴 */
 	@RequestMapping("/userdeletepage")
 	public String UserDeletePage(Model model, @RequestParam int user_no) {
@@ -125,57 +124,47 @@ public class MypageController {
 	}
 	
 	@RequestMapping("/userpwchangeres")
-	public String UserPwChangeRes(HttpServletResponse response, UserInfoDto dto, HttpSession session, @RequestParam int user_no) throws Exception {
+	public String UserPwChangeRes(HttpServletResponse response, HttpSession session, UserInfoDto dto, @RequestParam String user_newestpw, @RequestParam int user_no) throws Exception {
 		logger.info("[user pw change Result]");
 		
 		UserInfoDto user = (UserInfoDto) session.getAttribute("login");
 		String user_pw = user.getUser_pw();
 		String new_pw = dto.getUser_pw();
+		dto.setUser_newestpw(user_newestpw);
+		String newestpw = dto.getUser_newestpw();
 		
-		//비밀번호 불일치로 암호 변경 실패
+		//기존 비밀번호 불일치로 암호 변경 실패
 		if(!(user_pw.equals(new_pw))) {
+			
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			out.println("<script>alert('비밀번호가 불일치해서 암호 변경에 실패했습니다.');</script>");
 			out.flush();
 			return "mypage";
+			
 		} else {
 			
-			// 새 비밀번호랑 새 비밀번호 확인이 같은 경우
-			if () {
-				
-				
-	
+			logger.info("user_newestpw :"+newestpw);
+			logger.info("user_no :"+user_no);
+			
 			int res = userinfoBiz.pwChangeRes(dto);
 			  
 			if(res != 0) {
+				
 				System.out.println("암호 변경 성공");
+				response.setContentType("text/html; charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				out.println("<script>alert('비밀번호가 변경되었습니다. 변경된 비밀번호로 다시 로그인하실 수 있습니다.'); </script>");
+				out.flush();
+				session.invalidate();
+				return "mypage";
+				
 			} else {
 				System.out.println("암호 변경 실패");
-			}
-			
-			response.setContentType("text/html; charset=UTF-8");
-			PrintWriter out = response.getWriter();
-			out.println("<script>alert('비밀번호가 변경되었습니다. 변경된 비밀번호로 다시 로그인하실 수 있습니다.');</script>");
-			out.flush();
-			return "main";
-			
-			/* 비밀번호 변경 성공시 로그인 세션 객체 다시 담음
-			//비밀번호 변경
-			usersService.modifyPw(user);
-			
-			//비밀번호 변경 성공시 로그인 세션 객체 다시 담음
-			LoginVO modifyUser = new LoginVO();
-			modifyUser.setEmail(user.getEmail());
-			
-			UsersVO mUser = usersService.login(modifyUser);
-			logger.info("회원정보 불러오기 : " + mUser);
-			session.setAttribute("login", mUser);
-			 */
+				return "redirect:userpwchange";
 			
 			 }
-		}	
-	}
+		}
 	
 	/* 프로필 사진 업로드 */
 	@RequestMapping(value="/form")
