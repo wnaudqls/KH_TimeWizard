@@ -144,7 +144,7 @@ public class UserInfoDaoImpl implements UserInfoDao {
 	
 	@Override
 	public int pwChangeRes(UserInfoDto dto) {
-		logger.info(">> [USERINFO] update : user_pw - " + dto.getUser_pw());
+		logger.info(">> [USERINFO] update : user_pw - " + dto.getUser_newestpw());
 		int res = 0;
 		
 		try {
