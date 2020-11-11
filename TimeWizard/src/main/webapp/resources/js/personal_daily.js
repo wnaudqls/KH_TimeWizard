@@ -81,7 +81,7 @@ function showDailyList(date){
 	month_div.textContent = MM + "월";
 	let day_div = document.querySelector("div.date__day");
 	day_div.textContent = dd + "일";
-	const list_div = document.getElementById("todo__list");
+	let list_div = document.getElementById("todo__list");
 	list_div.innerHTML = "";
 	const xhr = new XMLHttpRequest();
 	xhr.open("POST", "/timewizard/daily/list/"+date);
@@ -836,5 +836,6 @@ function showPopupStopwatch(todo_no){
 	window.open('/timewizard/stopwatch', 'window_'+todo_no,'width=300, height=190, left=0, top=100, status=no, resizable=no');
 }
 function showTimeBlocks(responseText){
-
+	const heatmap_div = document.querySelector(".heatmap");
+	
 }

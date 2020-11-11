@@ -75,7 +75,11 @@ public class MainController {
 	}
 	@RequestMapping(value="/webrtctest")
 	public String webRTCTestPage() {
-		return "rtcmulticonnectiontest";
+		return "rtcmulticonnection";
+	}
+	@RequestMapping(value="/fileuploadtest")
+	public String fileUploadTestPage() {
+		return "fileuploadtest";
 	}
 	
 	/* 삭제해도 되는지 확인해주세요 @용민 */

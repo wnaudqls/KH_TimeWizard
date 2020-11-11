@@ -39,8 +39,8 @@
 
 			<a href="/timewizard/user/<%=user_distinct %>">
 				<div class="logo_svg">
-					<img class="text" alt="star" src="/timewizard/img/logo_star.svg" />
-					<img class="accent" alt="star" src="/timewizard/img/logo_star_accent.svg" />
+					<img class="text" alt="star" src="/timewizard/image/logo_star.svg" />
+					<img class="accent" alt="star" src="/timewizard/image/logo_star_accent.svg" />
 				</div>
 				<span class="logo_text">Time Wizard</span>
 			</a>

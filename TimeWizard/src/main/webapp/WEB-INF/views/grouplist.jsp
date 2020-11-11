@@ -24,8 +24,8 @@
 <!-- 	<nav class="fixedtop">
 		<div class="logo">
 			<a class="titlelogo" href="main"><img alt=""
-				src="resources/img/027-star 2.png"></a> <a class="titlename"
-				href="main"><img alt="" src="resources/img/TIME WIZARD.png"></a>
+				src="resources/image/027-star 2.png"></a> <a class="titlename"
+				href="main"><img alt="" src="resources/image/TIME WIZARD.png"></a>
 		</div>
 
 		<div class="menu">

@@ -161,7 +161,6 @@ public class MypageController {
 				PrintWriter out = response.getWriter();
 				out.println("<script>alert('비밀번호가 변경되었습니다. 변경된 비밀번호로 다시 로그인하실 수 있습니다.'); location.href='/timewizard/login/loginform';</script>");
 				out.flush();
-				session.invalidate();
 				}
 			
 			} else {
