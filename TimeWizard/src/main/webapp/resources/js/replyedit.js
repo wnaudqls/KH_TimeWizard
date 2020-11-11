@@ -9,6 +9,7 @@
 		var reply_content = $('#reply_content').val();
 		var user_no = $('#user_no').val();
 		var notice_no = document.getElementById("nno").value;
+		var user_name = $("#user_name").val();
 
 		console.log("reply_content: "+ reply_content +" / user_no: "+user_no+" / notice_no: "+notice_no);
 	
@@ -55,7 +56,7 @@
    	
 	                    	 htmls += '<div class="reinsert">';
 		                     htmls += '<span class="d-block">';
-		                     htmls += '<strong> ID : '+user_id+'</strong>';
+		                     htmls += '<strong> User &#91; '+this.user_name+"	&#93; </strong>";
 		                     htmls += '<p>Comment &nbsp; : &nbsp;  ' +this.reply_content+'</p>';
 		                     htmls += '<h5> Date &nbsp; : '+this.reply_regdate+'</h5>';
 		                     htmls += '<span style="padding-left: 7px; font-size: 9pt">';
@@ -106,7 +107,7 @@
 		htmls += '<div class="media text-muted pt-3" id="reply_no' + reply_no + '">';
 	
 		htmls += '<span class="d-block">';
-		htmls += '<div>'+uid+'</div>';
+		htmls += '<strong> User &#91; '+this.user_name+"	&#93; </strong>";
 		htmls += '<strong class="text-gray-dark">' + user_no + '</strong>';
 		htmls += '<span style="padding-left: 7px; font-size: 9pt">';
 		htmls += '<a href="javascript:void(0)" onclick="fn_updateReply(' + reply_no + ', \'' + user_no + '\')" style="padding-right:5px">저장</a>';

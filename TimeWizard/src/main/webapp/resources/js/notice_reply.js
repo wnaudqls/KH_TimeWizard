@@ -37,6 +37,7 @@
 						var recon = result[i].reply_content;
 						var redate = result[i].reply_regdate;
 						var uid = result[i].user_id;
+						var user_name = result[i].user_name;
 						
 						console.log(uid);
 						
@@ -46,7 +47,7 @@
 						 htmls += '<div> ';
 	                     htmls += '<p>';
 	                     htmls += '<span class="d-block">';
-	                     htmls += '<strong> ID &nbsp; : '+uid+'</strong>';// 아이디
+	                     htmls += '<strong> User &#91; '+user_name+"	&#93; </strong>";
 	                     htmls += '<p>Comment &nbsp; : &nbsp; '+recon +'</p>';
 	                     htmls += '<h5>Date &nbsp; : '+ redate+'</h5>';
 	                     htmls += '<span style="padding-left: 7px; font-size: 9pt">';
