@@ -1,0 +1,48 @@
+:root {
+    --text-color: #f0f4f5;
+    --background-color: #263343;
+	--accent-color: #ff6b6b;
+	--color: #E0E0E0;
+}
+
+input[type=button] {
+	background-color: var(--background-color);
+	color: white;
+	border-radius: 4px;
+	cursor: pointer;
+	float: right;
+	transition: 0.4s;
+}
+
+input[type=button]:hover {
+	background-color: white;
+	color: var(--background-color);
+}
+
+.searchbtn {
+	background-color: var(--background-color);
+	color: white;
+	border-radius: 4px;
+	cursor: pointer;
+	float: right;
+	transition: 0.4s;
+}
+
+.searchbtn:hover {
+	background-color: white;
+	color: var(--background-color);
+}
+
+#enter-quit-button {
+	background-color: var(--background-color);
+	color: white;
+	border-radius: 4px;
+	cursor: pointer;
+	float: right;
+	transition: 0.4s;
+}
+
+#enter-quit-button:hover {
+	background-color: white;
+	color: var(--background-color);
+}

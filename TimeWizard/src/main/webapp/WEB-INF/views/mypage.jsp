@@ -83,6 +83,34 @@ function pay(e){
 				${fileObj.file_title }
 			</div>
 			<form:form method="post" enctype="multipart/form-data" modelAttribute="uploadFile" action="upload">
+
+				<label><input type="file" class="mypagebtn" accept="image/*" id="image" name="file_title" /></label>
+				<label><input type="submit" class="mypagebtn" value="send" /></label>
+				<p style="color: red; font-weight: bold;"><form:errors path="file_title" /></p>
+			</form:form>
+			
+			<table>
+				<tr>
+					<td>ID</td>
+					<td><input type="text" name="" size=20 readonly value="${login.user_id }"></td>
+				</tr>
+				<tr>
+					<td>NAME</td>
+					<td><input type="text" name="" size=20 readonly value="${login.user_name }"></td>
+				</tr>
+				<tr>
+					<td>EMAIL</td>
+					<td><input type="email" name="" size=20 value="${login.user_email }"></td>
+				</tr>
+				<tr>
+					<td colspan="2" align="right">
+						<input type="submit" class="mypagebtn" value="수정" onclick="" /><br/>
+						<a href="userpwchange?user_no=${login.user_no }" class="btndesign">암호변경</a>
+						<a href="userdeletepage?user_no=${login.user_no }" class="btndesign">탈퇴</a>
+					</td>
+				</tr>
+			</table>
+
 				<div class="userchange">
 					<label><input type="file" accept="image/*" id="image" name="file_title" /></label>
 					<label><input type="submit" value="send" /></label>
@@ -92,7 +120,6 @@ function pay(e){
 			
 			<form action="userInfoChange">
 				<input type="hidden" name="user_no" value="${dto.user_no}">
-				<input type="hidden" name="user_distinct" value="${dto.user_distinct}">
 				<div class="userchange">
 					<table>
 						<tr>
@@ -109,7 +136,7 @@ function pay(e){
 						</tr>
 						<tr>
 							<td colspan="2" align="right">
-								<input type="submit" class="submitbox" value="수정" onclick="" /><br/>
+								<input type="submit" class="submitbox" value="수정" /><br/>
 								<a href="userpwchange?user_no=${login.user_no }" class="btndesign">암호변경</a>
 								<a href="userdeletepage?user_no=${login.user_no }" class="btndesign">탈퇴</a>
 							</td>
@@ -117,6 +144,8 @@ function pay(e){
 					</table>
 				</div>
 			</form>
+
+		</div>
 	
 		<div class="mypagemenu" align="center">
 			<table>
@@ -155,13 +184,13 @@ function pay(e){
 			<c:when test="${dto.membership eq 'N' }">  
 				<tr>
 					<td><b>스트리밍 이용</b></td>
-					<td colspan="3" align="center"><input type="button" class="payname"  name="membership" value="9900" onclick="pay(this);"></td>
+					<td colspan="3" align="center"><input type="button" class="payname mypagebtn" name="membership" value="9900" onclick="pay(this);"></td>
 				</tr>
 			</c:when>
 			<c:otherwise>
 				<tr>
 					<td><b>스트리밍 이용</b></td>
-					<td colspan="3" align="center"><input type="button" name="membership" value="9900" onclick="pay(this);" disabled></td>
+					<td colspan="3" align="center"><input type="button" class="mypagebtn" name="membership" value="9900" onclick="pay(this);" disabled></td>
 				</tr>
 			</c:otherwise>
 			</c:choose>
@@ -173,9 +202,9 @@ function pay(e){
 				</tr>			
 					<tr>
 						<td align="center" id="lastcount">( ${dto.timelapse } )</td>	
-						<td><input type="button" class="payname" name="timelapse" value="1000" onclick="pay(this);"></td>
-						<td><input type="button" class="payname" name="timelapse" value="5000" onclick="pay(this);"></td>
-						<td><input type="button" class="payname" name="timelapse" value="9000" onclick="pay(this);"></td>
+						<td><input type="button" class="payname mypagebtn" name="timelapse" value="1000" onclick="pay(this);"></td>
+						<td><input type="button" class="payname mypagebtn" name="timelapse" value="5000" onclick="pay(this);"></td>
+						<td><input type="button" class="payname mypagebtn" name="timelapse" value="9000" onclick="pay(this);"></td>
 					</tr>	
 			</table>
 			</form>
