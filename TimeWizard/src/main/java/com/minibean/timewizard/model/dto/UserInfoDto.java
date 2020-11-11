@@ -7,7 +7,8 @@ public class UserInfoDto {
 	private int user_no;
 	private String user_id;
 	private String user_pw;
-	private String user_newpw;
+	private String user_newestpw;
+	private String user_newestpw_check;
 	private String user_name;
 	private String user_email;
 	private String user_role;
@@ -64,14 +65,15 @@ public class UserInfoDto {
 		this.user_role = user_role;
 	}
 	
-	// user_newpw 추가
-	public UserInfoDto(int user_no, String user_id, String user_pw, String user_newpw, String user_name,
+	// user_newpw, user_newestpw_check 추가
+	public UserInfoDto(int user_no, String user_id, String user_pw, String user_newestpw, String user_newestpw_check, String user_name,
 			String user_email, String user_role, String user_photo, String user_active, String user_distinct,
 			Date user_regdate, FriendDto friendDto) {
 		this.user_no = user_no;
 		this.user_id = user_id;
 		this.user_pw = user_pw;
-		this.user_newpw = user_newpw;
+		this.user_newestpw = user_newestpw;
+		this.user_newestpw_check = user_newestpw_check;
 		this.user_name = user_name;
 		this.user_email = user_email;
 		this.user_role = user_role;
@@ -106,13 +108,23 @@ public class UserInfoDto {
 		this.user_pw = user_pw;
 	}
 	
-	public String getUser_newpw() {
-		return user_newpw;
+	public String getUser_newestpw() {
+		return user_newestpw;
 	}
 
 
-	public void setUser_newpw(String user_newpw) {
-		this.user_newpw = user_newpw;
+	public void setUser_newestpw(String user_newestpw) {
+		this.user_newestpw = user_newestpw;
+	}
+	
+
+	public String getUser_newestpw_check() {
+		return user_newestpw_check;
+	}
+
+
+	public void setUser_newestpw_check(String user_newestpw_check) {
+		this.user_newestpw_check = user_newestpw_check;
 	}
 
 

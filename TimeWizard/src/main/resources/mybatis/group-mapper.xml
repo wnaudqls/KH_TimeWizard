@@ -4,6 +4,7 @@
   <select id="selectList" resultType="GroupDto">
   	SELECT *
   	FROM GROUP_INFO
+  	ORDER BY GROUP_NO
   </select>
   <select id="selectOne" resultType="GroupDto">
   	SELECT *

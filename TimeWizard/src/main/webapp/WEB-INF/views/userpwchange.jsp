@@ -11,14 +11,14 @@
 <title>Insert title here</title>
 <link href="/timewizard/css/actionpage.css" rel="stylesheet">
 <link href="/timewizard/css/userpwchange.css" rel="stylesheet">
+<script src="resources/js/userpwchange.js" defer></script>
 <script src="https://kit.fontawesome.com/3049a69bf8.js" crossorigin="anonymous"></script>
-<link rel="stylesheet" type="text/css" href="resources/css/userpwchange.css">
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
 
 	<section id="container">
-			<form action="userpwchangeres" method="post" modelAttribute="password" onsubmit="return check();">
+			<form action="userpwchangeres" method="post">
 			<input type="hidden" name="user_no" value="${dto.user_no}">
 				<div class="pwchangebox">
 					<label class="control-label" for="userId">아이디</label>
@@ -34,11 +34,11 @@
 				</div>
 				<div class="pwchangebox">
 					<label class="control-label" for="newestPass">새 비밀번호</label>
-					<input class="form-control" type="text" id="newest_pw" name="newest_pw" /><br/>
+					<input class="form-control" type="password" id="user_newestpw" name="user_newestpw" /><br/>
 				</div>
 				<div class="pwchangebox">
 					<label class="control-label" for="newestPassConfirm">새 비밀번호 확인</label>
-					<input class="form-control" type="text" id="newest_pw_confirm" name="newest_pw_confirm" /><br/>
+					<input class="form-control" type="password" id="user_newestpw_check" name="user_newestpw_check" /><br/>
 				</div>
 				<div class="pwchangebox">
 					비밀번호를 변경하시겠습니까?<br/>

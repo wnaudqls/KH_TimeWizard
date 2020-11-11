@@ -12,7 +12,17 @@
 	rel="stylesheet">
 <script src="https://kit.fontawesome.com/3049a69bf8.js"
 	crossorigin="anonymous"></script>
+<script type="text/javascript">
+window.onpageshow = function (event)
+{
+	if (event.persisted || (window.performance && window.performance.navigation.type == 2)) {
+		location.href = "../";
+	}
 
+}
+
+
+</script>
 <meta charset="UTF-8">
 <title>채팅방: ${dto.group_title }</title>
 </head>
@@ -51,7 +61,7 @@
 				<h1 id="title">${dto.group_title }</h1>
 
 
-				<jsp:include page="/WEB-INF/views/rtcmulticonnectiontest.jsp"></jsp:include>
+				<jsp:include page="/WEB-INF/views/rtcmulticonnection.jsp"></jsp:include>
 
 
 				<input type="hidden" value="${dto.group_title }" id="rid">
