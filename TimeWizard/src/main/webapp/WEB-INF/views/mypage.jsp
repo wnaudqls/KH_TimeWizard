@@ -84,6 +84,10 @@ function pay(e){
 			</div>
 			<form:form method="post" enctype="multipart/form-data" modelAttribute="uploadFile" action="upload">
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+>>>>>>> eaa07168207de77732e1424c52f7c2104a1bd7b1
 				<label><input type="file" class="mypagebtn" accept="image/*" id="image" name="file_title" /></label>
 				<label><input type="submit" class="mypagebtn" value="send" /></label>
 				<p style="color: red; font-weight: bold;"><form:errors path="file_title" /></p>
@@ -110,7 +114,11 @@ function pay(e){
 					</td>
 				</tr>
 			</table>
+<<<<<<< HEAD
 =======
+=======
+
+>>>>>>> eaa07168207de77732e1424c52f7c2104a1bd7b1
 				<div class="userchange">
 					<label><input type="file" accept="image/*" id="image" name="file_title" /></label>
 					<label><input type="submit" value="send" /></label>
@@ -144,7 +152,11 @@ function pay(e){
 					</table>
 				</div>
 			</form>
+<<<<<<< HEAD
 >>>>>>> main
+=======
+
+>>>>>>> eaa07168207de77732e1424c52f7c2104a1bd7b1
 		</div>
 	
 		<div class="mypagemenu" align="center">
