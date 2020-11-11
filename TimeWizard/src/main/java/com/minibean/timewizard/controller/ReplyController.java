@@ -30,7 +30,7 @@ public class ReplyController {
 
 	@Autowired
 	private ReplyBiz replyBiz;
-
+	
 	
 	@RequestMapping(value = "/replylist", method = RequestMethod.POST)
 	public List<ReplyDto> replyList(ReplyDto dto) {
