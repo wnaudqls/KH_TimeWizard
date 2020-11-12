@@ -126,6 +126,8 @@
 	}
 
 	.pagingbox {
+		justify-content: center;
+	    align-items: center;
 		display: flex;
 		width: 100%;
 	}
@@ -137,21 +139,25 @@
 
 	.pagingdesign nav ul li {
 		display: flex;
-		padding: 4px;
-		justify-content: center;
-	    align-items: center;
 	}
 
 	li a {
-		display: flex;
-		color: black;
+		
 	}
 
 	.pagingtext {
+		justify-content: center;
+	    align-items: center;
+		display: flex;
 		border: 1px solid var(--color);
-		border-radius: 4px;
-		font-size: 24px;
-		width: 50px;
+		border-radius: 50%;
+		font-size: 18px;
+		width: 30px;
+		height: 30px;
+		margin-left: 4px;
+		margin-right: 4px;
+		color: var(--color);
+		background-color: var(--background-color);
 	}
 
 	.pagingarrow {
@@ -159,7 +165,7 @@
 	}
 
 	.active {
-		color: red;
+		color: black;
 	}
 
 @media screen and (max-width: 1140px) {
