@@ -34,9 +34,9 @@ function downloadFile(file_no){
 				link.click();
 				 */
 				return xhr.responseText;
-			} /* not empty responseText */
-		} /* readyState 4 status 200 */
-	} /* onreadystatechange */
+			}
+		}
+	}
 }
 
 function selectList(user_no){
@@ -113,10 +113,9 @@ function selectOne(user_no){
 	xhr.send();
 	xhr.onreadystatechange = () => {
 		if (xhr.readyState == 4 && xhr.status == 200){
-			if (xhr.responseText != null && xhr.responseText != "" && xhr.responseText != '[]'){
-				console.log(JSON.parse(xhr.responseText));
+			console.log(xhr.responseText);
+			if (xhr.responseText != null && xhr.responseText != ""){
 				let file = JSON.parse(xhr.responseText);
-				console.log(file);
 				
 				let files_div = document.createElement("div");
 				files_div.setAttribute("class","files");
@@ -139,14 +138,7 @@ function selectOne(user_no){
 				
 				let download_cell = document.createElement("div");
 				download_cell.setAttribute("class","cell download__cell");
-				/*
-				if (user_no == files[i].user_no){
-					download_cell.setAttribute("onclick","downloadFile("+ files[i].file_no + ");")
-				}
-				let file_download = document.createElement("i");
-				file_download.setAttribute("class","fas fa-file-download");
-				download_cell.appendChild(file_download);
-				 */
+				
 				let form = document.createElement("form");
 				form.setAttribute("action","/timewizard/file/download/"+file.file_no);
 				form.setAttribute("method","POST");
@@ -162,7 +154,7 @@ function selectOne(user_no){
 				files_div.appendChild(file_div)
 				filesArea.appendChild(files_div);
 				
-			} else if (xhr.responseText == '[]'){
+			} else if (xhr.responseText == "" || xhr.responseText == null){
 					filesArea.textContent = "저장된 파일이 없습니다.";
 			}
 		}

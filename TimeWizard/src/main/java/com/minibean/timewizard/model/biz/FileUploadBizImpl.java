@@ -28,6 +28,11 @@ public class FileUploadBizImpl implements FileUploadBiz {
 	public FileUploadDto selectVideoOne(int file_no) {
 		return fileUploadDao.selectVideoOne(file_no);
 	}
+	
+	@Override
+	public FileUploadDto selectOne(int file_no) {
+		return fileUploadDao.selectOne(file_no);
+	}
 
 	@Override
 	public int insert(FileUploadDto dto) {

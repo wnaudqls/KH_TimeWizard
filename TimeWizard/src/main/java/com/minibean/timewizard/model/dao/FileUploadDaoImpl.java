@@ -33,10 +33,23 @@ public class FileUploadDaoImpl implements FileUploadDao {
 
 	@Override
 	public FileUploadDto selectImageOne(int user_no) {
-		logger.info(">> [FILEUPLOAD] selectOne - " + user_no);
+		logger.info(">> [FILEUPLOAD] selectImageOne - " + user_no);
 		FileUploadDto dto = null;
 		try {
 			dto = sqlSession.selectOne(NAMESPACE+"selectImageOne", user_no);
+		} catch (Exception e) {
+			logger.info("[ERROR] FILEUPLOAD :: selectOne");
+			e.printStackTrace();
+		}
+		return dto;
+	}
+	
+	@Override
+	public FileUploadDto selectOne(int file_no) {
+		logger.info(">> [FILEUPLOAD] selectOne - " + file_no);
+		FileUploadDto dto = null;
+		try {
+			dto = sqlSession.selectOne(NAMESPACE+"selectImageOne", file_no);
 		} catch (Exception e) {
 			logger.info("[ERROR] FILEUPLOAD :: selectOne");
 			e.printStackTrace();
