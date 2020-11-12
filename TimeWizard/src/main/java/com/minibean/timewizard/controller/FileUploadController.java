@@ -141,6 +141,7 @@ public class FileUploadController {
 	@RequestMapping(value="/download/{file_no}")
 	public byte[] fileDownload(HttpServletRequest request, HttpServletResponse response, @PathVariable int file_no) {
 //	public Map<String, Object> fileDownload(HttpServletRequest request, HttpServletResponse response, @PathVariable int file_no) {
+
 		
 		logger.info(">> [CONTROLLER-FILEUPLOAD] download");
 		

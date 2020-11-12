@@ -30,41 +30,87 @@ $(document).ready(function () {
 	friendlist();
 });
 function searchfriend(){
-var uname = $("#search_text").val();
-console.log("유저이름: "+uname);
-var searchval = {
-			"user_name": uname
-		}
-console.log("searchval: "+searchval);
-	$.ajax({
-	    type: "post",
-	    url: "/timewizard/searchList",
-	    data: JSON.stringify(searchval),
-	    dataType: "json",
-	    contentType: "application/json",
-	    success: function(data){
-	    	searchList = data.searchList;
-	    	console.log("서치리스트: "+searchList);
-	    	$(".userlist").empty();
-	    	$(".userlist").append("<p>Search List</p>");
-	    	if(searchList == ''){
-	    		$(".userlist").append("<p>-- 검색하신 분을 찾지 못했습니다. --</p>")
-	    	}else{
-	    		for(i in searchList){
-	    			var user_name = searchList[i].user_name;
-	    			var name = "\""+searchList[i].user_name+"\"";
-	    			$(".userlist").append("<p>"+ user_name +"</p>"+
-	    			"<input type='button' value='친구추가' onclick='alertsys("+searchList[i].user_no+","+ uno +","+name+")'>");
-	    		}
-	    		
-	    	}
-	    	
-	    },
-	    error: function(data){
-	    	$(".friendsbar").append("연결이 끊겼습니다.");
-	    }
-	});
-}
+	var url = location.href;
+	var username = $("#search_text").val();
+	var inviteurl = "\""+url.split("/timewizard")[1]+"\"";
+	var searchval = {
+				"user_name": username,
+				"user_no": uno
+			}
+		$.ajax({
+		    type: "post",
+		    url: "/timewizard/searchList",
+		    data: JSON.stringify(searchval),
+		    dataType: "json",
+		    contentType: "application/json",
+		    success: function(data){
+		    	searchList = data.searchList;
+		    	searchListN = data.searchListN;
+		    	$(".userlist").empty();
+		    	$(".userlist").append("<p><b>Search List</b></p>");
+		    	if(searchList == ''){
+		    		$(".userlist").append("<p>-- 검색하신 분을 찾지 못했습니다. --</p>")
+		    	}else if(username == uname){
+		    		$(".userlist").append("<p>-- 자기 자신을 검색하셧습니다. --</p>");
+		    	}else if(username.trim() == ''){
+		    		$(".userlist").append("<p>-- 이름을 입력해주세요. --</p>");
+		    	}
+		    	else{
+		    		for(i in searchList){
+		    			var user_name = searchList[i].user_name;
+		    			var name = "\""+searchList[i].user_name+"\"";
+		    			var user_no = searchList[i].user_no;
+		    			var friend_no = searchList[i].friend_no;
+		    			var status = searchList[i].status;
+		    			
+		    			if(url.indexOf("joinroom")!== -1){
+		    				if(status == "ACCEPT" && (friend_no == uno)){
+		    					$(".userlist").append("<p>"+ user_name +
+		    					"<input type='button' value='친구삭제' onclick='deletefriend("+user_no+","+ uno +","+name+")'>"+
+		    					"<input type='button' value='초대하기' onclick='invitefriend("+user_no+","+ uno +","+inviteurl+","+name+")'"+"</p>");
+		    				}
+		    				else if(status == "RESP" && (friend_no == uno)){
+		    					$(".userlist").append("<p>"+ user_name +"님이 친구신청 하셨습니다."+
+			    				"<button class='accdeny' onclick='friendAccept("+user_no+")'> <i class='fas fa-user-times'></i></button>"
+			    				+" <button class='accdeny' onclick='friendDeny("+user_no+","+name+")'><i class='fas fa-user-check'></i></button></p>");
+		    				
+		    				}else if(status == "SEND" && (friend_no == uno)){
+		    		
+		    					$(".userlist").append("<p>"+user_name +"님이 응답중 입니다.</p>");
+		    				}
+		    			}else{
+		    				if(status == "ACCEPT" && (friend_no == uno)){
+		    					$(".userlist").append("<p>"+ user_name +
+		    					"<input type='button' value='친구삭제' onclick='deletefriend("+user_no+","+ uno +","+name+")'>"+"</p>");
+		    				}
+		    				else if(status == "RESP" && (friend_no == uno)){
+		    					$(".userlist").append("<p>"+ user_name +"님이 친구신청 하셨습니다."+
+			    				"<button class='accdeny' onclick='friendAccept("+user_no+")'> <i class='fas fa-user-times'></i></button>"
+			    				+" <button class='accdeny' onclick='friendDeny("+user_no+","+name+")'><i class='fas fa-user-check'></i></button></p>");
+		    				
+		    				}else if(status == "SEND" && (friend_no == uno)){
+		    		
+		    					$(".userlist").append("<p>"+user_name +"님이 응답중 입니다.</p>");
+		    				}
+		    				
+		    			}
+		    					
+		    		}
+		    		for(i in searchListN){
+		    			var user_name = searchListN[i].user_name;
+		    			var name = "\""+searchListN[i].user_name+"\"";
+		    			var user_no = searchList[i].user_no;
+		  				
+		    			$(".userlist").append("<p>"+ user_name+
+			    		"<input type='button' value='친구추가' onclick='alertsys("+user_no+","+ uno +","+name+")'></p>");
+		    		}
+		    	}
+		    },
+		    error: function(data){
+		    	$(".friendsbar").append("연결이 끊겼습니다.");
+		    }
+		});
+	}
 function reset(){
 	var uname = $("#search_text");
 	$(uname).val("");
@@ -97,9 +143,13 @@ function friendlist(){
 	    	
 	    			if(url.indexOf("joinroom")!== -1){
 	    				if((flist[i].status == "ACCEPT")){
-	    					$(".friendlist").append("<p>"+ flist[i].user_name +"</p>"+
-		    					"<input type='button' value='초대하기' onclick='invitefriend("+user_no+","+ uno +","+inviteurl+","+name+")'>");
-	    				}
+	    					$(".friendlist").append("<p>"+ flist[i].user_name +
+		    					"<input type='button' value='초대하기' onclick='invitefriend("+user_no+","+ uno +","+inviteurl+","+name+")'></p>");
+	    				}else if(flist[i].status == "RESP"){
+	    					$(".friendlist").append("<p>"+ user_name +"님이 친구신청 하셨습니다."+
+	    							"<button class='accdeny' onclick='friendAccept("+user_no+")'> <i class='fas fa-user-times'></i></button>"
+	    		    				+" <button class='accdeny' onclick='friendDeny("+user_no+","+name+")'><i class='fas fa-user-check'></i></button></p>");
+	    	    				}
 	    			}
 	    			else {
 	    			if((flist[i].status == "ACCEPT")){
@@ -110,8 +160,8 @@ function friendlist(){
     	    					
     	    		}else if(flist[i].status == "RESP"){
 	    					$(".friendlist").append("<p>"+ user_name +"님이 친구신청 하셨습니다.</p>"+
-	    					"<input type='button' value='수락' onclick='friendAccept("+user_no+")'/> "
-	    					+" <input type='button' value='거절' onclick='friendDeny("+user_no+","+name+")'>");
+	    							"<button class='accdeny' onclick='friendAccept("+user_no+")'> <i class='fas fa-user-times'></i></button>"
+	    		    				+" <button class='accdeny' onclick='friendDeny("+user_no+","+name+")'><i class='fas fa-user-check'></i></button></p>");
 	    				}
 	    			}
 	    		}
@@ -143,8 +193,8 @@ function friendlist(){
 <aside class="friendsbar">
 	
 		<p>friends</p>
-		<input type="text" placeholder="search.." id="search_text" />
-	
+		<input type="text" placeholder="search.." id="search_text" onkeyup="searchkey();" />
+
 		<button id="search_button" class="searchbtn" onclick="searchfriend();"><i class="fas fa-search" ></i>
 		</button>
 		<button id="search_button" class="searchbtn" onclick="reset();">
@@ -399,6 +449,14 @@ function invitefriend(user_no, uno, url, name){
      //denyalert.close();
      
 	  }, 3000);
+	
+}
+
+
+function searchkey(){
+	if (window.event.keyCode == 13) {
+		searchfriend();
+	}
 	
 }
 </script>

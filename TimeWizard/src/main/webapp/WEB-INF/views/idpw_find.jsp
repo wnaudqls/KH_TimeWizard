@@ -91,6 +91,7 @@ function emailCodeCheck(){
 				<input type="email" placeholder="이메일을 입력해주세요." name="user_email" class="user_id_email" required="required">
 				<input type="button" class="email_button_id" value="인증번호">
 				<div class="email_check_id"></div>
+
 			</div>
 			<div class="id_email_check">
 				EMAIL CHECK
