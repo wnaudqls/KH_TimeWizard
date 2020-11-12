@@ -79,18 +79,10 @@ function pay(e){
 				${fileObj.file_title }
 			</div>
 			<form:form method="post" enctype="multipart/form-data" modelAttribute="uploadFile" action="upload">
-<<<<<<< HEAD
-
-=======
->>>>>>> edbd03575e7487b943d033d8cdeb758c1c8668ff
 				<label><input type="file" class="mypagebtn" accept="image/*" id="image" name="file_title" /></label>
 				<label><input type="submit" class="mypagebtn" value="send" /></label>
 				<p style="color: red; font-weight: bold;"><form:errors path="file_title" /></p>
 			</form:form>
-<<<<<<< HEAD
-						
-=======
->>>>>>> edbd03575e7487b943d033d8cdeb758c1c8668ff
 			
 			<form action="userInfoChange">
 				<input type="hidden" name="user_no" value="${dto.user_no}">
@@ -118,10 +110,6 @@ function pay(e){
 					</table>
 				</div>
 			</form>
-<<<<<<< HEAD
-
-=======
->>>>>>> edbd03575e7487b943d033d8cdeb758c1c8668ff
 		</div>
 	
 		<div class="mypagemenu" align="center">
