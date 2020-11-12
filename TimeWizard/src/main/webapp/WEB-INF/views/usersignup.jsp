@@ -358,7 +358,7 @@ function emailCodeCheck(){
 	
 	var inputemailcode = $("#email_auto_code").val().trim();
 	
-	if(email_auto_code!=null){
+	if(inputemailcode!=null){
 		$("#email_check").text("이메일 인증을 성공했습니다.").css({'color' : 'navy','font-size' : '16px'});
 		
 		arr[5] = true;

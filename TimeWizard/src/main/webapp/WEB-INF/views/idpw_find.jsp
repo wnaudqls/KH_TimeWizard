@@ -28,7 +28,7 @@ $(document).ready(function() {
 				$(".email_check_id").html('알맞은 이메일입니다.');
 				$(".email_check_id").css('color','#ddd');
 				$(".email_button_id").attr("disabled",false);
-				
+				console.log("user_email : "+user_email);
 				$(".email_button_id").click(function(){
 					$.ajax({
 						url : "./emailSend?user_email="+ user_email,
@@ -64,7 +64,7 @@ function emailCodeCheck(){
 	
 	var inputemailcode = $(".email_code_id").val().trim();
 	
-	if(email_code_id!=null){
+	if(inputemailcode!=null){
 		$(".email_code_check").text("이메일 인증을 성공했습니다.").css({'color' : 'navy','font-size' : '16px'});
 		
 		arr[5] = true;
@@ -78,7 +78,7 @@ function emailCodeCheck(){
 <body>
 <!-- header 넣기 -->
 <h1>ID / PW Find</h1>
-<form action="">
+<form action="findID" method="POST">
 	<div class="FindID">
 		<div class="id_title"><h2>Find ID</h2></div>
 		<div style="border: 1px solid red;">
@@ -91,7 +91,6 @@ function emailCodeCheck(){
 				<input type="email" placeholder="이메일을 입력해주세요." name="user_email" class="user_id_email" required="required">
 				<input type="button" class="email_button_id" value="인증번호">
 				<div class="email_check_id"></div>
-
 			</div>
 			<div class="id_email_check">
 				EMAIL CHECK
@@ -100,9 +99,10 @@ function emailCodeCheck(){
 				<div class="email_code_check"></div>
 			</div>
 			<div class="id_find_button">
-				<input type="submit" value="찾기">
+				<input type="submit" value="찾기" class="findid_button">
 			</div>
 		</div>
+		<div class="id_result">${dto.user_pw }</div>
 	</div>
 </form>
 <form action="">
@@ -127,9 +127,10 @@ function emailCodeCheck(){
 				EMAIL CHECK
 				<input type="text" placeholder="인증번호를 입력해주세요."  class="email_code_check_pw" name="useremailcheck_pw" required="required">
 				<input type="button" onclick="emailCodeCheck();" value="인증번호 확인">
+				<div class="email_code_check_pw"></div>
 			</div>
 			<div class="pw_find_button">
-				<input type="submit" value="찾기">
+				<input type="submit" value="찾기" class="findpw_button">
 			</div>
 		</div>
 	</div>
