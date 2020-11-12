@@ -253,26 +253,18 @@ public class MypageController {
 	
 	/* NAME, EMAIL 변경 */
 	@RequestMapping("/userInfoChange")
-	public String userInfoChange(UserInfoDto dto, @RequestParam int user_no, @RequestParam String user_name, @RequestParam String user_email) {
+	public String userInfoChange(HttpSession session ,UserInfoDto dto, @RequestParam int user_no, @RequestParam String user_name, @RequestParam String user_email) {
 		logger.info("[user name or email change]");
 		
 		logger.info("user_no : "+user_no);
 		logger.info("user_name : "+user_name);
 		logger.info("user_email : "+user_email);
 		
-		/* UserInfoDto res = userInfoBiz.selectOne(dto);
-		boolean check = false;
-		if (res != null) {
-			// 로그인 값을 계속 가지고 있는 Session
-			session.setAttribute("login", res);
-			check = true;
-		} */
-		
 		 int res = userinfoBiz.userInfoChange(dto);
 		 
 		  if(res != 0) {
-			 // session.setAttribute(, login.userinfobiz.selectOne)
-			  // 이렇게 해서 안 되면 login을 컨트롤러가 아니라 mypage.jsp 이용해서 뿌려주기
+			  // 값 변경에 성공하는 경우 login session에 바뀐 값을 새로 넣어줌. 이 코드가 있어야 바뀐 값이 화면에 뿌려짐.
+			  session.setAttribute("login", userinfoBiz.selectOne(dto.getUser_no()));
 			  logger.info("이름, 이메일 변경 성공");
 			  System.out.println();
 		  } else {
