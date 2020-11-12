@@ -49,7 +49,7 @@ public class FileUploadDaoImpl implements FileUploadDao {
 		logger.info(">> [FILEUPLOAD] selectOne - " + file_no);
 		FileUploadDto dto = null;
 		try {
-			dto = sqlSession.selectOne(NAMESPACE+"selectImageOne", file_no);
+			dto = sqlSession.selectOne(NAMESPACE+"selectOne", file_no);
 		} catch (Exception e) {
 			logger.info("[ERROR] FILEUPLOAD :: selectOne");
 			e.printStackTrace();
