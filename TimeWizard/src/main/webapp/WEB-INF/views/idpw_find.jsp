@@ -20,6 +20,7 @@
 			<div class="id_email_area">
 				EMAIL
 				<input type="email" placeholder="이메일을 입력해주세요." name="useremail">
+
 				<input type="button" class="email_button" value="인증번호">
 			</div>
 			<div class="id_email_check">
