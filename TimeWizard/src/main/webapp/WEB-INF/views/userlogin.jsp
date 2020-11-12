@@ -6,6 +6,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap" rel="stylesheet">
+<script src="https://kit.fontawesome.com/3049a69bf8.js" crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script type="text/javascript">
@@ -55,6 +57,10 @@
   --left-color: #9fdeaf;
   /*  Light Blue  */
   --right-color: #96dbe2;
+  --text-color: #f0f4f5;
+  --background-color: #263343;
+	--accent-color: #ff6b6b;
+	--color: #E0E0E0;
 }
 
 body, html{
@@ -62,6 +68,10 @@ body, html{
   font-family: 'Helvetica Neue', sans-serif;
   letter-spacing: 0.5px;
   background-color: #263343;
+}
+
+.overlaybox {
+	height: 90vh;
 }
 
 .container{
@@ -194,12 +204,37 @@ body, html{
   cursor: pointer;
 }
 
-
 .sns {
 	display: flex;
+	padding: 12px;
 }
+
+.login_logo {
+	display: flex;
+	padding: 4px;
+	cursor: pointer;
+	border: 1px solid var(--color);
+	border-radius: 50%;
+	width: 30px;
+	height: 30px;
+	margin-left: 4px;
+	margin-right: 4px;
+	justify-content: center;
+	align-items: center;
+}
+
+#naver {
+	font-family: 'Montserrat';
+	color: green;
+}
+
+.kakao {
+	color: #fed330;
+}
+
 .icon {
 	justify-content: space-around;
+	font-size: 18px;
 }
 a {
 	text-decoration: none;
@@ -234,19 +269,15 @@ a {
 			<div class="sign-in" id="sign-in-info">
 				<h1>Sign In</h1>
 				<div class="sns">
-					<a href="${google_url}">
-						<div class="icon">
-							구글
-						</div>
+					<a href="${google_url}" class="login_logo" id="google">
+						<i class="fab fa-google icon google"></i>
 					</a>
-					<a href="${naver_url}">
-						<div class="icon">
-							네이버
-						</div>
+					<a href="${naver_url}" class="login_logo" id="naver">
+						<span class="naver_logo icon naver">N</span>
 					</a>
-					<div class="icon" id="kakao-login-btn">
-						카카오
-					</div>
+					<a id="kakao-login-btn" class="login_logo" id="kakao">
+						<i class="fab fa-kickstarter icon kakao"></i>
+					</a>
 				</div>
 				<p class="small"> or user your account:
 				<div id="sign-in-form">
@@ -254,10 +285,10 @@ a {
 						<input type="text" placeholder="Id" name="user_id" id="user_id" autofocus="autofocus"/>
 						<input type="password" placeholder="Password" name="user_pw" id="user_pw"/><br/>
 					</div>
-					<div>
+					<div class="signbox">
 						<p class="forgot-password"><a href="/timewizard/findform">Forgot your id or password?</a></p>
 						<button class="control-button in" onclick="loginPrc()">Sign In</button>
-						<a href="./signup"><p>sign up</p></a>
+						<button class="control-button in"><a href="./signup" style="color:white;">sign up</a></button>
 					</div>
 				</div>
 			</div>

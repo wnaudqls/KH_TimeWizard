@@ -1,7 +1,8 @@
 :root {
     --text-color: #f0f4f5;
     --background-color: #263343;
-	--accent-color: #ff6b6b;
+    --accent-color: #ff6b6b;
+    --point-color: #96DBE2;
 	--color: #E0E0E0;
 }
 
@@ -74,10 +75,12 @@ input[type=button]:hover, #searchBtn:hover {
 }
 
 #searchBtn {
-	background-color: var(--background-color);
-	color: var(--color);
+	background-color: var(--point-color);
+	color: white;
 	border-radius: 4px;
 	cursor: pointer;
+	border: 1px solid var(--color);
+	transition: 0.4s;
 }
 
 .createroom {
@@ -94,6 +97,7 @@ input[type=button]:hover, #searchBtn:hover {
 	float: left;
 	width: 20%;
 	padding: 15px;
+	cursor: pointer;
 }
 
 .groupimg {
