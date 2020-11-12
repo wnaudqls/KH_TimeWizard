@@ -70,18 +70,23 @@ function pay(e){
 </head>
 
 <body>
-
+<%
+	UserInfoDto login = (UserInfoDto) session.getAttribute("login");
+	int user_no = login.getUser_no();
+%>
 	<div class="mypagebox">
-
 		<div class="mypagemenu" align="center">
 			<div class="preview">
 				<img id="frame" />
 				${fileObj.file_title }
 			</div>
-			<form:form method="post" enctype="multipart/form-data" modelAttribute="uploadFile" action="upload">
-				<label><input type="file" class="mypagebtn" accept="image/*" id="image" name="file_title" /></label>
-				<label><input type="submit" class="mypagebtn" value="send" /></label>
-				<p style="color: red; font-weight: bold;"><form:errors path="file_title" /></p>
+			<div class="title">
+			
+			</div>
+			<form:form method="post" enctype="multipart/form-data" modelAttribute="UserInfoDto" action="profileupload">
+				<label><input type="file" class="mypagebtn" accept="image/*" id="image" name="user_photo" /></label>
+				<input type="hidden" name="user_no" value="<%=user_no%>" />
+				<label><input type="submit" class="mypagebtn" value="send" onclick="uploadProfile();"/></label>
 			</form:form>
 			
 			<form action="userInfoChange">
@@ -176,6 +181,14 @@ function pay(e){
 		</div>
 		<div class="home"><a href="main"><i class="fab fa-tumblr-square"></i></a></div>
 	</div>
+	
+	<script type="text/javascript">
+	let uno = ${login.user_no};
+	window.addEventListener("DOMContentLoaded", ()=>{
+		// selectList(user_no);
+		selectOne(uno);
+	});
+	</script>
 
 </body>
 </html>

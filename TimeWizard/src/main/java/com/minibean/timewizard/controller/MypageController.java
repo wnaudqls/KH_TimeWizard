@@ -1,40 +1,39 @@
 package com.minibean.timewizard.controller;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.security.Principal;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.WebUtils;
 
+import com.minibean.timewizard.model.biz.FileUploadBiz;
 import com.minibean.timewizard.model.biz.PayBiz;
-import com.minibean.timewizard.model.biz.UploadFileBiz;
 import com.minibean.timewizard.model.biz.UserInfoBiz;
+import com.minibean.timewizard.model.dto.FileUploadDto;
 import com.minibean.timewizard.model.dto.PayDto;
-import com.minibean.timewizard.model.dto.UploadFileDto;
 import com.minibean.timewizard.model.dto.UserInfoDto;
+import com.minibean.timewizard.utils.file.FileUploadUtils;
+import com.minibean.timewizard.utils.file.FileValidator;
 
 @Controller
 public class MypageController {
@@ -43,10 +42,12 @@ public class MypageController {
 	
 	@Autowired
 	private UserInfoBiz userinfoBiz;
-	
 	@Autowired
-	private UploadFileBiz uploadfileBiz;
-	
+	private FileUploadBiz fileUploadBiz;
+	@Autowired
+	private FileValidator fileValidator;
+	@Autowired
+	private FileUploadUtils fileUploadUtils;
 	@Autowired
 	private PayBiz payBiz;
 	
@@ -82,7 +83,7 @@ public class MypageController {
 	}
 	
 	@RequestMapping("/userdeleteres")
-	public String UserDelete(HttpServletResponse response, UserInfoDto dto, HttpSession session, @RequestParam int user_no) throws Exception {
+	public void UserDelete(HttpServletResponse response, UserInfoDto dto, HttpSession session, @RequestParam int user_no) throws Exception {
 		logger.info("[user delete Reusult]");
 		
 		UserInfoDto user = (UserInfoDto) session.getAttribute("login");
@@ -93,10 +94,9 @@ public class MypageController {
 		if(!(user_pw.equals(new_pw))) {
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
-			out.println("<script>alert('비밀번호가 불일치해서 탈퇴에 실패했습니다.');</script>");
+			out.println("<script>alert('비밀번호가 불일치해서 탈퇴에 실패했습니다.'); location.href='/timewizard/mypage'</script>");
 			out.flush();
 
-			return "mypage";
 		} else {
 		
 			int res = userinfoBiz.delete(user_no);
@@ -107,8 +107,11 @@ public class MypageController {
 				System.out.println("탈퇴 실패");
 			}
 			
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('탈퇴에 성공하셨습니다.'); location.href='/timewizard/login/loginform';</script>");
+			out.flush();
 			session.invalidate();
-			return "redirect:main";
 		}
 	}
 	
@@ -176,55 +179,48 @@ public class MypageController {
 				PrintWriter out = response.getWriter();
 				out.println("<script>alert('새 비밀번호와 새 비밀번호 확인이 일치하지 않습니다. 암호 변경에 실패했습니다.'); location.href='/timewizard/mypage'; </script>");
 				out.flush();
-			
-			 }
 			}
 		}
-	
-	
-	/* 프로필 사진 업로드 */
-	@RequestMapping(value="/form")
-	public String uploadForm() {
-		return "mypage";
 	}
 	
-	@RequestMapping(value="/upload")
-	public String fileUpload(HttpServletRequest request, Model model, UploadFileDto dto, BindingResult result) {
+	@RequestMapping(value="/profileupload")
+	public Map<String, Boolean> fileUpload(HttpServletRequest request, Model model, UserInfoDto userInfoDto, FileUploadDto uploadFile, BindingResult result, @RequestParam int user_no) {
+		logger.info("[user profile change]");
 		
-		uploadfileBiz.validate(dto, result);
+		Map<String, Boolean> answer = new HashMap<String, Boolean>();
 		
+		fileValidator.validate(uploadFile, result);
+		  
 		if (result.hasErrors()) {
-			return "mypage";
-		}
-		
-		MultipartFile file = dto.getProfile();
-		String file_title = file.getOriginalFilename();
-		
-		UploadFileDto fileObj = new UploadFileDto();
-		fileObj.setFile_title(file_title);
-		fileObj.setUser_no(dto.getUser_no());
-		
-		// upload
-		InputStream inputStream = null;
-		// download
-		OutputStream outputStream = null;
-		
-		try {
-			inputStream = file.getInputStream();
-			String path = WebUtils.getRealPath(request.getSession().getServletContext(), "/resources/profileview");
-			
-			System.out.println("업로드 될 실제 경로 : " + path);
-			
-			File profileview = new File(path);
-			if (!profileview.exists()) {
-				profileview.mkdir();
+				answer.put("result",false);
+				return answer;
 			}
+		  
+		MultipartFile file = uploadFile.getFile();
+		String fileExtension = FilenameUtils.getExtension(file.getOriginalFilename());
+		String uploadedName = fileUploadUtils.makeRandomName() + "." + fileExtension;
+		
+		FileUploadDto fileObj = new FileUploadDto();
+		fileObj.setFile_name(uploadedName);
+		
+		InputStream inputStream = null;
+		OutputStream outputStream = null;
+		  
+		try {
 			
-			File newFile = new File(path + "/" + file_title);
+			inputStream = file.getInputStream();
+			String uploadPath = WebUtils.getRealPath(request.getSession().getServletContext(), "/resources/image");
+			logger.info("\n* uploaded file path : " + uploadPath 
+					+ "\n* file original name : " + file.getOriginalFilename());
+			
+			File storage = new File(uploadPath);
+			if (!storage.exists()) {
+				storage.mkdir();
+			}
+			File newFile = new File(uploadPath + "/" + uploadedName);
 			if (!newFile.exists()) {
 				newFile.createNewFile();
 			}
-			
 			outputStream = new FileOutputStream(newFile);
 			
 			int read = 0;
@@ -234,6 +230,8 @@ public class MypageController {
 				outputStream.write(b, 0, read);
 			}
 			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
@@ -244,11 +242,38 @@ public class MypageController {
 				e.printStackTrace();
 			}
 		}
+		answer.put("result",true);
+		  
+		  FileUploadDto fileuploadDto = new FileUploadDto();
+		  fileuploadDto.setUser_no(((UserInfoDto)request.getSession().getAttribute(
+		  "login")).getUser_no()); fileuploadDto.setFile_name(uploadedName); if
+		  (fileExtension.equalsIgnoreCase("jpg") ||
+		  fileExtension.equalsIgnoreCase("jpeg") ||
+		  fileExtension.equalsIgnoreCase("png") ||
+		  fileExtension.equalsIgnoreCase("gif")) { fileuploadDto.setFile_type("I"); }
+		  else if (fileExtension.equalsIgnoreCase("mp4")) {
+		  fileuploadDto.setFile_type("V"); }
+		  
+		  int res1st = fileUploadBiz.insert(fileuploadDto);
+		  // int res2nd = fileUploadBiz.selectImageOne(user_no);
+		  
+		/*
+		 * session~~~ -> fileuplaod insert -> map.result = true
+		 * => select Image One -> string photo -> 화면에 뿌려준다
+		 *		  
+		 * upload(fileuploadDto) => map reulst == true photo_string -> */
+		 // dto.setUser_photo(photo_string)
+		 int res = userinfoBiz.profileChange(userInfoDto);
+		 // session.getAttribute("login", userinfoBiz.select~~);
+		 
+		  logger.info("[user profile change] success?: " + ((res == 1)?"yes":"no"));
 		
-		model.addAttribute("fileObj", fileObj);
-		
-		return "mypage";
+		return answer;
 	}
+	
+	
+
+	
 	
 	
 	/* NAME, EMAIL 변경 */
