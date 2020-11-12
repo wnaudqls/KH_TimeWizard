@@ -9,11 +9,6 @@ image.addEventListener('change', function(e) {
 
 
 /* 프로필 이미지 업로드 */
-let user_no = <%=user_no%>;
-window.addEventListener("DOMContentLoaded", ()=>{
-	selectOne(user_no);
-});
-
 function uploadProfile(){
 	let fileInput = document.querySelector("[name=file]");
 	let file = fileInput.files[0];
@@ -32,8 +27,8 @@ function uploadProfile(){
 }
 
 function selectOne(user_no){
-	let preview = document.querySelector(".preview");
-	filesArea.innerHTML = "";
+	let title = document.querySelector(".title");
+	title.innerHTML = "";
 	const xhr = new XMLHttpRequest();
 	xhr.open("POST","/timewizard/file/one/"+user_no);
 	xhr.send();
@@ -78,10 +73,10 @@ function selectOne(user_no){
 				file_div.appendChild(title_cell);
 				file_div.appendChild(download_cell);
 				files_div.appendChild(file_div)
-				filesArea.appendChild(files_div);
+				title.appendChild(files_div);
 				
 			} else if (xhr.responseText == "" || xhr.responseText == null){
-					filesArea.textContent = "저장된 파일이 없습니다.";
+					title.textContent = "저장된 파일이 없습니다.";
 			}
 		}
 	}
