@@ -53,7 +53,7 @@ console.log("searchval: "+searchval);
 	    		for(i in searchList){
 	    			var user_name = searchList[i].user_name;
 	    			var name = "\""+searchList[i].user_name+"\"";
-	    			$(".userlist").append("<p>이름:"+ user_name +"</p>"+
+	    			$(".userlist").append("<p>"+ user_name +"</p>"+
 	    			"<input type='button' value='친구추가' onclick='alertsys("+searchList[i].user_no+","+ uno +","+name+")'>");
 	    		}
 	    		
@@ -97,13 +97,13 @@ function friendlist(){
 	    	
 	    			if(url.indexOf("joinroom")!== -1){
 	    				if((flist[i].status == "ACCEPT")){
-	    					$(".friendlist").append("<p>이름:"+ flist[i].user_name +"</p>"+
+	    					$(".friendlist").append("<p>"+ flist[i].user_name +"</p>"+
 		    					"<input type='button' value='초대하기' onclick='invitefriend("+user_no+","+ uno +","+inviteurl+","+name+")'>");
 	    				}
 	    			}
 	    			else {
 	    			if((flist[i].status == "ACCEPT")){
-	    					$(".friendlist").append("<p>이름:"+ flist[i].user_name +"</p>"+
+	    					$(".friendlist").append("<p>"+ flist[i].user_name +"</p>"+
 	    					"<input type='button' value='친구삭제' onclick='deletefriend("+user_no+","+ uno +","+name+")'>");
 	    			}else if(flist[i].status == "SEND"){
     					$(".friendlist").append("<p>"+ user_name +"님이 응답중 입니다.</p>");
@@ -123,7 +123,7 @@ function friendlist(){
 	    	}else{
 	    		for(i in nlist){
 	    			var name = "\""+nlist[i].user_name+"\"";
-	    			$(".userlist").append("<p>이름:"+ nlist[i].user_name+"&nbsp;"+
+	    			$(".userlist").append("<p>"+ nlist[i].user_name+"&nbsp;"+
 	    					"<input type='button' value='친구추가' onclick='alertsys("+nlist[i].user_no+","+ uno +","+name+")'>" +"</p>");
 	    		}
 	    	
@@ -141,8 +141,10 @@ function friendlist(){
 <body>
 
 <aside class="friendsbar">
+	
 		<p>friends</p>
 		<input type="text" placeholder="search.." id="search_text" />
+	
 		<button id="search_button" class="searchbtn" onclick="searchfriend();"><i class="fas fa-search" ></i>
 		</button>
 		<button id="search_button" class="searchbtn" onclick="reset();">

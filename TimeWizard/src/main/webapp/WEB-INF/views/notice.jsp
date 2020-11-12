@@ -167,31 +167,27 @@
 	
 	<!-- search 후 페이징 -->
 	<div class="pagingdesign">
-		<nav aria-label="Page navigation">
-			<ul style="display:block; text-align:center;" id="searchpaging" class="pagination">
+		<nav aria-label="Page navigation" class="pagingbox">
+			<ul style="display:flex; text-align:center;" id="searchpaging" class="pagination">
 				<li>
 					<c:if test="${paging.startpage != 1}">
-						<a href="notice?nowpage=${paging.startpage-1}&cntPerpage=${paging.cntPerpage}&searchType=${searchType }&search_text=${search_text}" aria-label="Previous">
+						<a href="notice?nowpage=${paging.startpage-1}&cntPerpage=${paging.cntPerpage}&searchType=${searchType }&search_text=${search_text}" aria-label="Previous" class="pagingarrow">
 								<span aria-hidden="true">&laquo;</span>
 							</a>
 					</c:if>
-				</li>
-				<li>
 					<c:forEach begin="${paging.startpage}" end="${paging.endpage}" var="p">
 						<!-- when은 choose안에 꼭 들어가 있어야 한다. choose안에 otherwise는 없어도 된다. -->
 						<c:choose>
 							<c:when test="${p == paging.nowpage}">
-								<a href="notice?nowpage=${p}&cntPerpage=${paging.cntPerpage}&searchType=${searchType }&search_text=${search_text}">${p}</a>
+								<a href="notice?nowpage=${p}&cntPerpage=${paging.cntPerpage}&searchType=${searchType }&search_text=${search_text}" class="active pagingtext">${p}</a>
 							</c:when>
 							<c:when test="${p != paging.nowpage}">
-								<a href="notice?nowpage=${p}&cntPerpage=${paging.cntPerpage}&searchType=${searchType }&search_text=${search_text}">${p}</a>
+								<a href="notice?nowpage=${p}&cntPerpage=${paging.cntPerpage}&searchType=${searchType }&search_text=${search_text}" class="pagingtext">${p}</a>
 							</c:when>
 						</c:choose>
 					</c:forEach>
-				</li>
-				<li>
 					<c:if test="${paging.endpage != paging.lastpage}">
-						<a href="notice?nowpage=${paging.endpage+1}&cntPerpage=${paging.cntPerpage}&searchType=${searchType }&search_text=${search_text}" aria-label="Next">
+						<a href="notice?nowpage=${paging.endpage+1}&cntPerpage=${paging.cntPerpage}&searchType=${searchType }&search_text=${search_text}" aria-label="Next" class="pagingarrow">
 							<span aria-hidden="true">&raquo;</span>
 						</a>
 					</c:if>
@@ -202,35 +198,32 @@
 	
 	<!-- !페이징 부분! -->
 	<div class="pagingdesign">
-		<nav aria-label="Page navigation">
+		<nav aria-label="Page navigation" class="pagingbox">
 			<ul style="display:flex; text-align:center;" id="paging" class="pagination">
 				<li>
 					<c:if test="${paging.startpage != 1}">
-						<a href="notice_list?nowpage=${paging.startpage-1}&cntPerpage=${paging.cntPerpage}" aria-label="Previous">
+						<a href="notice_list?nowpage=${paging.startpage-1}&cntPerpage=${paging.cntPerpage}" aria-label="Previous" class="pagingarrow">
 							<span aria-hidden="true">&laquo;</span>
 						</a>
 					</c:if>
-				</li>
-				<li>
 					<c:forEach begin="${paging.startpage}" end="${paging.endpage}" var="p">
 						<!-- when은 choose안에 꼭 들어가 있어야 한다. choose안에 otherwise는 없어도 된다. -->
 						<c:choose>
 							<c:when test="${p == paging.nowpage}">
-								<a href="notice_list?nowpage=${p}&cntPerpage=${paging.cntPerpage}">${p}</a>
+								<a href="notice_list?nowpage=${p}&cntPerpage=${paging.cntPerpage}" class="active pagingtext">${p}</a>
 							</c:when>
 							<c:when test="${p != paging.nowpage}">
-								<a href="notice_list?nowpage=${p}&cntPerpage=${paging.cntPerpage}">${p}</a>
+								<a href="notice_list?nowpage=${p}&cntPerpage=${paging.cntPerpage}" class="pagingtext">${p}</a>
 							</c:when>
 						</c:choose>
 					</c:forEach>
-				</li>
-				<li>
 					<c:if test="${paging.endpage != paging.lastpage}">
-						<a href="notice_list?nowpage=${paging.endpage+1}&cntPerpage=${paging.cntPerpage}" aria-label="Next">
+						<a href="notice_list?nowpage=${paging.endpage+1}&cntPerpage=${paging.cntPerpage}" aria-label="Next" class="pagingarrow">
 							<span aria-hidden="true">&raquo;</span>
 						</a>
 					</c:if>
 				</li>
+				
 			</ul>
 		</nav>
 	</div>

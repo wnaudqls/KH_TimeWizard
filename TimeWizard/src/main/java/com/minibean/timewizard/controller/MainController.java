@@ -25,7 +25,7 @@ public class MainController {
 	@RequestMapping(value="/")
 	public String index() {
 		logger.info(">> [CONTROLLER-HOME] go to index page");
-		return "index";
+		return "indexpage";
 	}
 	
     @RequestMapping(value="/logout")
