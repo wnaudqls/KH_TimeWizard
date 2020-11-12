@@ -9,6 +9,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://kit.fontawesome.com/3914a9940d.js" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/timewizard/js/file_upload.js"></script>
 </head>
 <body>
 <%
@@ -16,7 +17,7 @@
 	int user_no = login.getUser_no();
 %>
 	<form:form action="file/upload" enctype="multipart/form-data" modelAttribute="FileUploadDto">
-		<input type="file" name="file" />
+		<input type="file" name="file" accept="image/*" />
 		<input type="hidden" name="user_no" value="<%=user_no%>" />
 		<button type="button" value="send" onclick="uploadFile();">UPLOAD</button>
 	</form:form>
@@ -26,8 +27,10 @@
 	<script type="text/javascript">
 	let user_no = <%=user_no%>;
 	window.addEventListener("DOMContentLoaded", ()=>{
-		selectList(user_no);
+		// selectList(user_no);
+		selectOne(user_no);
 	});
+
 	function uploadFile(){
 		let fileInput = document.querySelector("[name=file]");
 		let file = fileInput.files[0];

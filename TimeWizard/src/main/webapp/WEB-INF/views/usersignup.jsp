@@ -398,7 +398,7 @@ function emailCodeCheck(){
 					<input type="password" placeholder="비밀번호 확인" name="pw_check" id="pwd2"  required="required"  tabindex="3"/>
 					<div id="pw_text"></div>
 				</div>		
-				<input type="email" placeholder="Email" name="user_email" id="user_email" required="required" />
+				<input type="email" placeholder="이메일" name="user_email" id="user_email" required="required" />
 				<div id="email_text"></div>
 				<button type="button" class="email_button" id="email_button">이메일 코드 전송</button> 
 					<div>
@@ -407,7 +407,7 @@ function emailCodeCheck(){
 						<div id="email_check"></div>
 					</div>
 				 
-				<input type="text" placeholder="Name" name="user_name" required="required" />
+				<input type="text" placeholder="이름" name="user_name" required="required" />
 				<button class="control-button in">Sign Up</button>
 			</form>
 		</div>

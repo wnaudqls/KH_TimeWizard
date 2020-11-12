@@ -125,22 +125,41 @@
 	    align-items: center;
 	}
 
-	ul {
+	.pagingbox {
+		display: flex;
+		width: 100%;
+	}
+
+	.pagingdesign nav ul {
+		display: flex;
 		list-style: none;
 	}
 
-	li {
-		float: left;
+	.pagingdesign nav ul li {
+		display: flex;
 		padding: 4px;
+		justify-content: center;
+	    align-items: center;
 	}
 
 	li a {
+		display: flex;
 		color: black;
+	}
+
+	.pagingtext {
+		border: 1px solid var(--color);
+		border-radius: 4px;
+		font-size: 24px;
+		width: 50px;
+	}
+
+	.pagingarrow {
+		font-size: 24px;
 	}
 
 	.active {
 		color: red;
-		background-color: yellow;
 	}
 
 @media screen and (max-width: 1140px) {
