@@ -23,6 +23,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.WebUtils;
 
@@ -184,6 +185,7 @@ public class MypageController {
 	}
 	
 	@RequestMapping(value="/profileupload")
+	@ResponseBody
 	public Map<String, Boolean> fileUpload(HttpServletRequest request, Model model, UserInfoDto userInfoDto, FileUploadDto uploadFile, BindingResult result, @RequestParam int user_no) {
 		logger.info("[user profile change]");
 		
@@ -254,17 +256,13 @@ public class MypageController {
 		  else if (fileExtension.equalsIgnoreCase("mp4")) {
 		  fileuploadDto.setFile_type("V"); }
 		  
-		  int res1st = fileUploadBiz.insert(fileuploadDto);
-		  // int res2nd = fileUploadBiz.selectImageOne(user_no);
-		  
-		/*
-		 * session~~~ -> fileuplaod insert -> map.result = true
-		 * => select Image One -> string photo -> 화면에 뿌려준다
-		 *		  
-		 * upload(fileuploadDto) => map reulst == true photo_string -> */
-		 // dto.setUser_photo(photo_string)
-		 int res = userinfoBiz.profileChange(userInfoDto);
-		 // session.getAttribute("login", userinfoBiz.select~~);
+		  // 파일 선택해서 send 버튼 눌렀을 때 fileuploadDto에 file을 insert
+		  fileUploadBiz.insert(fileuploadDto);
+		  fileuploadDto = fileUploadBiz.selectImageOne(user_no);
+		  // 프로필 사진을 등록하지 않은 디폴트값은 user_photo=null임. user_photo에 insert된 file이 서버에 랜덤으로 저장[FileUploadUtils 클래스 참고]된 name을 setting 해줌. 
+		  userInfoDto.setUser_photo(fileuploadDto.getFile_name());
+		  // user_photo의 값을 null에서 263번째 줄의 값으로 update 해줌.
+		  int res = userinfoBiz.profileChange(userInfoDto);
 		 
 		  logger.info("[user profile change] success?: " + ((res == 1)?"yes":"no"));
 		
