@@ -50,17 +50,21 @@ public class FileUploadController {
 	@PostMapping(value="/list/{user_no}")
 	public List<FileUploadDto> selectVideoList(HttpSession session, @PathVariable int user_no) {
 		List<FileUploadDto> list = fileUploadBiz.selectVideoList(user_no);
+		logger.info(">> [CONTROLLER-FILEUPLOAD] select video list - " + user_no);
 		return list;
 	}
 	
 	@PostMapping(value="/one/{user_no}")
 	public FileUploadDto selectImageOne(HttpSession session, @PathVariable int user_no) {
 		FileUploadDto dto = fileUploadBiz.selectImageOne(user_no);
+		logger.info(">> [CONTROLLER-FILEUPLOAD] select image one - " + user_no);
 		return dto;
 	}
 	
 	@PostMapping(value="/upload")
 	public Map<String, Boolean> fileUpload(HttpServletRequest request, FileUploadDto uploadFile, BindingResult result) {
+		
+		logger.info(">> [CONTROLLER-FILEUPLOAD] upload");
 		
 		Map<String, Boolean> answer = new HashMap<String, Boolean>();
 		
@@ -137,9 +141,12 @@ public class FileUploadController {
 	@RequestMapping(value="/download/{file_no}")
 	public byte[] fileDownload(HttpServletRequest request, HttpServletResponse response, @PathVariable int file_no) {
 //	public Map<String, Object> fileDownload(HttpServletRequest request, HttpServletResponse response, @PathVariable int file_no) {
+		
+		logger.info(">> [CONTROLLER-FILEUPLOAD] download");
+		
 		Map<String, Object> answer = new HashMap<String, Object>();
 		
-		FileUploadDto dto = fileUploadBiz.selectVideoOne(file_no);
+		FileUploadDto dto = fileUploadBiz.selectOne(file_no);
 		String extension = FilenameUtils.getExtension(dto.getFile_name());
 		String mime_front = (dto.getFile_type().equals("P"))?"image":"video";
 		String mime_back = (extension.toLowerCase().equals("jpg"))?"jpeg":extension.toLowerCase();
