@@ -156,5 +156,20 @@ public class UserInfoDaoImpl implements UserInfoDao {
 		
 		return res;
 	}
+	
+	@Override
+	public int userInfoChange(UserInfoDto dto) {
+		logger.info(">> [USERINFO] update : user_name & user_email - " + dto.getUser_name() + " & " + dto.getUser_email());
+		int res = 0;
+		
+		try {
+			res = sqlSession.update(NAMESPACE+"userInfoChange", dto);
+		} catch (Exception e) {
+			logger.info("[ERROR] USERINFO :: userInfoChange");
+			e.printStackTrace();
+		}
+		
+		return res;
+	}
 
 }

@@ -112,6 +112,7 @@ public class MypageController {
 		}
 	}
 	
+	
 	/* 비밀번호 변경 */
 	@RequestMapping("/userpwchange")
 	public String UserPwChange(Model model, @RequestParam int user_no) {
@@ -128,8 +129,12 @@ public class MypageController {
 		logger.info("[user pw change Result]");
 		
 		UserInfoDto user = (UserInfoDto) session.getAttribute("login");
+		// 기존 패스워드
 		String user_pw = user.getUser_pw();
+		// 사용자가 비밀번호 변경 페이지의 '기존 패스워드' 칸에 입력한 암호
 		String new_pw = dto.getUser_pw();
+		
+		// '새 비밀번호'와 '새 비밀번호 확인'을 setter에 담아주고 get으로 가져옴
 		dto.setUser_newestpw(user_newestpw);
 		dto.setUser_newestpw_check(user_newestpw_check);
 		String newestpw = dto.getUser_newestpw();
@@ -161,6 +166,7 @@ public class MypageController {
 				PrintWriter out = response.getWriter();
 				out.println("<script>alert('비밀번호가 변경되었습니다. 변경된 비밀번호로 다시 로그인하실 수 있습니다.'); location.href='/timewizard/login/loginform';</script>");
 				out.flush();
+				session.invalidate();
 				}
 			
 			} else {
@@ -174,6 +180,7 @@ public class MypageController {
 			 }
 			}
 		}
+	
 	
 	/* 프로필 사진 업로드 */
 	@RequestMapping(value="/form")
@@ -242,6 +249,32 @@ public class MypageController {
 		
 		return "mypage";
 	}
+	
+	
+	/* NAME, EMAIL 변경 */
+	@RequestMapping("/userInfoChange")
+	public String userInfoChange(UserInfoDto dto, @RequestParam int user_no, @RequestParam String user_name, @RequestParam String user_email) {
+		logger.info("[user name or email change]");
+		
+		logger.info("user_no : "+user_no);
+		logger.info("user_name : "+user_name);
+		logger.info("user_email : "+user_email);
+		
+		 int res = userinfoBiz.userInfoChange(dto);
+		 
+		  if(res != 0) {
+			 // session.setAttribute(, login.userinfobiz.selectOne)
+			  // 이렇게 해서 안 되면 login을 컨트롤러가 아니라 mypage.jsp 이용해서 뿌려주기
+			  logger.info("이름, 이메일 변경 성공");
+			  System.out.println();
+		  } else {
+			  System.out.println("이름, 이메일 변경 실패");
+		  }
+		
+		return "redirect:mypage";
+		
+	}
+	
 	
 	//pay
 	@RequestMapping("/pay")

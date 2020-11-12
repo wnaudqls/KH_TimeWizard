@@ -21,7 +21,7 @@
 	<resources location="/resources/" mapping="/resources/**" />
 	<resources location="/resources/css/" mapping="/css/**" />
 	<resources location="/resources/js/" mapping="/js/**" />
-	<resources location="/resources/iamge/" mapping="/image/**" />
+	<resources location="/resources/image/" mapping="/image/**" />
 	<resources location="/resources/font/" mapping="/font/**" />
 	<resources location="/resources/video/" mapping="/video/**" />
 	<!-- <default-servlet-handler/> -->

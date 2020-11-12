@@ -38,18 +38,17 @@ body {
 	border-radius: 50%;
 }
 
-.submitbox {
-	border: 1px solid white;
-	background-color: #263343;
-	cursor: pointer;
+.mypagebtn {
+	background-color: var(--background-color);
 	color: white;
-	margin-top: 0.5rem;
+	border-radius: 4px;
+	cursor: pointer;
+	transition: 0.4s;
 }
 
-.submitbox:hover {
+.mypagebtn:hover {
 	background-color: white;
-	border: 1px solid #263343;
-	color: #263343;
+	color: var(--background-color);
 }
 
 .save {
