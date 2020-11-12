@@ -191,8 +191,10 @@ function friendlist(){
 <body>
 
 <aside class="friendsbar">
+	
 		<p>friends</p>
 		<input type="text" placeholder="search.." id="search_text" onkeyup="searchkey();" />
+
 		<button id="search_button" class="searchbtn" onclick="searchfriend();"><i class="fas fa-search" ></i>
 		</button>
 		<button id="search_button" class="searchbtn" onclick="reset();">

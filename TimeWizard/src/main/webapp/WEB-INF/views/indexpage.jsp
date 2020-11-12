@@ -2,16 +2,16 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-<head>
+
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
+<head>
 <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap" rel="stylesheet">
 <link href="resources/css/fullpageTemplate.css" rel="stylesheet">
 <link href="resources/css/fullpage.css" rel="stylesheet" defer>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.6.6/jquery.fullPage.js" crossorigin="anonymous"></script>
-<script src="resources/js/main.js"></script>
+<!-- <script src="resources/js/main.js"></script> -->
 <script src="https://kit.fontawesome.com/3049a69bf8.js" crossorigin="anonymous"></script>
 
 </head>
@@ -71,6 +71,42 @@
 
 		</div>
 	</div>
-	
 </body>
+<script type="text/javascript">
+$(document).ready(function(){
+	  
+	  // fullpage customization
+	  $('#fullpage').fullpage({
+	    sectionSelector: '.section',
+	    navigation: true,
+	    slidesNavigation: true,
+	    css3: true,
+	    controlArrows: false    
+	  });
+
+	 /*  $("#btn").on("click", function(event){
+	    var offset = $("#p2").offset();
+	    $("html body").animate({scrollTop:offset.top}, 1000);
+
+	  $('div').remove('#fp-nav');
+
+
+	  });
+	 */
+	  $('#p2').hover(function() {
+	    $('.arrowbox').removeClass('bounce animated');
+	  });
+
+	  $('#p1').hover(function() {
+	    $('.arrowbox').addClass('bounce animated');
+	  });
+
+
+	});
+
+
+</script>
+
+
+
 </html>

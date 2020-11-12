@@ -205,7 +205,7 @@ function friendlist(){
 		
 		
 		</div>
-		<hr>
+		
 		<div class="userlist">
 		
 		
