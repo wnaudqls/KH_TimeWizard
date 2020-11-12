@@ -171,5 +171,34 @@ public class UserInfoDaoImpl implements UserInfoDao {
 		
 		return res;
 	}
+	
+	@Override
+	public int profileChange(UserInfoDto dto) {
+		logger.info(">> [USERINFO] update : user_photo - " + dto.getUser_photo());
+		int res = 0;
+		
+		try {
+			res = sqlSession.update(NAMESPACE+"profileChange", dto);
+		} catch (Exception e) {
+			logger.info("[ERROR] USERINFO :: profileChange");
+			e.printStackTrace();
+		}
+		
+		return res;
+	}
+
+	//아이디 찾기
+	@Override
+	public String findID(UserInfoDto dto) {
+		logger.info(">> [USERINFO] findID : user_name & user_email - ");
+		return null;
+	}
+
+	//비밀번호 찾기
+	@Override
+	public String findPW(UserInfoDto dto) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
