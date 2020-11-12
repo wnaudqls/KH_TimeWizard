@@ -17,5 +17,6 @@ public interface UserInfoBiz {
 	public int updateRoleRes(UserInfoDto dto);
 	public int pwChangeRes(UserInfoDto dto);
 	public int userInfoChange(UserInfoDto dto);
+	public int profileChange(UserInfoDto dto);
 	
 }
