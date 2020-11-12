@@ -86,4 +86,16 @@ public class UserInfoBizImpl implements UserInfoBiz {
 		return userInfoDao.profileChange(dto);
 	}
 
+	//아이디 찾기
+	@Override
+	public String findID(UserInfoDto dto) {
+		return userInfoDao.findID(dto);
+	}
+
+	//비밀번호 찾기
+	@Override
+	public String findPW(UserInfoDto dto) {
+		return userInfoDao.findPW(dto);
+	}
+
 }

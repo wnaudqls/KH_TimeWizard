@@ -26,6 +26,7 @@
 		AND FILE_TYPE = 'V'
 	</select>
 	<select id="selectOne" parameterType="int" resultType="FileUploadDto">
+
 		SELECT FILE_NO, USER_NO, FILE_NAME, FILE_TYPE, FILE_REGDATE
 		FROM FILE_UPLOAD
 		WHERE FILE_NO = #{file_no}
