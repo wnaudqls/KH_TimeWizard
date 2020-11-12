@@ -88,7 +88,6 @@ function pay(e){
 					<label><input type="submit" value="send" /></label>
 					<p style="color: red; font-weight: bold;"><form:errors path="file_title" /></p>
 				</div>
-			</form:form>
 			
 			<form action="userInfoChange">
 				<input type="hidden" name="user_no" value="${dto.user_no}">

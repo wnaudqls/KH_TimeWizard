@@ -19,11 +19,11 @@ public class FileUploadDaoImpl implements FileUploadDao {
 	private Logger logger = LoggerFactory.getLogger(FileUploadDaoImpl.class);
 
 	@Override
-	public List<FileUploadDto> selectList(int user_no) {
-		logger.info(">> [FILEUPLOAD] selectList - " + user_no);
+	public List<FileUploadDto> selectVideoList(int user_no) {
+		logger.info(">> [FILEUPLOAD] selectVideoList - " + user_no);
 		List<FileUploadDto> list = new ArrayList<FileUploadDto>();
 		try {
-			list = sqlSession.selectList(NAMESPACE+"selectList", user_no);
+			list = sqlSession.selectList(NAMESPACE+"selectVideoList", user_no);
 		} catch (Exception e) {
 			logger.info("[ERROR] FILEUPLOAD :: selectList");
 			e.printStackTrace();
@@ -32,11 +32,24 @@ public class FileUploadDaoImpl implements FileUploadDao {
 	}
 
 	@Override
-	public FileUploadDto selectOne(int file_no) {
+	public FileUploadDto selectImageOne(int user_no) {
+		logger.info(">> [FILEUPLOAD] selectOne - " + user_no);
+		FileUploadDto dto = null;
+		try {
+			dto = sqlSession.selectOne(NAMESPACE+"selectImageOne", user_no);
+		} catch (Exception e) {
+			logger.info("[ERROR] FILEUPLOAD :: selectOne");
+			e.printStackTrace();
+		}
+		return dto;
+	}
+	
+	@Override
+	public FileUploadDto selectVideoOne(int file_no) {
 		logger.info(">> [FILEUPLOAD] selectOne - " + file_no);
 		FileUploadDto dto = null;
 		try {
-			dto = sqlSession.selectOne(NAMESPACE+"selectOne", file_no);
+			dto = sqlSession.selectOne(NAMESPACE+"selectVideoOne", file_no);
 		} catch (Exception e) {
 			logger.info("[ERROR] FILEUPLOAD :: selectOne");
 			e.printStackTrace();
