@@ -18,7 +18,8 @@
 window.onpageshow = function (event)
 {
 	if (event.persisted || (window.performance && window.performance.navigation.type == 2)) {
-		location.href = "../";
+		alert("뒤로가기를 이용해서 재접속하실 수 없습니다.");
+		history.back();
 	}
 
 }
