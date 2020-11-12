@@ -12,15 +12,22 @@
 	rel="stylesheet">
 <script src="https://kit.fontawesome.com/3049a69bf8.js"
 	crossorigin="anonymous"></script>
+		<script type="text/javascript"
+		src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script type="text/javascript">
 window.onpageshow = function (event)
 {
 	if (event.persisted || (window.performance && window.performance.navigation.type == 2)) {
-		location.href = "../";
+		alert("뒤로가기를 이용해서 재접속하실 수 없습니다.");
+		history.back();
 	}
 
 }
+window.onunload = function(event) {
 
+	disconnect();
+};
+	
 
 </script>
 <meta charset="UTF-8">
@@ -89,8 +96,7 @@ window.onpageshow = function (event)
 			<jsp:include page="friendlist2.jsp"></jsp:include>
 		</c:otherwise>
 	</c:choose>
-	<script type="text/javascript"
-		src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
 	<!-- sockjs, stomp socket 추가 -->
 	<script type="text/javascript"
 		src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.5/sockjs.min.js"></script>
@@ -100,5 +106,7 @@ window.onpageshow = function (event)
 
 
 
+
 </body>
+
 </html>
