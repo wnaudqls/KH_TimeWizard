@@ -260,6 +260,14 @@ public class MypageController {
 		logger.info("user_name : "+user_name);
 		logger.info("user_email : "+user_email);
 		
+		/* UserInfoDto res = userInfoBiz.selectOne(dto);
+		boolean check = false;
+		if (res != null) {
+			// 로그인 값을 계속 가지고 있는 Session
+			session.setAttribute("login", res);
+			check = true;
+		} */
+		
 		 int res = userinfoBiz.userInfoChange(dto);
 		 
 		  if(res != 0) {
