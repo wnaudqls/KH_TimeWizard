@@ -15,13 +15,18 @@ public class FileUploadBizImpl implements FileUploadBiz {
 	private FileUploadDao fileUploadDao;
 	
 	@Override
-	public List<FileUploadDto> selectList(int user_no) {
-		return fileUploadDao.selectList(user_no);
+	public List<FileUploadDto> selectVideoList(int user_no) {
+		return fileUploadDao.selectVideoList(user_no);
 	}
 
 	@Override
-	public FileUploadDto selectOne(int file_no) {
-		return fileUploadDao.selectOne(file_no);
+	public FileUploadDto selectImageOne(int user_no) {
+		return fileUploadDao.selectImageOne(user_no);
+	}
+	
+	@Override
+	public FileUploadDto selectVideoOne(int file_no) {
+		return fileUploadDao.selectVideoOne(file_no);
 	}
 
 	@Override

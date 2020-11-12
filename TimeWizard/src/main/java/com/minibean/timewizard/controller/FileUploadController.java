@@ -48,11 +48,17 @@ public class FileUploadController {
 	private Logger logger = LoggerFactory.getLogger(FileUploadController.class);
 
 	@PostMapping(value="/list/{user_no}")
-	public List<FileUploadDto> download(HttpSession session, @PathVariable int user_no) {
-		List<FileUploadDto> list = fileUploadBiz.selectList(user_no);
+	public List<FileUploadDto> selectVideoList(HttpSession session, @PathVariable int user_no) {
+		List<FileUploadDto> list = fileUploadBiz.selectVideoList(user_no);
 		return list;
 	}
-
+	
+	@PostMapping(value="/one/{user_no}")
+	public FileUploadDto selectImageOne(HttpSession session, @PathVariable int user_no) {
+		FileUploadDto dto = fileUploadBiz.selectImageOne(user_no);
+		return dto;
+	}
+	
 	@PostMapping(value="/upload")
 	public Map<String, Boolean> fileUpload(HttpServletRequest request, FileUploadDto uploadFile, BindingResult result) {
 		
@@ -117,8 +123,7 @@ public class FileUploadController {
 		dto.setFile_name(uploadedName);
 		if (fileExtension.equalsIgnoreCase("jpg") || fileExtension.equalsIgnoreCase("jpeg") 
 			|| fileExtension.equalsIgnoreCase("png") || fileExtension.equalsIgnoreCase("gif")) {
-			dto.setFile_type("P");
-			dto.setFile_size((int)file.getSize());
+			dto.setFile_type("I");
 		} else if (fileExtension.equalsIgnoreCase("mp4")) {
 			dto.setFile_type("V");
 		}
@@ -134,7 +139,7 @@ public class FileUploadController {
 //	public Map<String, Object> fileDownload(HttpServletRequest request, HttpServletResponse response, @PathVariable int file_no) {
 		Map<String, Object> answer = new HashMap<String, Object>();
 		
-		FileUploadDto dto = fileUploadBiz.selectOne(file_no);
+		FileUploadDto dto = fileUploadBiz.selectVideoOne(file_no);
 		String extension = FilenameUtils.getExtension(dto.getFile_name());
 		String mime_front = (dto.getFile_type().equals("P"))?"image":"video";
 		String mime_back = (extension.toLowerCase().equals("jpg"))?"jpeg":extension.toLowerCase();

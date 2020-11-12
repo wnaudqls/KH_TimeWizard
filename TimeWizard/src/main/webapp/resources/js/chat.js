@@ -75,5 +75,7 @@ function connect(){
  document.getElementById("disconnect").style.display="inline";
  document.getElementById("connect").style.display="none";
 }
-
-
+function textclear(){
+	$("#messageArea").empty();
+	
+}

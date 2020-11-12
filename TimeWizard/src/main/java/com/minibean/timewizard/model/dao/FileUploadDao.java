@@ -8,8 +8,9 @@ public interface FileUploadDao {
 
 	String NAMESPACE="com.minibean.timewizard.fileupload.";
 	
-	public List<FileUploadDto> selectList(int user_no);
-	public FileUploadDto selectOne(int file_no);
+	public List<FileUploadDto> selectVideoList(int user_no);
+	public FileUploadDto selectImageOne(int user_no);
+	public FileUploadDto selectVideoOne(int file_no);
 	public int insert(FileUploadDto dto);
 	
 }
