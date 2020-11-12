@@ -1,6 +1,7 @@
 package com.minibean.timewizard.model.biz;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,13 +89,13 @@ public class UserInfoBizImpl implements UserInfoBiz {
 
 	//아이디 찾기
 	@Override
-	public String findID(UserInfoDto dto) {
-		return userInfoDao.findID(dto);
+	public UserInfoDto findID(HashMap<String, Object> params) {
+		return userInfoDao.findID(params);
 	}
 
 	//비밀번호 찾기
 	@Override
-	public String findPW(UserInfoDto dto) {
+	public UserInfoDto findPW(UserInfoDto dto) {
 		return userInfoDao.findPW(dto);
 	}
 

@@ -80,13 +80,13 @@ var searchval = {
 	    			if(url.indexOf("joinroom")!== -1){
 	    				if(status == "ACCEPT" && (friend_no == uno)){
 	    					$(".userlist").append("<p>"+ user_name +
-	    					"<input type='button' value='친구삭제' onclick='deletefriend("+user_no+","+ uno +","+name+")'>"+
-	    					"<input type='button' value='초대하기' onclick='invitefriend("+user_no+","+ uno +","+inviteurl+","+name+")'"+"</p>");
+	    					"<button class='accdeny'onclick='deletefriend("+user_no+","+ uno +","+name+")'><i class='fas fa-user-slash'></i></button>"+
+			    			"<button class='accdeny'onclick='invitefriend("+user_no+","+ uno +","+inviteurl+","+name+")'><i class='far fa-envelope'></i>"+"</button></p>");
 	    				}
 	    				else if(status == "RESP" && (friend_no == uno)){
 	    					$(".userlist").append("<p>"+ user_name +"님이 친구신청 하셨습니다."+
-		    				"<button class='accdeny' onclick='friendAccept("+user_no+")'> <i class='fas fa-user-times'></i></button>"
-		    				+" <button class='accdeny' onclick='friendDeny("+user_no+","+name+")'><i class='fas fa-user-check'></i></button></p>");
+	    							"<button class='accdeny' onclick='friendDeny("+user_no+","+name+")'> <i class='fas fa-user-times'></i></button>"
+	    		    				+" <button class='accdeny' onclick='friendAccept("+user_no+")'><i class='fas fa-user-check'></i></button></p>");
 	    				
 	    				}else if(status == "SEND" && (friend_no == uno)){
 	    		
@@ -95,12 +95,12 @@ var searchval = {
 	    			}else{
 	    				if(status == "ACCEPT" && (friend_no == uno)){
 	    					$(".userlist").append("<p>"+ user_name +
-	    					"<input type='button' value='친구삭제' onclick='deletefriend("+user_no+","+ uno +","+name+")'>"+"</p>");
+	    							"<button class='accdeny'onclick='deletefriend("+user_no+","+ uno +","+name+")'><i class='fas fa-user-slash'></i></button></p>");
 	    				}
 	    				else if(status == "RESP" && (friend_no == uno)){
 	    					$(".userlist").append("<p>"+ user_name +"님이 친구신청 하셨습니다."+
-		    				"<button class='accdeny' onclick='friendAccept("+user_no+")'> <i class='fas fa-user-times'></i></button>"
-		    				+" <button class='accdeny' onclick='friendDeny("+user_no+","+name+")'><i class='fas fa-user-check'></i></button></p>");
+	    							"<button class='accdeny' onclick='friendDeny("+user_no+","+name+")'> <i class='fas fa-user-times'></i></button>"
+	    		    				+" <button class='accdeny' onclick='friendAccept("+user_no+")'><i class='fas fa-user-check'></i></button></p>");
 	    				
 	    				}else if(status == "SEND" && (friend_no == uno)){
 	    		
@@ -115,7 +115,7 @@ var searchval = {
 	    			var user_no = searchList[i].user_no;
 	  				
 	    			$(".userlist").append("<p>"+ user_name+
-		    		"<input type='button' value='친구추가' onclick='alertsys("+user_no+","+ uno +","+name+")'></p>");
+				    		"<button class='accdeny' onclick='alertsys("+user_no+","+ uno +","+name+")'><i class='fas fa-user-plus'></i></button></p>");
 	    		}
 	    	}
 	    },
@@ -157,22 +157,30 @@ function friendlist(){
 	    			if(url.indexOf("joinroom")!== -1){
 	    				if((flist[i].status == "ACCEPT")){
 	    					$(".friendlist").append("<p>"+ flist[i].user_name+
-		    					"<input type='button' value='초대하기' onclick='invitefriend("+user_no+","+ uno +","+inviteurl+","+name+")'></p>");
-	    				}
+	    					"<button class='accdeny'onclick='deletefriend("+user_no+","+ uno +","+name+")'><i class='fas fa-user-slash'></i></button>"+
+			    			"<button class='accdeny'onclick='invitefriend("+user_no+","+ uno +","+inviteurl+","+name+")'><i class='far fa-envelope'></i>"+"</button></p>");
+	    				}else if(status == "RESP" && (friend_no == uno)){
+	    					$(".friendlist").append("<p>"+ user_name +"님이 친구신청 하셨습니다."+
+	    							"<button class='accdeny' onclick='friendDeny("+user_no+","+name+")'> <i class='fas fa-user-times'></i></button>"
+	    		    				+" <button class='accdeny' onclick='friendAccept("+user_no+")'><i class='fas fa-user-check'></i></button></p>");
+			    				
+			    		}else if(status == "SEND" && (friend_no == uno)){
+			    					$(".friendlist").append("<p>"+user_name +"님이 응답중 입니다.</p>");
+			    		}
 	    			}
 	    			else {
-	    			if((flist[i].status == "ACCEPT")){
-	    					$(".friendlist").append("<p>"+ flist[i].user_name+
-	    					"<input type='button' value='친구삭제' onclick='deletefriend("+user_no+","+ uno +","+name+")'></p>");
-	    			}else if(flist[i].status == "SEND"){
-    					$(".friendlist").append("<p>"+ user_name +"님이 응답중 입니다.</p>");
-    	    					
-    	    		}else if(flist[i].status == "RESP"){
-	    					$(".friendlist").append("<p>"+ user_name +"님이 친구신청 하셨습니다."+
-	    							"<button class='accdeny' onclick='friendAccept("+user_no+")'> <i class='fas fa-user-times'></i></button>"
-	    		    				+" <button class='accdeny' onclick='friendDeny("+user_no+","+name+")'><i class='fas fa-user-check'></i></button></p>");
-	    				}
-	    			}
+		    			if((flist[i].status == "ACCEPT")){
+		    					$(".friendlist").append("<p>"+ flist[i].user_name +
+		    					"<input type='button' value='친구삭제' onclick='deletefriend("+user_no+","+ uno +","+name+")'></p>");
+		    			}else if(flist[i].status == "SEND"){
+	    					$(".friendlist").append("<p>"+ user_name +"님이 응답중 입니다.</p>");
+	    	    					
+	    	    		}else if(flist[i].status == "RESP"){
+		    					$(".friendlist").append("<p>"+ user_name +"님이 친구신청 하셨습니다."+
+		    							"<button class='accdeny' onclick='friendDeny("+user_no+","+name+")'> <i class='fas fa-user-times'></i></button>"
+		    		    				+" <button class='accdeny' onclick='friendAccept("+user_no+")'><i class='fas fa-user-check'></i></button></p>");
+		    				}
+		    			}
 	    		}
 	    		
 	    	}
@@ -183,7 +191,7 @@ function friendlist(){
 	    		for(i in nlist){
 	    			var name = "\""+nlist[i].user_name+"\"";
 	    			$(".userlist").append("<p>"+ nlist[i].user_name+"&nbsp;"+
-	    					"<input type='button' value='친구추가' onclick='alertsys("+nlist[i].user_no+","+ uno +","+name+")'>" +"</p>");
+	    					"<button class='accdeny' onclick='alertsys("+nlist[i].user_no+","+ uno +","+name+")'><i class='fas fa-user-plus'></i>" +"</button></p>");
 	    		}
 	    	
 	    	}

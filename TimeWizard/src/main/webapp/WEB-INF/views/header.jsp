@@ -56,7 +56,7 @@
 			<li><a href="/timewizard/tiwimap"><i
 					class="fas fa-binoculars"></i></a></li>
 			<li><a href="/timewizard/notice_list"><i class="fas fa-chalkboard-teacher"></i></a></li>
-			<li><a href="#"><i class="far fa-paper-plane"></i></a></li>
+			<li><a href="http://pf.kakao.com/_ZxnJxfK/chat"><i class="far fa-paper-plane"></i></a></li>
 		</ul>
 
 		<ul class="nav_icon">

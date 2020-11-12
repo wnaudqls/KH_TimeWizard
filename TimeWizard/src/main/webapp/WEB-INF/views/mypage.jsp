@@ -80,8 +80,9 @@ function pay(e){
 				<img id="frame" />
 				${fileObj.file_title }
 			</div>
+			<div class="profileinfo"></div>
 			<form:form method="post" enctype="multipart/form-data" modelAttribute="UserInfoDto" action="profileupload">
-				<label><input type="file" class="mypagebtn" accept="image/*" id="image" name="user_photo" /></label>
+				<label><input type="file" name="file" class="mypagebtn" accept="image/*" id="image" name="user_photo" /></label>
 				<input type="hidden" name="user_no" value="<%=user_no%>" />
 				<label><input type="submit" class="mypagebtn" value="send" onclick="uploadProfile();"/></label>
 			</form:form>
@@ -178,6 +179,13 @@ function pay(e){
 		</div>
 		<div class="home"><a href="main"><i class="fas fa-arrow-circle-left" style="color:#263343;"></i></a></div>
 	</div>
+	
+	<script type="text/javascript">
+	let uno = ${login.user_no};
+	window.addEventListener("DOMContentLoaded", ()=>{
+		selectOne(uno);
+	});
+	</script>
 
 </body>
 </html>

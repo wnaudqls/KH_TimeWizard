@@ -9,11 +9,6 @@ image.addEventListener('change', function(e) {
 
 
 /* 프로필 이미지 업로드 */
-let user_no = <%=user_no%>;
-window.addEventListener("DOMContentLoaded", ()=>{
-	selectOne(user_no);
-});
-
 function uploadProfile(){
 	let fileInput = document.querySelector("[name=file]");
 	let file = fileInput.files[0];
@@ -25,15 +20,15 @@ function uploadProfile(){
 	xhr.onreadystatechange = () => {
 		if (xhr.readyState == 4 && xhr.status == 200){
 			if (JSON.parse(xhr.responseText).result == true){
-				selectOne(user_no);
+				selectOne(uno);
 			}
 		}
 	}
 }
 
 function selectOne(user_no){
-	let preview = document.querySelector(".preview");
-	filesArea.innerHTML = "";
+	let profileinfo = document.querySelector(".profileinfo");
+	profileinfo.innerHTML = "";
 	const xhr = new XMLHttpRequest();
 	xhr.open("POST","/timewizard/file/one/"+user_no);
 	xhr.send();
@@ -52,9 +47,10 @@ function selectOne(user_no){
 				let number_cell = document.createElement("div");
 				number_cell.setAttribute("class","cell number__cell");
 				let number_cell_span = document.createElement("span");
+				/* [number__cell 없애기]
 				number_cell_span.setAttribute("class", "number");
 				number_cell_span.textContent = 1;
-				number_cell.appendChild(number_cell_span);
+				number_cell.appendChild(number_cell_span);*/
 				
 				let title_cell = document.createElement("div");
 				title_cell.setAttribute("class","cell title__cell");
@@ -62,9 +58,10 @@ function selectOne(user_no){
 				title.textContent = file.file_name;
 				title_cell.appendChild(title);
 				
+				/* [title__cell(=upload 된 file의 random name) 없애려면 아래 두 줄 주석처리] */
 				let download_cell = document.createElement("div");
 				download_cell.setAttribute("class","cell download__cell");
-				
+				/* [download__cell 없애기]
 				let form = document.createElement("form");
 				form.setAttribute("action","/timewizard/file/download/"+file.file_no);
 				form.setAttribute("method","POST");
@@ -72,16 +69,16 @@ function selectOne(user_no){
 				submit.setAttribute("type","submit");
 				submit.setAttribute("value","download");
 				form.appendChild(submit);
-				download_cell.appendChild(form);
+				download_cell.appendChild(form);*/
 				
 				file_div.appendChild(number_cell);
 				file_div.appendChild(title_cell);
 				file_div.appendChild(download_cell);
 				files_div.appendChild(file_div)
-				filesArea.appendChild(files_div);
+				profileinfo.appendChild(files_div);
 				
 			} else if (xhr.responseText == "" || xhr.responseText == null){
-					filesArea.textContent = "저장된 파일이 없습니다.";
+					profileinfo.textContent = "저장된 파일이 없습니다.";
 			}
 		}
 	}

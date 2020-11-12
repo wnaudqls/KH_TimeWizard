@@ -12,21 +12,6 @@
 </head>
 <body>
 
-<!-- 
-int group_no;
-	int group_su;
-	int group_client;
-	String user_id;
-	String group_title;
-	String group_content;
-	String group_public;
-	Date group_regdate;
-	String group_hashtag;
-
-	String group_pw;
-	String group_anyone;
-
- -->
 
 
 	<form action="createres" method= "post">
@@ -50,15 +35,15 @@ int group_no;
 	       	</div>
 	       	<div class="createbox">
 	       		<div class="createtitle">내용</div>
-		       	<input type="text" name="group_content" id="name" placeholder="내용">
+		       	<input type="text" name="group_content" id="name" placeholder="내용을 입력해주세요">
 	       	</div>
 	       	<div class="createbox">
 	       		<div class="createtitle">비밀번호</div>
-		       	<input type="text" name="group_pw" id="name" placeholder="비밀번호를 입력해주세요">
+		       	<input type="text" name="group_pw" id="name" placeholder="비밀번호를 입력해주세요(최대 10자)" maxlength="10">
 	       	</div>
 	       <div class="createbox">
 	       		<div class="createtitle">인원수</div>
-		       	<input type="number" name="group_su" id="name" placeholder="인원수">
+		       	<input type="number" name="group_su" id="name" placeholder="인원수" min="1" max="10" value="1">
 	       	</div>
 	       	
 	        <div class="createbox">
