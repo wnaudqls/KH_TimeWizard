@@ -177,7 +177,7 @@ function pay(e){
 			</table>
 			</form>
 		</div>
-		<div class="home"><a href="main"><i class="fab fa-tumblr-square"></i></a></div>
+		<div class="home"><a href="main"><i class="fas fa-arrow-circle-left" style="color:#263343;"></i></a></div>
 	</div>
 	
 	<script type="text/javascript">

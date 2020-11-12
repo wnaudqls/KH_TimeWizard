@@ -7,9 +7,18 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@700&display=swap" rel="stylesheet">
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <link href="/timewizard/css/actionpage.css" rel="stylesheet">
 <link href="/timewizard/css/friends.css" rel="stylesheet">
+
+<style>
+
+	.friendsbar {
+		font-family: 'Gothic A1';
+	}
+
+</style>
 
 <script type="text/javascript">
 var iconDataURI = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAKBJREFUeNpiYBjpgBFd4P///wJAaj0QO9DEQiAg5ID9tLIcmwMYsDgABhqoaTHMUHRxpsGYBv5TGqTIZsDkYWLo6gc8BEYdMOqAUQeMOoAqDgAWcgZAfB9EU63SIAGALH8PZb+H8v+jVz64KiOK6wIg+ADEArj4hOoCajiAqMpqtDIadcCoA0YdQIoDDtCqQ4KtBY3NAYG0csQowAYAAgwAgSqbls5coPEAAAAASUVORK5CYII=";
@@ -138,7 +147,7 @@ function friendlist(){
 	    	$(".friendlist").empty();
 	    	$(".userlist").empty();
 	    	if(flist == ''){
-	    		$(".friendlist").append("<p>-- 친구를 추가하세요 ^_^ --</p>")
+	    		$(".friendlist").append("<h5>친구목록이 없습니다</h5>")
 	    	}else{
 	    		for(i in flist){
 	    			var user_name = flist[i].user_name;
@@ -175,7 +184,7 @@ function friendlist(){
 	    		}
 	    		
 	    	}
-	    	$(".userlist").append("<p><b>User List</b></p>");
+	    	$(".userlist").append("<h5>알 수도 있는 사람</h5>");
 	    	if(nlist == ''){
 	    		$(".userlist").append("<p>-- 당신은 인싸>_&lt; --</p>");
 	    	}else{
@@ -199,14 +208,13 @@ function friendlist(){
 <body>
 
 <aside class="friendsbar">
-		<p>friends</p>
 		<input type="text" placeholder="search.." id="search_text" onkeyup="searchkey();" />
 		<button id="search_button" class="searchbtn" onclick="searchfriend();"><i class="fas fa-search" ></i>
 		</button>
 		<button id="search_button" class="searchbtn" onclick="reset();">
 			초기화
 		</button>
-		<p><b>Your Friends</b></p>
+		<h5 style="margin-left:2px;">친구목록</h5>
 		<!-- 나와 친구인 유저들 -->
 		<div class="friendlist">
 		
