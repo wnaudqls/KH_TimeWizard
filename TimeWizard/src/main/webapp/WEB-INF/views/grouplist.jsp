@@ -93,8 +93,6 @@
 	</section>
 	
 	<jsp:include page="friendlist.jsp"></jsp:include>
-	
-	
 </body>
 
 <script type="text/javascript">
