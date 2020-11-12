@@ -17,8 +17,20 @@ input[type=button] {
 input[type=button]:hover {
 	background-color: white;
 	color: var(--background-color);
+}	
+.accdeny{
+	background-color: var(--background-color);
+	color: white;
+	border-radius: 4px;
+	cursor: pointer;
+	float: right;
+	transition: 0.4s;
 }
+.accdeny:hover{
 
+		background-color: white;
+	color: var(--background-color);
+}
 .searchbtn {
 	background-color: var(--background-color);
 	color: white;

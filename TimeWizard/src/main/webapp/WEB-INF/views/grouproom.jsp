@@ -80,6 +80,7 @@ window.onunload = function(event) {
 					<input type="hidden" id="nickname" placeholder="이름을 입력헤주십시오." value="${login.user_name }" readonly> 
 					<input type="button" id="disconnect" value="접속끊기"
 						onclick="disconnect();">
+					<input type="button" id="historyclear" value="기록삭제" onclick="textclear();">
 				</div>
 
 				<div id="textarea">
