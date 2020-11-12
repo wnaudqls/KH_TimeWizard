@@ -76,13 +76,11 @@
 		WHERE USER_NO = #{user_no}
 	</update>
 	
-<<<<<<< HEAD
 	<update id="profileChange" parameterType="UserInfoDto">
 		UPDATE USER_INFO SET USER_PHOTO = #{user_photo}
 		WHERE USER_NO = #{user_no}
 	</update>
 
-=======
 	<!-- id찾기 -->
 	<select id="findID" parameterType="UserInfoDto" resultType="String">
 		SELECT USER_ID
@@ -100,5 +98,4 @@
 		AND USER_EMAIL = #{user_email}
 	</select>
 	
->>>>>>> main
 </mapper>
