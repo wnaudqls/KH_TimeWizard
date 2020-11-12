@@ -9,7 +9,7 @@ function uploadFile(){
 	xhr.onreadystatechange = () => {
 		if (xhr.readyState == 4 && xhr.status == 200){
 			if (JSON.parse(xhr.responseText).result == true){
-				selectList(user_no);
+				selectOne(user_no);
 			}
 		}
 	}

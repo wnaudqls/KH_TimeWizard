@@ -17,7 +17,7 @@
 	int user_no = login.getUser_no();
 %>
 	<form:form action="file/upload" enctype="multipart/form-data" modelAttribute="FileUploadDto">
-		<input type="file" name="file" />
+		<input type="file" name="file" accept="image/*" />
 		<input type="hidden" name="user_no" value="<%=user_no%>" />
 		<button type="button" value="send" onclick="uploadFile();">UPLOAD</button>
 	</form:form>

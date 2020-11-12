@@ -123,7 +123,7 @@ public class FileUploadController {
 		dto.setFile_name(uploadedName);
 		if (fileExtension.equalsIgnoreCase("jpg") || fileExtension.equalsIgnoreCase("jpeg") 
 			|| fileExtension.equalsIgnoreCase("png") || fileExtension.equalsIgnoreCase("gif")) {
-			dto.setFile_type("P");
+			dto.setFile_type("I");
 		} else if (fileExtension.equalsIgnoreCase("mp4")) {
 			dto.setFile_type("V");
 		}
