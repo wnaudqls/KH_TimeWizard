@@ -1,6 +1,7 @@
 package com.minibean.timewizard.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -171,19 +172,50 @@ public class UserInfoDaoImpl implements UserInfoDao {
 		
 		return res;
 	}
+	
+	@Override
+	public int profileChange(UserInfoDto dto) {
+		logger.info(">> [USERINFO] update : user_photo - " + dto.getUser_photo());
+		int res = 0;
+		
+		try {
+			res = sqlSession.update(NAMESPACE+"profileChange", dto);
+		} catch (Exception e) {
+			logger.info("[ERROR] USERINFO :: profileChange");
+			e.printStackTrace();
+		}
+		
+		return res;
+	}
 
 	//아이디 찾기
+	//이름, 이메일
 	@Override
-	public String findID(UserInfoDto dto) {
-		logger.info(">> [USERINFO] findID : user_name & user_email - ");
-		return null;
+	public UserInfoDto findID(HashMap<String, Object> params) {
+		logger.info(">> [USERINFO] findID");
+		UserInfoDto result = null;
+		try {
+			result = sqlSession.selectOne(NAMESPACE+"findID", params);
+		} catch (Exception e) {
+			logger.info("[ERROR] USERINFO :: findID");
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 	//비밀번호 찾기
+	//이름,이메일,아이디
 	@Override
-	public String findPW(UserInfoDto dto) {
-		// TODO Auto-generated method stub
-		return null;
+	public UserInfoDto findPW(UserInfoDto dto) {
+		logger.info(">> [USERINFO] findID : user_name & user_email & user_id - "+dto.getUser_name()+", "+dto.getUser_email()+", "+dto.getUser_id());
+		UserInfoDto result = null;
+		try {
+			result = sqlSession.selectOne(NAMESPACE+"findPW", dto);
+		} catch (Exception e) {
+			logger.info("[ERROR] USERINFO :: findPW");
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 }
