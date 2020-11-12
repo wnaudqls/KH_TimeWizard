@@ -57,11 +57,7 @@ function pay(e){
 	    	
 	    	location.href="/timewizard/pay?user_no="+${login.user_no}+"&pay_name="+rsp.name+"&price="+rsp.paid_amount;
 	        var msg = '결제가 완료되었습니다.';
-	        msg += '고유ID : ' + rsp.imp_uid;
- 	        msg += '상품이름 : '+ rsp.name;
-	        msg += '상점 거래ID : ' + rsp.merchant_uid;
-	        msg += '결제 금액 : ' + rsp.paid_amount;
-	        msg += '카드 승인번호 : ' + rsp.apply_num;
+	       
 	    } else {
 	        var msg = '결제에 실패하였습니다.';
 	        msg += '에러내용 : ' + rsp.error_msg;
@@ -87,35 +83,6 @@ function pay(e){
 				<label><input type="file" class="mypagebtn" accept="image/*" id="image" name="file_title" /></label>
 				<label><input type="submit" class="mypagebtn" value="send" /></label>
 				<p style="color: red; font-weight: bold;"><form:errors path="file_title" /></p>
-			</form:form>
-			
-			<table>
-				<tr>
-					<td>ID</td>
-					<td><input type="text" name="" size=20 readonly value="${login.user_id }"></td>
-				</tr>
-				<tr>
-					<td>NAME</td>
-					<td><input type="text" name="" size=20 readonly value="${login.user_name }"></td>
-				</tr>
-				<tr>
-					<td>EMAIL</td>
-					<td><input type="email" name="" size=20 value="${login.user_email }"></td>
-				</tr>
-				<tr>
-					<td colspan="2" align="right">
-						<input type="submit" class="mypagebtn" value="수정" onclick="" /><br/>
-						<a href="userpwchange?user_no=${login.user_no }" class="btndesign">암호변경</a>
-						<a href="userdeletepage?user_no=${login.user_no }" class="btndesign">탈퇴</a>
-					</td>
-				</tr>
-			</table>
-
-				<div class="userchange">
-					<label><input type="file" accept="image/*" id="image" name="file_title" /></label>
-					<label><input type="submit" value="send" /></label>
-					<p style="color: red; font-weight: bold;"><form:errors path="file_title" /></p>
-				</div>
 			</form:form>
 			
 			<form action="userInfoChange">
