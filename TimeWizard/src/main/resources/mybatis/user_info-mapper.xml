@@ -75,5 +75,22 @@
 		USER_EMAIL = #{user_email}
 		WHERE USER_NO = #{user_no}
 	</update>
-
+	
+	<!-- id찾기 -->
+	<select id="findID">
+		SELECT USER_ID
+		FROM USER_INFO
+		WHERE USER_NAME = #{user_name} 
+		AND USER_EMAIL = #{user_email}
+	</select>
+	
+	<!-- password찾기 -->
+	<select id="findPW">
+		SELECT USER_PW
+		FROM USER_INFO
+		WHERE USER_NAME = #{user_name}
+		AND USER_ID = #{user_id}
+		AND USER_EMAIL = #{user_email}
+	</select>
+	
 </mapper>

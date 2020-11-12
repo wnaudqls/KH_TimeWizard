@@ -21,4 +21,14 @@ public class IdPwFindController {
 		logger.info("idpw_find controller");
 		return "idpw_find";
 	}
+	
+	//아이디 찾기
+	//이름, 이메일
+	//@RequestMapping("/")
+	
+	
+	//비밀번호 찾기
+	//이름, 이메일, 아이디
+	//@RequestMapping("/")
+	
 }

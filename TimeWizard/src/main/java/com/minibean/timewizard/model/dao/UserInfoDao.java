@@ -20,4 +20,9 @@ public interface UserInfoDao {
 	public int pwChangeRes(UserInfoDto dto);
 	public int userInfoChange(UserInfoDto dto);
 	
+	//아이디 찾기
+	public String findID(UserInfoDto dto);
+	//비밀번호 찾기
+	public String findPW(UserInfoDto dto);
+	
 }

@@ -172,4 +172,18 @@ public class UserInfoDaoImpl implements UserInfoDao {
 		return res;
 	}
 
+	//아이디 찾기
+	@Override
+	public String findID(UserInfoDto dto) {
+		logger.info(">> [USERINFO] findID : user_name & user_email - ");
+		return null;
+	}
+
+	//비밀번호 찾기
+	@Override
+	public String findPW(UserInfoDto dto) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
