@@ -52,7 +52,6 @@
 	String user_id = (login.getUser_id().length() > 8)? login.getUser_id().substring(0,8):login.getUser_id();
 	int user_no = login.getUser_no();
 	String user_photo = login.getUser_photo();
-	/* 대표  프로필 사진 업로드해서 3항연산자로 없는 경우, 해당 사진 가져오기 */
 %>
 <body>
 	<div class="webrtc__part">
@@ -70,9 +69,9 @@
 	</div>
 	<script type="text/javascript">
 	let link = window.location.href;
-	let id = "<%=user_id%>";
-	let no = <%=user_no%>;
-	let photo = "<%=user_photo%>";
+	let user_id = "<%=user_id%>";
+	let user_photo = "<%=user_photo%>";
+	console.log("*id : " + user_id + "*photo : " + user_photo);
     let roomid = "${dto.group_title}"; // group title?
         
     let button = document.getElementById("enter-quit-button");
@@ -126,7 +125,6 @@
     save.addEventListener("click", () => {
 	    /* RecordRTC PART */
         window.recordRTC.stopRecording(function(url) {
-        	console.log("STOP RECORDING");
             convertStreams(window.recordRTC.getBlob());
         });
     });
@@ -146,7 +144,6 @@
 
 
     function convertStreams(videoBlob) {
-    	console.log("CONVERTSREAMS");
         let blobResult; // fileReader.onload.videoBlob.result(); worker.postMessage(blobResult)
         let buffersReady; // ??
         let workerReady; // if message.type == 'ready' -> true
@@ -155,7 +152,6 @@
         var fileReader = new FileReader();
         fileReader.onload = function() {
             blobResult = this.result;
-            console.log(blobResult);
             postMessage();
         };
         fileReader.readAsArrayBuffer(videoBlob);
@@ -171,26 +167,15 @@
                 if (buffersReady)
                     postMessage();
             } else if (message.type == "done") {
-       			// console.log("ONMESSAGE TYPE DONE");
-                console.log(JSON.stringify(message));
-				
-                console.log(message.time);
                 var result = message.data[0];
-                console.log(JSON.stringify(result));
-
                 var blob = new File([result.data], 'test.mp4', {
                     type: 'video/mp4'
                 });
 	
-				console.log("NEW FILE BLOB");
-                // console.log(JSON.stringify(blob)); // {}
-
-                postBlob(blob);
                 uploadBlob(blob);
             }
         };
         var postMessage = function() {
-        	console.log("POSTMESSGAE");
             posted = true;
 
             worker.postMessage({
@@ -205,31 +190,13 @@
             });
         };
    	}
-
-    function postBlob(blob) {
-    	console.log("POSTBLOB");
-    	
-        var source = document.createElement('source');
-        source.src = URL.createObjectURL(blob);
-        source.type = 'video/mp4; codecs=mpeg4';
-        
-        inner.appendChild(document.createElement('hr'));
-        var h2 = document.createElement('h2');
-        h2.innerHTML = '<a href="' + source.src + '" target="_blank" download="Play mp4 in VLC Player.mp4" style="font-size:200%;color:red;">Download Converted mp4 and play in VLC player!</a>';
-        inner.appendChild(h2);
-        h2.style.display = 'block';
-
-    }
     
     function uploadBlob(blob){
     	let xhr = new XMLHttpRequest();
-    	xhr.open("POST", "/timewizard/file/upload", true);
-		xhr.onload = function(e) {
-			if (this.status == 200) {
-				console.log(this.responseText);
-			}
-		};
-    	xhr.send(blob);
+    	let formData = new FormData();
+    	formData.append("file",blob);
+    	xhr.open("POST", "/timewizard/file/upload");
+    	xhr.send(formData);
     }
 
     let connection = new RTCMultiConnection();
@@ -269,10 +236,9 @@
         audio: true
     }
 	
-    connection.extra = {userid: name, userphoto: photo};
+    connection.extra = {user_id: user_id, user_photo: user_photo};
     
 	connection.onstream = function(event){
-		console.log("CONNECTION ONSTREAM");
 		let existing = document.getElementById(event.streamid);
     	if (existing && existing.parentNode) {
 			existing.parentNode.removeChild(existing);
@@ -282,7 +248,7 @@
         event.mediaElement.removeAttribute("srcObject");
         event.mediaElement.muted = true;
         event.mediaElement.volume = 0;
-
+		
         let video = document.createElement("video");
 
         try {
@@ -294,30 +260,40 @@
         }
 
         video.volume = 0;
-
+        
         try {
             video.setAttributeNode(document.createAttribute("muted"));
         } catch (e) {
             video.setAttribute("muted",true);
         }
-
+        
         video.srcObject = event.stream;
-		
+        
 		let mediaElement = document.createElement("div");
 		mediaElement.setAttribute("class","media__container");
 		let mediaElement_user = document.createElement("div");
 		mediaElement_user.setAttribute("class","media__user__status");
 		let userid_div = document.createElement("div");
 		userid_div.setAttribute("class","user__id");
-		userid_div.textContent = event.extra.userid;
+		userid_div.textContent = event.extra.user_id;
+		
+		
 		let userphoto_img = document.createElement("img");
-		userphoto_img.setAttribute("src","/timewizard/image/" + userphoto);
+		
+		/* 여기까지 됨 */
+		
+		console.log((event.extra.user_photo != null || event.extra.user_photo != "null")?event.extra.user_photo:"null");
+		userphoto_img.setAttribute("src","/timewizard/image/" + (event.extra.user_photo != null || event.extra.user_photo != "null")?event.extra.user_photo:"3J1kUZfY.jpg");
 		/* TODO: get user photo */
+		console.log("set mediaElement");
+		
 		userphoto_img.setAttribute("class","user__photo");
 		mediaElement_user.appendChild(userphoto_img);
 		mediaElement_user.appendChild(userid_div);
 		mediaElement.appendChild(mediaElement_user);
 		mediaElement.appendChild(video);
+		
+		console.log(event.type);
 		/* zoom mode, pip mode etc */
 		
 		// img src 수정
@@ -328,6 +304,7 @@
         if (event.type == 'local'){
             localContainer.appendChild(mediaElement);
             localStorage.setItem("localSrc", event.stream);
+            console.log("추가확인!!!!!!!!!!!");
         }
         if (event.type == 'remote'){
             let remote_div = document.createElement("div");
