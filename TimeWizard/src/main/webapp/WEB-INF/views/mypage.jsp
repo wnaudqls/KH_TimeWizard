@@ -79,13 +79,10 @@ function pay(e){
 				${fileObj.file_title }
 			</div>
 			<form:form method="post" enctype="multipart/form-data" modelAttribute="uploadFile" action="upload">
-				<div class="userchange">
-					<label><input type="file" accept="image/*" id="image" name="file_title" /></label>
-					<label><input type="submit" value="send" /></label>
-					<p style="color: red; font-weight: bold;"><form:errors path="file_title" /></p>
-				</div>
+				<label><input type="file" class="mypagebtn" accept="image/*" id="image" name="file_title" /></label>
+				<label><input type="submit" class="mypagebtn" value="send" /></label>
+				<p style="color: red; font-weight: bold;"><form:errors path="file_title" /></p>
 			</form:form>
-			
 			
 			<form action="userInfoChange">
 				<input type="hidden" name="user_no" value="${dto.user_no}">
