@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.WebUtils;
 
+import com.minibean.timewizard.model.biz.FileUploadBiz;
 import com.minibean.timewizard.model.biz.PayBiz;
 import com.minibean.timewizard.model.biz.UserInfoBiz;
 import com.minibean.timewizard.model.dto.FileUploadDto;
@@ -39,6 +42,8 @@ public class MypageController {
 	
 	@Autowired
 	private UserInfoBiz userinfoBiz;
+	@Autowired
+	private FileUploadBiz fileUploadBiz;
 	@Autowired
 	private FileValidator fileValidator;
 	@Autowired
@@ -78,7 +83,7 @@ public class MypageController {
 	}
 	
 	@RequestMapping("/userdeleteres")
-	public String UserDelete(HttpServletResponse response, UserInfoDto dto, HttpSession session, @RequestParam int user_no) throws Exception {
+	public void UserDelete(HttpServletResponse response, UserInfoDto dto, HttpSession session, @RequestParam int user_no) throws Exception {
 		logger.info("[user delete Reusult]");
 		
 		UserInfoDto user = (UserInfoDto) session.getAttribute("login");
@@ -89,10 +94,9 @@ public class MypageController {
 		if(!(user_pw.equals(new_pw))) {
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
-			out.println("<script>alert('비밀번호가 불일치해서 탈퇴에 실패했습니다.');</script>");
+			out.println("<script>alert('비밀번호가 불일치해서 탈퇴에 실패했습니다.'); location.href='/timewizard/mypage'</script>");
 			out.flush();
 
-			return "mypage";
 		} else {
 		
 			int res = userinfoBiz.delete(user_no);
@@ -103,8 +107,11 @@ public class MypageController {
 				System.out.println("탈퇴 실패");
 			}
 			
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('탈퇴에 성공하셨습니다.'); location.href='/timewizard/login/loginform';</script>");
+			out.flush();
 			session.invalidate();
-			return "redirect:main";
 		}
 	}
 	
@@ -177,59 +184,96 @@ public class MypageController {
 	}
 	
 	@RequestMapping(value="/profileupload")
-	public String fileUpload(HttpServletRequest request, Model model, UserInfoDto dto, FileUploadDto uploadFile, BindingResult result, @RequestParam int user_no) {
+	public Map<String, Boolean> fileUpload(HttpServletRequest request, Model model, UserInfoDto userInfoDto, FileUploadDto uploadFile, BindingResult result, @RequestParam int user_no) {
 		logger.info("[user profile change]");
 		
-		/*
-		 * fileValidator.validate(dto, result);
-		 * 
-		 * if (result.hasErrors()) { return "mypage"; }
-		 * 
-		 * MultipartFile file = uploadFile.getFile(); String fileExtension =
-		 * FilenameUtils.getExtension(file.getOriginalFilename()); String uploadedName =
-		 * fileUploadUtils.makeRandomName() + "." + fileExtension;
-		 * 
-		 * FileUploadDto fileObj = new FileUploadDto();
-		 * fileObj.setFile_name(uploadedName);
-		 * 
-		 * InputStream inputStream = null; OutputStream outputStream = null;
-		 * 
-		 * try {
-		 * 
-		 * inputStream = file.getInputStream(); String uploadPath =
-		 * WebUtils.getRealPath(request.getSession().getServletContext(),
-		 * "/resources/image"); logger.info("\n* uploaded file path : " + uploadPath +
-		 * "\n* file original name : " + file.getOriginalFilename());
-		 * 
-		 * File storage = new File(uploadPath); if (!storage.exists()) {
-		 * storage.mkdir(); } File newFile = new File(uploadPath + "/" + uploadedName);
-		 * if (!newFile.exists()) { newFile.createNewFile(); } outputStream = new
-		 * FileOutputStream(newFile);
-		 * 
-		 * int read = 0; byte[] b = new byte[(int)file.getSize()];
-		 * 
-		 * while((read=inputStream.read(b)) != -1) { outputStream.write(b, 0, read); }
-		 * 
-		 * } catch (FileNotFoundException e) { e.printStackTrace(); } catch (IOException
-		 * e) { e.printStackTrace(); } finally { try { inputStream.close();
-		 * outputStream.close(); } catch (IOException e) { e.printStackTrace(); } }
-		 * 
-		 * FileUploadDto fileuploadDto = new FileUploadDto();
-		 * fileuploadDto.setUser_no(((UserInfoDto)request.getSession().getAttribute(
-		 * "login")).getUser_no()); fileuploadDto.setFile_name(uploadedName); if
-		 * (fileExtension.equalsIgnoreCase("jpg") ||
-		 * fileExtension.equalsIgnoreCase("jpeg") ||
-		 * fileExtension.equalsIgnoreCase("png") ||
-		 * fileExtension.equalsIgnoreCase("gif")) { fileuploadDto.setFile_type("I"); }
-		 * else if (fileExtension.equalsIgnoreCase("mp4")) {
-		 * fileuploadDto.setFile_type("V"); }
-		 * 
-		 * int res = userinfoBiz.profileChange(dto);
-		 * logger.info("[user profile change] success?: " + ((res == 1)?"yes":"no"));
-		 */
+		Map<String, Boolean> answer = new HashMap<String, Boolean>();
 		
-		return "redirect:mypage";
+		fileValidator.validate(uploadFile, result);
+		  
+		if (result.hasErrors()) {
+				answer.put("result",false);
+				return answer;
+			}
+		  
+		MultipartFile file = uploadFile.getFile();
+		String fileExtension = FilenameUtils.getExtension(file.getOriginalFilename());
+		String uploadedName = fileUploadUtils.makeRandomName() + "." + fileExtension;
+		
+		FileUploadDto fileObj = new FileUploadDto();
+		fileObj.setFile_name(uploadedName);
+		
+		InputStream inputStream = null;
+		OutputStream outputStream = null;
+		  
+		try {
+			
+			inputStream = file.getInputStream();
+			String uploadPath = WebUtils.getRealPath(request.getSession().getServletContext(), "/resources/image");
+			logger.info("\n* uploaded file path : " + uploadPath 
+					+ "\n* file original name : " + file.getOriginalFilename());
+			
+			File storage = new File(uploadPath);
+			if (!storage.exists()) {
+				storage.mkdir();
+			}
+			File newFile = new File(uploadPath + "/" + uploadedName);
+			if (!newFile.exists()) {
+				newFile.createNewFile();
+			}
+			outputStream = new FileOutputStream(newFile);
+			
+			int read = 0;
+			byte[] b = new byte[(int)file.getSize()];
+			
+			while((read=inputStream.read(b)) != -1) {
+				outputStream.write(b, 0, read);
+			}
+			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				inputStream.close();
+				outputStream.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		answer.put("result",true);
+		  
+		  FileUploadDto fileuploadDto = new FileUploadDto();
+		  fileuploadDto.setUser_no(((UserInfoDto)request.getSession().getAttribute(
+		  "login")).getUser_no()); fileuploadDto.setFile_name(uploadedName); if
+		  (fileExtension.equalsIgnoreCase("jpg") ||
+		  fileExtension.equalsIgnoreCase("jpeg") ||
+		  fileExtension.equalsIgnoreCase("png") ||
+		  fileExtension.equalsIgnoreCase("gif")) { fileuploadDto.setFile_type("I"); }
+		  else if (fileExtension.equalsIgnoreCase("mp4")) {
+		  fileuploadDto.setFile_type("V"); }
+		  
+		  int res1st = fileUploadBiz.insert(fileuploadDto);
+		  // int res2nd = fileUploadBiz.selectImageOne(user_no);
+		  
+		/*
+		 * session~~~ -> fileuplaod insert -> map.result = true
+		 * => select Image One -> string photo -> 화면에 뿌려준다
+		 *		  
+		 * upload(fileuploadDto) => map reulst == true photo_string -> */
+		 // dto.setUser_photo(photo_string)
+		 int res = userinfoBiz.profileChange(userInfoDto);
+		 // session.getAttribute("login", userinfoBiz.select~~);
+		 
+		  logger.info("[user profile change] success?: " + ((res == 1)?"yes":"no"));
+		
+		return answer;
 	}
+	
+	
+
+	
 	
 	
 	/* NAME, EMAIL 변경 */

@@ -80,6 +80,9 @@ function pay(e){
 				<img id="frame" />
 				${fileObj.file_title }
 			</div>
+			<div class="title">
+			
+			</div>
 			<form:form method="post" enctype="multipart/form-data" modelAttribute="UserInfoDto" action="profileupload">
 				<label><input type="file" class="mypagebtn" accept="image/*" id="image" name="user_photo" /></label>
 				<input type="hidden" name="user_no" value="<%=user_no%>" />
@@ -178,6 +181,14 @@ function pay(e){
 		</div>
 		<div class="home"><a href="main"><i class="fab fa-tumblr-square"></i></a></div>
 	</div>
+	
+	<script type="text/javascript">
+	let uno = ${login.user_no};
+	window.addEventListener("DOMContentLoaded", ()=>{
+		// selectList(user_no);
+		selectOne(uno);
+	});
+	</script>
 
 </body>
 </html>
