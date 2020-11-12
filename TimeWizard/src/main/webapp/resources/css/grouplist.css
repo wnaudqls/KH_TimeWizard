@@ -32,7 +32,7 @@ input[type=button] {
 	transition: 0.4s;
 }
 
-input[type=button]:hover, #searchBtn:hover {
+input[type=button]:hover, .searchBtn:hover {
 	background-color: white;
 	color: var(--background-color);
 }
@@ -66,14 +66,15 @@ input[type=button]:hover, #searchBtn:hover {
 }
 
 #searchArea{
-	display: flex;
+	display: flex; 
+	height: 2.5%;
 }
 
 #search{
 	width: 100%;
 }
 
-#searchBtn {
+.searchBtn {
 	background-color: var(--background-color);
 	color: var(--color);
 	border-radius: 4px;

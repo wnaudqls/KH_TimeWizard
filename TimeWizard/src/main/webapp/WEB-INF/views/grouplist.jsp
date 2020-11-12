@@ -49,10 +49,10 @@
 	<div class="menu">
 			<div id="searchArea">
 				<input type="text" id="search" placeholder="아이디 또는 방이름을 입력하세요" onkeyup="enterkey();" />
-				<button id="searchBtn" onclick="searchRoom();">
+				<button class="searchBtn" onclick="searchRoom();">
 					<a><i class="fas fa-search"></i></a>
 				</button>
-				<button id="searchBtn" onclick="reset();">
+				<button class="searchBtn" onclick="reset();">
 					<a><i class="fas fa-sync"></i></a>
 				</button>
 			</div>
@@ -93,7 +93,6 @@
 	</section>
 	
 	<jsp:include page="friendlist.jsp"></jsp:include>
-	
 </body>
 
 <script type="text/javascript">
