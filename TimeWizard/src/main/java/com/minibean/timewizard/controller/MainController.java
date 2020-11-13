@@ -1,5 +1,7 @@
 package com.minibean.timewizard.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -9,10 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.minibean.timewizard.model.biz.CalendarBiz;
 import com.minibean.timewizard.model.biz.UserInfoBiz;
+import com.minibean.timewizard.model.dto.CalendarDto;
 import com.minibean.timewizard.model.dto.UserInfoDto;
 
 @Controller
@@ -21,6 +26,9 @@ public class MainController {
 	@Autowired
 	private UserInfoBiz userInfoBiz;
 	private Logger logger = LoggerFactory.getLogger(MainController.class);
+	
+	@Autowired
+	private CalendarBiz calendarBiz;
 	
 	@RequestMapping(value="/")
 	public String index() {
@@ -114,6 +122,7 @@ public class MainController {
 		logger.info(">> [CONTROLLER-MAIN] move to main page");
 //		return "finalactionpage";
 		UserInfoDto dto = (UserInfoDto) session.getAttribute("login");
+		
 		String user_distinct = dto.getUser_distinct();
 		session.setAttribute("linked", dto);
 		logger.info("* URI : /timewizard/user/" + user_distinct);
