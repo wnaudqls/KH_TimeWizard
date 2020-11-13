@@ -10,10 +10,8 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&family=Source+Sans+Pro:wght@200;400&family=Staatliches&display=swap"
 	rel="stylesheet">
-<script src="https://kit.fontawesome.com/3049a69bf8.js"
-	crossorigin="anonymous"></script>
-		<script type="text/javascript"
-		src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://kit.fontawesome.com/3049a69bf8.js" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script type="text/javascript">
 window.onpageshow = function (event)
 {
@@ -78,8 +76,7 @@ window.onunload = function(event) {
 						placeholder="채팅을 입력하십시오." />
 					<input type="button" id="sendBtn" value="보내기" />
 					<input type="hidden" id="nickname" placeholder="이름을 입력헤주십시오." value="${login.user_name }" readonly> 
-					<input type="button" id="disconnect" value="접속끊기"
-						onclick="disconnect();">
+					<input type="button" id="disconnect" value="종료" onclick="confirmDisconnect();" />
 					<input type="button" id="historyclear" value="기록삭제" onclick="textclear();">
 				</div>
 
@@ -99,13 +96,9 @@ window.onunload = function(event) {
 	</c:choose>
 
 	<!-- sockjs, stomp socket 추가 -->
-	<script type="text/javascript"
-		src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.5/sockjs.min.js"></script>
-	<script type="text/javascript"
-		src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.5/sockjs.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.js"></script>
 	<script type="text/javascript" src="../resources/js/chat.js"></script>
-
-
 
 
 </body>

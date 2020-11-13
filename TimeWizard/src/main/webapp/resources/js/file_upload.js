@@ -66,10 +66,19 @@ function selectList(user_no){
 					number_cell_span.textContent = i + 1;
 					number_cell.appendChild(number_cell_span);
 					
+					/*
 					let title_cell = document.createElement("div");
 					title_cell.setAttribute("class","cell title__cell");
 					let title = document.createElement("p");
 					title.textContent = files[i].file_name;
+					title_cell.appendChild(title);
+					*/
+					
+					let title_cell = document.createElement("div");
+					title_cell.setAttribute("class","cell title__cell");
+					let title = document.createElement("p");
+					title.textContent = files[i].file_regdate;
+					/* 형식 체크하기 */
 					title_cell.appendChild(title);
 					
 					let download_cell = document.createElement("div");
