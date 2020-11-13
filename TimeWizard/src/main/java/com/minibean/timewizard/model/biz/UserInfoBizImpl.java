@@ -89,14 +89,14 @@ public class UserInfoBizImpl implements UserInfoBiz {
 
 	//아이디 찾기
 	@Override
-	public UserInfoDto findID(HashMap<String, Object> params) {
-		return userInfoDao.findID(params);
+	public UserInfoDto findID(String user_email) {
+		return userInfoDao.findID(user_email);
 	}
 
 	//비밀번호 찾기
 	@Override
-	public UserInfoDto findPW(UserInfoDto dto) {
-		return userInfoDao.findPW(dto);
+	public UserInfoDto findPW(HashMap<String, Object> map) {
+		return userInfoDao.findPW(map);
 	}
 
 }

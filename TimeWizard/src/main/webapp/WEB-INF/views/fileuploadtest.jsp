@@ -27,8 +27,8 @@
 	<script type="text/javascript">
 	let user_no = <%=user_no%>;
 	window.addEventListener("DOMContentLoaded", ()=>{
-		// selectList(user_no);
-		selectOne(user_no);
+		selectList(user_no);
+		// selectOne(user_no);
 	});
 
 	function uploadFile(){

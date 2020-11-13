@@ -44,6 +44,8 @@ function searchRoom(){
 	    	
   				if(list[i].group_public == "공개"){
   					var name = list[i].group_title;
+					var user_name = list[i].user_name;
+					var user_id = list[i].user_id;
   					$(".contentmain").append(
   				"<div class='grouproom' onclick='location.href="+"\"joinroom/"+name+"\"'>"
 					+"<div class='groupimg'>"
@@ -52,8 +54,11 @@ function searchRoom(){
   					+"<div class='grouptitle'>"
   							+"<span class='group2'>"+name+"</span>"
   							+"</div>"
+				+"<div class='groupmain'>"
+							+"<span class='groupid'>"+user_id.substr(0,4)+"</span>"
+							+"</div>"
   				+"<div class='groupmain'>"
-							+"<span class='groupid'>"+list[i].user_id+"</span>"
+							+"<span class='groupid'>"+user_name.substr(0,3)+"</span>"
 							+"</div>"
 				+"<div class='groupmain'>"
 							+"<span class='groupid'>"+list[i].group_client+"/"+list[i].group_su+"</span>"
@@ -96,6 +101,8 @@ function roomlist(){
 	    	
   				if(list[i].group_public == "공개"){
   					var name = list[i].group_title;
+					var user_name = list[i].user_name;
+					var user_id = list[i].user_id;
   					$(".contentmain").append(
   							"<div class='grouproom' onclick='location.href="+"\"joinroom/"+name+"\"'>"
   							+"<div class='groupimg'>"
@@ -104,8 +111,11 @@ function roomlist(){
   		  					+"<div class='grouptitle'>"
   		  							+"<span class='group2'>"+name+"</span>"
   		  							+"</div>"
+						+"<div class='groupmain'>"
+							+"<span class='groupid'>"+user_id.substr(0,4)+"</span>"
+							+"</div>"
   		  				+"<div class='groupmain'>"
-  									+"<span class='groupid'>"+list[i].user_id+"</span>"
+  									+"<span class='groupid'>"+user_name.substr(0,3)+"</span>"
   									+"</div>"
   						+"<div class='groupmain'>"
   									+"<span class='groupid'>"+list[i].group_client+"/"+list[i].group_su+"</span>"
