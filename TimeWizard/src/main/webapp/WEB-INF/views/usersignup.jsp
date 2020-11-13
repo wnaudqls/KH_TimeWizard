@@ -355,7 +355,7 @@ function emailCodeCheck(){
 
 	arr[5] = false;
 	
-	
+	//인증코드 확인 입력 창
 	var inputemailcode = $("#email_auto_code").val().trim();
 	
 	if(inputemailcode!=null){

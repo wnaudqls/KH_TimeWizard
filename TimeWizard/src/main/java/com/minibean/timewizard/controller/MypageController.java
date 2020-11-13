@@ -342,8 +342,8 @@ public class MypageController {
 					return "redirect:mypage";
 				}
 			}
-			
-			return "";
+			//
+			return "redirect:mypage";
 		}
 	
 		

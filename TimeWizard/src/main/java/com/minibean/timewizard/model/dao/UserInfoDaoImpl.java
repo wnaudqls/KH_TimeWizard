@@ -191,11 +191,11 @@ public class UserInfoDaoImpl implements UserInfoDao {
 	//아이디 찾기
 	//이름, 이메일
 	@Override
-	public UserInfoDto findID(HashMap<String, Object> params) {
-		logger.info(">> [USERINFO] findID");
+	public UserInfoDto findID(String user_email) {
+		logger.info(">> [USERINFO] findID - user_email : "+user_email);
 		UserInfoDto result = null;
 		try {
-			result = sqlSession.selectOne(NAMESPACE+"findID", params);
+			result = sqlSession.selectOne(NAMESPACE+"findID", user_email);
 		} catch (Exception e) {
 			logger.info("[ERROR] USERINFO :: findID");
 			e.printStackTrace();
