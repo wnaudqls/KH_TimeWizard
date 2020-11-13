@@ -78,7 +78,6 @@ function pay(e){
 		<div class="mypagemenu" align="center">
 			<div class="preview">
 				<img id="frame" />
-				${fileObj.file_title }
 			</div>
 			<div class="profileinfo"></div>
 			<form:form method="post" enctype="multipart/form-data" modelAttribute="UserInfoDto" action="profileupload">
