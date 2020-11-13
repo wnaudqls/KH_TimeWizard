@@ -4,130 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>ID / PW FIND</title>
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<style>
-:root {
-    --text-color: #f0f4f5;
-    --background-color: #263343;
-	--accent-color: #ff6b6b;
-	--color: #E0E0E0;
-}
-
-body {
-	margin: 0;
-	background-color: var(--background-color);
-}
-
-.signupbox {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-.signupmenu {
-	display: flex;
-	width: 30%;
-	height: 90vh;
-	border: 1px solid var(--color);
-	border-radius: 10px;
-	background-color: white;
-	justify-content: center;
-	margin-top: 5vh;
-}
-
-.signuptitle {
-	width: 100%;
-	text-align: center;
-	justify-content: center;
-	align-items: center;
-}
-
-.signuptext {
-	font-size: 24px;
-	font-weight: bold;
-	color: var(--background-color);
-}
-
-.signuptext2 {
-	color: #95a5a6;
-}
-
-.contentbox input[type=text] {
-	background-color: var(--color);
-	width: 80%;
-	height: 2rem;
-	border: 0px;
-	padding-left: 12px;
-}
-
-.contentbox input[type=email] {
-	background-color: var(--color);
-	width: 80%;
-	height: 2rem;
-	border: 0px;
-	padding-left: 12px;
-}
-
-.chkbox input[type=button] {
-	background-color: #96DBE2;
-	color: white;
-	width: 25%;
-	height: 2rem;
-	border: 0px;
-	border-radius: 25px;
-	cursor: pointer;
-
-}
-
-.chkbox input[type=submit] {
-	background-color: #96DBE2;
-	color: white;
-	width: 25%;
-	height: 2rem;
-	border: 0px;
-	border-radius: 25px;
-	cursor: pointer;
-	margin-top: 0.5rem;
-}
-
-.signuptitle div {
-	padding: 8px;
-}
-
-
-@media screen and (max-width: 1140px) {
-	.signupmenu {
-		width: 80%;
-	}
-	
-	.signuptext {
-		font-size: 24px;
-	}
-	
-	.signuptext2 {
-		font-size: 15px;
-	}
-	
-	.contentbox input[type=text] {
-		height: 2rem;
-	}
-
-	
-	.chkbox input[type=button] {
-		width: 50%;
-		height: 2rem;
-
-	}
-	
-	.chkbox input[type=submit] {
-		width: 50%;
-		height: 2rem;
-		margin-top: 0;
-	}
-	
-}
-</style>
+<title>Find ID/PW</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script>
 $(document).ready(function() {
 	//아이디 찾기 아작스
@@ -140,7 +18,7 @@ $(document).ready(function() {
 				url: url,
 				success: function(data){
 					
-					$(".id_result").text("Your ID : "+data.user_id);
+					$(".id_result").text("Find Your ID : "+data.user_id);
 				},
 				error: function(data){
 					alert("아이디 찾기 통신 실패ㅠㅠㅠ");
@@ -151,7 +29,7 @@ $(document).ready(function() {
 		
 		//아이디 찾기
 		//이메일 유효성
-		$(".user_email_id").blur(function(){
+		$(".user_email_id").keyup(function(){
 			let user_email = $(".user_email_id").val(); 
 			let emailjung = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
 			if(user_email == ""){
@@ -161,7 +39,8 @@ $(document).ready(function() {
 				$(".findid_button").attr("disabled",true);
 				
 			}else if(emailjung.test(user_email)){
-				$(".email_check_id").empty();
+				$(".email_check_id").html('알맞은 이메일입니다.');
+				$(".email_check_id").css('color','#ddd');
 				$(".email_button_id").attr("disabled",false);
 				console.log("user_email : "+user_email);
 				
@@ -208,7 +87,7 @@ function email_check(data){
 		}
 		else {
 			if(email_code_id == data){
-				$(".email_code_text_id").text("인증번호가 맞습니다.").css("color","#ddd").fadeOut(1000);
+				$(".email_code_text_id").text("인증번호가 맞습니다.").css("color","#ddd");
 				$(".findid_button").attr("disabled",false);
 			}
 		}
@@ -228,7 +107,7 @@ $(document).ready(function() {
 				success: function(data){
 					alert(data);
 					alert("data : "+data.user_pw);
-					$(".pw_result").text("Your PassWord : "+data.user_pw);
+					$(".pw_result").text("Find Your PassWord : "+data.user_pw);
 				},
 				error: function(data){
 					alert("아이디 찾기 통신 실패ㅠㅠㅠ");
@@ -248,7 +127,8 @@ $(document).ready(function() {
 			$(".findpw_button  ").attr("disabled",true);
 			
 		}else if(emailjung.test(user_email_pw)){
-			$(".email_check_pw ").empty();
+			$(".email_check_pw ").html('알맞은 이메일입니다.');
+			$(".email_check_pw ").css('color','#ddd');
 			$(".email_button_pw ").attr("disabled",false);
 			console.log("user_email : "+user_email_pw);
 			
@@ -280,16 +160,6 @@ $(document).ready(function() {
 		}
 	});
 	
-	//아이디 유효성
-	$(".user_id").blur(function(){
-		let userid = $(".user_id").val();
-		if(userid == ""){
-			$(".id_check").text("아이디를 입력해주세요!").css("color","red");
-		}else{
-			$(".id_check").empty();
-		}
-	})
-	
 
 });
  
@@ -307,7 +177,7 @@ function email_check_pw(data){
 		}
 		else {
 			if(email_code_pw_check == data){
-				$(".email_code_text_pw ").text("인증번호가 맞습니다.").css("color","#ddd").fadeOut(1000);
+				$(".email_code_text_pw ").text("인증번호가 맞습니다.").css("color","#ddd");
 				$(".findpw_button  ").attr("disabled",false);
 			}
 		}
@@ -316,50 +186,58 @@ function email_check_pw(data){
 </script>
 </head>
 <body>
-<section class="signupbox">
-		<div class="signupmenu">
-			<div class="signuptitle">
-				<p class="signuptext">Find Your ID or PW</p>
-				<p class="signuptext2">Find Your ID</p>
-				<div class="contentbox">
-					<input type="email" placeholder="이메일을 입력해주세요." name="user_email" class="user_email_id" required="required">
-				</div>
-				<div class="email_check_id"></div>
-				<div class="chkbox">
-					<input type="button" class="email_button_id" value="인증번호">
-				</div>
-				<div class="contentbox">
-					<input type="text" placeholder="인증번호를 입력해주세요." class="email_code_id" required="required">
-					<div class="email_code_text_id"></div>
-				</div>
-				<div class="chkbox">
-					<input type="button" value="찾기" class="findid_button">
-					<h4 class="id_result"></h4>
-				</div>
-				<p class="signuptext2">Find Your PW</p>
-				<div class="contentbox">
-					<input type="text" placeholder="아이디를 입력해주세요." name="user_id" class="user_id" required="required">
-					<div class="id_check"></div>
-				</div>
-				<div class="contentbox">
-					<input type="email" placeholder="이메일을 입력해주세요." name="user_email" class="user_email_pw " required="required">
-					<div class="email_check_pw"></div>
-				</div>
-				<div class="chkbox">
-					<input type="button" class="email_button_pw" value="인증번호">
-				</div>
+<!-- header 넣기 -->
+<h1>ID / PW Find</h1>
 
-				<div class="contentbox">
-					<input type="text" placeholder="인증번호를 입력해주세요."  class="email_code_pw" required="required">
-				<div class="email_code_text_pw"></div>
-				</div>
-				<div class="chkbox">
-					<input type="button" value="찾기" class="findpw_button">
-					<h4 class="pw_result"></h4>
-				</div>
+	<div class="FindID">
+		<div class="id_title"><h2>Find ID</h2></div>
+		<div style="border: 1px solid red;">
+			<div class="id_email_area">
+				EMAIL
+				<input type="email" placeholder="이메일을 입력해주세요." name="user_email" class="user_email_id" required="required">
+				<input type="button" class="email_button_id" value="인증번호">
+				<div class="email_check_id"></div>
+			</div>
+			<div class="id_email_check">
+				EMAIL CHECK
+				<input type="text" placeholder="인증번호를 입력해주세요." class="email_code_id" required="required">
+				
+				<div class="email_code_text_id"></div>
+			</div>
+			<div class="id_find_button">
+				<input type="button" value="찾기" class="findid_button">
 			</div>
 		</div>
-	</section>
-	
+		<div class="id_result"></div>
+	</div>
+
+
+
+	<div class="FindPW">
+		<div class="pw_title"><h2>Find PassWord</h2></div>
+		<div style="border: 1px solid blue">
+			<div class="pw_id_area">
+				ID
+				<input type="text" placeholder="아이디를 입력해주세요." name="user_id" class="user_id" required="required">
+			</div>
+			<div class="pw_email_area">
+				EMAIL
+				<input type="email" placeholder="이메일을 입력해주세요." name="user_email" class="user_email_pw " required="required">
+				<input type="button" class="email_button_pw" value="인증번호">
+				<div class="email_check_pw"></div>
+			</div>
+			<div class="pw_email_check">
+				EMAIL CHECK
+				<input type="text" placeholder="인증번호를 입력해주세요."  class="email_code_pw" required="required">
+				<div class="email_code_text_pw"></div>
+			</div>
+			<div class="pw_find_button">
+				<input type="button" value="찾기" class="findpw_button">
+			</div>
+		</div>
+		<div class="pw_result"></div>
+	</div>
+
+<!-- footer 넣기 -->
 </body>
 </html>
