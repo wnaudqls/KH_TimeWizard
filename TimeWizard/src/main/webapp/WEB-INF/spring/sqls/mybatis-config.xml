@@ -16,6 +16,7 @@
 		<typeAlias type="com.minibean.timewizard.model.dto.WeeklyDto" alias="WeeklyDto"/>
 		<typeAlias type="com.minibean.timewizard.model.dto.PayDto" alias="PayDto"/>
 		<typeAlias type="com.minibean.timewizard.model.dto.FileUploadDto" alias="FileUploadDto"/>
+		<typeAlias type="com.minibean.timewizard.model.dto.CalendarDto" alias="CalendarDto"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="/mybatis/user_info-mapper.xml" />

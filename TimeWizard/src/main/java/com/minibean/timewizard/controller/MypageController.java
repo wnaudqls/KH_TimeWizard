@@ -21,9 +21,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.WebUtils;
 
@@ -186,87 +188,28 @@ public class MypageController {
 	
 	@RequestMapping(value="/profileupload")
 	@ResponseBody
-	public Map<String, Boolean> fileUpload(HttpServletRequest request, Model model, UserInfoDto userInfoDto, FileUploadDto uploadFile, BindingResult result, @RequestParam int user_no) {
+	public String fileUpload(HttpServletRequest request, Model model, @RequestBody FileUploadDto fileuploadDto, BindingResult result, @RequestParam int user_no) {
 		logger.info("[user profile change]");
 		
-		Map<String, Boolean> answer = new HashMap<String, Boolean>();
+		UserInfoDto userInfoDto = new UserInfoDto();
 		
-		fileValidator.validate(uploadFile, result);
-		  
-		if (result.hasErrors()) {
-				answer.put("result",false);
-				return answer;
-			}
-		  
-		MultipartFile file = uploadFile.getFile();
-		String fileExtension = FilenameUtils.getExtension(file.getOriginalFilename());
-		String uploadedName = fileUploadUtils.makeRandomName() + "." + fileExtension;
-		
-		FileUploadDto fileObj = new FileUploadDto();
-		fileObj.setFile_name(uploadedName);
-		
-		InputStream inputStream = null;
-		OutputStream outputStream = null;
-		  
-		try {
-			
-			inputStream = file.getInputStream();
-			String uploadPath = WebUtils.getRealPath(request.getSession().getServletContext(), "/resources/image");
-			logger.info("\n* uploaded file path : " + uploadPath 
-					+ "\n* file original name : " + file.getOriginalFilename());
-			
-			File storage = new File(uploadPath);
-			if (!storage.exists()) {
-				storage.mkdir();
-			}
-			File newFile = new File(uploadPath + "/" + uploadedName);
-			if (!newFile.exists()) {
-				newFile.createNewFile();
-			}
-			outputStream = new FileOutputStream(newFile);
-			
-			int read = 0;
-			byte[] b = new byte[(int)file.getSize()];
-			
-			while((read=inputStream.read(b)) != -1) {
-				outputStream.write(b, 0, read);
-			}
-			
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				inputStream.close();
-				outputStream.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		answer.put("result",true);
-		  
-		  FileUploadDto fileuploadDto = new FileUploadDto();
-		  fileuploadDto.setUser_no(((UserInfoDto)request.getSession().getAttribute(
-		  "login")).getUser_no()); fileuploadDto.setFile_name(uploadedName); if
-		  (fileExtension.equalsIgnoreCase("jpg") ||
-		  fileExtension.equalsIgnoreCase("jpeg") ||
-		  fileExtension.equalsIgnoreCase("png") ||
-		  fileExtension.equalsIgnoreCase("gif")) { fileuploadDto.setFile_type("I"); }
-		  else if (fileExtension.equalsIgnoreCase("mp4")) {
-		  fileuploadDto.setFile_type("V"); }
-		  
-		  // 파일 선택해서 send 버튼 눌렀을 때 fileuploadDto에 file을 insert
+		  /* 파일 선택해서 send 버튼 눌렀을 때,
+		   * fileuploadDto에 file을 insert 하고
+		   * user_no가 올린 파일을 selectOne 하기
+		   * - FileUploadController에 있는 부분이라 여기에 안 써도 실행이 되므로 주석처리 함
 		  fileUploadBiz.insert(fileuploadDto);
-		  fileuploadDto = fileUploadBiz.selectImageOne(user_no);
+		  fileuploadDto = fileUploadBiz.selectImageOne(user_no); */
+		
+		logger.info("파일 이름: "+fileuploadDto.getFile_name());
+		  
 		  // 프로필 사진을 등록하지 않은 디폴트값은 user_photo=null임. user_photo에 insert된 file이 서버에 랜덤으로 저장[FileUploadUtils 클래스 참고]된 name을 setting 해줌. 
 		  userInfoDto.setUser_photo(fileuploadDto.getFile_name());
-		  // user_photo의 값을 null에서 263번째 줄의 값으로 update 해줌.
+		  // user_photo의 값을 null에서 윗줄의 값으로 update 해줌.
 		  int res = userinfoBiz.profileChange(userInfoDto);
 		 
 		  logger.info("[user profile change] success?: " + ((res == 1)?"yes":"no"));
 		
-		return answer;
+		return "redirect:mypage";
 	}
 	
 	
@@ -342,8 +285,8 @@ public class MypageController {
 					return "redirect:mypage";
 				}
 			}
-			
-			return "";
+			//
+			return "redirect:mypage";
 		}
 	
 		

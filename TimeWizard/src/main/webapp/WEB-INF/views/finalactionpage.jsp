@@ -40,6 +40,8 @@
 				</div>
 				<div id="con2" class="content">
 					<jsp:include page="/WEB-INF/views/personal_weekmonth.jsp" flush="true"></jsp:include>
+					<%-- <jsp:include page="/WEB-INF/views/calendar_b.jsp" flush="true"></jsp:include> --%>
+					<jsp:include page="/WEB-INF/views/calendar.jsp" flush="true"></jsp:include>
 				</div>
 			</div>
 		</div>
