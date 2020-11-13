@@ -77,7 +77,7 @@ body {
 	border: 0px;
 	border-radius: 25px;
 	cursor: pointer;
-	margin-bottom: 1rem;
+
 }
 
 .chkbox input[type=submit] {
@@ -117,7 +117,7 @@ body {
 	.chkbox input[type=button] {
 		width: 50%;
 		height: 2rem;
-		margin-bottom: 0.5rem;
+
 	}
 	
 	.chkbox input[type=submit] {
@@ -151,7 +151,7 @@ $(document).ready(function() {
 		
 		//아이디 찾기
 		//이메일 유효성
-		$(".user_email_id").keyup(function(){
+		$(".user_email_id").blur(function(){
 			let user_email = $(".user_email_id").val(); 
 			let emailjung = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
 			if(user_email == ""){
@@ -161,8 +161,7 @@ $(document).ready(function() {
 				$(".findid_button").attr("disabled",true);
 				
 			}else if(emailjung.test(user_email)){
-				$(".email_check_id").html('알맞은 이메일입니다.');
-				$(".email_check_id").css('color','#ddd');
+				$(".email_check_id").empty();
 				$(".email_button_id").attr("disabled",false);
 				console.log("user_email : "+user_email);
 				
@@ -209,7 +208,7 @@ function email_check(data){
 		}
 		else {
 			if(email_code_id == data){
-				$(".email_code_text_id").text("인증번호가 맞습니다.").css("color","#ddd");
+				$(".email_code_text_id").text("인증번호가 맞습니다.").css("color","#ddd").fadeOut(1000);
 				$(".findid_button").attr("disabled",false);
 			}
 		}
@@ -249,8 +248,7 @@ $(document).ready(function() {
 			$(".findpw_button  ").attr("disabled",true);
 			
 		}else if(emailjung.test(user_email_pw)){
-			$(".email_check_pw ").html('알맞은 이메일입니다.');
-			$(".email_check_pw ").css('color','#ddd');
+			$(".email_check_pw ").empty();
 			$(".email_button_pw ").attr("disabled",false);
 			console.log("user_email : "+user_email_pw);
 			
@@ -282,6 +280,16 @@ $(document).ready(function() {
 		}
 	});
 	
+	//아이디 유효성
+	$(".user_id").blur(function(){
+		let userid = $(".user_id").val();
+		if(userid == ""){
+			$(".id_check").text("아이디를 입력해주세요!").css("color","red");
+		}else{
+			$(".id_check").empty();
+		}
+	})
+	
 
 });
  
@@ -299,7 +307,7 @@ function email_check_pw(data){
 		}
 		else {
 			if(email_code_pw_check == data){
-				$(".email_code_text_pw ").text("인증번호가 맞습니다.").css("color","#ddd");
+				$(".email_code_text_pw ").text("인증번호가 맞습니다.").css("color","#ddd").fadeOut(1000);
 				$(".findpw_button  ").attr("disabled",false);
 			}
 		}
@@ -326,11 +334,12 @@ function email_check_pw(data){
 				</div>
 				<div class="chkbox">
 					<input type="button" value="찾기" class="findid_button">
+					<h4 class="id_result"></h4>
 				</div>
-				<div class="id_result"></div>
 				<p class="signuptext2">Find Your PW</p>
 				<div class="contentbox">
 					<input type="text" placeholder="아이디를 입력해주세요." name="user_id" class="user_id" required="required">
+					<div class="id_check"></div>
 				</div>
 				<div class="contentbox">
 					<input type="email" placeholder="이메일을 입력해주세요." name="user_email" class="user_email_pw " required="required">
@@ -346,8 +355,8 @@ function email_check_pw(data){
 				</div>
 				<div class="chkbox">
 					<input type="button" value="찾기" class="findpw_button">
+					<h4 class="pw_result"></h4>
 				</div>
-				<div class="pw_result"></div>
 			</div>
 		</div>
 	</section>
