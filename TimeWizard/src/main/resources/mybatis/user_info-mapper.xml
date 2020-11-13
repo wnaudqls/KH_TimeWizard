@@ -89,7 +89,7 @@
 	</select>
 	
 	<!-- password찾기 -->
-	<select id="findPW" parameterType="UserInfoDto" resultType="String">
+	<select id="findPW" parameterType="hashmap" resultType="UserInfoDto">
 		SELECT *
 		FROM USER_INFO
 		WHERE USER_ID = #{user_id}

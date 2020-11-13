@@ -49,11 +49,21 @@ public class IdPwFindController {
 	
 	//비밀번호 찾기
 	//이메일, 아이디
-	//@RequestMapping("/")
-	//@ResponseBody
-	//public USerInfoDto findPW(){
-	//	logger.info("[findPW Controller]");
-	//	return null;
-	//}
+	@RequestMapping("/findPW")
+	@ResponseBody
+	public UserInfoDto findPW(@RequestParam("user_email")String user_email,
+			@RequestParam("user_id")String user_id){
+		logger.info("[findPW Controller]");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("user_email", user_email);
+		map.put("user_id", user_id);
+		
+		
+		UserInfoDto dto = userinfoBiz.findPW(map);
+		logger.info("controller dto : "+dto);
+		logger.info("controller dto : "+dto.getUser_id());
+		logger.info("controller dto : "+dto.getUser_pw());
+		return dto;
+	}
 	
 }

@@ -25,5 +25,5 @@ public interface UserInfoBiz {
 	public UserInfoDto findID(String user_email);
 	//비밀번호 찾기
 	//이름,이메일,아이디
-	public UserInfoDto findPW(UserInfoDto dto);
+	public UserInfoDto findPW(HashMap<String, Object> map);
 }

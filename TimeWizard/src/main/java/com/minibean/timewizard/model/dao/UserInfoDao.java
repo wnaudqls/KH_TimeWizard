@@ -25,6 +25,6 @@ public interface UserInfoDao {
 	//아이디 찾기
 	public UserInfoDto findID(String user_email);
 	//비밀번호 찾기
-	public UserInfoDto findPW(UserInfoDto dto);
+	public UserInfoDto findPW(HashMap<String, Object> map);
 	
 }
