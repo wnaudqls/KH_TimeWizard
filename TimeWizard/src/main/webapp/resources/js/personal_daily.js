@@ -219,10 +219,12 @@ function showDailyList(date){
 }
 
 function howmanyfill(j, values, floordate, startdate, enddate, ceildate){
-	if (j == 0) {
-		return 10 - (startdate.getMinutes() - floordate.getMinutes());
+	if (values == 1){
+		return (enddate.getTime() - startdate.getTime())/(1000*60);
+	} else if (j == 0) {
+		return 10 - ((startdate.getTime() - floordate.getTime())/(1000 * 60));
 	} else if (j == values - 1){
-		return 10 - (ceildate.getMinutes() - enddate.getMinutes());
+		return 10 - ((ceildate.getTime() - enddate.getTime())/(1000 * 60));
 	} else {
 		return 10;
 	}
@@ -232,7 +234,6 @@ function showTimeblock(items){
 	let heatmap_div = document.getElementById("heatmap");
 	heatmap_div.innerHTML = "";
 	let length = items.length;
-	console.log("list length : " + length);
 	const standard = 1000 * 60 * 10;
 	let array = [];
 	
@@ -242,14 +243,10 @@ function showTimeblock(items){
 		let floordate = new Date(Math.floor(startdate.getTime() / standard) * standard);
 		let enddate = new Date(item.todo_endtime);
 		let ceildate = new Date(Math.ceil(enddate.getTime() / standard) * standard);
-		console.log(">>>>>>>주목<<<<<<<")
-		console.log(10 - (startdate.getMinutes() - floordate.getMinutes()));
-		console.log(10 - (ceildate.getMinutes() - enddate.getMinutes()));
-		console.log(">>>>>>>해산<<<<<<<")
 		let time = new Time();
 		time.setTime(startdate);
 		let values = (ceildate - floordate)/ standard; // nn개/10분
-		console.log(values);
+		
 		let originalData = {
 				"hour": time.hour,
 				"minute":time.minute,
@@ -262,8 +259,6 @@ function showTimeblock(items){
 					"todo_endtime":item.todo_endtime
 				}
 		};
-		console.log(originalData);
-		let fill = values;
 		
 		for(let j=0; j<values; j++){			
 			let jsondata = {
@@ -279,6 +274,8 @@ function showTimeblock(items){
 	} /* for i */
 	console.log(array);
 	
+	let d3Data = {"todo":array};
+	console.log(d3Data);
 	// set the dimensions and margins of the graph (percent?)
     let margin = {top: 30, right: 30, bottom: 30, left: 30},
     width = 450 - margin.left - margin.right,
@@ -292,15 +289,13 @@ function showTimeblock(items){
       .attr("transform",
             "translate(" + margin.left + "," + margin.top + ")");
     
-    let minutes = ["00","10","20","30","40","50"];
+    let minutes = ["00","10","20","30","40","50"]; // x axis
     let hours = ["00","01","02","03", "04","05","06","07","08","09","10","11","12",
-    			"13","14","15","16","17","18","19","20","21","22","23","23"];
+    			"13","14","15","16","17","18","19","20","21","22","23","23"]; // y axis
     
-    var myGroups = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
-    var myVars = ["v1", "v2", "v3", "v4", "v5", "v6", "v7", "v8", "v9", "v10"]
     var x = d3.scaleBand()
     .range([ 0, width ])
-    .domain(myGroups)
+    .domain(minutes)
     .padding(0.01);
   svg.append("g")
     .attr("transform", "translate(0," + height + ")")
@@ -309,7 +304,7 @@ function showTimeblock(items){
   // Build X scales and axis:
   var y = d3.scaleBand()
     .range([ height, 0 ])
-    .domain(myVars)
+    .domain(hours)
     .padding(0.01);
   svg.append("g")
     .call(d3.axisLeft(y));
@@ -317,10 +312,10 @@ function showTimeblock(items){
   // Build color scale
   var myColor = d3.scaleLinear()
     .range(["white", "#69b3a2"])
-    .domain([1,100])
+    .domain([0,10])
   
   //Read the data
-  d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/heatmap_data.csv").then(data => {
+  d3.json(d3Data).then(data => {
   
     // create a tooltip
     var tooltip = d3.select("#my_dataviz")
@@ -339,7 +334,7 @@ function showTimeblock(items){
     }
     var mousemove = function(d) {
       tooltip
-        .html("The exact value of<br>this cell is: " + d.value)
+        .html("The exact value of<br>this cell is: " + d.todo.daily)
         .style("left", (d3.mouse(this)[0]+70) + "px")
         .style("top", (d3.mouse(this)[1]) + "px")
     }
@@ -352,11 +347,11 @@ function showTimeblock(items){
       .data(data, function(d) {return d.group+':'+d.variable;})
       .enter()
       .append("rect")
-        .attr("x", function(d) { return x(d.group) })
-        .attr("y", function(d) { return y(d.variable) })
+        .attr("x", function(d) { return x(d.todo.minute) })
+        .attr("y", function(d) { return y(d.todo.hour) })
         .attr("width", x.bandwidth() )
         .attr("height", y.bandwidth() )
-        .style("fill", function(d) { return myColor(d.value)} )
+        .style("fill", function(d) { return myColor(d.todo.fill)} )
       .on("mouseover", mouseover)
       .on("mousemove", mousemove)
       .on("mouseleave", mouseleave)
