@@ -231,6 +231,7 @@ function howmanyfill(j, values, floordate, startdate, enddate, ceildate){
 }
 
 function showTimeblock(items){
+	let heatmap_area = document.getElementsByClassName("heatmap__area")[0];
 	let heatmap_div = document.getElementById("heatmap");
 	heatmap_div.innerHTML = "";
 	let length = items.length;
@@ -272,91 +273,106 @@ function showTimeblock(items){
 			time.plusMinute();
 		} /* for j */
 	} /* for i */
-	console.log(array);
 	
 	let d3Data = {"todo":array};
-	console.log(d3Data);
+//	console.log(d3Data);
+	
 	// set the dimensions and margins of the graph (percent?)
-    let margin = {top: 30, right: 30, bottom: 30, left: 30},
-    width = 450 - margin.left - margin.right,
-    height = 450 - margin.top - margin.bottom;
-    // append the svg object to the body of the page
-    let svg = d3.select("#heatmap")
-    .append("svg")
-      .attr("width", width + margin.left + margin.right)
-      .attr("height", height + margin.top + margin.bottom)
-    .append("g")
-      .attr("transform",
-            "translate(" + margin.left + "," + margin.top + ")");
-    
-    let minutes = ["00","10","20","30","40","50"]; // x axis
-    let hours = ["00","01","02","03", "04","05","06","07","08","09","10","11","12",
-    			"13","14","15","16","17","18","19","20","21","22","23","23"]; // y axis
-    
-    var x = d3.scaleBand()
-    .range([ 0, width ])
-    .domain(minutes)
-    .padding(0.01);
-  svg.append("g")
-    .attr("transform", "translate(0," + height + ")")
-    .call(d3.axisBottom(x))
-  
-  // Build X scales and axis:
-  var y = d3.scaleBand()
-    .range([ height, 0 ])
-    .domain(hours)
-    .padding(0.01);
-  svg.append("g")
-    .call(d3.axisLeft(y));
-  
-  // Build color scale
-  var myColor = d3.scaleLinear()
-    .range(["white", "#69b3a2"])
-    .domain([0,10])
-  
-  //Read the data
-  d3.json(d3Data).then(data => {
-  
-    // create a tooltip
-    var tooltip = d3.select("#my_dataviz")
-      .append("div")
-      .style("opacity", 0)
-      .attr("class", "tooltip")
-      .style("background-color", "white")
-      .style("border", "solid")
-      .style("border-width", "2px")
-      .style("border-radius", "5px")
-      .style("padding", "5px")
-  
-    // Three function that change the tooltip when user hover / move / leave a cell
-    var mouseover = function(d) {
-      tooltip.style("opacity", 1)
-    }
-    var mousemove = function(d) {
-      tooltip
-        .html("The exact value of<br>this cell is: " + d.todo.daily)
-        .style("left", (d3.mouse(this)[0]+70) + "px")
-        .style("top", (d3.mouse(this)[1]) + "px")
-    }
-    var mouseleave = function(d) {
-      tooltip.style("opacity", 0)
-    }
-  
-    // add the squares
-    svg.selectAll()
-      .data(data, function(d) {return d.group+':'+d.variable;})
-      .enter()
-      .append("rect")
-        .attr("x", function(d) { return x(d.todo.minute) })
-        .attr("y", function(d) { return y(d.todo.hour) })
-        .attr("width", x.bandwidth() )
-        .attr("height", y.bandwidth() )
-        .style("fill", function(d) { return myColor(d.todo.fill)} )
-      .on("mouseover", mouseover)
-      .on("mousemove", mousemove)
-      .on("mouseleave", mouseleave)
-  });
+	let margin = {top: 30, right: 30, bottom: 30, left: 30},
+	width = heatmap_area.clientWidth,
+	height = heatmap_area.clientHeight - margin.bottom - margin.top;
 
+	// append the svg object to the body of the page
+	let svg = d3.select("#heatmap")
+		.append("svg")
+		.attr("width", width + margin.left + margin.right)
+		.attr("height", height + margin.top + margin.bottom)
+		.attr("preserveAspectRatio","xMinYMin")
+		.attr("viewBox","0 0 " + Math.min(width, height) + " " + Math.min(width, height))
+		.append("g")
+		.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+	let minutes = ["00","10","20","30","40","50"]; // x axis
+	let hours = ["00","01","02","03", "04","05","06","07","08","09","10","11","12",
+				"13","14","15","16","17","18","19","20","21","22","23","23"]; // y axis
+
+	let x = d3.scaleBand()
+		.domain(minutes)
+		.range([ 0, width ])
+		.padding(0.01);
+	let y = d3.scaleBand()
+		.domain(hours)
+		.range([ height, 0 ])
+		.padding(0.01);
+	/*
+	 * let xAxis = d3.axisBottom(x)
+	 * .ticks(d3.timeYear);
+	 * let yAxis = d3.axisRight(y)
+	 * .tickSize(width)
+	 * .tickFormat(function(d) {
+	 * var s = formatNumber(d / 1e6);
+	 * return this.parentNode.nextSibling?"\xa0"+s:"$"+s +" million";
+	 * });
+	 * g.append("g").attr("transform","translate(0,"+hegiht+")").call(customXAxis);
+	 * g.append("g").call(customYAxis);
+	 * function customXAxis(g) {g.call(xAxis); g.select(".domain").remove();}
+	 * function customYAxis(g) {g.call(yAxis); g.select(".domain").remove();
+	 * g.selectAll(".tick:not(:first-of-type) line")
+	 * .attr("stroke", "#777")
+	 * .attr("stroke-dasharray", "2,2");
+	 * g.selectAll(".tick text").attr("x", 4).attr("dy", -4);
+	 * }
+	 */
+	
+	svg.append("g")
+		.call(d3.axisBottom(x))
+		.attr("transform", "translate(0," + height + ")");
+	svg.append("g")
+		.call(d3.axisLeft(y));
+
+	// Build color scale
+	var myColor = d3.scaleLinear()
+		.range(["white", "#69b3a2"])
+		.domain([0,10]);
+
+		// create a tooltip
+		var tooltip = d3.select("#tooltip__area")
+			.append("div")
+			.style("opacity", 0)
+			.attr("class", "tooltip")
+			.style("background-color", "white")
+			.style("border", "solid")
+			.style("border-width", "2px")
+			.style("border-radius", "5px")
+			.style("padding", "5px");
+	
+		// Three function that change the tooltip when user hover / move / leave a cell
+		var mouseover = function(d) {
+			tooltip.style("opacity", 1)
+		}
+		var mousemove = function(d) {
+			tooltip.html("The exact value of<br>this cell is: " + d.daily)
+				.style("left", (d3.mouse(this)[0]+70) + "px")
+				.style("top", (d3.mouse(this)[1]) + "px")
+		}
+		var mouseleave = function(d) {
+			tooltip.style("opacity", 0)
+		}
+	
+		// add the squares
+		svg.selectAll()
+			.data(d3Data.todo, function(d) {return d.minute+':'+d.group;})
+			.enter()
+			.append("rect")
+			.attr("x", function(d) { return x(d.minute) })
+			.attr("y", function(d) { return y(d.hour) })
+			.attr("width", x.bandwidth() )
+			.attr("height", y.bandwidth() )
+			.style("opacity", function(d) { return d.fill/10})
+			.style("fill", function(d) { return myColor(d.fill)} )
+			.on("mouseover", mouseover)
+			.on("mousemove", mousemove)
+			.on("mouseleave", mouseleave);
 
 }
 
@@ -651,7 +667,7 @@ function submitInsertModal(){
 
 
 function getDateForValue(days){
-	let theday  = new Date(days);
+	let theday = new Date(days);
 	let year = Number(theday.getYear()) + 1900;
 	let month = Number(theday.getMonth()) + 1;
 	let date = Number(theday.getDate());

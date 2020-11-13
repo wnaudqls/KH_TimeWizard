@@ -186,10 +186,16 @@ a.label:focus, a.label:hover {
 /* * * * * * * * * * *
  *     date area     *
  * * * * * * * * * * */
- 
+
 #daily__part {
- 	width: 100%;
+	width: 100%;
+	height: 100%;
  }
+ 
+.daily__area {
+    width: 100%;
+    height: 100%;
+}
  
  .date__area {
  	display: flex;
@@ -217,13 +223,23 @@ a.label:focus, a.label:hover {
 .contents__area {
  	display: flex;
  	width: 100%;
- 	padding: 1rem 3rem;
+ 	height: calc(100% - 6rem);
  }
  
  .list__area {
  	float: left;
  	width: 50%;
+ 	height: 100%;
+ 	margin-left: 3rem;
  }
+ .heatmap__area {
+ 	float: right;
+ 	width: 50%;
+ 	height: 100%;
+ 	margin-right: 3rem;
+ }
+ 
+ 
  .todo__insert{
  	text-align: center;
  	background-color: var(--light-color);
@@ -236,11 +252,6 @@ a.label:focus, a.label:hover {
  .todo__insert:hover {
  	background-color: var(--background-color);
  	color: var(--text-color);
- }
- 
- .heatmap__area {
- 	float: right;
- 	width: 50%;
  }
 
 
@@ -275,7 +286,7 @@ a.label:focus, a.label:hover {
 }
 
 button.stopwatch:hover .fas {
-	/* hover했을 때 현재 설정된 색상으로,
+	/* hover했을 때 기존에 설정했던 색상으로,
 	아닐 때는 personal_daily.js에서 설정한 색상으로 하고자 합니다... */
 }
 
@@ -340,3 +351,13 @@ transform: translateY(-50%);
  *      2nd modal    *
  * * * * * * * * * * */
 
+
+
+/* * * * * * * * * * *
+ *       heatmap     *
+ * * * * * * * * * * */
+
+ #heatmap {
+ width: 100%;
+ height: 100%;
+ }

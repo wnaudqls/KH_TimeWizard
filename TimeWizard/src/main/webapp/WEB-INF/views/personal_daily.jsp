@@ -39,6 +39,7 @@
 				</div>
 				<div class="heatmap__area">
 					<div id="heatmap"></div>
+					<div id="tooltip__area"></div>
 				</div>
 			</div>
 		</div>
