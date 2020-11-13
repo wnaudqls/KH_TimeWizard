@@ -16,6 +16,7 @@
 <link href="/timewizard/css/actionpage.css" rel="stylesheet">
 <script src="https://kit.fontawesome.com/3049a69bf8.js" crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+<script type="text/javascript" src="/timewizard/js/file_upload.js"></script>
 <script type="text/javascript">
 
 const elImage = document.querySelector("#reviewImageFileOpenInput");
@@ -115,34 +116,7 @@ function pay(e){
 			</form>
 		</div>
 	
-		<div class="mypagemenu" align="center">
-			<table>
-			<!-- 구현할때 사용하면 될듯!
-				<c:choose>
-					<c:when test="">
-						<tr>
-							<th>저장할 수 있는 timelapse가 없습니다.</th>
-						</tr>
-					</c:when>
-					<c:otherwise>
-						<c:forEach items="" >
-							<tr>
-								<td>날짜 및 시간</td>
-							</tr>
-						</c:forEach>
-					</c:otherwise>
-				</c:choose>
-				-->
-				<tr>
-					<td>날짜 및 시간</td>
-					<td><a class="save"><i class="fas fa-save"></i></a></td>
-				</tr>
-				<tr>
-					<td>날짜 및 시간</td>
-					<td><a class="save"><i class="fas fa-save"></i></a></td>
-				</tr>
-			</table>
-		</div>
+		<div class="files__area" align="center"></div>
 		
 		<div class="mypagemenu" align="center">
 			<form>
@@ -184,8 +158,10 @@ function pay(e){
 	let uno = ${login.user_no};
 	window.addEventListener("DOMContentLoaded", ()=>{
 		selectOne(uno);
+		selectList(uno)
 	});
 	</script>
+
 
 </body>
 </html>
