@@ -82,19 +82,17 @@
 	</update>
 
 	<!-- id찾기 -->
-	<select id="findID" parameterType="UserInfoDto" resultType="hashmap">
-		SELECT USER_ID
+	<select id="findID" parameterType="String" resultType="UserInfoDto">
+		SELECT *
 		FROM USER_INFO
-		WHERE USER_NAME = #{user_name} 
-		AND USER_EMAIL = #{user_email}
+		WHERE USER_EMAIL = #{user_email}
 	</select>
 	
 	<!-- password찾기 -->
 	<select id="findPW" parameterType="UserInfoDto" resultType="String">
-		SELECT USER_PW
+		SELECT *
 		FROM USER_INFO
-		WHERE USER_NAME = #{user_name}
-		AND USER_ID = #{user_id}
+		WHERE USER_ID = #{user_id}
 		AND USER_EMAIL = #{user_email}
 	</select>
 	
