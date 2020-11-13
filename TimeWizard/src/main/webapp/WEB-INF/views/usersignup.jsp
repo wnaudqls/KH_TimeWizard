@@ -15,6 +15,10 @@
   --left-color: #9fdeaf;
   /*  Light Blue  */
   --right-color: #96dbe2;
+  --text-color: #f0f4f5;
+    --background-color: #263343;
+	--accent-color: #ff6b6b;
+	--color: #E0E0E0;
 }
 
 body, html{
@@ -24,6 +28,7 @@ body, html{
   font-family: 'Helvetica Neue', sans-serif;
   letter-spacing: 0.5px;
 }
+
 
 .container{
   width: var(--form-width);
@@ -46,6 +51,7 @@ body, html{
   align-items: center;
   padding: 0px var(--padding);
   text-align: center;
+  background-color: white;
 }
 
 .overlay h1{
@@ -198,8 +204,9 @@ a {
  	border-radius: 20px;
  	color: white;
  	outline :0;
- 
+ 	border: 0;
  	align : right;
+ 	cursor: pointer;
 }
 </style>
 
@@ -355,10 +362,10 @@ function emailCodeCheck(){
 
 	arr[5] = false;
 	
-	
+	//인증코드 확인 입력 창
 	var inputemailcode = $("#email_auto_code").val().trim();
 	
-	if(email_auto_code!=null){
+	if(inputemailcode!=null){
 		$("#email_check").text("이메일 인증을 성공했습니다.").css({'color' : 'navy','font-size' : '16px'});
 		
 		arr[5] = true;

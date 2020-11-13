@@ -6,6 +6,7 @@
 	  	TODO_HASHTAG, TODO_DATE, TODO_COMPLETE, TODO_STARTTIME, TODO_ENDTIME
 	  	FROM USER_TODO
 	  	WHERE USER_NO = #{user_no} 
+	  	ORDER BY TODO_STARTTIME ASC, TODO_NO DESC
 	</select>
 	<select id="selectListTodoDate" parameterType="hashmap" resultType="TodoDto">
 	  	SELECT TODO_NO, USER_NO, TODO_TITLE, TODO_COLOR, TODO_CONTENT, TODO_CATEGORY,

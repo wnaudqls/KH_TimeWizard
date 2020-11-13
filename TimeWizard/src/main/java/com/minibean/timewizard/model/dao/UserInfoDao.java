@@ -1,5 +1,6 @@
 package com.minibean.timewizard.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.minibean.timewizard.model.dto.UserInfoDto;
@@ -22,8 +23,8 @@ public interface UserInfoDao {
 	public int profileChange(UserInfoDto dto);
 	
 	//아이디 찾기
-	public String findID(UserInfoDto dto);
+	public UserInfoDto findID(String user_email);
 	//비밀번호 찾기
-	public String findPW(UserInfoDto dto);
+	public UserInfoDto findPW(HashMap<String, Object> map);
 	
 }

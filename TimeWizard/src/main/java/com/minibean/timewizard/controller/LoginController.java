@@ -201,7 +201,7 @@ public class LoginController {
 	public String signupPage() {
 		logger.info(">> [CONTROLLER-USERINFO] move to user signup form");
 		
-		return "usersignup";
+		return "signup";
 	}
 	
 	@RequestMapping(value = "/idcheck", method = RequestMethod.GET)

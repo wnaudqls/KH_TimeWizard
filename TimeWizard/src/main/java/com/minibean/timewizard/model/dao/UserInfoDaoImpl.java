@@ -1,6 +1,7 @@
 package com.minibean.timewizard.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -188,17 +189,33 @@ public class UserInfoDaoImpl implements UserInfoDao {
 	}
 
 	//아이디 찾기
+	//이름, 이메일
 	@Override
-	public String findID(UserInfoDto dto) {
-		logger.info(">> [USERINFO] findID : user_name & user_email - ");
-		return null;
+	public UserInfoDto findID(String user_email) {
+		logger.info(">> [USERINFO] findID - user_email : "+user_email);
+		UserInfoDto result = null;
+		try {
+			result = sqlSession.selectOne(NAMESPACE+"findID", user_email);
+		} catch (Exception e) {
+			logger.info("[ERROR] USERINFO :: findID");
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 	//비밀번호 찾기
+	//이름,이메일,아이디
 	@Override
-	public String findPW(UserInfoDto dto) {
-		// TODO Auto-generated method stub
-		return null;
+	public UserInfoDto findPW(HashMap<String, Object> map) {
+		logger.info(">> [USERINFO] findID : user_email & user_id  ");
+		UserInfoDto result = null;
+		try {
+			result = sqlSession.selectOne(NAMESPACE+"findPW", map);
+		} catch (Exception e) {
+			logger.info("[ERROR] USERINFO :: findPW");
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 }

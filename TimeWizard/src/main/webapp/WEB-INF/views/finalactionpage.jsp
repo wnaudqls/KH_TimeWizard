@@ -7,7 +7,18 @@
 <head>
 <meta charset="UTF-8">
 <title>TimeWizard</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@700&display=swap" rel="stylesheet">
 <script src="/timewizard/js/tab.js" defer></script>
+
+<style>
+
+	.sectionbar {
+		font-family: 'Gothic A1';
+	}
+
+</style>
+
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
@@ -16,10 +27,10 @@
 		<div class="main_box">
 			<div class="tab_box">
 				<div class="tab active" onclick="openTab(event, 'con1')">
-					<span>daily</span>
+					<span>Daily</span>
 				</div>
 				<div class="tab" onclick="openTab(event, 'con2')">
-					<span>weekly & monthly</span>
+					<span>Weekly & Monthly</span>
 				</div>
 			</div>
 			<div class="content_box">
@@ -29,6 +40,8 @@
 				</div>
 				<div id="con2" class="content">
 					<jsp:include page="/WEB-INF/views/personal_weekmonth.jsp" flush="true"></jsp:include>
+					<%-- <jsp:include page="/WEB-INF/views/calendar_b.jsp" flush="true"></jsp:include> --%>
+					<jsp:include page="/WEB-INF/views/calendar.jsp" flush="true"></jsp:include>
 				</div>
 			</div>
 		</div>
