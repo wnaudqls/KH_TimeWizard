@@ -95,8 +95,8 @@ public class UserInfoBizImpl implements UserInfoBiz {
 
 	//비밀번호 찾기
 	@Override
-	public UserInfoDto findPW(UserInfoDto dto) {
-		return userInfoDao.findPW(dto);
+	public UserInfoDto findPW(HashMap<String, Object> map) {
+		return userInfoDao.findPW(map);
 	}
 
 }
