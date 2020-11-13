@@ -36,6 +36,32 @@ class Calendar{
 	toString() { return "" + this.year + (this.month < 9 ? "0" + (this.month+1): (this.month+1)) + (this.day < 10 ? "0" + this.day : this.day);};
 }
 
+//class Time extends Date{
+class Time{
+//	constructor(date){
+	constructor(){
+//		super(date, date);
+//		this.date = new Date(date);
+		this.date = new Date();
+		this.hour = this.date.getHours();
+		this.minute = this.date.getMinutes();
+	}
+	setTime(hour, minute){
+		this.date = new Date(pageDate.year, pageDate.month, pageDate.day);
+		this.hour = this.date.setHours(hour);
+		this.minute = this.date.setMinutes(minute);
+	}
+	setTime(date){
+		this.date = date;
+		this.hour = date.getHours();
+		this.minute = date.getMinutes();
+	}
+	getHour(){return this.hour < 10 ? "0" + this.hour : this.hour;}
+	getMinute(){ return this.minute < 10 ? "0" + this.minute : this.minute;}
+	plusMinute(){this.date.setMinutes(this.minute + 10); this.hour = this.date.getHours(); this.minute = this.date.getMinutes();}
+	toString() { return "" + this.hour + (this.hour < 10 ? "0" + (this.hour): (this.hour)) + (this.minute < 10 ? "0" + this.minute : this.minute);};
+}
+
 let pageDate = new Calendar();
 
 let category_array = [
@@ -51,6 +77,7 @@ let selectedCategory = "";
 
 window.addEventListener('DOMContentLoaded', () => {
 	showDailyList(pageDate.toString());
+	
 	let blackleft = document.getElementsByClassName("date__change")[0];
 	let whiteleft = document.getElementsByClassName("date__change")[1];
 	let whiteright = document.getElementsByClassName("date__change")[2];
@@ -81,6 +108,7 @@ function showDailyList(date){
 	month_div.textContent = MM + "월";
 	let day_div = document.querySelector("div.date__day");
 	day_div.textContent = dd + "일";
+	let items = "";
 	let list_div = document.getElementById("todo__list");
 	list_div.innerHTML = "";
 	const xhr = new XMLHttpRequest();
@@ -88,7 +116,6 @@ function showDailyList(date){
 	xhr.send();
 	xhr.onreadystatechange = () => {
 		if (xhr.readyState == 4 && xhr.status == 200){
-			let items = "";
 			if (xhr.responseText != null && xhr.responseText != "" && xhr.responseText != '[]'){
 				items = JSON.parse(xhr.responseText);
 				
@@ -131,8 +158,8 @@ function showDailyList(date){
 					if (linkedUserNo == loginUserNo) {
 						stopwatch.setAttribute("onclick", "showPopupStopwatch("+items[i].todo_no+");");
 					}
-					let css = '.stopwatch_'+i+':hover { background-color: '+items[i].todo_color+';}'
-							+'.stopwatch_'+i+':hover .fas { color: white; }';
+					let css = '.stopwatch_'+i+' { background-color: '+items[i].todo_color+';}'
+							+'.stopwatch_'+i+' .fas { color: white; }';
 					let style = document.createElement("style");						
 					if (style.styleSheet){
 						style.styleSheet.cssText = css;
@@ -183,10 +210,159 @@ function showDailyList(date){
 				list_div.appendChild(insert_div);
 			}
 			
+			showTimeblock(items);
+			
 		} else {
 			/* 로딩중 화면 */
 		}
 	}
+}
+
+function howmanyfill(j, values, floordate, startdate, enddate, ceildate){
+	if (j == 0) {
+		return 10 - (startdate.getMinutes() - floordate.getMinutes());
+	} else if (j == values - 1){
+		return 10 - (ceildate.getMinutes() - enddate.getMinutes());
+	} else {
+		return 10;
+	}
+}
+
+function showTimeblock(items){
+	let heatmap_div = document.getElementById("heatmap");
+	heatmap_div.innerHTML = "";
+	let length = items.length;
+	console.log("list length : " + length);
+	const standard = 1000 * 60 * 10;
+	let array = [];
+	
+	for(let i=0; i<length; i++){
+		let item = items[i];
+		let startdate = new Date(item.todo_starttime);
+		let floordate = new Date(Math.floor(startdate.getTime() / standard) * standard);
+		let enddate = new Date(item.todo_endtime);
+		let ceildate = new Date(Math.ceil(enddate.getTime() / standard) * standard);
+		console.log(">>>>>>>주목<<<<<<<")
+		console.log(10 - (startdate.getMinutes() - floordate.getMinutes()));
+		console.log(10 - (ceildate.getMinutes() - enddate.getMinutes()));
+		console.log(">>>>>>>해산<<<<<<<")
+		let time = new Time();
+		time.setTime(startdate);
+		let values = (ceildate - floordate)/ standard; // nn개/10분
+		console.log(values);
+		let originalData = {
+				"hour": time.hour,
+				"minute":time.minute,
+				"values": values,
+				"color": item.todo_color,
+ 				"daily":{
+					"todo_category":item.todo_category,
+					"todo_title":item.todo_title,
+					"todo_starttime":item.todo_starttime,
+					"todo_endtime":item.todo_endtime
+				}
+		};
+		console.log(originalData);
+		let fill = values;
+		
+		for(let j=0; j<values; j++){			
+			let jsondata = {
+					"hour":time.getHour(),
+					"minute":time.getMinute(),
+					"fill": howmanyfill(j, values, floordate, startdate, enddate, ceildate),
+					"color":originalData.color,
+					"daily":originalData.daily
+			};
+			array.push(jsondata);
+			time.plusMinute();
+		} /* for j */
+	} /* for i */
+	console.log(array);
+	
+	// set the dimensions and margins of the graph (percent?)
+    let margin = {top: 30, right: 30, bottom: 30, left: 30},
+    width = 450 - margin.left - margin.right,
+    height = 450 - margin.top - margin.bottom;
+    // append the svg object to the body of the page
+    let svg = d3.select("#heatmap")
+    .append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+      .attr("transform",
+            "translate(" + margin.left + "," + margin.top + ")");
+    
+    let minutes = ["00","10","20","30","40","50"];
+    let hours = ["00","01","02","03", "04","05","06","07","08","09","10","11","12",
+    			"13","14","15","16","17","18","19","20","21","22","23","23"];
+    
+    var myGroups = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
+    var myVars = ["v1", "v2", "v3", "v4", "v5", "v6", "v7", "v8", "v9", "v10"]
+    var x = d3.scaleBand()
+    .range([ 0, width ])
+    .domain(myGroups)
+    .padding(0.01);
+  svg.append("g")
+    .attr("transform", "translate(0," + height + ")")
+    .call(d3.axisBottom(x))
+  
+  // Build X scales and axis:
+  var y = d3.scaleBand()
+    .range([ height, 0 ])
+    .domain(myVars)
+    .padding(0.01);
+  svg.append("g")
+    .call(d3.axisLeft(y));
+  
+  // Build color scale
+  var myColor = d3.scaleLinear()
+    .range(["white", "#69b3a2"])
+    .domain([1,100])
+  
+  //Read the data
+  d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/heatmap_data.csv").then(data => {
+  
+    // create a tooltip
+    var tooltip = d3.select("#my_dataviz")
+      .append("div")
+      .style("opacity", 0)
+      .attr("class", "tooltip")
+      .style("background-color", "white")
+      .style("border", "solid")
+      .style("border-width", "2px")
+      .style("border-radius", "5px")
+      .style("padding", "5px")
+  
+    // Three function that change the tooltip when user hover / move / leave a cell
+    var mouseover = function(d) {
+      tooltip.style("opacity", 1)
+    }
+    var mousemove = function(d) {
+      tooltip
+        .html("The exact value of<br>this cell is: " + d.value)
+        .style("left", (d3.mouse(this)[0]+70) + "px")
+        .style("top", (d3.mouse(this)[1]) + "px")
+    }
+    var mouseleave = function(d) {
+      tooltip.style("opacity", 0)
+    }
+  
+    // add the squares
+    svg.selectAll()
+      .data(data, function(d) {return d.group+':'+d.variable;})
+      .enter()
+      .append("rect")
+        .attr("x", function(d) { return x(d.group) })
+        .attr("y", function(d) { return y(d.variable) })
+        .attr("width", x.bandwidth() )
+        .attr("height", y.bandwidth() )
+        .style("fill", function(d) { return myColor(d.value)} )
+      .on("mouseover", mouseover)
+      .on("mousemove", mousemove)
+      .on("mouseleave", mouseleave)
+  });
+
+
 }
 
 function selectCategoryClass(itemcategory){

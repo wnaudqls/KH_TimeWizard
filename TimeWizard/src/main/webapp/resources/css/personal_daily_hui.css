@@ -274,10 +274,17 @@ a.label:focus, a.label:hover {
 	
 }
 
+button.stopwatch:hover .fas {
+	/* hover했을 때 현재 설정된 색상으로,
+	아닐 때는 personal_daily.js에서 설정한 색상으로 하고자 합니다... */
+}
+
 .no__todo__cell {
 	text-align: center;
 	font-color: var(--dark-color);
 }
+
+
 /* * * * * * * * * * *
  *      1st modal    *
  * * * * * * * * * * */

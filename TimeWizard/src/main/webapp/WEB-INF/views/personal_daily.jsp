@@ -9,6 +9,7 @@
 <title>Insert title here</title>
 <!-- <link rel="stylesheet" href="/timewizard/css/personal_daily.css"> -->
 <link rel="stylesheet" href="/timewizard/css/personal_daily_hui.css">
+<script src="https://d3js.org/d3.v5.min.js"></script>
 <script type="text/javascript" src="/timewizard/js/personal_daily.js"></script>
 <script type="text/javascript" src="/timewizard/js/personal_daily-hashtag.js"></script>
 
@@ -37,8 +38,7 @@
 					</div>
 				</div>
 				<div class="heatmap__area">
-					<h5>heatmap area</h5>
-					<div class="heatmap"></div>
+					<div id="heatmap"></div>
 				</div>
 			</div>
 		</div>
@@ -50,7 +50,6 @@
 	<script type="text/javascript">
 	let linkedUserNo = <%=linked.getUser_no()%>;
 	const loginUserNo = <%=login.getUser_no()%>;
-
 	</script>
 </body>
 </html>
