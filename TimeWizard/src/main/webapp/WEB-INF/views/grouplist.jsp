@@ -80,7 +80,7 @@
 								<span class="group2">${dto.group_title }</span>
 							</div>
 							<div class="groupmain">
-								<span class="groupid">${dto.user_id }</span>
+								<span class="groupid">${dto.user_name }</span>
 							</div>
 						</div>
 						<div style="width: 1rem"></div>
