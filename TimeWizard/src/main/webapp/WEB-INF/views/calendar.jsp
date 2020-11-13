@@ -1,65 +1,99 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="resources/css/calendartodo.css" rel="stylesheet">
- <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
-<script src="resources/js/calendartodo1.js" defer></script>
-<script src="resources/js/calendartodo2.js" defer></script>
-<script src="resources/js/calendartodo3.js" defer></script>
-<script src="resources/js/calendartodo4.js" defer></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.1.0/main.min.css">
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.1.0/main.min.js"></script>
+<link href='fullcalendar/main.css' rel='stylesheet' />
+ <script src='fullcalendar/main.js'></script>
+ <style type="text/css">
 
-<style type="text/css">
-
+body {
+	margin: 40px 10px;
+	padding: 0;
+	font-family: "Lucida Grande", Helvetica, Arial, Verdana, sans-serif;
+	font-size: 14px;
+}
 </style>
-</head>
-<body>
+   
+<script type="text/javascript">
 
-	<div class="main"> <!-- 여기서 사이즈를 바꿔주거나 
-							fullcalendar.js => 외부에서 가져다 쓰거나.. 
-							-->
-		<div class="content-wrap">
-			<div class="content-left">
-				<div class="main-wrap">
-					<div id="main-day" class="main-day"></div>
-					<div id="main-date" class="main-date"></div>
-				</div>
-				<div class="todo-wrap">
-					<div class="todo-title">Todo List</div>
-					<div class="input-wrap">
-						<input type="text" placeholder="please write here!!"
-							id="input-box" class="input-box">
-						<button type="button" id="input-data" class="input-data">INPUT</button>
-						<div id="input-list" class="input-list"></div>
-					</div>
-				</div>
-			</div>
-			<div class="content-right">
-				<table id="calendar" align="center">
-					<thead>
-						<tr class="btn-wrap clearfix">
-							<td><label id="prev"> &#60; </label></td>
-							<td align="center" id="current-year-month" colspan="5"></td>
-							<td><label id="next"> &#62; </label></td>
-						</tr>
-						<tr>
-							<td class="sun" align="center">Sun</td>
-							<td align="center">Mon</td>
-							<td align="center">Tue</td>
-							<td align="center">Wed</td>
-							<td align="center">Thu</td>
-							<td align="center">Fri</td>
-							<td class="sat" align="center">Sat</td>
-						</tr>
-					</thead>
-					<tbody id="calendar-body" class="calendar-body"></tbody>
-				</table>
-			</div>
-		</div>
-	</div>
+ 		 document.addEventListener('DOMContentLoaded', function() {
+	    var calendarEl = document.getElementById('calendar');
+
+	    var calendar = new FullCalendar.Calendar(calendarEl, {
+	      initialView: 'dayGridMonth',
+	      initialDate: '2020-10-07',
+	      headerToolbar: {
+	        left: 'prev,next today',
+	        center: 'title',
+	        right: 'dayGridMonth,timeGridWeek,timeGridDay '
+	      },
+	      events: [
+	        {
+	          title: 'Q클래스 수료',
+	          start: '2020-11-17'
+	        },
+	        {
+	          title: '네이버 면접',
+	          start: '2020-11-20',
+	          
+	        },
+	        {
+	          groupId: '999',
+	          title: '결혼식',
+	          start: '2020-11-22T16:00:00'
+	        },
+	        {
+	          groupId: '999',
+	          title: '결혼식',
+	          start: '2020-11-22T16:00:00'
+	        },
+	        {
+	          title: '예비군 동미참 훈련',
+	          start: '2020-11-23',
+	          end: '2020-11-25'
+	        },
+	        {
+	          title: '유럽 여행',
+	          start: '2020-11-26T10:30:00',
+	          end: '2020-11-27T12:30:00'
+	        },
+	        {
+	          title: '점심 약속',
+	          start: '2020-11-28T12:00:00'
+	        },
+	        {
+	          title: 'Meeting',
+	          start: '2020-11-29T10:30:00'
+	        },
+	        {
+	          title: 'Birthday Party',
+	          start: '2020-11-29T07:00:00'
+	        },
+	        {
+	          title: 'Click for Google',
+	          url: 'http://google.com/',
+	          start: '2020-11-30'
+	        }
+	      ]
+	    });
+
+	    calendar.render();
+	  });
+
+</script> 
+    
+    
+</head>
+<body> 
+
+	  <div id='calendar'>달력 출력</div>
+	  
 
 </body>
+
 </html>
