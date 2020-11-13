@@ -38,6 +38,9 @@ form {
 .createpublic {
 	width: 22.5rem;
 }
+.createclient{
+	width: 22rem;
+}
 
 button {
 	background-color: var(--point-color);
