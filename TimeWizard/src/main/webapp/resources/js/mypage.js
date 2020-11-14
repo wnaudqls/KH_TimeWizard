@@ -15,6 +15,7 @@ function uploadProfile(){
 	let formData = new FormData();
 	formData.append("file",file);
 	const xhr = new XMLHttpRequest();
+	xhr.setRequestHeader('Content-Type', 'application/json');
 	xhr.open("POST","/timewizard/file/upload");
 	xhr.send(formData);
 	xhr.onreadystatechange = () => {
