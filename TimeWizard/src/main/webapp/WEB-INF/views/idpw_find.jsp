@@ -58,15 +58,15 @@ body {
 	width: 80%;
 	height: 2rem;
 	border: 0px;
-	padding-left: 12px;
+	padding-left: 5px;
 }
 
 .contentbox input[type=email] {
 	background-color: var(--color);
-	width: 80%;
+	width: 64%;
 	height: 2rem;
 	border: 0px;
-	padding-left: 12px;
+	padding-left: 5px;
 }
 
 .chkbox input[type=button] {
@@ -83,7 +83,7 @@ body {
 .chkbox input[type=submit] {
 	background-color: #96DBE2;
 	color: white;
-	width: 25%;
+	width: 30%;
 	height: 2rem;
 	border: 0px;
 	border-radius: 25px;
@@ -93,6 +93,16 @@ body {
 
 .signuptitle div {
 	padding: 8px;
+}
+
+input[type=button]{
+	background-color: #96DBE2;
+	color: white;
+	width: 15%;
+	height: 2rem;
+	border: 0px;
+	border-radius: 25px;
+	cursor: pointer;
 }
 
 
@@ -133,6 +143,7 @@ $(document).ready(function() {
 	//아이디 찾기 아작스
 	function submitId(){
 		$(".findid_button").click(function(){
+			
 			var user_email_id = $(".user_email_id").val();
 			var url = "/timewizard/findID?user_email="+user_email_id;
 			$.ajax({
@@ -235,11 +246,11 @@ $(document).ready(function() {
 	
 	//이메일 유효성
 	$(".user_email_pw ").keyup(function(){
-		let user_email_pw = $(".user_email_pw ").val(); 
+		var user_email_pw = $(".user_email_pw").val(); 
 		let emailjung = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
+		
 		if(user_email_pw == ""){
-			$(".email_check_pw ").html('이메일을 입력해주세요.');
-			$(".email_check_pw ").css('color','red');
+			$(".email_check_pw ").html('이메일을 입력해주세요.').css('color','red');
 			$(".email_button_pw ").attr("disabled",true);
 			$(".findpw_button  ").attr("disabled",true);
 			
@@ -317,19 +328,15 @@ function email_check_pw(data){
 				<p class="signuptext2">Find Your ID</p>
 				<div class="contentbox">
 					<input type="email" placeholder="이메일을 입력해주세요." name="user_email" class="user_email_id" required="required">
-				</div>
-				<div class="email_check_id"></div>
-				<div class="chkbox">
 					<input type="button" class="email_button_id" value="인증번호">
+					<div class="email_check_id"></div>
 				</div>
 				<div class="contentbox">
 					<input type="text" placeholder="인증번호를 입력해주세요." class="email_code_id" required="required">
 					<div class="email_code_text_id"></div>
 				</div>
-				<div class="chkbox">
-					<input type="button" value="찾기" class="findid_button">
-					<h4 class="id_result"></h4>
-				</div>
+				<input type="button" value="찾기" class="findid_button">
+				<h4 class="id_result"></h4>
 				<p class="signuptext2">Find Your PW</p>
 				<div class="contentbox">
 					<input type="text" placeholder="아이디를 입력해주세요." name="user_id" class="user_id" required="required">
@@ -337,20 +344,15 @@ function email_check_pw(data){
 				</div>
 				<div class="contentbox">
 					<input type="email" placeholder="이메일을 입력해주세요." name="user_email" class="user_email_pw " required="required">
+					<input type="button" class="email_button_pw" value="인증번호">
 					<div class="email_check_pw"></div>
 				</div>
-				<div class="chkbox">
-					<input type="button" class="email_button_pw" value="인증번호">
-				</div>
-
 				<div class="contentbox">
 					<input type="text" placeholder="인증번호를 입력해주세요."  class="email_code_pw" required="required">
-				<div class="email_code_text_pw"></div>
+					<div class="email_code_text_pw"></div>
 				</div>
-				<div class="chkbox">
-					<input type="button" value="찾기" class="findpw_button">
-					<h4 class="pw_result"></h4>
-				</div>
+				<input type="button" value="찾기" class="findpw_button">
+				<h4 class="pw_result"></h4>
 			</div>
 		</div>
 	</section>
