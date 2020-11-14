@@ -74,17 +74,18 @@ function pay(e){
 <%
 	UserInfoDto login = (UserInfoDto) session.getAttribute("login");
 	int user_no = login.getUser_no();
+	String user_photo = (login.getUser_photo() == null) ? "3J1kUZfY.jpg" : login.getUser_photo();
 %>
 	<div class="mypagebox">
 		<div class="mypagemenu" align="center">
 			<div class="preview">
-				<img id="frame" />
+				<img id="frame" src="/timewizard/resources/image/<%=user_photo %>" />
 			</div>
 			<div class="profileinfo"></div>
 			<form:form method="post" enctype="multipart/form-data" modelAttribute="UserInfoDto" action="profileupload">
 				<label><input type="file" name="file" class="mypagebtn" accept="image/*" id="image" name="user_photo" /></label>
 				<input type="hidden" name="user_no" value="<%=user_no%>" />
-				<label><input type="submit" class="mypagebtn" value="send" onclick="uploadProfile();"/></label>
+				<label><input type="submit" class="mypagebtn" value="send" /></label>
 			</form:form>
 			
 			<form action="userInfoChange">

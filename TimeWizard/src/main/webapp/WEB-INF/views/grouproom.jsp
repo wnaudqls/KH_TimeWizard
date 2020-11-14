@@ -28,6 +28,9 @@ window.onunload = function(event) {
 	
 
 </script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.5/sockjs.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.js"></script>
 <meta charset="UTF-8">
 <title>채팅방: ${dto.group_title }</title>
 </head>
@@ -82,7 +85,6 @@ window.onunload = function(event) {
 
 				<div id="textarea">
 					<!-- 이 부분은 방 만들때 값을 받아서 넣어주면 될 듯함 -->
-					<input type="button" id="connect" value="접속하기" onclick="connect()">
 					<input type="number" id="maxClient" hidden="" />
 
 					<div id="messageArea"></div>
@@ -90,15 +92,12 @@ window.onunload = function(event) {
 				<input type="hidden" value="${dto.group_no}" id="group_no">
 
 			</div>
-
 			<jsp:include page="friendlist2.jsp"></jsp:include>
+			<script type="text/javascript" src="../resources/js/chat.js"></script>
+			
 		</c:otherwise>
 	</c:choose>
 
-	<!-- sockjs, stomp socket 추가 -->
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.5/sockjs.min.js"></script>
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.js"></script>
-	<script type="text/javascript" src="../resources/js/chat.js"></script>
 
 
 </body>
