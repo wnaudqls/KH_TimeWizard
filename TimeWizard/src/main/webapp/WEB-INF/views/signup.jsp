@@ -337,7 +337,6 @@ function email_check_code(data){
 				<p class="signuptext2">or user your email for registration:</p>
 				<div class="contentbox">
 
-			
 
 					<input type="text" placeholder="아이디(4~12자리)" name="user_id" class="user_id" required="required" autofocus />
 					<div id="idc"></div>
