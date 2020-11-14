@@ -53,19 +53,20 @@ public class FriendController {
 		/* session.setAttribute("nlist",list2); */
 		logger.info("ajax결과: 접근성공");
 		Map<String, List<FriendDto>> map = new HashMap<String, List<FriendDto>>();
+		logger.info(list+"");
 		map.put("flist",list);
 		map.put("nlist",list2);
 		
 		return map;
 	}
 	@RequestMapping(value="/searchList")
-	public Map<String, List<FriendDto>> searchList(HttpSession session, @RequestBody FriendDto dto) {
+	public Map<String, List<UserInfoDto>> searchList(HttpSession session, @RequestBody UserInfoDto dto) {
 		logger.info("ajax결과: 접근성공");
 		logger.info("검색한 사람의 번호: {}\n검색한 유저이름: {}",dto.getUser_no(),dto.getUser_name());
-		List<FriendDto> list = friendBiz.searchList(dto);
-		List<FriendDto> list2 = friendBiz.searchListN(dto);
+		List<UserInfoDto> list = friendBiz.searchList(dto);
+		List<UserInfoDto> list2 = friendBiz.searchListN(dto);
 		/* session.setAttribute("nlist",list2); */
-		Map<String, List<FriendDto>> map = new HashMap<String, List<FriendDto>>();
+		Map<String, List<UserInfoDto>> map = new HashMap<String, List<UserInfoDto>>();
 		map.put("searchList",list);
 		map.put("searchListN",list2);
 		return map;
