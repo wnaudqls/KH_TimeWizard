@@ -113,9 +113,13 @@ var searchval = {
 	    			var user_name = searchListN[i].user_name;
 	    			var name = "\""+searchListN[i].user_name+"\"";
 	    			var user_no = searchList[i].user_no;
-	  				
+	    			console.log(searchListN[i]);
+	    			if(searchListN[i].user_role == "ADMIN"){
+	    				$(".userlist").append("<p>"+ user_name+ "</p>");
+	    			}else{
 	    			$(".userlist").append("<p>"+ user_name+
 				    		"<button class='accdeny' onclick='alertsys("+user_no+","+ uno +","+name+")'><i class='fas fa-user-plus'></i></button></p>");
+	    			}
 	    		}
 	    	}
 	    },
@@ -156,7 +160,7 @@ function friendlist(){
 	    	
 	    			if(url.indexOf("joinroom")!== -1){
 	    				if((flist[i].status == "ACCEPT")){
-	    					$(".friendlist").append("<p>"+ flist[i].user_name+
+	    					$(".friendlist").append("<p>"+ user_name +
 	    					"<button class='accdeny'onclick='deletefriend("+user_no+","+ uno +","+name+")'><i class='fas fa-user-slash'></i></button>"+
 			    			"<button class='accdeny'onclick='invitefriend("+user_no+","+ uno +","+inviteurl+","+name+")'><i class='far fa-envelope'></i>"+"</button></p>");
 	    				}else if(status == "RESP" && (friend_no == uno)){
@@ -170,8 +174,8 @@ function friendlist(){
 	    			}
 	    			else {
 		    			if((flist[i].status == "ACCEPT")){
-		    					$(".friendlist").append("<p>"+ flist[i].user_name +
-		    					"<input type='button' value='친구삭제' onclick='deletefriend("+user_no+","+ uno +","+name+")'></p>");
+		    					$(".friendlist").append("<p>"+ user_name +		
+		    					"<button class='accdeny'onclick='deletefriend("+user_no+","+ uno +","+name+")'><i class='fas fa-user-slash'></i></button></p>");
 		    			}else if(flist[i].status == "SEND"){
 	    					$(".friendlist").append("<p>"+ user_name +"님이 응답중 입니다.</p>");
 	    	    					
@@ -190,8 +194,12 @@ function friendlist(){
 	    	}else{
 	    		for(i in nlist){
 	    			var name = "\""+nlist[i].user_name+"\"";
-	    			$(".userlist").append("<p>"+ nlist[i].user_name+"&nbsp;"+
+	    			if(nlist[i].user_role == "ADMIN"){
+	    				$(".userlist").append("<p>"+ nlist[i].user_name+"</p>");
+	    			}else{
+	    				$(".userlist").append("<p>"+ nlist[i].user_name+"&nbsp;"+
 	    					"<button class='accdeny' onclick='alertsys("+nlist[i].user_no+","+ uno +","+name+")'><i class='fas fa-user-plus'></i>" +"</button></p>");
+	    			}
 	    		}
 	    	
 	    	}

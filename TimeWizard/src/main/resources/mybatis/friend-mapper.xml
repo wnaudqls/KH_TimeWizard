@@ -28,11 +28,10 @@
 			ON fl.FRIEND_NO = fl2.USER_NO
 			AND fl.USER_NO = fl2.FRIEND_NO
 			WHERE fl.USER_NO = #{user_no})
-		AND ui.USER_ROLE IS NOT LIKE 'ADMIN'
 	</select>
 	
 	<select id="searchList" resultType="FriendDto">
-	SELECT ui.USER_NO, fl.FRIEND_NO, ui.USER_ID ,ui.USER_NAME, ui.USER_ROLE
+	SELECT ui.USER_NO, fl.FRIEND_NO, ui.USER_ID ,ui.USER_NAME, ui.USER_ROLE,
 	ui.USER_PHOTO, ui.USER_ACTIVE, fl.STATUS
 	FROM FRIEND_LIST fl JOIN USER_INFO ui ON ui.USER_NO = fl.USER_NO(+)
 	WHERE (LOWER(ui.USER_NAME) LIKE '%' || LOWER(#{user_name}) || '%')<!--이름이 포함된 -->
@@ -46,7 +45,7 @@
 	
 	</select>
 	<select id="searchListN" resultType="FriendDto">
-	SELECT ui.USER_NAME, ui.USER_NO
+	SELECT ui.USER_NAME, ui.USER_NO, ui.USER_ROLE
 		FROM USER_INFO ui
 		WHERE USER_NO != #{user_no}
 		AND LOWER(ui.USER_NAME) LIKE '%' || LOWER(#{user_name}) || '%'
@@ -58,7 +57,6 @@
 			ON fl.FRIEND_NO = fl2.USER_NO
 			AND fl.USER_NO = fl2.FRIEND_NO
 			WHERE fl.USER_NO = #{user_no})
-		AND USER_ROLE IS NOT LIKE 'ADMIN'
 	
 	</select>
 	
