@@ -15,6 +15,18 @@ function reset(){
 	}
 }
 
+var imgArray= new Array();
+					imgArray[0]=1;
+					imgArray[1]=2;
+					imgArray[2]=3;
+					imgArray[3]=4;
+					imgArray[4]=5;
+					
+					function showImage() {
+						var imgNum=Math.round(Math.random()*4+1);
+						return imgNum;
+					}
+
 function searchRoom(){
 	
 	var gtitle = document.getElementById("search").value;
@@ -36,7 +48,6 @@ function searchRoom(){
 	    	var list = data.selectlist;
 	    	$(".contentmain").empty();
 	    	
-	    	
 	    	if(list == '' || list == 'undefined' || list == null){
 	    		$(".contentmain").append("찾으시는 방이 존재하지 않습니다.");
 	    	}else{
@@ -48,8 +59,7 @@ function searchRoom(){
 					var user_id = list[i].user_id;
   					$(".contentmain").append(
   				"<div class='grouproom' onclick='location.href="+"\"joinroom/"+name+"\"'>"
-					+"<div class='groupimg'>"
-					+"img"
+					+"<div class='groupimg' style='background-image: url(/timewizard/image/groupimg" + showImage() + ".PNG)'>"
 					+"</div>"
   					+"<div class='grouptitle'>"
   							+"<span class='group2'>"+name+"</span>"
@@ -105,8 +115,7 @@ function roomlist(){
 					var user_id = list[i].user_id;
   					$(".contentmain").append(
   							"<div class='grouproom' onclick='location.href="+"\"joinroom/"+name+"\"'>"
-  							+"<div class='groupimg'>"
-  							+"img"
+  							+"<div class='groupimg' style='background-image: url(/timewizard/image/groupimg" + showImage() + ".PNG)'>"
   							+"</div>"
   		  					+"<div class='grouptitle'>"
   		  							+"<span class='group2'>"+name+"</span>"
@@ -147,3 +156,5 @@ function enterkey(){
 	}
 	
 }
+
+
