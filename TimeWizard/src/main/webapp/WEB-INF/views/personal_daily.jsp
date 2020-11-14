@@ -51,6 +51,11 @@
 	<script type="text/javascript">
 	let linkedUserNo = <%=linked.getUser_no()%>;
 	const loginUserNo = <%=login.getUser_no()%>;
+<<<<<<< Updated upstream
+=======
+
+
+>>>>>>> Stashed changes
 	</script>
 </body>
 </html>

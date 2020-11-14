@@ -1,5 +1,6 @@
 package com.minibean.timewizard.controller;
 
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +20,7 @@ import com.minibean.timewizard.model.biz.CalendarBiz;
 import com.minibean.timewizard.model.biz.UserInfoBiz;
 import com.minibean.timewizard.model.dto.CalendarDto;
 import com.minibean.timewizard.model.dto.UserInfoDto;
+import com.minibean.timewizard.utils.calendar.CalendarUtils;
 
 @Controller
 public class MainController {
@@ -28,7 +30,7 @@ public class MainController {
 	private Logger logger = LoggerFactory.getLogger(MainController.class);
 	
 	@Autowired
-	private CalendarBiz calendarBiz;
+	private CalendarBiz calBiz;
 	
 	@RequestMapping(value="/")
 	public String index() {
@@ -118,7 +120,7 @@ public class MainController {
 	}
 	
 	@RequestMapping(value="/main")
-	public String PlainMain(HttpSession session) {
+	public String PlainMain(HttpSession session , Model model) {
 		logger.info(">> [CONTROLLER-MAIN] move to main page");
 //		return "finalactionpage";
 		UserInfoDto dto = (UserInfoDto) session.getAttribute("login");
@@ -126,7 +128,10 @@ public class MainController {
 		String user_distinct = dto.getUser_distinct();
 		session.setAttribute("linked", dto);
 		logger.info("* URI : /timewizard/user/" + user_distinct);
-		return "redirect:./user/"+user_distinct;
+	
+			
+			return "redirect:./user/"+user_distinct;
+		 	
 	}
 	
 	@RequestMapping(value="/user/{user_distinct}")

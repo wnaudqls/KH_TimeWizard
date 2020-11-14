@@ -16,7 +16,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
+
 <title>Insert title here</title>
+<script src="https://kit.fontawesome.com/3049a69bf8.js" crossorigin="anonymous"></script>
 <style type="text/css">
 
 	a{ text-decoration : none;}
@@ -108,6 +110,9 @@
 <body>
 
 	<% 
+	//하 이거도 이상한게 내가 컨트롤러에서 이거 다 생성한 내용들인데
+	// 이걸 지우면 에러가 발생해버려서
+	// 그치츠
 	UserInfoDto login = (UserInfoDto)session.getAttribute("login");
 	Calendar cal = Calendar.getInstance();
 
@@ -151,6 +156,7 @@
 	//마지막 요일
 	int lastDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
 	int user_no = login.getUser_no();
+	
 	//달력에 일정 표현
 	// CalendarBiz  @Service
 	
@@ -189,11 +195,11 @@
 				<!-- 마우스 커서를 갖다대면 일정 갯수를 띄어주는 기능을 구현 할  것임 -->
 				<a class="countview" href="cal.do?command=list&year=<%=year %>&month=<%=month %>&date=<%=i %>" style="color:<%=CalendarUtils.fontColor(i, dayOfweek)%>"><%=i %></a>
 				<a href="insertcalboard.jsp?year=<%=year %>&month=<%=month %>&date=<%=i%>&lastDay=<%=lastDay%>">
-					<img alt="일정추가" src="img/pen.jpg" style="width: 10px; height: 10px;"/>
+					<i class="fas fa-pencil-alt"></i>
 				</a>
 				
 				<div class="clist">
-					<%-- ${list } --%>
+					 ${clist } 
 				</div>
 				
 			</td>

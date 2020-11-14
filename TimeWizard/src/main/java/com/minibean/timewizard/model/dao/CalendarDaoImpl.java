@@ -50,7 +50,7 @@ public class CalendarDaoImpl implements CalendarDao {
 			e.printStackTrace();
 		}
 		
-		
+	
 		return list;
 	}
 
@@ -67,8 +67,10 @@ public class CalendarDaoImpl implements CalendarDao {
 		
 		
 		try {
+									
 			list = sqlSession.selectList(NAMESPACE+"getViewList",map);
 		} catch (Exception e) {
+			//요 애러
 			logger.info(" [ Error : getViewList ] ");
 			e.printStackTrace();
 		}

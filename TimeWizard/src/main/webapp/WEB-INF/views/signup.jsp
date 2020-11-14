@@ -134,7 +134,7 @@ body {
 				<p class="signuptext">Create Account</p>
 				<p class="signuptext2">or user your email for registration:</p>
 				<div class="contentbox">
-					<input type="text" placeholder="아이디(4~12자리)" />
+					<input type="text" placeholder="아이디(4~12자리)" name="user_id" required="required" autofocus/>
 				</div>
 				<div class="contentbox">
 					<input type="text" placeholder="비밀번호(6~10자리)" />
