@@ -8,9 +8,11 @@ public class FriendDto {
 	private String user_name;
 	private String user_photo;
 	private String url;
-
+	private String user_distinct;
 	public FriendDto() {
 	}
+	
+	
 	// USERINFO와 FRIEND 목록 합치는(친구 목록 출력하기 위해)
 	public FriendDto(int friend_no, int user_no, String status, String user_name, String user_photo, String url) {
 		this.friend_no = friend_no;
@@ -19,7 +21,8 @@ public class FriendDto {
 		this.user_name = user_name;
 		this.user_photo = user_photo;
 		this.url = url;
-	}
+		}
+
 	public int getFriend_no() {
 		return friend_no;
 	}
@@ -56,7 +59,13 @@ public class FriendDto {
 	public void setUrl(String url) {
 		this.url = url;
 	}
-
+	
+	public void setUser_distinct(String user_distinct) {
+		this.user_distinct = user_distinct;
+	}
+	public String getUser_distinct() {
+		return user_distinct;
+	}
 
 	
 

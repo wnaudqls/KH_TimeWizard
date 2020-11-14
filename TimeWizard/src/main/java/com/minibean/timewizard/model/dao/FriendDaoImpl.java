@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.minibean.timewizard.model.dto.FriendDto;
+import com.minibean.timewizard.model.dto.UserInfoDto;
 
 @Repository
 public class FriendDaoImpl implements FriendDao {
@@ -138,9 +139,9 @@ public class FriendDaoImpl implements FriendDao {
 	}
 
 	@Override
-	public List<FriendDto> searchList(FriendDto dto) {
+	public List<UserInfoDto> searchList(UserInfoDto dto) {
 		// TODO Auto-generated method stub
-		List<FriendDto> list = new ArrayList<FriendDto>();
+		List<UserInfoDto> list = new ArrayList<UserInfoDto>();
 		
 		try {
 			list = sqlSession.selectList(NAMESPACE+"searchList", dto);
@@ -153,9 +154,9 @@ public class FriendDaoImpl implements FriendDao {
 	}
 
 	@Override
-	public List<FriendDto> searchListN(FriendDto dto) {
+	public List<UserInfoDto> searchListN(UserInfoDto dto) {
 		// TODO Auto-generated method stub
-		List<FriendDto> list = new ArrayList<FriendDto>();
+		List<UserInfoDto> list = new ArrayList<UserInfoDto>();
 
 		try {
 			list = sqlSession.selectList(NAMESPACE + "searchListN", dto);

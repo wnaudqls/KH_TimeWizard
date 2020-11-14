@@ -3,6 +3,12 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<!-- 로그아웃 후 뒤로가기 금지 -->
+<% response.setHeader("Pragma", "no-cache"); 
+	response.setHeader("Cache-Control", "no-cache"); 
+	response.setHeader("Cache-Control", "no-store"); 
+	response.setDateHeader("Expires", 0L); 
+%>
 <!DOCTYPE>
 <html>
 <head>
@@ -74,17 +80,18 @@ function pay(e){
 <%
 	UserInfoDto login = (UserInfoDto) session.getAttribute("login");
 	int user_no = login.getUser_no();
+	String user_photo = (login.getUser_photo() == null) ? "3J1kUZfY.jpg" : login.getUser_photo();
 %>
 	<div class="mypagebox">
 		<div class="mypagemenu" align="center">
 			<div class="preview">
-				<img id="frame" />
+				<img id="frame" src="/timewizard/resources/image/<%=user_photo %>" />
 			</div>
 			<div class="profileinfo"></div>
 			<form:form method="post" enctype="multipart/form-data" modelAttribute="UserInfoDto" action="profileupload">
 				<label><input type="file" name="file" class="mypagebtn" accept="image/*" id="image" name="user_photo" /></label>
 				<input type="hidden" name="user_no" value="<%=user_no%>" />
-				<label><input type="submit" class="mypagebtn" value="send" onclick="uploadProfile();"/></label>
+				<label><input type="submit" class="mypagebtn" value="send" /></label>
 			</form:form>
 			
 			<form action="userInfoChange">

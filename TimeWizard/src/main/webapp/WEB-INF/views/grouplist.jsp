@@ -2,6 +2,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!-- 로그아웃 후 뒤로가기 금지 -->
+<% response.setHeader("Pragma", "no-cache"); 
+	response.setHeader("Cache-Control", "no-cache"); 
+	response.setHeader("Cache-Control", "no-store"); 
+	response.setDateHeader("Expires", 0L); 
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,6 +20,12 @@
 	crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script type="text/javascript" src="/timewizard/js/grouplist.js" defer></script>
+
+<script type="text/javascript">
+
+
+
+</script>
 
 
 <meta charset="UTF-8">
@@ -74,7 +86,6 @@
 					<c:forEach var="dto" items="${list }">
 						<div class="grouproom">
 							<div class="groupimg">
-								img
 							</div>
 							<div class="grouptitle">
 								<span class="group2">${dto.group_title }</span>
