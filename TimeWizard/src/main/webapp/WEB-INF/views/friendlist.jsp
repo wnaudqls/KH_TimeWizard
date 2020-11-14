@@ -215,10 +215,10 @@ function friendlist(){
 
 <aside class="friendsbar">
 		<input type="text" placeholder="search.." id="search_text" onkeyup="searchkey();" />
-		<button id="search_button" class="searchbtn" onclick="searchfriend();"><i class="fas fa-search" ></i>
-		</button>
 		<button id="search_button" class="searchbtn" onclick="reset();">
-			초기화
+			<i class="fas fa-sync"></i>
+		</button>
+		<button id="search_button" class="searchbtn" onclick="searchfriend();"><i class="fas fa-search" ></i>
 		</button>
 		<h5 style="margin-left:2px;">친구목록</h5>
 		<!-- 나와 친구인 유저들 -->
