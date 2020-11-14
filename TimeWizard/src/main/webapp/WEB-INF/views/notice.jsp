@@ -1,7 +1,12 @@
 <%@page import="com.minibean.timewizard.model.dto.UserInfoDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<!-- 로그아웃 후 뒤로가기 금지 -->
+<% response.setHeader("Pragma", "no-cache"); 
+	response.setHeader("Cache-Control", "no-cache"); 
+	response.setHeader("Cache-Control", "no-store"); 
+	response.setDateHeader("Expires", 0L); 
+%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
