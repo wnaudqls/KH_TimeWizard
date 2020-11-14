@@ -11,7 +11,16 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script type="text/javascript">
+$(document).ready(function(){
+	//enter누르면 login넘어감~!
+	$("#user_pw").keyup(function(event){
+		if(event.keyCode == 13){
+			$("#submit_go").click();
+		}
+	})
+})
 
+	
 	$(function(){
 		$("#loginchk").hide();
 	});
@@ -27,6 +36,7 @@
 		if (user_id == null || user_id == "" || user_pw == null || user_pw == "" ){
 			alert("ID와 PW를 모두 작성해 주세요");
 		} else {
+		
 			$.ajax({
 				type: "post",
 				url: "/timewizard/login/ajaxlogin",
@@ -41,7 +51,7 @@
 					}
 				},
 				error: function(){
-					alert("통신 실패");
+					alert("ID 혹은 PW가 잘못 입력 되었습니다.");
 				}
 			});
 		}
@@ -287,7 +297,8 @@ a {
 					</div>
 					<div class="signbox">
 						<p class="forgot-password"><a href="/timewizard/findform">Forgot your id or password?</a></p>
-						<button class="control-button in" onclick="loginPrc()">Sign In</button>
+						<button id="submit_go" class="control-button in"
+							onclick="loginPrc()">Sign In</button>
 						<button class="control-button in"><a href="./signup" style="color:white;">sign up</a></button>
 					</div>
 				</div>
