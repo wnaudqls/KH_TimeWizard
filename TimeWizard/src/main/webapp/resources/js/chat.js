@@ -11,28 +11,16 @@ function disconnect(){
 	        $("#messageArea").prepend(content.user_id+": "+ content.chat_content+ "<br>");
 	    });
 	document.getElementById("disconnect").style.display="none";
-	document.getElementById("connect").style.display="inline";
 	client.disconnect();
 	location.href="../grouplist"
 }
 
 	//handler에서 정해준 서버 겅로로 설정
 
+	// SockJS로 연결한 웹소켓 주소에 Stomp을 씌움
+
 	// sock의 이벤트
-	client.connect({}, function(){
-		 // 3. send(path, header, message)로 메시지를 보낼 수 있다.
-	    client.send("/publish/chat/join", {}, JSON.stringify({chat_title: rid, type:'ENTER', user_id: nickname})); 
-	    // 4. subscribe(path, callback)로 메시지를 받을 수 있다. callback 첫번째 파라미터의 body로 메시지의 내용이 들어온다.
-	    client.subscribe("/subscribe/chat/room/"+rid, function (chat) {
-	        var content = JSON.parse(chat.body);
-	        $("#messageArea").prepend(content.user_id+": "+ content.chat_content+ "<br>")
-	    });
-		 client.subscribe("/subscribe/chat/join/"+rid, function (chat) {
-	        var content = JSON.parse(chat.body);
-	        $("#messageArea").prepend(content.chat_content+ "<br>");
-			
-	    });
-	})
+
 	
  
 
@@ -73,7 +61,6 @@ function connect(){
 	    });
 	})
  document.getElementById("disconnect").style.display="inline";
- document.getElementById("connect").style.display="none";
 }
 function textclear(){
 	$("#messageArea").empty();

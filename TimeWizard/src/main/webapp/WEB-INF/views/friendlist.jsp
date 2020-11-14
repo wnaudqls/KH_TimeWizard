@@ -73,36 +73,37 @@ var searchval = {
 	    			var user_no = searchList[i].user_no; //상대방 번호
 	    			var friend_no = searchList[i].friend_no; //자기번호
 	    			var status = searchList[i].status; //관계 상태(수락, 응답중, 전송)
+	    			var dist = searchList[i].user_distinct;
+	    			console.log(dist);
 	    			
-	    			
-	    			if(url.indexOf("joinroom")!== -1){
+	    			if(url.indexOf("joinroom")!= -1){
 	    				if(status == "ACCEPT" && (friend_no == uno)){
-	    					$(".userlist").append("<p>"+ user_name +
-	    					"<button class='accdeny'onclick='deletefriend("+user_no+","+ uno +","+name+")'><i class='fas fa-user-slash'></i></button>"+
+	    					$(".userlist").append("<p><a href='/timewizard/user/"+dist+"'>"+ user_name +
+	    					"</a><button class='accdeny'onclick='deletefriend("+user_no+","+ uno +","+name+")'><i class='fas fa-user-slash'></i></button>"+
 			    			"<button class='accdeny'onclick='invitefriend("+user_no+","+ uno +","+inviteurl+","+name+")'><i class='far fa-envelope'></i>"+"</button></p>");
 	    				}
 	    				else if(status == "RESP" && (friend_no == uno)){
-	    					$(".userlist").append("<p>"+ user_name +"님이 친구신청 하셨습니다."+
+	    					$(".userlist").append("<p><a href='/timewizard/user/"+dist+"'>"+ user_name +"</a>님이 친구신청 하셨습니다."+
 	    							"<button class='accdeny' onclick='friendDeny("+user_no+","+name+")'> <i class='fas fa-user-times'></i></button>"
 	    		    				+" <button class='accdeny' onclick='friendAccept("+user_no+")'><i class='fas fa-user-check'></i></button></p>");
 	    				
 	    				}else if(status == "SEND" && (friend_no == uno)){
 	    		
-	    					$(".userlist").append("<p>"+user_name +"님이 응답중 입니다.</p>");
+	    					$(".userlist").append("<p><a href='/timewizard/user/"+dist+"'>"+user_name +"</a>님이 응답중 입니다.</p>");
 	    				}
 	    			}else{
 	    				if(status == "ACCEPT" && (friend_no == uno)){
-	    					$(".userlist").append("<p>"+ user_name +
-	    							"<button class='accdeny'onclick='deletefriend("+user_no+","+ uno +","+name+")'><i class='fas fa-user-slash'></i></button></p>");
+	    					$(".userlist").append("<p><a href='/timewizard/user/"+dist+"'>"+ user_name +
+	    							"</a><button class='accdeny'onclick='deletefriend("+user_no+","+ uno +","+name+")'><i class='fas fa-user-slash'></i></button></p>");
 	    				}
 	    				else if(status == "RESP" && (friend_no == uno)){
-	    					$(".userlist").append("<p>"+ user_name +"님이 친구신청 하셨습니다."+
+	    					$(".userlist").append("<p><a href='/timewizard/user/"+dist+"'>"+ user_name +"</a>님이 친구신청 하셨습니다."+
 	    							"<button class='accdeny' onclick='friendDeny("+user_no+","+name+")'> <i class='fas fa-user-times'></i></button>"
 	    		    				+" <button class='accdeny' onclick='friendAccept("+user_no+")'><i class='fas fa-user-check'></i></button></p>");
 	    				
 	    				}else if(status == "SEND" && (friend_no == uno)){
 	    		
-	    					$(".userlist").append("<p>"+user_name +"님이 응답중 입니다.</p>");
+	    					$(".userlist").append("<p><a href='/timewizard/user/"+dist+"'>"+user_name +"</a>님이 응답중 입니다.</p>");
 	    				}
 	    				
 	    			}
@@ -112,11 +113,12 @@ var searchval = {
 	    			var name = "\""+searchListN[i].user_name+"\"";
 	    			var user_no = searchList[i].user_no;
 	    			console.log(searchListN[i]);
+	    			var dist =  searchList[i].user_distinct;
 	    			if(searchListN[i].user_role == "ADMIN"){
-	    				$(".userlist").append("<p>"+ user_name+ "</p>");
+	    				$(".userlist").append("<p><a href='/timewizard/user/"+dist+"'>"+ user_name+ "</a></p>");
 	    			}else{
-	    			$(".userlist").append("<p>"+ user_name+
-				    		"<button class='accdeny' onclick='alertsys("+user_no+","+ uno +","+name+")'><i class='fas fa-user-plus'></i></button></p>");
+	    			$(".userlist").append("<p><a href='/timewizard/user/"+dist+"'>"+ user_name +
+				    		"</a><button class='accdeny' onclick='alertsys("+user_no+","+ uno +","+name+")'><i class='fas fa-user-plus'></i></button></p>");
 	    			}
 	    		}
 	    	}
@@ -148,6 +150,7 @@ function friendlist(){
 	    	nlist = data.nlist;
 	    	$(".friendlist").empty();
 	    	$(".userlist").empty();
+	    	console.log(flist);
 	    	if(flist == ''){
 	    		$(".friendlist").append("<h5>친구목록이 없습니다</h5>")
 	    	}else{
@@ -155,30 +158,31 @@ function friendlist(){
 	    			var user_name = flist[i].user_name;
 	    			var name = "\""+flist[i].user_name+"\"";
 	    			var user_no = flist[i].user_no;
-	    	
-	    			if(url.indexOf("joinroom")!== -1){
+	    			var dist =  flist[i].user_distinct;
+	    			var friend_no  = flist[i].friend_no;
+	    			if(url.indexOf("joinroom")!= -1){
 	    				if((flist[i].status == "ACCEPT")){
-	    					$(".friendlist").append("<p>"+ user_name +
-	    					"<button class='accdeny'onclick='deletefriend("+user_no+","+ uno +","+name+")'><i class='fas fa-user-slash'></i></button>"+
+	    					$(".friendlist").append("<p><a href='/timewizard/user/"+dist+"'>"+ user_name +
+	    					"</a><button class='accdeny'onclick='deletefriend("+user_no+","+ uno +","+name+")'><i class='fas fa-user-slash'></i></button>"+
 			    			"<button class='accdeny'onclick='invitefriend("+user_no+","+ uno +","+inviteurl+","+name+")'><i class='far fa-envelope'></i>"+"</button></p>");
-	    				}else if(status == "RESP" && (friend_no == uno)){
-	    					$(".friendlist").append("<p>"+ user_name +"님이 친구신청 하셨습니다."+
-	    							"<button class='accdeny' onclick='friendDeny("+user_no+","+name+")'> <i class='fas fa-user-times'></i></button>"
-	    		    				+" <button class='accdeny' onclick='friendAccept("+user_no+")'><i class='fas fa-user-check'></i></button></p>");
-			    				
-			    		}else if(status == "SEND" && (friend_no == uno)){
-			    					$(".friendlist").append("<p>"+user_name +"님이 응답중 입니다.</p>");
-			    		}
+	    				}else if(flist[i].status == "SEND"){
+	    					$(".friendlist").append("<p><a href='/timewizard/user/"+dist+"'>"+ user_name +"</a>님이 응답중 입니다.</p>");
+	    	    					
+	    	    		}else if(flist[i].status == "RESP"){
+		    					$(".friendlist").append("<p><a href='/timewizard/user/"+dist+"'>"+ user_name +"</a>님이 친구신청 하셨습니다."+
+		    							"<button class='accdeny' onclick='friendDeny("+user_no+","+name+")'> <i class='fas fa-user-times'></i></button>"
+		    		    				+" <button class='accdeny' onclick='friendAccept("+user_no+")'><i class='fas fa-user-check'></i></button></p>");
+		    			}
 	    			}
 	    			else {
 		    			if((flist[i].status == "ACCEPT")){
-		    					$(".friendlist").append("<p>"+ user_name +		
-		    					"<button class='accdeny'onclick='deletefriend("+user_no+","+ uno +","+name+")'><i class='fas fa-user-slash'></i></button></p>");
+		    					$(".friendlist").append("<p><a href='/timewizard/user/"+dist+"'>"+user_name
+		    					+"</a><button class='accdeny'onclick='deletefriend("+user_no+","+ uno +","+name+")'><i class='fas fa-user-slash'></i></button></p>");
 		    			}else if(flist[i].status == "SEND"){
-	    					$(".friendlist").append("<p>"+ user_name +"님이 응답중 입니다.</p>");
+	    					$(".friendlist").append("<p><a href='/timewizard/user/"+dist+"'>"+ user_name +"</a>님이 응답중 입니다.</p>");
 	    	    					
 	    	    		}else if(flist[i].status == "RESP"){
-		    					$(".friendlist").append("<p>"+ user_name +"님이 친구신청 하셨습니다."+
+		    					$(".friendlist").append("<p><a href='/timewizard/user/"+dist+"'>"+ user_name +"</a>님이 친구신청 하셨습니다."+
 		    							"<button class='accdeny' onclick='friendDeny("+user_no+","+name+")'> <i class='fas fa-user-times'></i></button>"
 		    		    				+" <button class='accdeny' onclick='friendAccept("+user_no+")'><i class='fas fa-user-check'></i></button></p>");
 		    				}
@@ -192,11 +196,13 @@ function friendlist(){
 	    	}else{
 	    		for(i in nlist){
 	    			var name = "\""+nlist[i].user_name+"\"";
+	    			var dist =  nlist[i].user_distinct;
+	    			console.log(nlist[i].user_role);
 	    			if(nlist[i].user_role == "ADMIN"){
-	    				$(".userlist").append("<p>"+ nlist[i].user_name+"</p>");
+	    				$(".userlist").append("<p><a href='/timewizard/user/"+dist+"'>"+ nlist[i].user_name+"</a></p>");
 	    			}else{
-	    				$(".userlist").append("<p>"+ nlist[i].user_name+"&nbsp;"+
-	    					"<button class='accdeny' onclick='alertsys("+nlist[i].user_no+","+ uno +","+name+")'><i class='fas fa-user-plus'></i>" +"</button></p>");
+	    				$(".userlist").append("<p><a href='/timewizard/user/"+dist+"'>"+ nlist[i].user_name+"&nbsp;"+
+	    					"</a><button class='accdeny' onclick='alertsys("+nlist[i].user_no+","+ uno +","+name+")'><i class='fas fa-user-plus'></i>" +"</button></p>");
 	    			}
 	    		}
 	    	
@@ -224,7 +230,7 @@ function friendlist(){
 		<!-- 나와 친구인 유저들 -->
 		<div class="friendlist">
 		
-		
+	
 		
 		</div>
 		
@@ -277,12 +283,15 @@ var uno = ${login.user_no};
 	        //데스크탑 알림 요청
 	        var sendalert = new Notification("알람", options);
 	        
-	      //알림 후 3초 뒤 친구목록 다시 불러옴
+	      //알림 후 1초 뒤 친구목록 다시 불러옴
 	        setTimeout(function () {
 	            //알람 메시지 닫기
 	            friendlist();
 	            //sendalert.close();
-	        	}, 5000);
+	        	}, 1000);
+	        sendalert.onclick= function(){
+	        	window.open('/timewizard/main');
+	        };
 	    });
 	    client.subscribe("/subscribe/confirm/check/"+uno, function (data) {
 				
@@ -294,13 +303,17 @@ var uno = ${login.user_no};
  		        }
  			var checkalert = new Notification("친구 수락", options);
 	        
- 				//알림 후 3초 뒤 친구목록 다시 불러옴
+ 				//알림 후 1초 뒤 친구목록 다시 불러옴
 	        setTimeout(function () {
 	            //얼람 메시지 닫기
 	             friendlist();
 	            //checkalert.close();
 	           
-	       	 	}, 3000); 		
+	       	 	}, 1000); 		
+	       		checkalert.onclick = function(){ 
+	       			window.open('/timewizard/main');
+	       	
+	       		};
 	       
 	    	})
 	    	client.subscribe("/subscribe/confirm/denychk/"+uno, function(data){
@@ -312,13 +325,16 @@ var uno = ${login.user_no};
 	 		        }
 	 			var checkalert = new Notification("알림", options);
 		        
-	 				//알림 후 3초 뒤 친구목록 다시 불러옴
+	 				//알림 후 1초 뒤 친구목록 다시 불러옴
 		        setTimeout(function () {
 		            //얼람 메시지 닫기
 		            friendlist();
 		            //checkalert.close();
 		           
-		       	 	}, 3000); 		
+		       	 	}, 1000); 		
+		        checkalert.onclick = function(){
+		     		window.open('/timewizard/main');
+		     	};
 		        
 	    	});
 	    client.subscribe("/subscribe/confirm/deletechk/"+uno, function(data){
@@ -328,15 +344,18 @@ var uno = ${login.user_no};
  		            body: message,
  		            icon: iconDataURI
  		        }
- 			var checkalert = new Notification("알림", options);
+ 			var resalert = new Notification("알림", options);
 	        
- 				//알림 후 3초 뒤 친구목록 다시 불러옴
+ 				//알림 후 1초 뒤 친구목록 다시 불러옴
 	        setTimeout(function () {
 	            //얼람 메시지 닫기
 	            friendlist();
 	            //checkalert.close();
 	           
-	       	 	}, 3000); 		
+	       	 	}, 1000); 		
+	       		resalert.onclick = function(){
+	     			window.open('/timewizard/main');
+	     		};
 	        
     		});
 	    client.subscribe("/subscribe/invite/res/"+uno, function(data){
@@ -347,9 +366,11 @@ var uno = ${login.user_no};
  		            body: message,
  		            icon: iconDataURI
  		        }
- 			var checkalert = new Notification("알림", options);
-	        
- 				//알림 후 3초 뒤 친구목록 다시 불러옴
+ 			var resalert = new Notification("알림", options);
+ 				resalert.onclick = function (){
+ 					window.open("/timewizard/main");
+ 				}
+ 				//알림 후 1초 뒤 친구목록 다시 불러옴
 	        setTimeout(function () {
 	            //얼람 메시지 닫기
 	            friendlist();
@@ -360,12 +381,13 @@ var uno = ${login.user_no};
 	           		}else{
 	           			
 	           		}
-	       	 	}, 2000); 		
+	       	 	}, 3000); 		
 	        
     		});
 		});
 	
 function alertsys(fno, mynum, fname){
+			var notification;
 		    var message = fname+"님에게 메세지를 전송했습니다.";
 	        
 	        var options = {
@@ -376,132 +398,164 @@ function alertsys(fno, mynum, fname){
 	        var chk = confirm(fname+'님을 친구추가 하시겠습니까?');
 	        if(chk){
 	        	//데스크탑 알림 요청
-	       		 var notification = new Notification("알람" ,options);
+	       		notification = new Notification("알람" ,options);
 	       		alert("친구추가 메세지를 전송했습니다.");
 	       		client.send("/publish/alert/friend", {},JSON.stringify({friend_no: fno, user_no: mynum, user_name: fname}));
-	       	//알림 후 3초 뒤 친구목록 다시 불러옴
+	       	//알림 후 1초 뒤 친구목록 다시 불러옴
 	        	setTimeout(function () {
-	            //얼람 메시지 닫기
-	            friendlist();
-	           // notification.close();
+
+	          	 friendlist();
+	   
 	           
-	      	  }, 3000);
+	      	  }, 1000);
 	        	 
 				
-				
+	        	
 	        }else{
 	        	alert("친구추가 메세지 전송을 취소했습니다.");
 	        	
 	        }
-
+	        notification.onclick = function (){
+        		window.open("/timewizard/main");
+        	};
 	}
 	
 function deletefriend(fno,myno,fname){
 	
-	var rly = confirm(fname+"님을 목록에서 삭제하시겠습니까?");
-	
-	if(rly){
-		 var message = fname+"님이 목록에서 삭제되었습니다.";
-	     
-	     options = {
-	        body: message,
-	        icon: iconDataURI
-	    }
-	    	//데스크탑 알림 요청
-	   		var deletealert = new Notification("친구삭제" ,options);
-		 	client.send("/publish/confirm/delete", {}, JSON.stringify({user_no: myno, friend_no: fno}));
-		 	
-		 	//알림 후 3초 뒤 친구목록 다시 불러옴
-	    	setTimeout(function () {
-	    		friendlist();
-	        //얼람 메시지 닫기
-	        //deletealert.close();
-	       
-	  	  }, 3000);
-	    	 
-	}
-else{
-	
-	}
-}
 
-function friendAccept(fno){
+	var rly = confirm(fname + "님을 목록에서 삭제하시겠습니까?");
+		var deletealert;
+		if (rly) {
+			var message = fname + "님이 목록에서 삭제되었습니다.";
 
- 		client.send("/publish/confirm/accept",{},JSON.stringify({friend_no: fno, user_no: uno, user_name: uname}));
- 		client.subscribe("/subscribe/confirm/res/"+uno, function(chat){
- 			var added = chat.body;
- 			var message = added+"님과 이제 친구입니다";
- 			var options = {
- 		            body: message,
- 		            icon: iconDataURI
- 		        }
- 			var acceptalert = new Notification("친구추가 수락", options);
-	        
- 			//알림 후 3초 뒤 친구목록 다시 불러옴
-	        setTimeout(function () {
-	            //얼람 메시지 닫기
-	              friendlist();
-	            //acceptalert.close();
-	           
-	        }, 3000);
-			client.send("/publish/confirm/fnd",{},JSON.stringify({user_no: uno, friend_no: fno, user_name: uname}));
- 			
+			options = {
+				body : message,
+				icon : iconDataURI
+			}
+			//데스크탑 알림 요청
+			deletealert = new Notification("친구삭제", options);
+			client.send("/publish/confirm/delete", {}, JSON.stringify({
+				user_no : myno,
+				friend_no : fno
+			}));
+
+			//알림 후 1초 뒤 친구목록 다시 불러옴
+			setTimeout(function() {
+				friendlist();
+				//얼람 메시지 닫기
+				//deletealert.close();
+
+			}, 1000);
+
+		} else {
+			alert("친구삭제를 취소하셨습니다.");
+		}
+		deletealert.onclick = function() {
+			window.open("/timewizard/main");
+		}
+	}
+
+	function friendAccept(fno) {
+
+		client.send("/publish/confirm/accept", {}, JSON.stringify({
+			friend_no : fno,
+			user_no : uno,
+			user_name : uname
+		}));
+		client.subscribe("/subscribe/confirm/res/" + uno, function(chat) {
+			var added = chat.body;
+			var message = added + "님과 이제 친구입니다";
+			var options = {
+				body : message,
+				icon : iconDataURI
+			}
+			var acceptalert = new Notification("친구추가 수락", options);
+
+			//알림 후 1초 뒤 친구목록 다시 불러옴
+			setTimeout(function() {
+				//얼람 메시지 닫기
+				friendlist();
+				//acceptalert.close();
+
+			}, 1000);
+			acceptalert.onclick = function() {
+				window.open("/timewizard/main");
+			}
+			client.send("/publish/confirm/fnd", {}, JSON.stringify({
+				user_no : uno,
+				friend_no : fno,
+				user_name : uname
+			}));
+
 		})
 
- 		
- 	}
- 		
-function friendDeny(fno,fname){
-	//"거절"을 누르면 FriendControlller로 보내서 update, delete시키기
-		//ajax로?
-				
-		  var message = fname+"님의 친구 신청을 거절하셨습니다.";
-        
-         var options = {
-            body: message,
-            icon: iconDataURI
-        }
-        	//데스크탑 알림 요청
-       		var denyalert = new Notification("알람" ,options);
-		 	client.send("/publish/confirm/deny", {}, JSON.stringify({friend_no: fno, user_no: uno, user_name: fname}));
-		 	
-		 	//알림 후 3초 뒤 친구목록 다시 불러옴
-        	setTimeout(function () {
-            //얼람 메시지 닫기
-            friendlist();
-            //denyalert.close();
-            
-      	  }, 3000);
-        	
-       		
-}
-function searchkey(){
-	if (window.event.keyCode == 13) {
-		searchfriend();
 	}
-	
-}
-function invitefriend(user_no, uno, url, name){
-	
-	  var message = name+"님에게 초대를 보냈습니다.";
-      
-      var options = {
-         body: message,
-         icon: iconDataURI
-     }
-     	//데스크탑 알림 요청
-    		var denyalert = new Notification("알람" ,options);
-		 	client.send("/publish/invite/send", {}, JSON.stringify({friend_no: user_no, user_no: uno, url: url, user_name: uname}));
-		 	
-		 	//알림 후 3초 뒤 친구목록 다시 불러옴
-     	setTimeout(function () {
-         //얼람 메시지 닫기
-         friendlist();
-         //denyalert.close();
-         
-   	  }, 3000);
-	
-}
+
+	function friendDeny(fno, fname) {
+		//"거절"을 누르면 FriendControlller로 보내서 update, delete시키기
+		//ajax로?
+
+		var message = fname + "님의 친구 신청을 거절하셨습니다.";
+
+		var options = {
+			body : message,
+			icon : iconDataURI
+		}
+		//데스크탑 알림 요청
+		var denyalert = new Notification("알람", options);
+		client.send("/publish/confirm/deny", {}, JSON.stringify({
+			friend_no : fno,
+			user_no : uno,
+			user_name : fname
+		}));
+
+		//알림 후 1초 뒤 친구목록 다시 불러옴
+		setTimeout(function() {
+			//얼람 메시지 닫기
+			friendlist();
+			//denyalert.close();
+
+		}, 1000);
+		denyalert.onclick = function() {
+			window.open("/timewizard/main");
+		}
+
+	}
+	function searchkey() {
+		if (window.event.keyCode == 13) {
+			searchfriend();
+		}
+
+	}
+	function invitefriend(user_no, uno, url, name) {
+
+		var message = name + "님에게 초대를 보냈습니다.";
+
+		var options = {
+			body : message,
+			icon : iconDataURI
+		}
+		//데스크탑 알림 요청
+		var denyalert = new Notification("알람", options);
+		client.send("/publish/invite/send", {}, JSON.stringify({
+			friend_no : user_no,
+			user_no : uno,
+			url : url,
+			user_name : uname
+		}));
+
+		//알림 후 1초 뒤 친구목록 다시 불러옴
+		setTimeout(function() {
+			//얼람 메시지 닫기
+			friendlist();
+			//denyalert.close();
+
+		}, 1000);
+		denyalert.onclick = function() {
+			window.open('/timewizard/main');
+		};
+
+	}
 </script>
 </body>
 </html>
