@@ -343,10 +343,10 @@ function email_check_code(data){
 
 				<div class="contentbox">
 					<input type="text" placeholder="이름 or 닉네임" name="user_name" class="username" required="required"/>
+					<div class="name_text"></div>
 				</div>
 				<div class="chkbox">
 					<input type="submit" value="SIGN UP" class="control_button_in"/>
-					<div class="name_text"></div>
 				</div>
 			</form>
 		</div>
