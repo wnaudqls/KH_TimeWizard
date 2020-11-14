@@ -202,24 +202,76 @@ public class MypageController {
 		FileUploadDto fileObj = new FileUploadDto();
 		fileObj.setFile_name(uploadedName);
 		
+		InputStream inputStream = null;
+		OutputStream outputStream = null;
+		
+		try {
+			
+			inputStream = file.getInputStream();
+			String uploadPath = WebUtils.getRealPath(request.getSession().getServletContext(), "/resources/image");
+			logger.info("\n* 업로디드 경로 : " + uploadPath 
+					+ "\n* file original name : " + file.getOriginalFilename());
+			
+			File storage = new File(uploadPath);
+			if (!storage.exists()) {
+				storage.mkdir();
+			}
+			File newFile = new File(uploadPath + "/" + uploadedName);
+			if (!newFile.exists()) {
+				newFile.createNewFile();
+			}
+			outputStream = new FileOutputStream(newFile);
+			
+			int read = 0;
+			byte[] b = new byte[(int)file.getSize()];
+			
+			while((read=inputStream.read(b)) != -1) {
+				outputStream.write(b, 0, read);
+			}
+			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				inputStream.close();
+				outputStream.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
 		FileUploadDto dto = new FileUploadDto();
 		dto.setUser_no(((UserInfoDto)request.getSession().getAttribute("login")).getUser_no());
 		dto.setFile_name(uploadedName);
+
+		if (fileExtension.equalsIgnoreCase("jpg") || fileExtension.equalsIgnoreCase("jpeg") 
+			|| fileExtension.equalsIgnoreCase("png") || fileExtension.equalsIgnoreCase("gif")) {
+			dto.setFile_type("I");
+		} else if (fileExtension.equalsIgnoreCase("mp4")) {
+			dto.setFile_type("V");
+		}
+		
+		int res = fileUploadBiz.insert(dto);
+		logger.info(">> [CONTROLLER-FILEUPLOAD] success?: " + ((res == 1)?"yes":"no"));
 		
 		// 프로필 사진을 등록하지 않은 디폴트값은 user_photo=null임. user_photo에 insert된 file이 서버에 랜덤으로 저장[FileUploadUtils 클래스 참고]된 name을 setting 해줌. 
 		userInfoDto.setUser_photo(dto.getFile_name());
 		userInfoDto.setUser_no(dto.getUser_no());
 		logger.info("파일 이름: {} \n유저 번호: {}",dto.getFile_name(), userInfoDto.getUser_no());
 		// user_photo의 값을 null에서 윗줄의 값으로 update 해줌.
-		int res = userinfoBiz.profileChange(userInfoDto);
+		int res2 = userinfoBiz.profileChange(userInfoDto);
 		 
-		logger.info("[user profile change] success?: " + ((res == 1)?"yes":"no"));
+		logger.info("[user profile change] success?: " + ((res2 == 1)?"yes":"no"));
+		request.getSession().setAttribute("login", userinfoBiz.selectOne(userInfoDto.getUser_no()));
+		UserInfoDto test = (UserInfoDto)request.getSession().getAttribute("login");
+		logger.info(test.getUser_photo());
 		PrintWriter out;
 		try {
 			out = response.getWriter();
 			out.print("<script type='text/javascript'>location.href='/timewizard/mypage';</script>");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

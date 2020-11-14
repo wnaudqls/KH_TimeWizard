@@ -41,35 +41,10 @@ public class PersonalWeekMonthController {
 	public 	WeeklyDto selectList(@PathVariable String user_no ) {
 		logger.info("[WEEKELY]");
 		
-		
 		WeeklyDto dto = userTodoBiz.chart(Integer.parseInt(user_no));
 	
 	
 		return dto;
-	}
-	
-	
-	@RequestMapping("/cal/{yyyyMMdd}")
-	public String calendarListForm(Model model, HttpSession session) {
-		logger.info("[cal List Controller]");
-		Calendar cal = Calendar.getInstance();
-		
-		UserInfoDto userinfodto = (UserInfoDto)session.getAttribute("login");
-		
-		logger.info("userinfodto user_no : "+userinfodto.getUser_no());
-		
-		int year = cal.get(Calendar.YEAR);
-		int month = cal.get(Calendar.MONTH) + 1;
-		int dd = cal.get(Calendar.DATE);
-		String yyyyMMdd = year + CalendarUtils.isTwo(month + "")+dd;
-		logger.info("yyyyMMdd : " + yyyyMMdd);
-		
-		List<CalendarDto> list = calBiz.getViewList(userinfodto.getUser_no(), yyyyMMdd);
-		
-		model.addAttribute("list",list);
-		
-		return "calendar";
-		
 	}
 	
 

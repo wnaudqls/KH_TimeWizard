@@ -19,6 +19,9 @@
 <meta charset="UTF-8">
 
 <title>Insert title here</title>
+  
+
+                      
 <script src="https://kit.fontawesome.com/3049a69bf8.js" crossorigin="anonymous"></script>
 <style type="text/css">
 
@@ -57,6 +60,19 @@
 		line-height : 40px;
 		border-radius:40px 40px 40px 1px;
 	}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.1.0/main.min.css">
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.1.0/main.min.js"></script>
+<!-- <link href='fullcalendar/main.css' rel='stylesheet' />
+ <script src='fullcalendar/main.js'></script> -->
+ <style type="text/css">
+
+body {
+	margin: 40px 10px;
+	padding: 0;
+	font-family: "Lucida Grande", Helvetica, Arial, Verdana, sans-serif;
+	font-size: 14px;
+}
 
 </style>
 

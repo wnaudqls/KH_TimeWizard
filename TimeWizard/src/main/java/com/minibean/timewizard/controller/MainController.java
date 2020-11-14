@@ -176,12 +176,6 @@ public class MainController {
 		
 		return "tiwimap";
 	}
-	
-	@RequestMapping(value = "/kakaomes", method = RequestMethod.GET)
-	public String kakaoShare(Model model) {
-		
-		return "kakaoshare";
-	}
 
 	@RequestMapping(value = "/socketTest", method = RequestMethod.GET)
 	public String socketTest() {
