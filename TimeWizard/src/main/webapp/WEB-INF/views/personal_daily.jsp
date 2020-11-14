@@ -27,10 +27,20 @@
 	UserInfoDto login = (UserInfoDto) session.getAttribute("login");
 %>
 
-<button class="snssharebtn" id="kakao-link-btn" onclick="dailyLink()">daily 공유</button>
+<button class="snssharebtn" id="kakao-link-btn" onclick="dailyLink()">daily share</button>
 <a id="download" download="tiwi_daily.JPG">
 <button class="snssharebtn" onClick="download()">Download</button>
 </a>
+
+<a href="javascript:genScreenshot()">스샷</a>
+<a id="test"></a>
+<div id="text">
+가나다라마바사아
+ㄴㅁ아ㅣ럼;니
+ㄴ미아ㅓㄹ;ㅁㅇ나ㅓㄹ;ㅣㅁ
+</div>
+<div id="box1"></div>
+
 
 	<div id="daily__part" style="background:gray;">
 		<div class="daily__area">
@@ -105,6 +115,7 @@
 		/* html2canvas - div 영역이 아닌 전체화면 스크린샷 */
 		let area = document.getElementById("con1");
 		html2canvas($("#daily__part")[0]).then(function(canvas) {
+			console.log(canvas);
 			canvas.setAttribute("id", "mycanvas");
 			canvas.setAttribute("style", "display:none");
 			document.body.appendChild(canvas);
@@ -130,6 +141,22 @@
 		};
 		
 	});
+	
+	function genScreenshot() {
+		html2canvas(document.body, {
+			onrendered: function(canvas) {
+				$('#box1').html("");
+				$('#box1').append(canvas);
+				
+				$('#test').attr('href', canvas.toDataURL("image/png"));
+				$('#test').attr('download', 'Test file.png');
+				$('#test')[0].click();
+			}
+		});
+	}
+	
+	
+	
 	</script>
 </body>
 </html>
