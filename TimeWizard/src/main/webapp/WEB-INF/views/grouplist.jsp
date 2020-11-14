@@ -15,6 +15,12 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script type="text/javascript" src="/timewizard/js/grouplist.js" defer></script>
 
+<script type="text/javascript">
+
+
+
+</script>
+
 
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -74,7 +80,6 @@
 					<c:forEach var="dto" items="${list }">
 						<div class="grouproom">
 							<div class="groupimg">
-								img
 							</div>
 							<div class="grouptitle">
 								<span class="group2">${dto.group_title }</span>
