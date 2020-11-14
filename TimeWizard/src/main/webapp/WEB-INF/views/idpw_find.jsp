@@ -206,12 +206,10 @@ $(document).ready(function() {
 //아이디 찾기
 //이메일 인증 번호 확인
 function email_check(data){
-	
-	console.log("dataaaa : "+data);
-	//console.log(email_code_id);
+
 	$(".email_code_id").keyup(function(){
 		var email_code_id = $(".email_code_id").val();
-		console.log(email_code_id);
+
 		if(email_code_id == ""){
 			$(".email_code_text_id").text("인증번호를 입력해주세요!").css("color","red");
 		}
@@ -257,7 +255,6 @@ $(document).ready(function() {
 		}else if(emailjung.test(user_email_pw)){
 			$(".email_check_pw ").empty();
 			$(".email_button_pw ").attr("disabled",false);
-			console.log("user_email : "+user_email_pw);
 			
 			//인증번호 버튼
 			$(".email_button_pw ").click(function(){
