@@ -34,13 +34,8 @@ public class PersonalWeekMonthController {
 	public 	WeeklyDto selectList(@PathVariable String user_no) {
 		logger.info("[WEEKELY]");
 		
-		
 		WeeklyDto dto = userTodoBiz.chart(Integer.parseInt(user_no));
 		
-		
-		logger.info("user_no : "+Integer.parseInt(user_no));
-		logger.info("dto : "+dto.getThe_date());
-		logger.info("ddddddd : "+dto.getFullcount());
 		
 		return dto;
 	}
