@@ -28,7 +28,7 @@
 			ON fl.FRIEND_NO = fl2.USER_NO
 			AND fl.USER_NO = fl2.FRIEND_NO
 			WHERE fl.USER_NO = #{user_no})
-		AND ui.USER_ROLE IS NOT LIKE 'ADMIN'
+		AND ui.USER_ROLE != 'ADMIN'
 	</select>
 	
 	<select id="searchList" resultType="FriendDto">
@@ -58,7 +58,7 @@
 			ON fl.FRIEND_NO = fl2.USER_NO
 			AND fl.USER_NO = fl2.FRIEND_NO
 			WHERE fl.USER_NO = #{user_no})
-		AND USER_ROLE IS NOT LIKE 'ADMIN'
+		AND USER_ROLE != 'ADMIN'
 	
 	</select>
 	
