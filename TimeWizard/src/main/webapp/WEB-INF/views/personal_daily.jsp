@@ -73,6 +73,7 @@
 	<script type="text/javascript">
 	let linkedUserNo = <%=linked.getUser_no()%>;
 	const loginUserNo = <%=login.getUser_no()%>;
+
 	
 	window.addEventListener("DOMContentLoaded",()=>{
 		// SDK를 초기화 합니다. 사용할 앱의 JavaScript 키를 설정해 주세요.
@@ -157,6 +158,7 @@
 	
 	
 	
+
 	</script>
 </body>
 </html>
