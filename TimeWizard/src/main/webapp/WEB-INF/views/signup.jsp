@@ -65,9 +65,17 @@ body {
 	padding-left: 12px;
 }
 
+#email_auto_code{
+	background-color: var(--color);
+	width: 55%;
+	height: 2rem;
+	border: 0px;
+	padding-left: 12px;
+}
+
 .contentbox input[type=email] {
 	background-color: var(--color);
-	width: 80%;
+	width: 55%;
 	height: 2rem;
 	border: 0px;
 	padding-left: 12px;
@@ -84,15 +92,16 @@ body {
 .chkbox input[type=button] {
 	background-color: #96DBE2;
 	color: white;
-	width: 25%;
+	width: 30%;
 	height: 2rem;
 	border: 0px;
 	border-radius: 25px;
 	cursor: pointer;
-	margin-bottom: 1rem;
+	margin-bottom: 0.5rem;
 }
 
-.chkbox input[type=submit] {
+
+input[type=button]{
 	background-color: #96DBE2;
 	color: white;
 	width: 25%;
@@ -100,7 +109,19 @@ body {
 	border: 0px;
 	border-radius: 25px;
 	cursor: pointer;
-	margin-top: 2rem;
+	margin-bottom: 0.5rem;
+}
+
+
+input[type=submit] {
+	background-color: #96DBE2;
+	color: white;
+	width: 25%;
+	height: 2rem;
+	border: 0px;
+	border-radius: 25px;
+	cursor: pointer;
+	margin-top: 0.5rem;
 }
 
 .signuptitle div {
@@ -298,7 +319,7 @@ function email_check_code(data){
 		}
 		else {
 			if(email_code_pw_check == data){
-				$("#email_check").text("인증번호가 맞습니다.").css("color","#ddd").fadeOut(1000);
+				$("#email_check").text("인증번호가 맞습니다.").css("color","#ddd");
 				$(".control_button_in").attr("disabled",false);
 			}
 		}
@@ -327,27 +348,19 @@ function email_check_code(data){
 				</div>
 				<div class="contentbox">
 					<input type="email" placeholder="이메일" name="user_email" id="user_email" required="required" />
-					<div id="email_text"></div>
-				</div>
-				<div class="chkbox">
 					<input type="button" value="인증번호"  id="email_button"/>
-				</div>
-				
+					<div id="email_text"></div>
+				</div>			
 				<div class="contentbox">
-					<input type="text" placeholder="인증번호 입력" id="email_auto_code" required="required"/>
-				</div>
-				<div class="chkbox">
+					<input type="text" placeholder="인증번호 입력" id="email_auto_code" class="code_check" required="required"/>
 					<input type="button" value="인증번호 확인" id="email_auto_code_button"/>
 					<div id="email_check"></div>
 				</div>
-
 				<div class="contentbox">
 					<input type="text" placeholder="이름 or 닉네임" name="user_name" class="username" required="required"/>
 					<div class="name_text"></div>
 				</div>
-				<div class="chkbox">
-					<input type="submit" value="SIGN UP" class="control_button_in"/>
-				</div>
+				<input type="submit" value="SIGN UP" class="control_button_in"/>
 			</form>
 		</div>
 	</section>
