@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -188,28 +189,40 @@ public class MypageController {
 	
 	@RequestMapping(value="/profileupload")
 	@ResponseBody
-	public String fileUpload(HttpServletRequest request, Model model, @RequestBody FileUploadDto fileuploadDto, BindingResult result, @RequestParam int user_no) {
+	public void fileUpload(HttpServletResponse response ,HttpServletRequest request, Model model, @ModelAttribute("filedto") FileUploadDto fileuploadDto, BindingResult result) {
 		logger.info("[user profile change]");
 		
 		UserInfoDto userInfoDto = new UserInfoDto();
 		
-		  /* 파일 선택해서 send 버튼 눌렀을 때,
-		   * fileuploadDto에 file을 insert 하고
-		   * user_no가 올린 파일을 selectOne 하기
-		   * - FileUploadController에 있는 부분이라 여기에 안 써도 실행이 되므로 주석처리 함
-		  fileUploadBiz.insert(fileuploadDto);
-		  fileuploadDto = fileUploadBiz.selectImageOne(user_no); */
+		MultipartFile file = fileuploadDto.getFile();
+		String fileExtension = FilenameUtils.getExtension(file.getOriginalFilename());
+		String uploadedName = fileUploadUtils.makeRandomName() + "." + fileExtension;
 		
-		logger.info("파일 이름: "+fileuploadDto.getFile_name());
-		  
-		  // 프로필 사진을 등록하지 않은 디폴트값은 user_photo=null임. user_photo에 insert된 file이 서버에 랜덤으로 저장[FileUploadUtils 클래스 참고]된 name을 setting 해줌. 
-		  userInfoDto.setUser_photo(fileuploadDto.getFile_name());
-		  // user_photo의 값을 null에서 윗줄의 값으로 update 해줌.
-		  int res = userinfoBiz.profileChange(userInfoDto);
+		logger.info("업로디드 네임 :"+uploadedName);
+		FileUploadDto fileObj = new FileUploadDto();
+		fileObj.setFile_name(uploadedName);
+		
+		FileUploadDto dto = new FileUploadDto();
+		dto.setUser_no(((UserInfoDto)request.getSession().getAttribute("login")).getUser_no());
+		dto.setFile_name(uploadedName);
+		
+		// 프로필 사진을 등록하지 않은 디폴트값은 user_photo=null임. user_photo에 insert된 file이 서버에 랜덤으로 저장[FileUploadUtils 클래스 참고]된 name을 setting 해줌. 
+		userInfoDto.setUser_photo(dto.getFile_name());
+		userInfoDto.setUser_no(dto.getUser_no());
+		logger.info("파일 이름: {} \n유저 번호: {}",dto.getFile_name(), userInfoDto.getUser_no());
+		// user_photo의 값을 null에서 윗줄의 값으로 update 해줌.
+		int res = userinfoBiz.profileChange(userInfoDto);
 		 
-		  logger.info("[user profile change] success?: " + ((res == 1)?"yes":"no"));
+		logger.info("[user profile change] success?: " + ((res == 1)?"yes":"no"));
+		PrintWriter out;
+		try {
+			out = response.getWriter();
+			out.print("<script type='text/javascript'>location.href='/timewizard/mypage';</script>");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		return "redirect:mypage";
 	}
 	
 	

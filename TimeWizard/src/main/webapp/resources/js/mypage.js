@@ -15,7 +15,6 @@ function uploadProfile(){
 	let formData = new FormData();
 	formData.append("file",file);
 	const xhr = new XMLHttpRequest();
-	xhr.setRequestHeader('Content-Type', 'application/json');
 	xhr.open("POST","/timewizard/file/upload");
 	xhr.send(formData);
 	xhr.onreadystatechange = () => {
@@ -78,9 +77,12 @@ function selectOne(user_no){
 				files_div.appendChild(file_div)
 				profileinfo.appendChild(files_div);
 				
+				
+				
 			} else if (xhr.responseText == "" || xhr.responseText == null){
 					profileinfo.textContent = "저장된 파일이 없습니다.";
 			}
 		}
 	}
 }
+
