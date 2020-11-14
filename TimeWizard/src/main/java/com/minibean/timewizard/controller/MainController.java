@@ -1,5 +1,6 @@
 package com.minibean.timewizard.controller;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -135,11 +136,38 @@ public class MainController {
 	}
 	
 	@RequestMapping(value="/user/{user_distinct}")
-	public String Main(@PathVariable String user_distinct, HttpSession session) {
+	public String Main(@PathVariable String user_distinct, HttpSession session,Model model) {
 		logger.info(">> [CONTROLLER-MAIN] move to (personal) page");
-		
 		UserInfoDto linked = userInfoBiz.selectOne(user_distinct);
+		int user_no =linked.getUser_no();
+		logger.info(" User_no : " +user_no);
 		session.setAttribute("linked", linked);
+		
+		
+		List<CalendarDto> clist = new ArrayList<CalendarDto>();
+	
+		Calendar cal = Calendar.getInstance();
+		
+		
+		//logger.info(" sddsd: "+cal.get(Calendar.YEAR));
+		int mm = cal.get(Calendar.MONTH)+1;
+		int yyyy = cal.get(Calendar.YEAR);
+		int dd = cal.get(Calendar.DATE);
+		
+
+		
+		String yyyyMMdd = (yyyy+""+mm+""+dd);
+		
+		logger.info(" caldate : "+cal.get(Calendar.DATE));
+		logger.info(" yyyyMMdd : "+yyyyMMdd);
+	
+		
+		
+		clist = calBiz.getViewList(user_no, yyyyMMdd);
+		
+		model.addAttribute("clist", clist);
+		
+		
 		return "finalactionpage";
 	}
 	
