@@ -63,18 +63,16 @@ var searchval = {
 	    	$(".userlist").append("<p><b>Search List</b></p>");
 	    	if(searchList == ''){
 	    		$(".userlist").append("<p>-- 검색하신 분을 찾지 못했습니다. --</p>")
-	    	}else if(username == uname){
-	    		$(".userlist").append("<p>-- 자기 자신을 검색하셧습니다. --</p>");
 	    	}else if(username.trim() == ''){
 	    		$(".userlist").append("<p>-- 이름을 입력해주세요. --</p>");
 	    	}
 	    	else{
 	    		for(i in searchList){
-	    			var user_name = searchList[i].user_name;
-	    			var name = "\""+searchList[i].user_name+"\"";
-	    			var user_no = searchList[i].user_no;
-	    			var friend_no = searchList[i].friend_no;
-	    			var status = searchList[i].status;
+	    			var user_name = searchList[i].user_name; // 상대방 이름
+	    			var name = "\""+searchList[i].user_name+"\""; //값으로 쓸 상대방 이름(이스케이프 문자)
+	    			var user_no = searchList[i].user_no; //상대방 번호
+	    			var friend_no = searchList[i].friend_no; //자기번호
+	    			var status = searchList[i].status; //관계 상태(수락, 응답중, 전송)
 	    			
 	    			
 	    			if(url.indexOf("joinroom")!== -1){
