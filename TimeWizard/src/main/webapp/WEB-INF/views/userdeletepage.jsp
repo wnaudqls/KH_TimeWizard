@@ -42,6 +42,6 @@
 			</div>
 			</form>
 		</section>
-		<jsp:include page="footer.jsp"></jsp:include>
+
 </body>
 </html>
