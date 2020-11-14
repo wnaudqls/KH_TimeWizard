@@ -65,6 +65,14 @@ body {
 	padding-left: 12px;
 }
 
+.contentbox input[type=email] {
+	background-color: var(--color);
+	width: 80%;
+	height: 2rem;
+	border: 0px;
+	padding-left: 12px;
+}
+
 .chkbox input[type=button] {
 	background-color: #96DBE2;
 	color: white;
@@ -134,30 +142,32 @@ body {
 				<p class="signuptext">Create Account</p>
 				<p class="signuptext2">or user your email for registration:</p>
 				<div class="contentbox">
-					<input type="text" placeholder="아이디(4~12자리)" />
+					<input type="text" placeholder="아이디(4~12자리)" class="user_id" required="required" autofocus />
+					<div class="id_text"></div>
 				</div>
 				<div class="contentbox">
-					<input type="text" placeholder="비밀번호(6~10자리)" />
+					<input type="text" placeholder="비밀번호(6~10자리)" class="user_pw" />
 				</div>
 				<div class="contentbox">
-					<input type="text" placeholder="비밀번호 확인" />
+					<input type="text" placeholder="비밀번호 확인" class="user_pw_check"/>
+					<div class="pw_text"></div>
 				</div>
 				<div class="contentbox">
-					<input type="text" placeholder="이메일" />
+					<input type="email" placeholder="이메일" class="user_email" />
 				</div>
 				<div class="chkbox">
-					<input type="button" value="이메일 코드 전송" />
+					<input type="button" value="인증번호" class="code" />
 				</div>
 				
 				<div class="contentbox">
-					<input type="text" placeholder="인증번호 입력" />
+					<input type="text" placeholder="인증번호 입력" class="code_text" />
 				</div>
 				<div class="chkbox">
-					<input type="button" value="이메일 인증" />
+					<input type="button" value="인증번호 확인" class="code_check_button"/>
 				</div>
 
 				<div class="contentbox">
-					<input type="text" placeholder="이름" />
+					<input type="text" placeholder="이름 or 닉네임" class="user_name" />
 				</div>
 				<div class="chkbox">
 					<input type="submit" value="SIGN UP" />
