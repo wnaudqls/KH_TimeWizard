@@ -163,7 +163,6 @@ $(document).ready(function() {
 			}else if(emailjung.test(user_email)){
 				$(".email_check_id").empty();
 				$(".email_button_id").attr("disabled",false);
-				console.log("user_email : "+user_email);
 				
 				//인증번호 버튼
 				$(".email_button_id").click(function(){
@@ -173,7 +172,6 @@ $(document).ready(function() {
 						type : "get",
 						
 						success : function(data){
-									console.log(data)
 									alert("이메일이 발송되었습니다. 인증번호를 확인 후 입력하여주십시오.");
 									$(".email_code_id ").focus();
 									email_check(data);
@@ -226,8 +224,6 @@ $(document).ready(function() {
 				type: "POST",
 				url: url,
 				success: function(data){
-					alert(data);
-					alert("data : "+data.user_pw);
 					$(".pw_result").text("Your PassWord : "+data.user_pw);
 				},
 				error: function(data){
@@ -260,7 +256,6 @@ $(document).ready(function() {
 					type : "get",
 					
 					success : function(data){
-								console.log(data)
 								alert("이메일이 발송되었습니다. 인증번호를 확인 후 입력하여주십시오.");
 								$(".email_code_pw").focus();
 								email_check_pw(data);
@@ -297,11 +292,10 @@ $(document).ready(function() {
 //이메일 인증 번호 확인
 function email_check_pw(data){
 	
-	console.log("dataaaa : "+data);
-	//console.log(email_code_id);
+	//인증번호 입력창에 쓰면
 	$(".email_code_pw").keyup(function(){
 		var email_code_pw_check = $(".email_code_pw").val();
-		console.log(email_code_pw_check);
+
 		if(email_code_pw_check == ""){
 			$(".email_code_text_pw ").text("인증번호를 입력해주세요!").css("color","red");
 		}

@@ -236,9 +236,7 @@ $(document).ready(function() {
 						idPass = false;
 					} else {
 						if(idRegex.test(idCheck) && !han.test(idCheck)){
-						ans = '회원가입 가능한 아이디입니다.';
-						color = '#ddd';
-						idPass = true;
+						$('#idc').text('회원가입 가능한 아이디입니다.').css('color','#ddd').fadeOut(1000);
 							
 						}else if((han.test(idCheck) && han2.test(idCheck))
 								|| (idRegex.test(idCheck))

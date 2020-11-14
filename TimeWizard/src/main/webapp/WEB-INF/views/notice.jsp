@@ -129,7 +129,7 @@
 		%>
 			<tr>
 				<th class="write" colspan="4" align="right">
-					<i class="fas fa-edit" onclick="location.href='insert?&nowpage=${paging.nowpage}&cntPerpage=${paging.cntPerpage }'"></i>
+					<i class="fas fa-edit" onclick="location.href='insert?nowpage=${paging.nowpage}&cntPerpage=${paging.cntPerpage }'"></i>
 				</th>
 			</tr>
 		<%
