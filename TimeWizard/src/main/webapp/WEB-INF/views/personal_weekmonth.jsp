@@ -86,7 +86,7 @@
 			    data: data,
 			    type: 'axis-mixed', // or 'bar', 'line', 'scatter', 'pie', 'percentage', 'axis-mixed'
 			    height: 300,
-			    colors: ['#fccffc','#eb2ac4'],
+			    colors: ['#679ab8','#3d5c6e'],
 			  
 			})
 	}
