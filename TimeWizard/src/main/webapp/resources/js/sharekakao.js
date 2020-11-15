@@ -38,8 +38,8 @@ $(document).ready(function () {
 	screenshot();
  
 });
-/* html2canvas - 스크린샷 (daily__part 부분을 스크린샷 찍어야 하는데 안 됨) */
 
+/* html2canvas - 스크린샷 */
 function screenshot(){
   document.getElementById("downloadbtn").style.display = "none";
   setTimeout(() => {
@@ -53,16 +53,6 @@ function screenshot(){
   }, 1000);
 }
 
-
-/* html2canvas - div 영역 스크린샷 
-let area = document.getElementById("con1");
-html2canvas(document.querySelector("#daily__part")).then(function(canvas) {
-	canvas.setAttribute("id", "mycanvas");
-	canvas.setAttribute("style", "display:none");
-	document.body.appendChild(canvas);
-	download();
-});*/
-
 /* 이미지 다운로드 */
 function download() {
 	var image = document.getElementById("mycanvas")
@@ -72,27 +62,3 @@ function download() {
 							.setAttribute("href", image);
 							
 };
-/*
-=======
-$(function(){
-$("#shot").on("click", function(){
-// 캡쳐 라이브러리를 통해서 canvas 오브젝트를 받고 이미지 파일로 리턴한다.
-html2canvas(document.querySelector("#daily__part")).then(canvas => {
-saveAs(canvas.toDataURL('image/png'),"timewizard_daily.png");
-});
-});
-function saveAs(uri, filename) {
-// 캡쳐된 파일을 이미지 파일로 내보낸다.
-var link = document.createElement('a');
-if (typeof link.download === 'string') {
-link.href = uri;
-link.download = filename;
-document.body.appendChild(link);
-link.click();
-document.body.removeChild(link);
-} else {
-window.open(uri);
-}
-}
-});
-*/
