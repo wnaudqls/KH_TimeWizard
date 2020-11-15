@@ -36,12 +36,14 @@ public class CalendarDaoImpl implements CalendarDao {
 	}
 
 	@Override
-	public List<CalendarDto> getCalList(int user_no, String yyyymmdd) {
+	public List<CalendarDto> getCalList(int user_no, String yyyyMMdd) {
 		logger.info(" < getCalendarList > ");
 		List<CalendarDto>list = new ArrayList<CalendarDto>();
 		Map<Object, Object>map = new HashMap<Object, Object>();
 		map.put("user_no",user_no);
-		map.put("yyyymmdd", yyyymmdd);
+		map.put("yyyyMMdd", yyyyMMdd);
+		
+		logger.info(" CalList에 담긴 map 값 : "+map);
 	
 		try {
 			list =sqlSession.selectList(NAMESPACE+"getCalList",map);
@@ -50,7 +52,7 @@ public class CalendarDaoImpl implements CalendarDao {
 			e.printStackTrace();
 		}
 		
-		
+	
 		return list;
 	}
 
@@ -67,8 +69,10 @@ public class CalendarDaoImpl implements CalendarDao {
 		
 		
 		try {
+									
 			list = sqlSession.selectList(NAMESPACE+"getViewList",map);
 		} catch (Exception e) {
+			//요 애러
 			logger.info(" [ Error : getViewList ] ");
 			e.printStackTrace();
 		}
