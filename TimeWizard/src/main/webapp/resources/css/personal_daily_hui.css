@@ -204,6 +204,7 @@ a.label:focus, a.label:hover {
  	width: 100%;
  	justify-content: center;
  	padding-top: 1rem;
+ 	padding-bottom: 0.5rem;
  }
  
 .date__status{
@@ -212,6 +213,10 @@ a.label:focus, a.label:hover {
 }
 .date__change {
 	justify-content: space-around;
+}
+
+.date__change:not(:last-child), .date {
+    padding-right: 0.2rem;
 }
 
 .date__change i {
@@ -268,13 +273,15 @@ a.label:focus, a.label:hover {
  * * * * * * * * * * */
  
  .todo__items {
- 	margin: 1rem 0.5rem;
+    margin: 1rem 0.5rem;
  }
 .todo__item {
-	width: inherit;
+	width: 90%;
 	display: flex;
 	height: 1.5rem;
 	justify-content: space-evenly;
+	margin: 0 auto;
+	padding-bottom: 0.2rem;
 }
 
 .checked__cell input[type=checkbox] {
