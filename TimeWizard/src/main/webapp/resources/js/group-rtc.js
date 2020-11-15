@@ -150,7 +150,7 @@ function uploadRecording(){
 	let overlay_div = document.createElement("div");
 	overlay_div.setAttribute("class","modal__overlay");
 	let delete_div = document.createElement("div");
-	delete_div.setAttribute("class","modal__delete");
+	delete_div.setAttribute("class","modal__upload");
 	let title_img = document.createElement("img");
 	title_img.setAttribute("class","img__caution");
 	title_img.setAttribute("src","/timewizard/image/logo_star_accent.svg");

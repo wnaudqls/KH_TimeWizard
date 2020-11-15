@@ -126,12 +126,21 @@ function showDailyList(date){
 					let item_div = document.createElement("div");
 					item_div.setAttribute("class","todo__item")
 					
-					let number_cell = document.createElement("div");
-					number_cell.setAttribute("class","cell number__cell");
-					let number_cell_span = document.createElement("span");
-					number_cell_span.setAttribute("class", "number");
-					number_cell_span.textContent = i + 1;
-					number_cell.appendChild(number_cell_span);
+//					let number_cell = document.createElement("div");
+//					number_cell.setAttribute("class","cell number__cell");
+					let checked_cell = document.createElement("div");
+					checked_cell.setAttribute("class","cell checked__cell");
+//					let number_cell_span = document.createElement("span");
+					let checked_cell_input = document.createElement("input");
+					checked_cell_input.setAttribute("type","checkbox");
+					checked_cell_input.setAttribute("readonly","readonly");
+					checked_cell.appendChild(checked_cell_input);
+					let checked_cell_fake = document.createElement("i");
+					checked_cell_fake.setAttribute("class",(items[i].todo_complete == 'Y')?"fas fa-check-square":"far fa-square");
+					checked_cell.appendChild(checked_cell_fake);
+//					number_cell_span.setAttribute("class", "number");
+//					number_cell_span.textContent = i + 1;
+//					number_cell.appendChild(number_cell_span);
 					
 					let category_cell = document.createElement("div");
 					category_cell.setAttribute("class","cell category__cell");
@@ -158,21 +167,22 @@ function showDailyList(date){
 					if (linkedUserNo == loginUserNo) {
 						stopwatch.setAttribute("onclick", "showPopupStopwatch("+items[i].todo_no+");");
 					}
-					let css = '.stopwatch_'+i+' { background-color: '+items[i].todo_color+';}'
-							+'.stopwatch_'+i+' .fas { color: white; }';
-					let style = document.createElement("style");						
-					if (style.styleSheet){
-						style.styleSheet.cssText = css;
+					let stopwatch_css = '.stopwatch_'+i+' { background-color: '+items[i].todo_color+';}'
+										+'.stopwatch_'+i+' .fas { color: white; }';
+					let stopwatch_style = document.createElement("style");						
+					if (stopwatch_style.styleSheet){
+						stopwatch_style.styleSheet.cssText = stopwatch_css;
 					} else {
-						style.appendChild(document.createTextNode(css));
+						stopwatch_style.appendChild(document.createTextNode(stopwatch_css));
 					}
-					document.getElementsByTagName('head')[0].appendChild(style);
+					document.getElementsByTagName('head')[0].appendChild(stopwatch_style);
 					let caret_right = document.createElement("i");
 					caret_right.setAttribute("class","fas fa-caret-right");
 					stopwatch.appendChild(caret_right);
 					stopwatch_cell.appendChild(stopwatch);
 					
-					item_div.appendChild(number_cell);
+//					item_div.appendChild(number_cell);
+					item_div.appendChild(checked_cell);
 					item_div.appendChild(category_cell);
 					item_div.appendChild(title_cell);
 					item_div.appendChild(stopwatch_cell);
@@ -678,8 +688,11 @@ function showDeleteConfirm(todo_no){
 	let delete_div = document.createElement("div");
 	delete_div.setAttribute("class","modal__delete");
 	
-	let message_p = document.createElement("p");
-	message_p.textContent = "정말 삭제하시겠습니까?\n(삭제한 todo는 복구할 수 없습니다.)";
+	let message_p1 = document.createElement("p");
+	message_p1.textContent = "정말 삭제하시겠습니까?";
+	
+	let message_p2 = document.createElement("p");
+	message_p2.textContent = "(삭제한 todo는 복구할 수 없습니다.)";
 	
 	let buttons_div = document.createElement("div");
 	buttons_div.setAttribute("class","buttons__cell")
@@ -698,7 +711,8 @@ function showDeleteConfirm(todo_no){
 	
 	buttons_div.appendChild(delete_button);
 	buttons_div.appendChild(cancel_button);
-	delete_div.appendChild(message_p);
+	delete_div.appendChild(message_p1);
+	delete_div.appendChild(message_p2);
 	delete_div.appendChild(buttons_div);
 	modalArea.appendChild(overlay_div);
 	modalArea.appendChild(delete_div);

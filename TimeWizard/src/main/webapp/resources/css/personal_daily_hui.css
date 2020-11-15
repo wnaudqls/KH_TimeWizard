@@ -281,9 +281,14 @@ a.label:focus, a.label:hover {
 	justify-content: space-evenly;
 }
 
-.number__cell {
-	
+.checked__cell input[type=checkbox] {
+	display:none;
 }
+.checked_cell input[type=checkbox] + i {
+	color: var(--dark-color);
+	size: 1rem;
+}
+
 .category__cell {
 	
 }
@@ -293,13 +298,12 @@ a.label:focus, a.label:hover {
 .title__cell p {
 	margin: 0;
 }
-.stopwatch__cell {
-	
-}
 
-button.stopwatch:hover .fas {
-	/* hover했을 때 기존에 설정했던 색상으로,
-	아닐 때는 personal_daily.js에서 설정한 색상으로 하고자 합니다... */
+.stopwatch:hover {
+	background-color: var(--light-color);
+}
+.stopwatch:hover i {
+	color: var(--dark-color);
 }
 
 .no__todo__cell {
@@ -311,42 +315,40 @@ button.stopwatch:hover .fas {
 /* * * * * * * * * * *
  *      1st modal    *
  * * * * * * * * * * */
- .modals__area{
- }
- .modal__overlay {
+ .modal__area:first-child > .modal__overlay {
 	width: 100%; 
 	height: 100%; 
 	top: 0; 
 	bottom: 0; 
 	right: 0; 
 	left: 0;
-    z-index: 1042;
+	z-index: 100;
     overflow: hidden;
     position: fixed;
     background: var(--dark-color);
     opacity: .8;
-      display: block;
-  justify-content: center;
-  align-items: center;
-  background-color: var(--dark-color);
-  padding:0;
+	display: block;
+	justify-content: center;
+	align-items: center;
+	background-color: var(--dark-color);
+	padding:0;
 }
  
  .modal__insert, .modal__detail {
-background-color: #FFF; 
-padding: 15px; 
-box-shadow: 0 0 8px rgba(0,0,0,0.6); 
-max-width: 500px; 
-width: 100%; 
-margin: auto; 
-position: fixed; 
-z-index: 1043; 
-left: 0; 
-right: 0; 
-top: 50%; 
-transform: translateY(-50%);
--webkit-transform: translateY(-50%);
--moz-transform: translateY(-50%);
+	background-color: #FFF; 
+	padding: 15px; 
+	box-shadow: 0 0 8px rgba(0,0,0,0.6); 
+	max-width: 500px; 
+	width: 100%; 
+	margin: auto; 
+	position: fixed; 
+	z-index: 110; 
+	left: 0; 
+	right: 0; 
+	top: 50%;
+	transform: translateY(-80%);
+	-webkit-transform: translateY(-80%);
+	-moz-transform: translateY(-80%);
 }
 
 /* * * * * * * * * * *
@@ -357,12 +359,91 @@ transform: translateY(-50%);
 /* * * * * * * * * * *
  *        insert     *
  * * * * * * * * * * */
- 
+.button_times {
+	position: absolute;
+    right: 6px;
+    top: 3px;
+    padding: 10px;
+}
+.button_times > input#todo_title{
+	
+}
+.todo__div {
+	margin-bottom: 0.5rem;	
+	display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    width: 100%;
+}
+.todo__subname {
+	
+}
+input[type=color]{
+	
+}
+.todo__textarea{
+	
+}
+.todo__div > input[type=checkbox] {
+	
+}
+.todo__div > input[type=time] {
+	height: 1rem;	
+}
+.todo__div > .tilde {
+	
+}
+
+.todo__div > .todo__block {
+	
+}
+.todo__editable {
+	
+}
+.todo__save {
+	
+}
  
 /* * * * * * * * * * *
  *      2nd modal    *
  * * * * * * * * * * */
-
+ 
+.modal__area:last-child > .modal__overlay {
+	width: 100%; 
+	height: 100%; 
+	top: 0; 
+	bottom: 0; 
+	right: 0; 
+	left: 0;
+    z-index: 200;
+    overflow: hidden;
+    position: fixed;
+    background: var(--dark-color);
+    opacity: .8;
+	display: block;
+	justify-content: center;
+	align-items: center;
+	background-color: var(--dark-color);
+	padding:0;
+}
+ .modal__delete, .modal__category {
+background-color: #FFF; 
+padding: 15px; 
+box-shadow: 0 0 8px rgba(0,0,0,0.6); 
+max-width: 500px; 
+width: 100%; 
+margin: auto; 
+position: fixed; 
+z-index: 210; 
+left: 0; 
+right: 0; 
+top: 50%; 
+transform: translateY(50%);
+-webkit-transform: translateY(50%);
+-moz-transform: translateY(50%);
+}
 
 
 /* * * * * * * * * * *

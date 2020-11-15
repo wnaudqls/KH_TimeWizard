@@ -78,7 +78,7 @@
   padding:0;
 }
  
- .modal__delete {
+ .modal__upload {
 background-color: #FFF; 
 padding: 15px; 
 box-shadow: 0 0 8px rgba(0,0,0,0.6); 
