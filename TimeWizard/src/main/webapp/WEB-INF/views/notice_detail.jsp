@@ -78,7 +78,7 @@
 </style>
 <script type="text/javascript">
 	
-	var user_id =${login.user_id};
+	var user_id ='${login.user_id}';
 	
 </script>
 </head>
