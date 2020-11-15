@@ -18,20 +18,12 @@
 <script type="text/javascript" src="/timewizard/js/personal_daily.js"></script>
 <script type="text/javascript" src="/timewizard/js/personal_daily-hashtag.js"></script>
 <script type="text/javascript" src="/timewizard/resources/js/sharekakao.js"></script>
-
-
 </head>
 <body>
 <%
 	UserInfoDto linked = (UserInfoDto) session.getAttribute("linked");
 	UserInfoDto login = (UserInfoDto) session.getAttribute("login");
 %>
-
-<button class="snssharebtn" id="kakao-link-btn" onclick="dailyLink()">daily share</button>
-<a id="download" download="tiwi_daily.JPG">
-<button class="snssharebtn" onClick="download()">Download</button>
-</a>
-
 	<div id="daily__part" style="background:gray;">
 		<div class="daily__area">
 			<div class="date__area">
