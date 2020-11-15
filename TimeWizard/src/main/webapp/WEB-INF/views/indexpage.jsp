@@ -18,6 +18,28 @@
 <body>
 
 	<div id="fullpage">
+	
+		<div class="section" id="p5">
+			<div class="p5container">
+				<div class="p5box" style="background-image: url(resources/image/indeximg5.jpg)">
+					<div class="contentbox"></div>
+					<div class="hoverbox"></div>
+				</div>
+				<div class="p5box" style="background-image: url(resources/image/indeximg6.jpg)">
+					<div class="contentbox"></div>
+					<div class="hoverbox"></div>
+				</div>
+				<div class="p5box" style="background-image: url(resources/image/indeximg8.jpg)">
+					<div class="contentbox"></div>
+					<div class="hoverbox"></div>
+				</div>
+				<div class="p5box" style="background-image: url(resources/image/indeximg7.jpg)">
+					<div class="contentbox"></div>
+					<div class="hoverbox"></div>
+				</div>
+			</div>
+		</div>
+		
 		<div class="section" id="p1">
 			<div class="textbox">
 				<span class="underline"><a>TIME WIZARD 1ST PLANNER</a></span>
@@ -37,8 +59,9 @@
 			</div>
 		</div>
 		
+		
 
-		<div class="section" id="p3"">
+		<div class="section" id="p3">
 			<div class="backimg" style="background-image:url(resources/image/bg2.jpg)"></div>
 			<p class="p3title">
 				TIWI STORY

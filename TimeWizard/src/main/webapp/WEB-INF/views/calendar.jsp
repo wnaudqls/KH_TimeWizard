@@ -7,8 +7,8 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.1.0/main.min.css">
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.1.0/main.min.js"></script>
-<link href='fullcalendar/main.css' rel='stylesheet' />
- <script src='fullcalendar/main.js'></script>
+<!-- <link href='fullcalendar/main.css' rel='stylesheet' />
+ <script src='fullcalendar/main.js'></script> -->
  <style type="text/css">
 
 body {
