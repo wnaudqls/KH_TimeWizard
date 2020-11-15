@@ -258,6 +258,12 @@ a.label:focus, a.label:hover {
  	background-color: var(--background-color);
  	color: var(--text-color);
  }
+ 
+/*  .share__down__btn {
+ text-align: right;
+ 	float: right;
+	display: flex;
+ } */
 
 
 /* * * * * * * * * * *
