@@ -209,7 +209,6 @@ function showDailyList(date){
 				insert_div.appendChild(plus);
 				list_div.appendChild(insert_div);
 			}
-			
 			showTimeblock(items);
 			
 		} else {
@@ -275,7 +274,7 @@ function showTimeblock(items){
 	} /* for i */
 	
 	let d3Data = {"todo":array};
-//	console.log(d3Data);
+	console.log(d3Data);
 	
 	// set the dimensions and margins of the graph (percent?)
 	let margin = {top: 30, right: 30, bottom: 30, left: 30},
