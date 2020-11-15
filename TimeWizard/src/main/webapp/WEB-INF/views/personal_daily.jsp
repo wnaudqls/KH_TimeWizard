@@ -26,7 +26,7 @@
 %>
 <button id="kakao-link-btn" onclick="dailyLink()">kakao share</button>
 <a id="download" download="daily_download.JPG">
-<button type="button" onClick="download()">daily download</button>
+<button id="downloadbtn" type="button" onClick="download()">daily download</button>
 </a>
 	<div id="daily__part" style="background:gray;">
 		<div class="daily__area">

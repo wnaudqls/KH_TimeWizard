@@ -34,14 +34,25 @@ function dailyLink(){
   ]
 });
 };
-
-/* html2canvas - 스크린샷 (daily__part 부분을 스크린샷 찍어야 하는데 안 됨) */
-html2canvas($("#con1")[0]).then(function(canvas) {
-	canvas.setAttribute("id", "mycanvas");
-	canvas.setAttribute("style", "display:none");
-	document.body.appendChild(canvas);
-	download();
+$(document).ready(function () {
+	screenshot();
+ 
 });
+/* html2canvas - 스크린샷 (daily__part 부분을 스크린샷 찍어야 하는데 안 됨) */
+
+function screenshot(){
+  document.getElementById("downloadbtn").style.display = "none";
+  setTimeout(() => {
+      html2canvas(document.getElementById("daily__part")).then(function(canvas) {
+      canvas.setAttribute("id", "mycanvas");
+      canvas.setAttribute("style", "display:none");
+      document.body.appendChild(canvas);
+      document.getElementById("downloadbtn").style.display = "";
+      download();
+    });
+  }, 1000);
+}
+
 
 /* html2canvas - div 영역 스크린샷 
 let area = document.getElementById("con1");
