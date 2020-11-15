@@ -66,7 +66,7 @@
 	bottom: 0; 
 	right: 0; 
 	left: 0;
-    z-index: 1042;
+    z-index: 100;
     overflow: hidden;
     position: fixed;
     background: var(--dark-color);
@@ -78,7 +78,7 @@
   padding:0;
 }
  
- .modal__upload {
+ .modal__delete {
 background-color: #FFF; 
 padding: 15px; 
 box-shadow: 0 0 8px rgba(0,0,0,0.6); 
@@ -86,7 +86,7 @@ max-width: 500px;
 width: 100%; 
 margin: auto; 
 position: fixed; 
-z-index: 1043; 
+z-index: 110; 
 left: 0; 
 right: 0; 
 top: 50%; 

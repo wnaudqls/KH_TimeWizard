@@ -394,7 +394,7 @@ function showInsertModal(date){
 	
 	let title_input = document.createElement("input");
 	title_input.setAttribute("type","text");
-	title_input.setAttribute("placeholder","todo 이름");
+	title_input.setAttribute("placeholder","제목");
 	title_input.setAttribute("name","todo_title");
 	title_input.setAttribute("id","todo_title");
 	
@@ -412,7 +412,7 @@ function showInsertModal(date){
 	let content_textarea = document.createElement("textarea");
 	content_textarea.setAttribute("class","todo__textarea");
 	content_textarea.setAttribute("name","todo_content");
-	content_textarea.setAttribute("placeholder","todo 상세 설명");
+	content_textarea.setAttribute("placeholder","메모");
 	
 	let category_div = document.createElement("div");
 	category_div.setAttribute("class","todo__div");
@@ -458,11 +458,14 @@ function showInsertModal(date){
 	let time_namespan = document.createElement("span");
 	time_namespan.setAttribute("class","todo__subname");
 	time_namespan.textContent = "완료 여부";
+	
+	let time_subdiv = document.createElement("div");
+	time_subdiv.setAttribute("class","todo__time__div");
+	
 	let time_checkbox = document.createElement("input");
 	time_checkbox.setAttribute("type","checkbox");
 	time_checkbox.setAttribute("name","todo_complete");
 	time_checkbox.setAttribute("value","N");
-	
 	let starttime = document.createElement("input");
 	starttime.setAttribute("type","time");
 	starttime.setAttribute("name","todo_starttime");
@@ -476,10 +479,11 @@ function showInsertModal(date){
 	endtime.setAttribute("disabled",true);
 	
 	time_div.appendChild(time_namespan);
-	time_div.appendChild(time_checkbox);
-	time_div.appendChild(starttime);
-	time_div.appendChild(between_span);
-	time_div.appendChild(endtime);
+	time_subdiv.appendChild(time_checkbox);
+	time_subdiv.appendChild(starttime);
+	time_subdiv.appendChild(between_span);
+	time_subdiv.appendChild(endtime);
+	time_div.appendChild(time_subdiv);
 	
 	let submit_button = document.createElement("button");
 	submit_button.setAttribute("class","todo__save");
@@ -683,7 +687,7 @@ function showDeleteConfirm(todo_no){
 	
 	let overlay_div = document.createElement("div");
 	overlay_div.setAttribute("class","modal__overlay");
-	overlay_div.setAttribute("onclick","closeFirstModal();")
+	overlay_div.setAttribute("onclick","closeSecondModal();")
 	
 	let delete_div = document.createElement("div");
 	delete_div.setAttribute("class","modal__delete");
@@ -695,7 +699,7 @@ function showDeleteConfirm(todo_no){
 	message_p2.textContent = "(삭제한 todo는 복구할 수 없습니다.)";
 	
 	let buttons_div = document.createElement("div");
-	buttons_div.setAttribute("class","buttons__cell")
+	buttons_div.setAttribute("class","buttons__div")
 		
 	let delete_button = document.createElement("button");
 	delete_button.setAttribute("type","button");
@@ -752,12 +756,10 @@ function showDetailModal(todo_no){
 				let detail_div = document.createElement("div");
 				detail_div.setAttribute("class","modal__detail");
 				
-				
 				let form = document.createElement("form");
 				form.setAttribute("action","");
 				form.setAttribute("method","post");
 				form.setAttribute("id","update__form");
-				
 				
 				let close_button = document.createElement("button");
 				close_button.setAttribute("type","button");
@@ -768,20 +770,9 @@ function showDetailModal(todo_no){
 				close_button.appendChild(times);
 				form.appendChild(close_button);
 				
-				
-				if (linkedUserNo == loginUserNo) {
-					let delete_button = document.createElement("button");
-					delete_button.setAttribute("type","button");
-					delete_button.setAttribute("class","button__delete");
-					delete_button.textContent = "삭제하기";
-					delete_button.setAttribute("onclick","showDeleteConfirm("+ item.todo_no +");");
-					form.appendChild(delete_button);
-				}
-				
-				
 				let title_input = document.createElement("input");
 				title_input.setAttribute("type","text");
-				title_input.setAttribute("placeholder","todo 이름");
+				title_input.setAttribute("placeholder","제목");
 				title_input.setAttribute("name","todo_title");
 				title_input.setAttribute("id","todo_title");
 				title_input.setAttribute("value",item.todo_title);
@@ -805,7 +796,7 @@ function showDetailModal(todo_no){
 				let content_textarea = document.createElement("textarea");
 				content_textarea.setAttribute("class","todo__textarea");
 				content_textarea.setAttribute("name","todo_content");
-				content_textarea.setAttribute("placeholder","todo 상세 설명");
+				content_textarea.setAttribute("placeholder","메모");
 				content_textarea.textContent = item.todo_content;
 				form.appendChild(content_textarea);
 				
@@ -859,12 +850,15 @@ function showDetailModal(todo_no){
 				hashtag_div.appendChild(hashtag_editablediv);
 				form.appendChild(hashtag_div);
 
-				
 				let time_div = document.createElement("div");
 				time_div.setAttribute("class","todo__div");
 				let time_namespan = document.createElement("span");
 				time_namespan.setAttribute("class","todo__subname");
 				time_namespan.textContent = "완료 여부";
+				
+				let time_subdiv = document.createElement("div");
+				time_subdiv.setAttribute("class","todo__time__div");
+				
 				let time_checkbox = document.createElement("input");
 				time_checkbox.setAttribute("type","checkbox");
 				time_checkbox.setAttribute("name","todo_complete");
@@ -884,13 +878,14 @@ function showDetailModal(todo_no){
 				endtime.setAttribute("name","todo_endtime");
 				endtime.disabled = (item.todo_complete == 'Y')?false:true;
 				endtime.setAttribute("value", (item.todo_endtime == "" || item.todo_endtime == undefined) ? "" : item.todo_endtime.split(" ")[1]);
-				time_div.appendChild(time_namespan);
-				time_div.appendChild(time_checkbox);
-				time_div.appendChild(starttime);
-				time_div.appendChild(between_span);
-				time_div.appendChild(endtime);
-				form.appendChild(time_div);
 				
+				time_div.appendChild(time_namespan);
+				time_subdiv.appendChild(time_checkbox);
+				time_subdiv.appendChild(starttime);
+				time_subdiv.appendChild(between_span);
+				time_subdiv.appendChild(endtime);
+				time_div.appendChild(time_subdiv);
+				form.appendChild(time_div);
 				
 				let date_div = document.createElement("div");
 				date_div.setAttribute("class","todo__div");
@@ -907,12 +902,22 @@ function showDetailModal(todo_no){
 				
 				
 				if (linkedUserNo == loginUserNo) {
+					let buttons_div = document.createElement("div");
+					buttons_div.setAttribute("class","buttons__div");
 					let submit_button = document.createElement("button");
 					submit_button.setAttribute("class","todo__save");
 					submit_button.setAttribute("type","button");
 					submit_button.textContent = "저장";
 					submit_button.setAttribute("onclick","submitUpdateModal("+item.todo_no+");");
-					form.appendChild(submit_button);
+					buttons_div.appendChild(submit_button);
+					
+					let delete_button = document.createElement("button");
+					delete_button.setAttribute("type","button");
+					delete_button.setAttribute("class","button__delete");
+					delete_button.textContent = "삭제하기";
+					delete_button.setAttribute("onclick","showDeleteConfirm("+ item.todo_no +");");
+					buttons_div.appendChild(delete_button);
+					form.appendChild(buttons_div);
 				}
 				
 				detail_div.appendChild(form);

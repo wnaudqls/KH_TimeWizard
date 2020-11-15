@@ -31,7 +31,8 @@ public class LoginNaverVO {
 	private final static String CLIENT_ID = "4iXT347PPGkmH6OSJkN2";
 	private final static String CLIENT_SECRET = "gOJT6tWDgW";
 //	private final static String REDIRECT_URI = "http://localhost:8787/timewizard/login/navercallback";
-	private final static String REDIRECT_URI = "https://localhost:8443/timewizard/login/navercallback";
+//	private final static String REDIRECT_URI = "https://localhost:8443/timewizard/login/navercallback";
+	private final static String REDIRECT_URI = "https://qclass.iptime.org:8443/timewizard/login/navercallback";
 	private final static String SESSION_STATE = "oauth_state_n";
 	// 프로필 조회 API URL
 	private final static String PROFILE_API_URL = "https://openapi.naver.com/v1/nid/me";
