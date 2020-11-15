@@ -159,7 +159,7 @@ a {
 }
 
 #p5 {
-	background-color: var(--background-color);
+	display: flex;
 }
 
 .p5container {
@@ -167,32 +167,68 @@ a {
 	justify-content: space-between;
 	width: 90%;
 	margin-left: 5%;
+	margin-top: 25vh;
 }
 
 .p5box {
 	width: 20%;
 	height: 50vh;
 	border-radius: 10px;
-	background-size: cover;
+	background-size: 100%;
 	background-repeat: no-repeat;
+	cursor: pointer;
+	transition: 0.4s;
+	transform: scale(1);
+	-webkit-transform: scale(1);
+	-moz-transform: scale(1);
+	-ms-transform: scale(1);
+	-o-transform: scale(1);
 }
 
 .p5box:hover {
-	opacity: 50%;
+	transform: scale(1.2);
+	-webkit-transform: scale(1.2);
+	-moz-transform: scale(1.2);
+	-ms-transform: scale(1.2);
+	-o-transform: scale(1.2);
 }
 
 .contentbox {
-	margin-top: 25vh;
-	width: 30%;
+	margin-top: 35vh;
+	width: 40%;
 	height: 5vh;
 	background-color: var(--accent-color);
+	color: var(--color);
+	transition: 0.4s;
 }
 
 .hoverbox {
 	width: 100%;
-	height: 20vh;
+	height: 10vh;
 	background-color: white;
 	border-radius: 0px 0px 10px 10px;
+	text-align: center;
+	transition: 0.4s;
+}
+
+.hovertitle {
+	font-size: 18px;
+}
+
+.hovertext {
+	width: 100%;
+	height: 0vh;
+	overflow: hidden;
+	transition: 0.4s;
+	font-size: 12px;
+}
+
+.hovertext p {
+	padding: 4px;
+}
+
+.hoverbox p {
+	font-size: 12px;
 }
 
 .backimg {
