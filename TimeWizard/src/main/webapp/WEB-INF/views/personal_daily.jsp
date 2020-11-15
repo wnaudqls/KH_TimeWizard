@@ -12,12 +12,11 @@
 <!-- <link rel="stylesheet" href="/timewizard/css/personal_daily.css"> -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <link rel="stylesheet" href="/timewizard/css/personal_daily_hui.css">
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 <script src="https://d3js.org/d3.v5.min.js"></script>
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 <script type="text/javascript" src="/timewizard/js/personal_daily.js"></script>
 <script type="text/javascript" src="/timewizard/js/personal_daily-hashtag.js"></script>
-<script type="text/javascript" src="/timewizard/resources/js/sharekakao.js"></script>
 </head>
 <body>
 <%
@@ -28,7 +27,7 @@
 <a id="download" download="daily_download.JPG">
 <button id="downloadbtn" type="button" onClick="download()">daily download</button>
 </a>
-	<div id="daily__part" style="background:gray;">
+	<div id="daily__part">
 		<div class="daily__area">
 			<div class="date__area">
 				<div class="date__status">
@@ -61,5 +60,7 @@
 	let linkedUserNo = <%=linked.getUser_no()%>;
 	const loginUserNo = <%=login.getUser_no()%>;
 	</script>
+
+<script type="text/javascript" src="/timewizard/js/sharekakao.js"></script>
 </body>
 </html>
