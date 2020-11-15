@@ -23,10 +23,6 @@
 	UserInfoDto linked = (UserInfoDto) session.getAttribute("linked");
 	UserInfoDto login = (UserInfoDto) session.getAttribute("login");
 %>
-<button id="kakao-link-btn" onclick="dailyLink()">kakao share</button>
-<a id="download" download="daily_download.JPG">
-<button id="downloadbtn" type="button" onClick="download()">daily download</button>
-</a>
 	<div id="daily__part">
 		<div class="daily__area">
 			<div class="date__area">
@@ -37,6 +33,12 @@
 					<div class="date date__day">일</div>
 					<div class="date__change"><i class="far fa-caret-square-right"></i></div>
 					<div class="date__change"><i class="fas fa-caret-square-right"></i></div>
+				</div>
+				<div class="share__down__btn" align="right">
+					<button id="kakao-link-btn" type="button" onclick="dailyLink()">kakao share</button>
+					<a id="download" download="daily_download.JPG">
+					<button id="downloadbtn" type="button" onClick="download()">daily download</button>
+					</a>
 				</div>
 			</div>
 			<div class="contents__area">
