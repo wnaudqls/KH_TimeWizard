@@ -1,6 +1,18 @@
 @charset "UTF-8";
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap');
 
+#box1 {
+	width: 400px;
+	height: 300px;
+	border-style: solid;
+	border-width: 2px;
+}
+
+canvas {
+	max-width: 100%;
+	max-height: 100%;
+}
+
 :root {
     --text-color: #f0f4f5;
     --background-color: #263343;

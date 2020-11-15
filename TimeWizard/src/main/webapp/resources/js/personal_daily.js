@@ -209,7 +209,6 @@ function showDailyList(date){
 				insert_div.appendChild(plus);
 				list_div.appendChild(insert_div);
 			}
-			
 			showTimeblock(items);
 			
 		} else {

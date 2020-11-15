@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.minibean.timewizard.model.dao.FriendDao;
 import com.minibean.timewizard.model.dto.FriendDto;
+import com.minibean.timewizard.model.dto.UserInfoDto;
 
 @Service
 public class FriendBizImpl implements FriendBiz {
@@ -72,13 +73,13 @@ public class FriendBizImpl implements FriendBiz {
 	}
 
 	@Override
-	public List<FriendDto> searchList(FriendDto dto) {
+	public List<UserInfoDto> searchList(UserInfoDto dto) {
 		// TODO Auto-generated method stub
 		return friendDao.searchList(dto);
 	}
 
 	@Override
-	public List<FriendDto> searchListN(FriendDto dto) {
+	public List<UserInfoDto> searchListN(UserInfoDto dto) {
 		// TODO Auto-generated method stub
 		return friendDao.searchListN(dto);
 	}

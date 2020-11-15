@@ -1,5 +1,7 @@
 package com.minibean.timewizard.controller;
 
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +21,7 @@ import com.minibean.timewizard.model.biz.CalendarBiz;
 import com.minibean.timewizard.model.biz.UserInfoBiz;
 import com.minibean.timewizard.model.dto.CalendarDto;
 import com.minibean.timewizard.model.dto.UserInfoDto;
+import com.minibean.timewizard.utils.calendar.CalendarUtils;
 
 @Controller
 public class MainController {
@@ -28,7 +31,7 @@ public class MainController {
 	private Logger logger = LoggerFactory.getLogger(MainController.class);
 	
 	@Autowired
-	private CalendarBiz calendarBiz;
+	private CalendarBiz calBiz;
 	
 	@RequestMapping(value="/")
 	public String index() {
@@ -118,7 +121,7 @@ public class MainController {
 	}
 	
 	@RequestMapping(value="/main")
-	public String PlainMain(HttpSession session) {
+	public String PlainMain(HttpSession session , Model model) {
 		logger.info(">> [CONTROLLER-MAIN] move to main page");
 //		return "finalactionpage";
 		UserInfoDto dto = (UserInfoDto) session.getAttribute("login");
@@ -126,15 +129,43 @@ public class MainController {
 		String user_distinct = dto.getUser_distinct();
 		session.setAttribute("linked", dto);
 		logger.info("* URI : /timewizard/user/" + user_distinct);
-		return "redirect:./user/"+user_distinct;
+	
+			
+			return "redirect:./user/"+user_distinct;
+		 	
 	}
 	
 	@RequestMapping(value="/user/{user_distinct}")
-	public String Main(@PathVariable String user_distinct, HttpSession session) {
+	public String Main(@PathVariable String user_distinct, HttpSession session,Model model) {
 		logger.info(">> [CONTROLLER-MAIN] move to (personal) page");
-		
 		UserInfoDto linked = userInfoBiz.selectOne(user_distinct);
+		int user_no =linked.getUser_no();
+		logger.info(" User_no : " +user_no);
 		session.setAttribute("linked", linked);
+		
+		
+		List<CalendarDto> clist = new ArrayList<CalendarDto>();
+	
+		Calendar cal = Calendar.getInstance();
+		
+		
+		//logger.info(" sddsd: "+cal.get(Calendar.YEAR));
+		int mm = cal.get(Calendar.MONTH)+1;
+		int yyyy = cal.get(Calendar.YEAR);
+		int dd = cal.get(Calendar.DATE);
+		
+
+		
+		String yyyyMMdd = (yyyy+""+mm+""+dd);
+		
+		logger.info(" caldate : "+cal.get(Calendar.DATE));
+		logger.info(" yyyyMMdd : "+yyyyMMdd);
+	
+		clist = calBiz.getCalList(user_no, yyyyMMdd);
+		
+		model.addAttribute("clist", clist);
+		
+		
 		return "finalactionpage";
 	}
 	
@@ -142,12 +173,6 @@ public class MainController {
 	public String tiwiMap(Model model) {
 		
 		return "tiwimap";
-	}
-	
-	@RequestMapping(value = "/kakaomes", method = RequestMethod.GET)
-	public String kakaoShare(Model model) {
-		
-		return "kakaoshare";
 	}
 
 	@RequestMapping(value = "/socketTest", method = RequestMethod.GET)
