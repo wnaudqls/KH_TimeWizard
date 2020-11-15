@@ -72,7 +72,7 @@
 	let linkedUserNo = <%=linked.getUser_no()%>;
 	const loginUserNo = <%=login.getUser_no()%>;
 
-
+	
 	window.addEventListener("DOMContentLoaded",()=>{
 		// SDK를 초기화 합니다. 사용할 앱의 JavaScript 키를 설정해 주세요.
 		Kakao.init('f78bdb18545b23a910d70eec2950b2b7');

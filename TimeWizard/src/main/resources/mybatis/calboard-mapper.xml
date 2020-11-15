@@ -12,7 +12,7 @@
 	 	SELECT CAL_NO,USER_NO , CAL_TITLE, CAL_CONTENT, CAL_MDATE, CAL_REGDATE
 				FROM CALBOARD 
 				WHERE USER_NO = #{user_no} 
-				AND SUBSTR(CAL_MDATE,1,8) = #{cal_mdate}
+				AND SUBSTR(CAL_MDATE,1,8) = #{yyyyMMdd}
 				
 	</select>
 	
