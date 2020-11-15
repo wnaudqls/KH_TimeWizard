@@ -24,6 +24,10 @@
 	UserInfoDto linked = (UserInfoDto) session.getAttribute("linked");
 	UserInfoDto login = (UserInfoDto) session.getAttribute("login");
 %>
+<button id="kakao-link-btn" onclick="dailyLink()">kakao share</button>
+<a id="download" download="daily_download.JPG">
+<button type="button" onClick="download()">daily download</button>
+</a>
 	<div id="daily__part" style="background:gray;">
 		<div class="daily__area">
 			<div class="date__area">
