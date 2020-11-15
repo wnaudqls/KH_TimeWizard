@@ -34,7 +34,46 @@ function dailyLink(){
   ]
 });
 };
+$(document).ready(function () {
+	screenshot();
+ 
+});
+/* html2canvas - 스크린샷 (daily__part 부분을 스크린샷 찍어야 하는데 안 됨) */
 
+function screenshot(){
+  document.getElementById("downloadbtn").style.display = "none";
+  setTimeout(() => {
+      html2canvas(document.getElementById("daily__part")).then(function(canvas) {
+      canvas.setAttribute("id", "mycanvas");
+      canvas.setAttribute("style", "display:none");
+      document.body.appendChild(canvas);
+      document.getElementById("downloadbtn").style.display = "";
+      download();
+    });
+  }, 1000);
+}
+
+
+/* html2canvas - div 영역 스크린샷 
+let area = document.getElementById("con1");
+html2canvas(document.querySelector("#daily__part")).then(function(canvas) {
+	canvas.setAttribute("id", "mycanvas");
+	canvas.setAttribute("style", "display:none");
+	document.body.appendChild(canvas);
+	download();
+});*/
+
+/* 이미지 다운로드 */
+function download() {
+	var image = document.getElementById("mycanvas")
+						.toDataURL("image/png")
+						.replace("image/png", "image/octet-stream");
+	var download = document.getElementById("download")
+							.setAttribute("href", image);
+							
+};
+/*
+=======
 $(function(){
 $("#shot").on("click", function(){
 // 캡쳐 라이브러리를 통해서 canvas 오브젝트를 받고 이미지 파일로 리턴한다.
@@ -56,3 +95,4 @@ window.open(uri);
 }
 }
 });
+*/
