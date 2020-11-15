@@ -161,9 +161,7 @@ public class MainController {
 		logger.info(" caldate : "+cal.get(Calendar.DATE));
 		logger.info(" yyyyMMdd : "+yyyyMMdd);
 	
-		
-		
-		clist = calBiz.getViewList(user_no, yyyyMMdd);
+		clist = calBiz.getCalList(user_no, yyyyMMdd);
 		
 		model.addAttribute("clist", clist);
 		
