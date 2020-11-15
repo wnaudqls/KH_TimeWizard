@@ -77,7 +77,8 @@ function selectList(user_no){
 					let title_cell = document.createElement("div");
 					title_cell.setAttribute("class","cell title__cell");
 					let title = document.createElement("p");
-					title.textContent = files[i].file_regdate;
+					let temp = new Date(files[i].file_regdate);
+					title.textContent = temp.toISOString().slice(0,16).replace('T',' ');
 					/* 형식 체크하기 */
 					title_cell.appendChild(title);
 					
