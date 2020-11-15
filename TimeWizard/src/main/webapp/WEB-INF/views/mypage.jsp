@@ -16,7 +16,6 @@
 <link href="/timewizard/css/actionpage.css" rel="stylesheet">
 <script src="https://kit.fontawesome.com/3049a69bf8.js" crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
-<script type="text/javascript" src="/timewizard/js/file_upload.js"></script>
 <script type="text/javascript">
 
 const elImage = document.querySelector("#reviewImageFileOpenInput");
@@ -81,7 +80,6 @@ function pay(e){
 			<div class="preview">
 				<img id="frame" src="/timewizard/resources/image/<%=user_photo %>" />
 			</div>
-			<div class="profileinfo"></div>
 			<form:form method="post" enctype="multipart/form-data" modelAttribute="UserInfoDto" action="profileupload">
 				<label><input type="file" name="file" class="mypagebtn" accept="image/*" id="image" name="user_photo" /></label>
 				<input type="hidden" name="user_no" value="<%=user_no%>" />

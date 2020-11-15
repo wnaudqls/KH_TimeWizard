@@ -10,7 +10,7 @@ function dailyLink(){
   objectType: 'feed',
   content: {
     title: 'Time Wizard Daily',
-    description: '당신의 히트맵입니다!',
+    description: 'Time Wizard가 시간관리를 도와드립니다!',
     imageUrl:
       'https://cdn.pixabay.com/photo/2016/06/01/06/26/open-book-1428428_1280.jpg',
     link: {
@@ -35,17 +35,17 @@ function dailyLink(){
 });
 };
 
-/* html2canvas - div 영역이 아닌 전체화면 스크린샷 */
-let area = document.getElementById("con1");
-html2canvas($("#daily__area")[0]).then(function(canvas) {
+/* html2canvas - 스크린샷 (daily__part 부분을 스크린샷 찍어야 하는데 안 됨) */
+html2canvas($("#con1")[0]).then(function(canvas) {
 	canvas.setAttribute("id", "mycanvas");
 	canvas.setAttribute("style", "display:none");
 	document.body.appendChild(canvas);
 	download();
 });
 
-/* html2canvas - div 영역 스크린샷 */
-/*html2canvas(document.querySelector("#daily__part")).then(function(canvas) {
+/* html2canvas - div 영역 스크린샷 
+let area = document.getElementById("con1");
+html2canvas(document.querySelector("#daily__part")).then(function(canvas) {
 	canvas.setAttribute("id", "mycanvas");
 	canvas.setAttribute("style", "display:none");
 	document.body.appendChild(canvas);
