@@ -19,21 +19,17 @@
 <meta charset="UTF-8">
 
 <title>Insert title here</title>
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.1.0/main.min.css">
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.1.0/main.min.js"></script>
  <style type="text/css">
-=======
-=======
+
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.1.0/main.min.css">
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.1.0/main.min.js"></script>
 <!-- <link href='fullcalendar/main.css' rel='stylesheet' />
  <script src='fullcalendar/main.js'></script> -->
  <style type="text/css">
-
->>>>>>> bf533e0f6bf9d87fb975d1fe47dc6d8bbfa482c8
 
 <script src="https://kit.fontawesome.com/3049a69bf8.js" crossorigin="anonymous"></script>
 <style type="text/css">
@@ -74,10 +70,6 @@
 		border-radius:40px 40px 40px 1px;
 	}
 
-<<<<<<< HEAD
->>>>>>> main
-=======
->>>>>>> bf533e0f6bf9d87fb975d1fe47dc6d8bbfa482c8
 
 body {
 	margin: 40px 10px;
