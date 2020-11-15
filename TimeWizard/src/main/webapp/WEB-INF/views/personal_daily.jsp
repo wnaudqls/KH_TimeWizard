@@ -24,7 +24,6 @@
 	UserInfoDto linked = (UserInfoDto) session.getAttribute("linked");
 	UserInfoDto login = (UserInfoDto) session.getAttribute("login");
 %>
-
 	<div id="daily__part" style="background:gray;">
 		<div class="daily__area">
 			<div class="date__area">
