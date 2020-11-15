@@ -29,5 +29,8 @@
 		<mapper resource="/mybatis/reply-mapper.xml"/>
 		<mapper resource="/mybatis/pay-mapper.xml"/>
 		<mapper resource="/mybatis/file_upload-mapper.xml"/>
+		<mapper resource="/mybatis/calboard-mapper.xml"/>
+		
+		
 	</mappers>
 </configuration>

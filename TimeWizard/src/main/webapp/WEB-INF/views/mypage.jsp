@@ -3,6 +3,12 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<!-- 로그아웃 후 뒤로가기 금지 -->
+<% response.setHeader("Pragma", "no-cache"); 
+	response.setHeader("Cache-Control", "no-cache"); 
+	response.setHeader("Cache-Control", "no-store"); 
+	response.setDateHeader("Expires", 0L); 
+%>
 <!DOCTYPE>
 <html>
 <head>

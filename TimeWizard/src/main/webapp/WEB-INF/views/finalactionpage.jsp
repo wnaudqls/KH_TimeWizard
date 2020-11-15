@@ -2,6 +2,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!-- 로그아웃 후 뒤로가기 금지 -->
+<% response.setHeader("Pragma", "no-cache"); 
+	response.setHeader("Cache-Control", "no-cache"); 
+	response.setHeader("Cache-Control", "no-store"); 
+	response.setDateHeader("Expires", 0L); 
+%>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,8 +48,8 @@
 				</div>
 				<div id="con2" class="content">
 					<jsp:include page="/WEB-INF/views/personal_weekmonth.jsp" flush="true"></jsp:include>
-					<%-- <jsp:include page="/WEB-INF/views/calendar_b.jsp" flush="true"></jsp:include> --%>
 					<jsp:include page="/WEB-INF/views/calendar.jsp" flush="true"></jsp:include>
+					
 				</div>
 			</div>
 		</div>
