@@ -276,12 +276,10 @@ function showTimeblock(items){
 	let d3Data = {"todo":array};
 	console.log(d3Data);
 	
-	// set the dimensions and margins of the graph (percent?)
 	let margin = {top: 30, right: 30, bottom: 30, left: 30},
 	width = heatmap_area.clientWidth,
 	height = heatmap_area.clientHeight;
 
-	// append the svg object to the body of the page
 	let svg = d3.select("#heatmap")
 		.append("svg")
 		.attr("width", width)
@@ -293,8 +291,6 @@ function showTimeblock(items){
 		.attr("transform", "translate(" + 10 + "," + margin.top + ")");
 
 	let minutes = ["00","10","20","30","40","50"]; // x axis
-//	let hours = ["00","01","02","03", "04","05","06","07","08","09","10","11","12",
-//				"13","14","15","16","17","18","19","20","21","22","23","23"]; // y axis
 	let hours = ["23","22","21","20","19","18","17","16","15","14","13","12",
 				"11","10","09","08","07","06","05","04","03","02","01", "00"]; // y axis
 
@@ -326,35 +322,13 @@ function showTimeblock(items){
 	 d3.select("#g").append("g").attr("transform","translate(0,-15)").call(customXAxis);
 	 d3.select("#g").append("g").call(customYAxis);
 	 function customXAxis(g) {g.call(xAxis); g.select(".domain").remove();}
-	 function customYAxis(g) {g.call(yAxis); g.select(".domain").remove();
-	 d3.select("#g").selectAll(".tick:not(:first-of-type) line")
-	 .attr("stroke", "#777")
-	 .attr("stroke-dasharray", "2,2");
-	 d3.select("#g").selectAll(".tick text").attr("x", 4).attr("dy", -4);
+	 function customYAxis(g) {
+		 g.call(yAxis); g.select(".domain").remove();
+		 g.selectAll(".tick:not(:first-of-type) line")
+		 .attr("stroke", "#777")
+		 .attr("stroke-dasharray", "2,2");
+		 g.selectAll(".tick text").attr("x", 4).attr("dy", -4);
 	 }
-	// create a tooltip
-	var tooltip = d3.select("#tooltip__area")
-		.append("div")
-		.style("opacity", 0)
-		.attr("class", "tooltip")
-		.style("background-color", "white")
-		.style("border", "solid")
-		.style("border-width", "2px")
-		.style("border-radius", "5px")
-		.style("padding", "5px");
-	
-	// Three function that change the tooltip when user hover / move / leave a cell
-	var mouseover = function(d) {
-		tooltip.style("opacity", 1)
-	}
-	var mousemove = function(d) {
-		tooltip.html(d.daily)
-			.style("left", (d3.mouse(this)[0]+70) + "px")
-			.style("top", (d3.mouse(this)[1]) + "px")
-	}
-	var mouseleave = function(d) {
-		tooltip.style("opacity", 0)
-	}
 	
 	// add the squares
 	svg.selectAll()
@@ -367,10 +341,7 @@ function showTimeblock(items){
 		.attr("height", y.bandwidth() )
 		.style("opacity", function(d) { return d.fill/10 })
 		.style("fill", function(d) { return d.color } )
-		.attr("transform","translate(40,-12)")
-		.on("mouseover", mouseover)
-		.on("mousemove", mousemove)
-		.on("mouseleave", mouseleave);
+		.attr("transform","translate(40,-12)");
 
 }
 
