@@ -79,20 +79,23 @@ public class ReplyController {
 		return "";
 	}
 	
-	@RequestMapping(value="/updatereply/",method = RequestMethod.POST)
-	public String updateReply(ReplyDto dto) {
+	@RequestMapping(value="/updatereply",method = RequestMethod.POST)
+	public boolean updateReply(@RequestBody ReplyDto dto) {
 		logger.info("< Update Reply> ");
 		int res = 0;
+		logger.info("\n댓글내용: {}\n댓글번호: {}",dto.getReply_content(), dto.getReply_no());
 		
-		res =replyBiz.updateReply(dto);
+		res = replyBiz.updateReply(dto);
 		
 		if(res>0) {
-			logger.info(" < Update Complete");
-			
+			logger.info(" < 댓글 수정 성공 >");
+			return true;
+		}else {
+			logger.info(" < 댓글 수정 실패 >");
+			return false;
 		}
-		return null;
-		
 			
+	
 	}	
 
 }
