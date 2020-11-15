@@ -245,7 +245,7 @@ function showTimeblock(items){
 		let enddate = new Date(item.todo_endtime);
 		let ceildate = new Date(Math.ceil(enddate.getTime() / standard) * standard);
 		let time = new Time();
-		time.setTime(startdate);
+		time.setTime(floordate);
 		let values = (ceildate - floordate)/ standard; // nn개/10분
 		
 		let originalData = {
@@ -275,104 +275,103 @@ function showTimeblock(items){
 	} /* for i */
 	
 	let d3Data = {"todo":array};
-//	console.log(d3Data);
+	console.log(d3Data);
 	
 	// set the dimensions and margins of the graph (percent?)
 	let margin = {top: 30, right: 30, bottom: 30, left: 30},
 	width = heatmap_area.clientWidth,
-	height = heatmap_area.clientHeight - margin.bottom - margin.top;
+	height = heatmap_area.clientHeight;
 
 	// append the svg object to the body of the page
 	let svg = d3.select("#heatmap")
 		.append("svg")
-		.attr("width", width + margin.left + margin.right)
-		.attr("height", height + margin.top + margin.bottom)
+		.attr("width", width)
+		.attr("height", height)
 		.attr("preserveAspectRatio","xMinYMin")
 		.attr("viewBox","0 0 " + Math.min(width, height) + " " + Math.min(width, height))
 		.append("g")
-		.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+		.attr("id","g")
+		.attr("transform", "translate(" + 10 + "," + margin.top + ")");
 
 	let minutes = ["00","10","20","30","40","50"]; // x axis
-	let hours = ["00","01","02","03", "04","05","06","07","08","09","10","11","12",
-				"13","14","15","16","17","18","19","20","21","22","23","23"]; // y axis
+//	let hours = ["00","01","02","03", "04","05","06","07","08","09","10","11","12",
+//				"13","14","15","16","17","18","19","20","21","22","23","23"]; // y axis
+	let hours = ["23","22","21","20","19","18","17","16","15","14","13","12",
+				"11","10","09","08","07","06","05","04","03","02","01", "00"]; // y axis
 
 	let x = d3.scaleBand()
 		.domain(minutes)
-		.range([ 0, width ])
+		.range([ 0, width - margin.right - margin.left ])
 		.padding(0.01);
 	let y = d3.scaleBand()
 		.domain(hours)
-		.range([ height, 0 ])
+		.range([ height - margin.top - margin.bottom, 0 ])
 		.padding(0.01);
-	/*
-	 * let xAxis = d3.axisBottom(x)
-	 * .ticks(d3.timeYear);
-	 * let yAxis = d3.axisRight(y)
-	 * .tickSize(width)
-	 * .tickFormat(function(d) {
-	 * var s = formatNumber(d / 1e6);
-	 * return this.parentNode.nextSibling?"\xa0"+s:"$"+s +" million";
-	 * });
-	 * g.append("g").attr("transform","translate(0,"+hegiht+")").call(customXAxis);
-	 * g.append("g").call(customYAxis);
-	 * function customXAxis(g) {g.call(xAxis); g.select(".domain").remove();}
-	 * function customYAxis(g) {g.call(yAxis); g.select(".domain").remove();
-	 * g.selectAll(".tick:not(:first-of-type) line")
-	 * .attr("stroke", "#777")
-	 * .attr("stroke-dasharray", "2,2");
-	 * g.selectAll(".tick text").attr("x", 4).attr("dy", -4);
-	 * }
-	 */
 	
-	svg.append("g")
-		.call(d3.axisBottom(x))
-		.attr("transform", "translate(0," + height + ")");
-	svg.append("g")
-		.call(d3.axisLeft(y));
-
-	// Build color scale
-	var myColor = d3.scaleLinear()
-		.range(["white", "#69b3a2"])
-		.domain([0,10]);
-
-		// create a tooltip
-		var tooltip = d3.select("#tooltip__area")
-			.append("div")
-			.style("opacity", 0)
-			.attr("class", "tooltip")
-			.style("background-color", "white")
-			.style("border", "solid")
-			.style("border-width", "2px")
-			.style("border-radius", "5px")
-			.style("padding", "5px");
+	 let xAxis = d3.axisBottom(x)
+	 	.ticks(minutes);
+	 let yAxis = d3.axisRight(y)
+	 	.tickSize(width)
+	 	.tickFormat(function(d) {
+	 		switch(Number(d)){
+	 		case 0: case 1: case 2: case 3: case 4:case 5: case 6: case 7: case 8: case 9: case 10: case 11:
+	 			return "AM"+d;
+	 		case 12:
+	 			return "PM"+d;
+	 		case 13: case 14: case 15: case 16: case 17: case 18: case 19: case 20: case 21:
+	 			return "PM" + "0" + (d-12);
+	 		 case 22: case 23:
+	 			 return "PM" + (d-12);
+	 		}
+	 });
+	 d3.select("#g").append("g").attr("transform","translate(0,-15)").call(customXAxis);
+	 d3.select("#g").append("g").call(customYAxis);
+	 function customXAxis(g) {g.call(xAxis); g.select(".domain").remove();}
+	 function customYAxis(g) {g.call(yAxis); g.select(".domain").remove();
+	 d3.select("#g").selectAll(".tick:not(:first-of-type) line")
+	 .attr("stroke", "#777")
+	 .attr("stroke-dasharray", "2,2");
+	 d3.select("#g").selectAll(".tick text").attr("x", 4).attr("dy", -4);
+	 }
+	// create a tooltip
+	var tooltip = d3.select("#tooltip__area")
+		.append("div")
+		.style("opacity", 0)
+		.attr("class", "tooltip")
+		.style("background-color", "white")
+		.style("border", "solid")
+		.style("border-width", "2px")
+		.style("border-radius", "5px")
+		.style("padding", "5px");
 	
-		// Three function that change the tooltip when user hover / move / leave a cell
-		var mouseover = function(d) {
-			tooltip.style("opacity", 1)
-		}
-		var mousemove = function(d) {
-			tooltip.html("The exact value of<br>this cell is: " + d.daily)
-				.style("left", (d3.mouse(this)[0]+70) + "px")
-				.style("top", (d3.mouse(this)[1]) + "px")
-		}
-		var mouseleave = function(d) {
-			tooltip.style("opacity", 0)
-		}
+	// Three function that change the tooltip when user hover / move / leave a cell
+	var mouseover = function(d) {
+		tooltip.style("opacity", 1)
+	}
+	var mousemove = function(d) {
+		tooltip.html(d.daily)
+			.style("left", (d3.mouse(this)[0]+70) + "px")
+			.style("top", (d3.mouse(this)[1]) + "px")
+	}
+	var mouseleave = function(d) {
+		tooltip.style("opacity", 0)
+	}
 	
-		// add the squares
-		svg.selectAll()
-			.data(d3Data.todo, function(d) {return d.minute+':'+d.group;})
-			.enter()
-			.append("rect")
-			.attr("x", function(d) { return x(d.minute) })
-			.attr("y", function(d) { return y(d.hour) })
-			.attr("width", x.bandwidth() )
-			.attr("height", y.bandwidth() )
-			.style("opacity", function(d) { return d.fill/10})
-			.style("fill", function(d) { return myColor(d.fill)} )
-			.on("mouseover", mouseover)
-			.on("mousemove", mousemove)
-			.on("mouseleave", mouseleave);
+	// add the squares
+	svg.selectAll()
+		.data(d3Data.todo, function(d) { return d.hour + ":" + d.minute;})
+		.enter()
+		.append("rect")
+		.attr("x", function(d) { return x(d.minute) })
+		.attr("y", function(d) { return y(d.hour) })
+		.attr("width", x.bandwidth() )
+		.attr("height", y.bandwidth() )
+		.style("opacity", function(d) { return d.fill/10 })
+		.style("fill", function(d) { return d.color } )
+		.attr("transform","translate(40,-12)")
+		.on("mouseover", mouseover)
+		.on("mousemove", mousemove)
+		.on("mouseleave", mouseleave);
 
 }
 
