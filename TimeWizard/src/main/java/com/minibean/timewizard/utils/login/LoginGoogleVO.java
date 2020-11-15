@@ -33,7 +33,8 @@ public class LoginGoogleVO {
     private final static String CLIENT_ID = "60906613845-gnhotpe7j9g5d1b1ucqdvqa1kqh7r6u1.apps.googleusercontent.com";
     private final static String CLIENT_SECRET = "J0HEKnRie-ZgogEDPBxSuSY9";
 //    private final static String REDIRECT_URI = "http://localhost:8787/timewizard/login/googlecallback";
-    private final static String REDIRECT_URI = "https://localhost:8443/timewizard/login/googlecallback";
+//    private final static String REDIRECT_URI = "https://localhost:8443/timewizard/login/googlecallback";
+    private final static String REDIRECT_URI = "https://qclass.iptime.org:8443/timewizard/login/googlecallback";
     private final static String PROTECTED_RESOURCE_URL = "https://www.googleapis.com/oauth2/v3/userinfo";
     private final static String SCOPE = "openid profile email";
     private final static String SESSION_STATE = "oauth_state_g";

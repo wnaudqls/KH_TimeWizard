@@ -82,6 +82,8 @@
 	    <web-resource-collection>
 	        <web-resource-name>HTTPS or HTTP</web-resource-name>
 	        <url-pattern>/image/*</url-pattern>
+	        <url-pattern>/video/*</url-pattern>
+	        <url-pattern>/font/*</url-pattern>
 	        <url-pattern>/css/*</url-pattern>
 	        <url-pattern>/js/*</url-pattern>
 	    </web-resource-collection>
