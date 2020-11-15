@@ -56,6 +56,9 @@ UPDATE USER_INFO
 SET USER_PW = 'user1234'
 WHERE USER_ID = 'user';
 
+UPDATE USER_INFO
+SET USER_PHOTO = NULL
+
 
 --------------------------------
 
@@ -128,7 +131,6 @@ VALUES(BOARD_NOTICE_SEQ.NEXTVAL, 'tiwi사용방법','문의해주세용', SYSDAT
 
 SELECT *
 FROM BOARD_NOTICE;
-
 drop table friend_list;
 drop sequence chat_seq;
 drop table chat;

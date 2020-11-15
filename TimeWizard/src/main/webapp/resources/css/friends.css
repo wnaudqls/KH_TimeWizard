@@ -63,9 +63,11 @@ input[type=button]:hover {
 .userlist {
 	margin-left: 2px;
 	margin-right: 2px;
+	font-size: 10pt;
 }
 
 .friendlist {
+	font-size: 10pt;
 }
 
 #search_text {
