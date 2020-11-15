@@ -30,7 +30,6 @@
 <jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
 	<div class="adminbox">
 		<h1>관리자 페이지</h1>
-		<a href="main?user_no=${login.user_no }">돌아가기</a>
 	</div>
 	
 	<form action="admindelete" method="post">
@@ -74,9 +73,14 @@
 					<td align="center">${dto.user_regdate }</td>
 					<td align="center">${dto.user_role }</td>
 					<td align="center"><a href="adminrole?user_no=${dto.user_no }">등급변경</a></td>
-					<c:if test="${dto.user_active eq 'N' }">
-					<td align="center"><button type="button" name="disablebtn" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-value="${dto.user_no }" disabled="disabled">강제탈퇴</button></td>
-					</c:if>
+					<c:choose>
+						<c:when test="${dto.user_active eq 'N' }">
+						<td align="center"><button type="button" name="disablebtn" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-value="${dto.user_no }" disabled="disabled">강제탈퇴</button></td>
+						</c:when>
+						<c:otherwise>
+						<td align="center"><button type="button" name="disablebtn" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-value="${dto.user_no }">강제탈퇴</button></td>
+						</c:otherwise>
+					</c:choose>
 				</tr>
 				</c:forEach>
 		</table>
