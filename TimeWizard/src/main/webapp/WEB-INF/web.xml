@@ -67,5 +67,27 @@
 		<error-code>500</error-code>
 		<location>/error</location>
 	</error-page>
+	
+	<!-- <security-constraint>
+	    <web-resource-collection>
+	        <web-resource-name>SSL Forward</web-resource-name>
+	        <url-pattern>/*</url-pattern>
+	    </web-resource-collection>
+	    <user-data-constraint>
+	        <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+	    </user-data-constraint>
+	</security-constraint>
+	
+	<security-constraint>
+	    <web-resource-collection>
+	        <web-resource-name>HTTPS or HTTP</web-resource-name>
+	        <url-pattern>/image/*</url-pattern>
+	        <url-pattern>/css/*</url-pattern>
+	        <url-pattern>/js/*</url-pattern>
+	    </web-resource-collection>
+	    <user-data-constraint>
+	        <transport-guarantee>NONE</transport-guarantee>
+	    </user-data-constraint>
+	</security-constraint> -->
 
 </web-app>
