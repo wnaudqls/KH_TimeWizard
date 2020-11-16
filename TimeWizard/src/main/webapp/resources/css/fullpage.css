@@ -395,6 +395,29 @@ a {
 		height: 7vh;
 	}
 
+
+	.p5container {
+		display: block;
+		width: 100%;
+		margin-top: 5vh;
+	}
+
+	.p5box {
+		display: block;
+		float: left;
+		width: 35%;
+		height: 30vh;
+		margin-left: 5%;
+		margin-top: 5vh;
+	}
+
+	.contentbox {
+		margin-top: 15vh;
+	}
+
+	.hoverbox {
+		height: 20vh;
+	}
 }
 
 
