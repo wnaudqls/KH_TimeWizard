@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.List;
@@ -29,7 +30,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.WebUtils;
 
 import com.minibean.timewizard.model.biz.FileUploadBiz;
+import com.minibean.timewizard.model.biz.PayBiz;
 import com.minibean.timewizard.model.dto.FileUploadDto;
+import com.minibean.timewizard.model.dto.PayDto;
 import com.minibean.timewizard.model.dto.UserInfoDto;
 import com.minibean.timewizard.utils.file.FileUploadUtils;
 import com.minibean.timewizard.utils.file.FileValidator;
@@ -44,6 +47,8 @@ public class FileUploadController {
 	private FileUploadUtils fileUploadUtils;
 	@Autowired
 	private FileUploadBiz fileUploadBiz;
+	@Autowired
+	private PayBiz payBiz;
 	
 	private Logger logger = LoggerFactory.getLogger(FileUploadController.class);
 
@@ -141,20 +146,27 @@ public class FileUploadController {
 	@RequestMapping(value="/download/{file_no}")
 	public byte[] fileDownload(HttpServletRequest request, HttpServletResponse response, @PathVariable int file_no) {
 //	public Map<String, Object> fileDownload(HttpServletRequest request, HttpServletResponse response, @PathVariable int file_no) {
-
 		
 		logger.info(">> [CONTROLLER-FILEUPLOAD] download");
+		byte[] down = null;
 		
 		Map<String, Object> answer = new HashMap<String, Object>();
 		
 		FileUploadDto dto = fileUploadBiz.selectOne(file_no);
+		
+		int user_no = dto.getUser_no();
+		PayDto paydto = payBiz.selectOne(user_no);
+		if (paydto.getTimelapse() > 0) {
+			PayDto renew = new PayDto(user_no, null, paydto.getTimelapse() - 1);
+			int res = payBiz.updateTimelapse(renew);
+			logger.info("[CONTROLLER-FILEUPLOAD] spend timelapse success? " + ((res > 0) ? "yes" : "no"));
+		}
 		String extension = FilenameUtils.getExtension(dto.getFile_name());
 		String mime_front = (dto.getFile_type().equals("P"))?"image":"video";
 		String mime_back = (extension.toLowerCase().equals("jpg"))?"jpeg":extension.toLowerCase();
 		answer.put("mime", mime_front + "/" + mime_back);
 		answer.put("extension", extension);
-		
-		byte[] down = null;
+
 		
 		try {
 			String uploadPath = WebUtils.getRealPath(request.getSession().getServletContext(), "/resources/image");
@@ -174,9 +186,10 @@ public class FileUploadController {
 		}
 		answer.put("bytes", down);
 
+		
+		
 		return down;
 //		return answer;
-		
 	}
 	
 }

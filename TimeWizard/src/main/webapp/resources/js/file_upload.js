@@ -33,12 +33,7 @@ function downloadFile(file_no){
 				link.download = fileName + "." + item.extension;
 				link.click();
 				 */
-				if (timelapse > 0){
-					// timelapse 차감
-					return xhr.responseText;
-				} else {
-					return alert("타임랩스 다운로드 횟수가 부족합니다");
-				}
+				return xhr.responseText;
 			}
 		}
 	}
@@ -94,11 +89,20 @@ function selectList(user_no){
 					download_cell.appendChild(file_download);
 					 */
 					let form = document.createElement("form");
-					form.setAttribute("action","/timewizard/file/download/"+files[i].file_no);
-					form.setAttribute("method","POST");
+					form.setAttribute("class","download__form");
+					if (timelapse != 0){
+						form.setAttribute("action","/timewizard/file/download/"+files[i].file_no);
+						form.setAttribute("method","POST");
+						form.setAttribute("onsubmit","setTimeout(function(){window.location.reload();},1000);");
+					}
 					let submit = document.createElement("input");
 					submit.setAttribute("type","submit");
+//					submit.setAttribute("type","button");
+					submit.setAttribute("class","download__button");
 					submit.setAttribute("value","download");
+					if (timelapse == 0){
+						submit.setAttribute("onclick","alertMessage();");
+					}
 					form.appendChild(submit);
 					download_cell.appendChild(form);
 					
@@ -113,6 +117,10 @@ function selectList(user_no){
 			}
 		}
 	}
+}
+
+function alertMessage(){
+	alert('다운로드 횟수가 부족합니다');
 }
 
 function selectOne(user_no){
