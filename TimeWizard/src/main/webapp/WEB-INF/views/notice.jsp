@@ -177,7 +177,7 @@
 				<li>
 					<c:if test="${paging.startpage != 1}">
 						<a href="notice?nowpage=${paging.startpage-1}&cntPerpage=${paging.cntPerpage}&searchType=${searchType }&search_text=${search_text}" aria-label="Previous" class="pagingarrow">
-								<span aria-hidden="true">&laquo;</span>
+								<span aria-hidden="true"><i class="fas fa-angle-double-left" style="color: black"></i></span>
 							</a>
 					</c:if>
 					<c:forEach begin="${paging.startpage}" end="${paging.endpage}" var="p">
@@ -193,7 +193,7 @@
 					</c:forEach>
 					<c:if test="${paging.endpage != paging.lastpage}">
 						<a href="notice?nowpage=${paging.endpage+1}&cntPerpage=${paging.cntPerpage}&searchType=${searchType }&search_text=${search_text}" aria-label="Next" class="pagingarrow">
-							<span aria-hidden="true">&raquo;</span>
+							<span aria-hidden="true"><i class="fas fa-angle-double-right" style="color: black"></i></span>
 						</a>
 					</c:if>
 				</li>
@@ -208,7 +208,7 @@
 				<li>
 					<c:if test="${paging.startpage != 1}">
 						<a href="notice_list?nowpage=${paging.startpage-1}&cntPerpage=${paging.cntPerpage}" aria-label="Previous" class="pagingarrow">
-							<span aria-hidden="true">&laquo;</span>
+							<span aria-hidden="true"><i class="fas fa-angle-double-left" style="color: black"></i></span>
 						</a>
 					</c:if>
 					<c:forEach begin="${paging.startpage}" end="${paging.endpage}" var="p">
@@ -224,7 +224,7 @@
 					</c:forEach>
 					<c:if test="${paging.endpage != paging.lastpage}">
 						<a href="notice_list?nowpage=${paging.endpage+1}&cntPerpage=${paging.cntPerpage}" aria-label="Next" class="pagingarrow">
-							<span aria-hidden="true">&raquo;</span>
+							<span aria-hidden="true"><i class="fas fa-angle-double-right" style="color: black"></i></span>
 						</a>
 					</c:if>
 				</li>
