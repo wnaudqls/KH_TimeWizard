@@ -11,10 +11,8 @@
 <html>
 <head>
 
-<link rel="stylesheet" type="text/css"
-	href="../resources/css/grouproom.css">
-<link
-	href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&family=Source+Sans+Pro:wght@200;400&family=Staatliches&display=swap"
+<link rel="stylesheet" type="text/css" href="../resources/css/grouproom.css">
+<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&family=Source+Sans+Pro:wght@200;400&family=Staatliches&display=swap"
 	rel="stylesheet">
 <script src="https://kit.fontawesome.com/3049a69bf8.js" crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -31,8 +29,7 @@ window.onunload = function(event) {
 
 	disconnect();
 };
-	
-
+</script>
 </script>
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.5/sockjs.min.js"></script>
@@ -73,39 +70,38 @@ window.onunload = function(event) {
 
 			<div class="contentsection">
 				<h1 id="title">${dto.group_title }</h1>
-
-
 				<jsp:include page="/WEB-INF/views/rtcmulticonnection.jsp"></jsp:include>
 
-
 				<input type="hidden" value="${dto.group_title }" id="rid">
-				<!-- onkeyup: 키가 눌렀을때 나오는 이벤트(해당 태그를 선택한 상태여야함) -->
-				<div>
-					<input type="text" id="message" onkeyup="enterkey()"
-						placeholder="채팅을 입력하십시오." />
-					<input type="button" id="sendBtn" value="보내기" />
-					<input type="hidden" id="nickname" placeholder="이름을 입력헤주십시오." value="${login.user_name }" readonly> 
-					<input type="button" id="disconnect" value="종료" onclick="confirmDisconnect();" />
-					<input type="button" id="historyclear" value="기록삭제" onclick="textclear();">
-				</div>
-
-				<div id="textarea">
-					<!-- 이 부분은 방 만들때 값을 받아서 넣어주면 될 듯함 -->
-					<input type="number" id="maxClient" hidden="" />
-
-					<div id="messageArea"></div>
+				
+				<div class="chat__area">
+					<div class="buttons__area">
+						<div class="buttons__div">
+						</div>
+						<div class="chattext__div">
+							<div class="message_div">
+								<input type="text" id="message" onkeyup="enterkey()"
+									placeholder="채팅을 입력하십시오." />
+							</div>
+							<input type="button" id="sendBtn" value="보내기" />
+							<input type="hidden" id="nickname" placeholder="이름을 입력헤주십시오." value="${login.user_name }" readonly> 
+						</div>
+						<div class="buttons__div">
+							<input type="button" id="historyclear" value="기록삭제" onclick="textclear();">
+							<input type="button" id="disconnect" value="종료" onclick="confirmDisconnect();" />
+						</div>
+					</div>
+					<div id="textarea">
+						<div id="messageArea"></div>
+					</div>
 				</div>
 				<input type="hidden" value="${dto.group_no}" id="group_no">
-
 			</div>
 			<jsp:include page="friendlist2.jsp"></jsp:include>
 			<script type="text/javascript" src="../resources/js/chat.js"></script>
 			
 		</c:otherwise>
 	</c:choose>
-
-
-
 </body>
 
 </html>
