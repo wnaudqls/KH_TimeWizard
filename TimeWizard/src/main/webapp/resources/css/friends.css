@@ -3,77 +3,74 @@
     --background-color: #263343;
     --accent-color: #ff6b6b;
     --point-color: #96DBE2;
-	--color: #E0E0E0;
+    --color: #E0E0E0;
 }
 
 input[type=button] {
-	background-color: var(--background-color);
-	color: white;
-	border-radius: 4px;
-	cursor: pointer;
-	float: right;
-	transition: 0.4s;
+    background-color: var(--background-color);
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+    transition: 0.4s;
 }
 
 input[type=button]:hover {
-	background-color: white;
-	color: var(--background-color);
-}	
-.accdeny{
-	background-color: var(--background-color);
-	color: white;
-	border-radius: 4px;
-	cursor: pointer;
-	float: right;
-	transition: 0.4s;
+    background-color: white;
+    color: var(--background-color);
 }
-.accdeny:hover{
-	background-color: white;
-	color: var(--background-color);
+
+.accdeny {
+    background-color: var(--background-color);
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+    transition: 0.4s;
 }
+
+.accdeny:hover {
+    background-color: white;
+    color: var(--background-color);
+}
+
 .searchbtn {
-	background-color: var(--background-color);
-	color: white;
-	border-radius: 4px;
-	cursor: pointer;
-	float: right;
-	transition: 0.4s;
-	margin: 2px;
+    background-color: var(--background-color);
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+    transition: 0.4s;
+    margin: 2px;
 }
 
 .searchbtn:hover {
-	background-color: white;
-	color: var(--background-color);
+    background-color: white;
+    color: var(--background-color);
 }
 
-#enter-quit-button {
-	background-color: var(--background-color);
-	color: white;
-	border-radius: 4px;
-	cursor: pointer;
-	float: right;
-	transition: 0.4s;
+p>a {
+    color: black;
 }
 
-#enter-quit-button:hover {
-	background-color: white;
-	color: var(--background-color);
+p>a:active {
+    color: skyblue;
 }
 
 .userlist {
-	margin-left: 2px;
-	margin-right: 2px;
-	font-size: 10pt;
+    margin-left: 2px;
+    margin-right: 2px;
+    font-size: 10pt;
 }
 
 .friendlist {
-	font-size: 10pt;
+    font-size: 10pt;
 }
 
 p {
-	color: black;
+    color: black;
 }
 
 #search_text {
-	margin: 2px;
+    margin: 2px;
 }
