@@ -38,6 +38,12 @@ body{
 	font-family: 'Noto Sans KR';
 }
 
+.logo_text {
+	float: right;
+    position: absolute;
+    top: 0 !important;
+}
+
 button[type=button] {
 	align-items: center;
 	border: 1px solid transparent;

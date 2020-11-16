@@ -1,5 +1,6 @@
 let localContainer = document.querySelector("div.local__video__area");
 let videoContainer = document.querySelector("div.videos__area");
+let enter_quit_button = document.getElementById("enter-quit-button");
 let opened = false;
 
 let recordRTC;
@@ -313,6 +314,15 @@ connection.onstreamended = function(event) {
     }
 };
 
+enter_quit_button.addEventListener("click",()=>{
+	if (enter_quit_button.textContent == 'Enter'){
+		startRecording();
+		enter_quit_button.textContent = "Quit";
+	} else if (enter_quit_button.textContent == 'Quit'){
+		stopRecording();
+		enter_quit_button.textContent = "Enter";
+	}
+});
 
 (function() {
     var params = {},
