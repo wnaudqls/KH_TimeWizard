@@ -80,12 +80,12 @@ public class CalendarDaoImpl implements CalendarDao {
 		return list;
 	}
 
-	@Override
-	public int getViewCount(int user_no, String yyyyMMdd) {
+	@Override									//yyyyMMdd로도 해보고 yyyyMM으로도 해보자
+	public int getViewCount(int user_no, String yyyyMM) {
 		logger.info(" < getVieWCount > ");
 		Map<Object, Object>map = new HashMap<Object, Object>();
 		map.put("user_no",user_no);
-		map.put("yyyyMMdd",yyyyMMdd);
+		map.put("yyyyMM",yyyyMM);
 		
 		int count = 0;
 		try {
@@ -97,6 +97,63 @@ public class CalendarDaoImpl implements CalendarDao {
 		
 		return count;
 	}
+
+	@Override
+	public CalendarDto selectOne(int user_no) {
+		CalendarDto dto = new CalendarDto();
+		logger.info("< Select One > ");
+		
+		try {
+			dto = sqlSession.selectOne(NAMESPACE+"selectOne",user_no);
+		} catch (Exception e) {
+			logger.info(" [ Error : Select One ] ");
+			e.printStackTrace();
+		}
+		
+		return dto;
+	}
+
+	@Override
+	public List<CalendarDto> getView(int user_no) {
+		List<CalendarDto> list = new ArrayList<CalendarDto>();
+		logger.info(" < Get View > ");
+		try {
+			list = sqlSession.selectList(NAMESPACE+"getView",user_no);
+		} catch (Exception e) {
+			logger.info(" [ Error : Get View ] " );
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+
+	@Override
+	public int update(CalendarDto dto) {
+		logger.info(" < Update >");
+		int res=0;
+		try {
+			res =sqlSession.update(NAMESPACE+"update",dto);
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
+		return res;
+	}
+
+	@Override
+	public int delete(int cal_no) {
+		logger.info(" < Delete > ");
+		int res=0;
+		try {
+			res =sqlSession.delete(NAMESPACE+"delete",cal_no);
+		} catch (Exception e) {
+			logger.info(" [ Error : Delete ] ");
+			e.printStackTrace();
+		}
+		return res;
+	}
+	
+	
 
 	
 }

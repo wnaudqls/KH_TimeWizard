@@ -231,9 +231,9 @@ body {
 			
 %>
 			<td>
-		
-				<a class="countview" href="cal.do?command=list&year=<%=year %>&month=<%=month %>&date=<%=i %>" style="color:<%=CalendarUtils.fontColor(i, dayOfweek)%>"><%=i %></a>
-				<a href="insertcalboard.jsp?year=<%=year %>&month=<%=month %>&date=<%=i%>&lastDay=<%=lastDay%>">
+					<!-- counterView는 에이작스 -->
+				<a class="" href="/timewizard/calendar/calendarlist&year=<%=year %>&month=<%=month %>&date=<%=i %>" style="color:<%=CalendarUtils.fontColor(i, dayOfweek)%>"><%=i %></a>
+				<a href="calinsert?year=<%=year %>&month=<%=month %>&date=<%=i%>&lastDay=<%=lastDay%>">
 					<i class="fas fa-pencil-alt"></i>
 				</a>
 				

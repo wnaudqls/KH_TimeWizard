@@ -42,5 +42,29 @@ public class CalendarBizImpl implements CalendarBiz{
 		return calendarDao.getViewCount(user_no, yyyyMMdd);
 	}
 
+	@Override
+	public CalendarDto selectOne(int user_no) {
+			
+		return calendarDao.selectOne(user_no);
+	}
+
+	@Override
+	public List<CalendarDto> getView(int user_no) {
+		
+		return calendarDao.getView(user_no);
+	}
+
+	@Override
+	public int update(CalendarDto dto) {
+	
+		return calendarDao.update(dto);
+	}
+
+	@Override
+	public int delete(int cal_no) {
+		
+		return calendarDao.delete(cal_no);
+	}
+
 	
 }

@@ -144,26 +144,36 @@ public class MainController {
 		session.setAttribute("linked", linked);
 		
 		
-		List<CalendarDto> clist = new ArrayList<CalendarDto>();
+		
 	
 		Calendar cal = Calendar.getInstance();
 		
 		
 		//logger.info(" sddsd: "+cal.get(Calendar.YEAR));
-		int mm = cal.get(Calendar.MONTH)+1;
-		int yyyy = cal.get(Calendar.YEAR);
-		int dd = cal.get(Calendar.DATE);
 		
-
+		//여기서 문제가 발생 => 이렇게 받으면 무조건 20201115,20201116이런식으로 문자열에 해당하는 값만 사용이 가능해짐
+		//int mm = cal.get(Calendar.MONTH)+1;
+		//int yyyy = cal.get(Calendar.YEAR);
+		//int dd = cal.get(Calendar.DATE);
 		
-		String yyyyMMdd = (yyyy+""+mm+""+dd);
+		int year = cal.get(Calendar.YEAR);
+		int month = cal.get(Calendar.MONTH)+1;
+		//int dd = cal.get(Calendar.DATE);
 		
-		logger.info(" caldate : "+cal.get(Calendar.DATE));
-		logger.info(" yyyyMMdd : "+yyyyMMdd);
 	
-		clist = calBiz.getCalList(user_no, yyyyMMdd);
 		
-		model.addAttribute("clist", clist);
+		String yyyyMM = year +CalendarUtils.isTwo(month+"");
+		
+		
+		//logger.info(" *******caldate : "+cal.get(Calendar.DATE));
+		logger.info(" *******yyyyMM : "+yyyyMM);
+		//일단 주석
+		//List<CalendarDto>clist = calBiz.getView(user_no);
+		
+		List<CalendarDto>clist = calBiz.getViewList(user_no,yyyyMM);
+		
+		model.addAttribute("clist",clist);
+		
 		
 		
 		return "finalactionpage";
