@@ -20,5 +20,8 @@ select *
 from pay
 where user_no = 3
 
+select * from pay join user_info using(user_no);
+update pay set timelapse = 100 where user_no = 1;
+
 delete from pay where user_no=3;
 

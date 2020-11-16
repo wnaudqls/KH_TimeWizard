@@ -115,11 +115,7 @@
 		let userno = <%=login.getUser_no()%>;
 		let username = "<%=login.getUser_name()%>";
 		let userid = "<%=login.getUser_id()%>";
-/* 		let userno = ${login.user_no};
-		let username = ${login.user_name};
-		let userid = ${login.user_id}; */
 		let membership;
-		<%-- let timelapse = <%=dto.getTimelapse()%>; --%>
 		let timelapse = ${dto.timelapse };
 		
 		function valideImageType(image) {
@@ -159,16 +155,15 @@
 		
 		window.addEventListener("DOMContentLoaded", ()=>{
 			selectList(userno);
-			const elImage = document.querySelector("#reviewImageFileOpenInput");
+ 			let elImage = document.getElementById("reviewImageFileOpenInput");
 			elImage.addEventListener("change", (evt) => {
-			  const image = evt.target.files[0];
+			  let image = evt.target.files[0];
 			  if(!validImageType(image)) { 
 			    console.warn("invalide image file type");
 			    return;
 			  }
 			});
 		});
-		
 	</script>
 	<script src="/timewizard/js/userdeletepage.js" defer></script>
 </body>
