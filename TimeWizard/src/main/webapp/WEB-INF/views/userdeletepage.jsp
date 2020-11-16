@@ -11,7 +11,7 @@
 <title>TimeWizard</title>
 <link href="/timewizard/css/actionpage.css" rel="stylesheet">
 <script src="https://kit.fontawesome.com/3049a69bf8.js" crossorigin="anonymous"></script>
-<link rel="stylesheet" type="text/css" href="resources/css/userdeletepage.css">
+<link href="/timewizard/css/userdeletepage.css">
 <script src="resources/js/userdeletepage.js" defer></script>
 </head>
 <body>
@@ -33,7 +33,7 @@
 				</div>
 				<div class="deletebox">
 					<button class="btn btn-success" type="submit" id="submit">회원탈퇴</button>
-					<button class="cancle" type="button" onclick="location.href='mypage'">취소</button>
+					<button class="cancel" type="button" onclick="location.href='mypage'">취소</button>
 				</div>
 			<div>
 				<c:if test="${msg == false}">
