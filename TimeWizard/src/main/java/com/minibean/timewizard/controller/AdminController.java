@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -60,10 +61,11 @@ public class AdminController {
 	
 	/* 비활성화 버튼 누르면 활성화=N */
 	@RequestMapping(value="/admindelete")
-	public String adminDelete(UserInfoDto dto, @RequestParam int user_no) {
+	public String adminDelete(UserInfoDto dto) {
 		logger.info("[admin member delete]");
 
-		  int res = userinfoBiz.delete(user_no);
+		  int res = userinfoBiz.delete(dto.getUser_no());
+		  logger.info("Asdf: {}",dto.getUser_no());
 		  
 		  if(res != 0) {
 			  System.out.println("강제탈퇴 성공");

@@ -17,7 +17,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Admin Page</title>
-<script src="http://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> -->
@@ -74,10 +74,18 @@
 					<td align="center"><a href="adminrole?user_no=${dto.user_no }">등급변경</a></td>
 					<c:choose>
 						<c:when test="${dto.user_active eq 'N' }">
-						<td align="center"><input type="button" value="강제탈퇴" id="disablebtn" class="btn btn-primary" onclick="button_event();" data-value="${dto.user_no }" disabled="disabled" /></td>
+						<td align="center"><input type="button" value="강제탈퇴" id="disablebtn" class="btn btn-primary" onclick="button_event();" value="${dto.user_no }" disabled="disabled" /></td>
 						</c:when>
 						<c:otherwise>
-						<td align="center"><input type="button" value="강제탈퇴" id="disablebtn" class="btn btn-primary" onclick="button_event();" data-value="${dto.user_no }" /></td>
+						<td align="center">
+						<!-- submit의 id에 삭제할 유저번호를 넣어서 구별 -->
+						<input type="submit" id="btnsub_${dto.user_no }" name="user_no"  
+						class="btn btn-primary" value="${dto.user_no }" hidden=""/>
+						<!-- 버튼 이벤트에 유저번호 넣어서 전송 -->
+						<input type="button" value="강제탈퇴" id="disablebtn" onclick="button_event(${dto.user_no });" class="btn btn-primary"/>
+	
+						</td>
+						
 						</c:otherwise>
 					</c:choose>					
 					<!--<c:choose>
