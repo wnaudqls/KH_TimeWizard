@@ -75,17 +75,17 @@ window.onunload = function(event) {
 				
 				<div class="chat__area">
 					<div class="buttons__area">
-						<div class="buttons__div">
-						</div>
 						<div class="chattext__div">
+							<div class="buttons__div">
+							</div>
 							<div class="message_div">
 								<input type="text" id="message" onkeyup="enterkey()"
 									placeholder="채팅을 입력하십시오." />
+								<input type="button" id="sendBtn" value="보내기" />
+								<input type="hidden" id="nickname" placeholder="이름을 입력헤주십시오." value="${login.user_name }" readonly> 
 							</div>
-							<input type="button" id="sendBtn" value="보내기" />
-							<input type="hidden" id="nickname" placeholder="이름을 입력헤주십시오." value="${login.user_name }" readonly> 
 						</div>
-						<div class="buttons__div">
+						<div class="buttons__div" id="button_right">
 							<input type="button" id="historyclear" value="기록삭제" onclick="textclear();">
 							<input type="button" id="disconnect" value="종료" onclick="confirmDisconnect();" />
 						</div>
