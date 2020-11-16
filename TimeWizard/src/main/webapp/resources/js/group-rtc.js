@@ -4,7 +4,8 @@ let opened = false;
 
 let recordRTC;
 let worker;
-let workerPath = 'https://localhost:8443/timewizard/js/ffmpeg_asm.js';
+//let workerPath = 'https://localhost:8443/timewizard/js/ffmpeg_asm.js';
+let workerPath = 'https://qclass.iptime.org:8443/timewizard/js/ffmpeg_asm.js';
 
 let connection = new RTCMultiConnection();
 connection.socketURL = 'https://rtcmulticonnection.herokuapp.com:443/';
