@@ -13,6 +13,7 @@
 				FROM CALBOARD 
 				WHERE USER_NO = #{user_no} 
 				AND SUBSTR(CAL_MDATE,1,8) = #{yyyyMMdd}
+				ORDER BY CAL_NO DESC
 				
 	</select>
 	
@@ -29,15 +30,35 @@
 					  FROM CALBOARD 
 					  WHERE USER_NO = #{user_no}	
 					  							
-					  AND SUBSTR(CAL_MDATE,1,8)= #{yyyyMMdd} )  
+					  AND SUBSTR(CAL_MDATE,1,6)= #{yyyyMM} )  
 				      WHERE RN BETWEEN 1 AND 3
 	</select>
 	
+	<select id="selectOne" resultType="CalendarDto">
 	
+		SELECT CAl_NO, CAl_TITLE, CAl_CONTENT, CAl_MDATE, CAl_REGDATE
+		FROM CALBOARD
+		WHERE CAL_NO = #{cal_no}
+		
+	</select>
 	
+	<select id="getView" resultType="CalendarDto">
+		SELECT CAl_TITLE, CAl_MDATE, CAl_NO
+		FROM CALBOARD
+		WHERE USER_NO = #{user_no} AND (CAL_MDATE BETWEEN TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS') AND TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')+1)
+		ORDER BY CAL_MDATE
+	</select>
 	
+	<update id="update" parameterType="CalendarDto" >
+		UPDATE CALBOARD
+		SET CAL_TITLE = #{cal_title}, CAl_CONTENT = #{cal_content}
+		WHERE CAL_NO = #{cal_no}
+	</update>
 	
-	
+	<delete id="delete" parameterType="int">
+		DELETE FROM CALBOARD
+		WHERE CAL_NO = #{cal_no}
+	</delete>
 	
 	
 	<!-- <select id="getViewList" resultType="CalendarDto" parameterType="hashMap" >

@@ -1,13 +1,6 @@
 @charset "UTF-8";
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap');
 
-#box1 {
-	width: 400px;
-	height: 300px;
-	border-style: solid;
-	border-width: 2px;
-}
-
 canvas {
 	max-width: 100%;
 	max-height: 100%;
@@ -72,9 +65,6 @@ input[type=text], input[type=time], input[type=date] textarea {
 	border-radius: 4px;
 	color: #363636;
 	/* box-shadow: inset 0 0.0625em 0.125em rgba(10, 10, 10, 0.05); */
-}
-input[type=text]:hover {
-	border-color: #b5b5b5;
 }
 input[type=text]:focus, textarea:focus {
 	border-color: #3273dc;
@@ -265,6 +255,12 @@ a.label:focus, a.label:hover {
  	background-color: var(--background-color);
  	color: var(--text-color);
  }
+ 
+/*  .share__down__btn {
+ text-align: right;
+ 	float: right;
+	display: flex;
+ } */
 
 
 /* * * * * * * * * * *
@@ -281,9 +277,14 @@ a.label:focus, a.label:hover {
 	justify-content: space-evenly;
 }
 
-.number__cell {
-	
+.checked__cell input[type=checkbox] {
+	display:none;
 }
+.checked_cell input[type=checkbox] + i {
+	color: var(--dark-color);
+	size: 1rem;
+}
+
 .category__cell {
 	
 }
@@ -293,13 +294,12 @@ a.label:focus, a.label:hover {
 .title__cell p {
 	margin: 0;
 }
-.stopwatch__cell {
-	
-}
 
-button.stopwatch:hover .fas {
-	/* hover했을 때 기존에 설정했던 색상으로,
-	아닐 때는 personal_daily.js에서 설정한 색상으로 하고자 합니다... */
+.stopwatch:hover {
+	background-color: var(--light-color);
+}
+.stopwatch:hover i {
+	color: var(--dark-color);
 }
 
 .no__todo__cell {
@@ -311,42 +311,41 @@ button.stopwatch:hover .fas {
 /* * * * * * * * * * *
  *      1st modal    *
  * * * * * * * * * * */
- .modals__area{
- }
- .modal__overlay {
+ .modal__area:first-child > .modal__overlay {
 	width: 100%; 
 	height: 100%; 
 	top: 0; 
 	bottom: 0; 
 	right: 0; 
 	left: 0;
-    z-index: 1042;
+	z-index: 100;
     overflow: hidden;
     position: fixed;
     background: var(--dark-color);
     opacity: .8;
-      display: block;
-  justify-content: center;
-  align-items: center;
-  background-color: var(--dark-color);
-  padding:0;
+	display: block;
+	justify-content: center;
+	align-items: center;
+	background-color: var(--dark-color);
+	padding:0;
 }
  
  .modal__insert, .modal__detail {
-background-color: #FFF; 
-padding: 15px; 
-box-shadow: 0 0 8px rgba(0,0,0,0.6); 
-max-width: 500px; 
-width: 100%; 
-margin: auto; 
-position: fixed; 
-z-index: 1043; 
-left: 0; 
-right: 0; 
-top: 50%; 
-transform: translateY(-50%);
--webkit-transform: translateY(-50%);
--moz-transform: translateY(-50%);
+	border-radius: 1rem;
+	background-color: #FFF; 
+	padding: 15px; 
+	box-shadow: 0 0 8px rgba(0,0,0,0.6); 
+	max-width: 500px; 
+	width: 100%; 
+	margin: auto; 
+	position: fixed; 
+	z-index: 110; 
+	left: 0; 
+	right: 0; 
+	top: 50%;
+	transform: translateY(-80%);
+	-webkit-transform: translateY(-80%);
+	-moz-transform: translateY(-80%);
 }
 
 /* * * * * * * * * * *
@@ -357,12 +356,133 @@ transform: translateY(-50%);
 /* * * * * * * * * * *
  *        insert     *
  * * * * * * * * * * */
- 
+.button__times {
+	position: absolute !important;
+    padding: 10px !important;
+    margin-right: 20px;
+	background-color: white;
+    width: 2rem;
+    height: 2rem !important;
+}
+input#todo_title{
+	width: 90%;
+    height: 2rem;
+    font-size: 1rem;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    outline: none;
+    color: var(--dark-color);
+    padding-left: 3rem;
+}
+
+.todo__div {
+	margin-bottom: 0.6rem;	
+	display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    width: 100%;
+}
+.todo__subname {
+	
+}
+input[type=color]{
+	
+}
+.todo__textarea{
+	width: 100%;
+    height: 5rem;
+    border: none;
+    background: var(--light-color);
+}
+
+.todo__time__div > *:not(:last-child) {
+	margin-right: 10px;
+}
+
+.todo__time__div > input[type=time] {
+	height: 1rem;	
+}
+input[type=date]{
+	height: 1rem;
+}
+.todo__editable {
+	width:80%;
+}
+input#todo_title:focus, .todo__textarea:focus, .todo__editable:focus {
+	outline: none;
+	border-color: inherit;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+.todo__save {
+	
+}
+
+.buttons__div {
+	display:flex;
+	justify-content: space-between;
+}
+.modal__detail .button__delete{
+	background-color: white;
+	color:var(--danger-dark-color);
+}
  
 /* * * * * * * * * * *
  *      2nd modal    *
  * * * * * * * * * * */
+ 
+.modal__area:last-child > .modal__overlay {
+	width: 100%; 
+	height: 100%; 
+	top: 0; 
+	bottom: 0; 
+	right: 0; 
+	left: 0;
+    z-index: 200;
+    overflow: hidden;
+    position: fixed;
+    background: var(--dark-color);
+    opacity: .8;
+	display: block;
+	justify-content: center;
+	align-items: center;
+	background-color: var(--dark-color);
+	padding:0;
+}
+.modal__delete, .modal__category {
+border-radius: 1rem;
+background-color: #FFF; 
+padding: 15px; 
+box-shadow: 0 0 8px rgba(0,0,0,0.6); 
+max-width: 20rem; 
+width: 100%; 
+margin: auto; 
+position: fixed; 
+z-index: 210; 
+left: 0; 
+right: 0; 
+top: 50%; 
+transform: translateY(-80%);
+-webkit-transform: translateY(-80%);
+-moz-transform: translateY(-80%);
+}
 
+div > p {
+	margin-top: 0.5rem;
+}
+div > .categories__div {
+	margin-bottom: 0.5rem;
+	display: flex;
+    justify-content: space-between;
+}
+
+.modal__delete .button__delete{
+	color: white;
+	background-color:var(--danger-dark-color);
+}
 
 
 /* * * * * * * * * * *

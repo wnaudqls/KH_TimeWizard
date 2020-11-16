@@ -8,42 +8,42 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>TimeWizard</title>
 <link href="/timewizard/css/actionpage.css" rel="stylesheet">
 <link href="/timewizard/css/userpwchange.css" rel="stylesheet">
-<script src="resources/js/userpwchange.js" defer></script>
 <script src="https://kit.fontawesome.com/3049a69bf8.js" crossorigin="anonymous"></script>
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
 
-	<section id="container">
+	<div class="userpwchangebox">
+		<div class="middlebox">
 			<form action="userpwchangeres" method="post">
 			<input type="hidden" name="user_no" value="${dto.user_no}">
 				<div class="pwchangebox">
-					<label class="control-label" for="userId">아이디</label>
+					<label class="control-label" for="userId">아이디 : </label>
 					<input class="form-control" type="text" id="user_id" name="user_id" value="${dto.user_id }" readonly="readonly"/>
 				</div>
 				<div class="pwchangebox">
-					<label class="control-label" for="userName">성명</label>
+					<label class="control-label" for="userName">성명 : </label>
 					<input class="form-control" type="text" id="user_name" name="user_name" value="${dto.user_name }" readonly="readonly"/>
 				</div>
 				<div class="pwchangebox">
-					<label class="control-label" for="userPass">패스워드</label>
+					<label class="control-label" for="userPass">패스워드 : </label>
 					<input class="form-control" type="password" id="user_pw" name="user_pw" /><br/>
 				</div>
 				<div class="pwchangebox">
-					<label class="control-label" for="newestPass">새 비밀번호</label>
-					<input class="form-control" type="password" id="user_newestpw" name="user_newestpw" /><br/>
+					<label class="control-label" for="newestPass">새 비밀번호(6~10자리) : </label>
+					<input class="form-control" type="password" id="user_newestpw" name="user_newestpw" minlength="6" maxlength="10" /><br/>
 				</div>
 				<div class="pwchangebox">
-					<label class="control-label" for="newestPassConfirm">새 비밀번호 확인</label>
+					<label class="control-label" for="newestPassConfirm">새 비밀번호 확인 : </label>
 					<input class="form-control" type="password" id="user_newestpw_check" name="user_newestpw_check" /><br/>
 				</div>
 				<div class="pwchangebox">
-					비밀번호를 변경하시겠습니까?<br/>
+					<br/>비밀번호를 변경하시겠습니까?<br/><br/>
 					<input id="disbtn" class="btn" type="submit" value="변경하기 " />
-					<button type="button" onclick="location.href='mypage'">취소</button>
+					<input type="button" onclick="location.href='mypage'" value="취소" />
 				</div>
 			<div>
 				<c:if test="${msg == false}">
@@ -51,7 +51,7 @@
 				</c:if>
 			</div>
 			</form>
-		</section>
-		
+		</div>
+	</div>
 </body>
 </html>
