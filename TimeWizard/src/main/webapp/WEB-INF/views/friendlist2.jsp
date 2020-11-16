@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@700&display=swap" rel="stylesheet">
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <link href="/timewizard/css/actionpage.css" rel="stylesheet">
-<link href="/timewizard/css/friends.css" rel="stylesheet">
+<link href="/timewizard/css/friends2.css" rel="stylesheet">
 
 <style>
 
