@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>TimeWizard</title>
 <style type="text/css">
 :root{
   --form-height:550px;
