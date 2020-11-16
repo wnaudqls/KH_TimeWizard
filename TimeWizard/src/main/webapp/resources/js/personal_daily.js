@@ -343,11 +343,10 @@ function showTimeblock(items){
 	 let svg_g_g = document.querySelector("svg > g:nth-child(1) > g:nth-child(2)");
 	 let g1 = svg_g_g.getElementsByClassName("tick")[0];
 	 let g2 = svg_g_g.getElementsByClassName("tick")[1];
-	 let g1_transform = g1.split(",")[1].split(")")[0]; // 이렇게 되나?
-	 let g2_transform = g2.split(",")[1].split(")")[0]; // 이렇게 되나?
-	 console.log(Number(g1_transform) - Number(g2_transform));
-	 // transform안에서 split(",")하고 split(")") 해서 그 사이를 Number로 바꾸고 계산
-	// add the squares
+	 let g1_number = Number(g1.getAttribute("transform").split(",")[1].split(")")[0]);
+	 let g2_number = Number(g2.getAttribute("transform").split(",")[1].split(")")[0]);
+	 let rect_translate = (g1_number - g2_number)/2;
+	 
 	svg.selectAll()
 		.data(d3Data.todo, function(d) { return d.hour + ":" + d.minute;})
 		.enter()
@@ -358,7 +357,7 @@ function showTimeblock(items){
 		.attr("height", y.bandwidth() )
 		.style("opacity", function(d) { return d.fill/10 })
 		.style("fill", function(d) { return d.color } )
-		.attr("transform","translate(40,-14)");
+		.attr("transform","translate(40, -" + rect_translate + ")");
 		// rect 위치 조절
 }
 

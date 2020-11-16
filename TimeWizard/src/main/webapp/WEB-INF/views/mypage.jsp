@@ -68,8 +68,10 @@
 				</div>
 			</form>
 		</div>
-	
-		<div class="files__area" align="center"></div>
+		<div class="files__area" align="center">
+			<h3>타임랩스 내역</h3>
+			<div class="files" align="center"></div>
+		</div>
 		
 		<div class="mypagemenu" align="center">
 			<form>
@@ -112,12 +114,13 @@
 	<script type="text/javascript">
 		let userno = <%=login.getUser_no()%>;
 		let username = "<%=login.getUser_name()%>";
-		console.log(username);
 		let userid = "<%=login.getUser_id()%>";
 /* 		let userno = ${login.user_no};
 		let username = ${login.user_name};
 		let userid = ${login.user_id}; */
 		let membership;
+		<%-- let timelapse = <%=dto.getTimelapse()%>; --%>
+		let timelapse = ${dto.timelapse };
 		
 		function valideImageType(image) {
 		  const result = ([ 'image/jpeg',
@@ -155,7 +158,6 @@
 		}
 		
 		window.addEventListener("DOMContentLoaded", ()=>{
-			selectOne(userno);
 			selectList(userno);
 			const elImage = document.querySelector("#reviewImageFileOpenInput");
 			elImage.addEventListener("change", (evt) => {
