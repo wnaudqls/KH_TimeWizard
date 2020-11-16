@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>TimeWizard</title>
 <!-- <link rel="stylesheet" href="/timewizard/css/personal_daily.css"> -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <link rel="stylesheet" href="/timewizard/css/personal_daily_hui.css">
