@@ -25,6 +25,11 @@ body {
 	border-radius: 10px;
 }
 
+.files__area {
+	height: 15vh;
+	overflow: auto;
+}
+
 
 .mypagemenu {
 	padding: 15px 0px 10px 0px;
