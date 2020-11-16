@@ -98,12 +98,12 @@ public class CalendarDaoImpl implements CalendarDao {
 		return count;
 	}
 
-	public CalendarDto selectOne(int user_no) {
+	public CalendarDto selectOne(int cal_no) {
 		CalendarDto dto = new CalendarDto();
 		logger.info("< Select One > ");
 		
 		try {
-			dto = sqlSession.selectOne(NAMESPACE+"selectOne",user_no);
+			dto = sqlSession.selectOne(NAMESPACE+"selectOne",cal_no);
 		} catch (Exception e) {
 			logger.info(" [ Error : Select One ] ");
 			e.printStackTrace();

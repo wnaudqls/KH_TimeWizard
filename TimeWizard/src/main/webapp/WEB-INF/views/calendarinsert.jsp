@@ -8,6 +8,7 @@
 <title>Insert title here</title>
 </head>
 <%
+
 	int year= Integer.parseInt(request.getParameter("year"));
 	int month = Integer.parseInt(request.getParameter("month"));
 	int date = Integer.parseInt(request.getParameter("date"));
@@ -24,14 +25,11 @@
 
 	<h1>일정 작성하기</h1>
 
-	<form action="insertcal">
+	<form action="calendar">
 		<input type="hidden" name="command" value="insertcal" />
 
 		<table border="1">
-			<tr>
-				<th>I D</th>
-				<td><input type="text" name="id" value="kh" readonly="readonly" /></td>
-			</tr>
+			
 			<tr>
 				<th>일정</th>
 				<td><select name="year">
@@ -80,15 +78,15 @@
 			</tr>
 			<tr>
 				<th>제 목</th>
-				<td><input type="text" name="title" /></td>
+				<td><input type="text" name="cal_title" /></td>
 			</tr>
 			<tr>
 				<th>내 용</th>
-				<td><textarea rows="10" cols="50" name="content"></textarea></td>
+				<td><textarea rows="10" cols="50" name="cal_content"></textarea></td>
 			</tr>
 			<tr>
-				<td colspan="2" align="right"><input type="submit"
-					value="일정 작성" /> <input type="button" value="취소" /></td>
+				<td colspan="2" align="right">
+				<input type="submit" value="일정 작성" /> <input type="button" value="취소" /></td>
 			</tr>
 
 
