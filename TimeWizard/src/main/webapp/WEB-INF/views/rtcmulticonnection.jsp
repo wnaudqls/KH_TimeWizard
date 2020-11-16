@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>TimeWizard</title>
 <script src="https://rtcmulticonnection.herokuapp.com/dist/RTCMultiConnection.min.js"></script>
 <script src="https://cdn.webrtc-experiment.com/RecordRTC.js"> </script>
 <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>

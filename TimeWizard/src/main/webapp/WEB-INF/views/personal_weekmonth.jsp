@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>TimeWizard</title>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://unpkg.com/frappe-charts@1.1.0"></script>
 <link rel="stylesheet" href="/timewizard/css/personal_weekly.css">
