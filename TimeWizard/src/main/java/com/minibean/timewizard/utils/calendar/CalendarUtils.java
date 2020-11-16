@@ -19,8 +19,13 @@ public class CalendarUtils {
 		// 만든 것임.
 		// 나노 세컨트 형식으로 날짜를 가지고 논다고함
 
-		String m = mdate.substring(0, 4) + "-" + mdate.substring(4, 6) + "-" + mdate.substring(6, 8) + " "
-				+ mdate.substring(8, 10) + ":" + mdate.substring(10) + ":00";
+		/*
+		 * String m = mdate.substring(0, 4) + "-" + mdate.substring(4, 6) + "-" +
+		 * mdate.substring(6, 8) + " " + mdate.substring(8, 10) + ":" +
+		 * mdate.substring(10) + ":00";
+		 */
+		
+		String m = mdate.substring(0, 4) + "-" + mdate.substring(4, 6) + "-" + mdate.substring(6, 8) + " ";
 
 		//api 사이트 https://docs.oracle.com/javase/8/docs/api/에서 확인해보자 기능들..
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일 HH시 mm분");

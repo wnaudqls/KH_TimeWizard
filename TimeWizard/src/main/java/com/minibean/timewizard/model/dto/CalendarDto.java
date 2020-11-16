@@ -16,6 +16,11 @@ public class CalendarDto {
 		
 	}
 
+	public CalendarDto(int cal_no, String cal_title, String cal_content) {
+		this.cal_no = cal_no;
+		this.cal_title = cal_title;
+		this.cal_content = cal_content;
+	}
 	
 
 	public CalendarDto(int cal_no, int user_no, String cal_title, String cal_content, String cal_mdate,
@@ -29,7 +34,6 @@ public class CalendarDto {
 		this.cal_regdate = cal_regdate;
 		this.user_name = user_name;
 	}
-
 
 
 	public int getCal_no() {
