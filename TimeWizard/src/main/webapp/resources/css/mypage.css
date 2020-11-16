@@ -25,6 +25,11 @@ body {
 	border-radius: 10px;
 }
 
+.files__area {
+	height: 15vh;
+	overflow: auto;
+}
+
 
 .mypagemenu {
 	padding: 15px 0px 10px 0px;
@@ -86,6 +91,40 @@ input[type=submit]:hover {
 .save {
 	cursor: pointer;
 }
+
+/* * * * * * * * * * 
+ *     timelapse   *
+ * * * * * * * * * */
+.files__area {
+    margin-bottom: 2rem;
+}
+
+.files {
+    width: 80%;
+}
+
+.file {
+    width: inherit;
+    display: flex;
+    height: 1.5rem;
+    justify-content: space-evenly;
+    margin: 0.2rem 0.5rem;
+}
+
+.title__cell {
+    width: 50%;
+}
+
+.title__cell p {
+    margin: 0;
+}
+
+.download__cell input[type=submit]{
+	
+}
+ 
+
+
 
 @media screen and (max-width: 1140px) {
 	.mypagebox {

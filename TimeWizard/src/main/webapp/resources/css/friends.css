@@ -27,6 +27,7 @@ input[type=button]:hover {
     cursor: pointer;
     float: right;
     transition: 0.4s;
+    font-size: 7pt;
 }
 
 .accdeny:hover {

@@ -35,7 +35,7 @@
 			document.querySelector("div").appendChild(message);
 		}
 		function goToIndex(){
-			location.href="https://qclass.iptiem.org:8443/timewizard";
+			location.href="/timewizard";
 		}
 	</script>
 </body>
