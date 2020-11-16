@@ -545,3 +545,22 @@ div>.categories__div {
     background-color: #ffeb00;
     color: #3c1e1e;
 }
+
+
+
+
+@media screen and (max-width: 1140px) {
+
+    .date__area {
+        display: block;
+        width: 100%;
+        float: left;
+    }
+
+    .contents__area {
+        display: flocke
+        width: 100%;
+        float: left;
+    }
+
+}

@@ -146,6 +146,14 @@ input[type=submit] {
 		height: 1.5rem;
 	}
 	
+	.contentbox input[type=password] {
+		height: 1.5rem;
+	}
+	
+	.contentbox input[type=email] {
+		height: 1.5rem;
+	}
+	
 	.chkbox input[type=button] {
 		width: 50%;
 		height: 1.5rem;
@@ -156,6 +164,10 @@ input[type=submit] {
 		width: 50%;
 		height: 1.5rem;
 		margin-top: 0;
+	}
+	
+	#email_auto_code {
+		height: 1.5rem;
 	}
 	
 	#idc {
