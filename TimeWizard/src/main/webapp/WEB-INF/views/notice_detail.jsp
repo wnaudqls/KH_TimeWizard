@@ -17,7 +17,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>TimeWizard</title>
 
 <link
 	href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&family=Source+Sans+Pro:wght@200;400&family=Staatliches&display=swap"
@@ -78,7 +78,7 @@
 </style>
 <script type="text/javascript">
 	
-	var user_id =${login.user_id};
+	var user_id ='${login.user_id}';
 	
 </script>
 </head>

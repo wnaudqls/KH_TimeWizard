@@ -19,7 +19,7 @@
 		
 	<update id="updateReply" parameterType="ReplyDto">
 		UPDATE BOARD_REPLY SET
-			CONTENT = #{content}
+			REPLY_CONTENT = #{reply_content}, REPLY_REGDATE = SYSDATE
 			WHERE 
 				REPLY_NO = #{reply_no}
 	</update>

@@ -78,10 +78,10 @@ public class LoginController {
 		logger.info(">> [CONTROLLER-USERINFO] ajax login");
 		
 		UserInfoDto res = userInfoBiz.selectOne(dto);
-		logger.info("user role : " + res.getUser_role());
 		boolean check = false;
 		if (res != null) {
 			// 로그인 값을 계속 가지고 있는 Session
+//			logger.info("user role : " + res.getUser_role());
 			session.setAttribute("login", res);
 			check = true;
 		}
