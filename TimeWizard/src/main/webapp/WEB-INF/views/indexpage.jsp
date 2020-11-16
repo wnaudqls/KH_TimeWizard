@@ -19,26 +19,7 @@
 <body>
 
 	<div id="fullpage">
-	
-		<div class="section" id="p1">
-			<div class="textbox">
-				<span class="underline"><a>TIME WIZARD 1ST PLANNER</a></span>
-			</div>
-			<div class="bounce animated arrowbox">
-				<a><i class="fas fa-arrow-alt-circle-down"></i></a>
-			</div>
-		</div>
-		
-		<div class="section" id="p2" style="background-image:url(resources/image/bg1.jpg)">
-			<div class="start">
-				<a class="title">플래너의 시작, TIWI와 함께</a>
-				<a href="login/loginform" class="loginform">시작하러 가기</a>
-			</div>
-			<div class="middle">
-				<a>하루의 시작 일주일의 스케줄 한달의 계획 모두 TIWI에서 도와드립니다</a>
-			</div>
-		</div>
-		
+
 		<div class="section" id="p5">
 			<div class="backimg" style="background-image:url(resources/image/bg6.jpg)"></div>
 			<div class="p5container">
@@ -76,6 +57,27 @@
 				</div>
 			</div>
 		</div>
+		
+		<div class="section" id="p1">
+			<div class="textbox">
+				<span class="underline"><a>TIME WIZARD 1ST PLANNER</a></span>
+			</div>
+			<div class="bounce animated arrowbox">
+				<a><i class="fas fa-arrow-alt-circle-down"></i></a>
+			</div>
+		</div>
+		
+		<div class="section" id="p2" style="background-image:url(resources/image/bg1.jpg)">
+			<div class="start">
+				<a class="title">플래너의 시작, TIWI와 함께</a>
+				<a href="login/loginform" class="loginform">시작하러 가기</a>
+			</div>
+			<div class="middle">
+				<a>하루의 시작 일주일의 스케줄 한달의 계획 모두 TIWI에서 도와드립니다</a>
+			</div>
+		</div>
+		
+
 
 		<div class="section" id="p3">
 			<div class="backimg" style="background-image:url(resources/image/bg2.jpg)"></div>

@@ -17,4 +17,4 @@ window.onload = function() {
 			hovertext[i].style = 'height:0vh';
 		});
 	}
-} 
+}
