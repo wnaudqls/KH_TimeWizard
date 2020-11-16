@@ -25,15 +25,6 @@
  <style type="text/css">
 
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.1.0/main.min.css">
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.1.0/main.min.js"></script>
-<!-- <link href='fullcalendar/main.css' rel='stylesheet' />
- <script src='fullcalendar/main.js'></script> -->
- <style type="text/css">
-
-<script src="https://kit.fontawesome.com/3049a69bf8.js" crossorigin="anonymous"></script>
-<style type="text/css">
-
 	a{ text-decoration : none;}
 	
 	.clist > p { font-size : 5px; margin : 1px; background-color : skyblue; }
@@ -238,18 +229,14 @@ body {
 			<td>
 
 					<!-- counterView는 에이작스 -->
-				<a class="" href="/timewizard/calendar/calendarlist&year=<%=year %>&month=<%=month %>&date=<%=i %>" style="color:<%=CalendarUtils.fontColor(i, dayOfweek)%>"><%=i %></a>
-				<a href="calinsert?year=<%=year %>&month=<%=month %>&date=<%=i%>&lastDay=<%=lastDay%>">
-
-				<!-- 마우스 커서를 갖다대면 일정 갯수를 띄어주는 기능을 구현 할  것임 -->
-				<a class="countview" href="cal.do?command=list&year=<%=year %>&month=<%=month %>&date=<%=i %>" style="color:<%=CalendarUtils.fontColor(i, dayOfweek)%>"><%=i %></a>
-				<a href="insertcalboard.jsp?year=<%=year %>&month=<%=month %>&date=<%=i%>&lastDay=<%=lastDay%>">
+				<a class="" href="../calendar/calendarlist/<%=year %>/<%=month %>/<%=i %>" style="color:<%=CalendarUtils.fontColor(i, dayOfweek)%>"><%=i %></a>
+				<a href="../calendar/calinsert?year=<%=year %>&month=<%=month %>&date=<%=i%>&lastDay=<%=lastDay%>">
 
 					<i class="fas fa-pencil-alt"></i>
 				</a>
 			
 				<div class="clist">
-					<a href="/timewizard/calendar/caldetail?cal_no=${calDto.cal_no }"><%=CalendarUtils.getViewTitle(i, clist) %></a><!-- p태그 생성 -->
+					<a href="../calendar/caldetail?cal_no=${calDto.cal_no }"><%=CalendarUtils.getViewTitle(i, clist) %></a><!-- p태그 생성 -->
 				</div>
 				
 			</td>
