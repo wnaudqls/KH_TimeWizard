@@ -275,11 +275,9 @@ a.label:hover {
     color: var(--text-color);
 }
 
-/*  .share__down__btn {
- text-align: right;
- 	float: right;
+.share__down__btn {
 	display: flex;
- } */
+}
 
 
 /* * * * * * * * * * *
@@ -553,14 +551,25 @@ div>.categories__div {
 
     .date__area {
         display: block;
-        width: 100%;
         float: left;
+        width: 100%;
     }
 
     .contents__area {
-        display: flocke
-        width: 100%;
+        display: block;
         float: left;
+        width: 100%;
+    }
+
+    .list__area {
+        float: left;
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .heatmap__area {
+        float: left;
+        width: 100%;
     }
 
 }
