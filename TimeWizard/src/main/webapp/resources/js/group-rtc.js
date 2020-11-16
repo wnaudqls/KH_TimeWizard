@@ -57,8 +57,8 @@ function confirmDisconnect(){
 	overlay_div.setAttribute("class","modal__overlay");
 	overlay_div.setAttribute("onclick","closeFirstModal();");
 	
-	let delete_div = document.createElement("div");
-	delete_div.setAttribute("class","modal__delete");
+	let close_div = document.createElement("div");
+	close_div.setAttribute("class","modal__close");
 	
 	let close_button = document.createElement("button");
 	close_button.setAttribute("type","button");
@@ -67,6 +67,9 @@ function confirmDisconnect(){
 	let times = document.createElement("i");
 	times.setAttribute("class", "fas fa-times");
 	close_button.appendChild(times);
+	
+	let except_button_div = document.createElement("div");
+	except_button_div.setAttribute("class","close");
 
 	let title_img = document.createElement("img");
 	title_img.setAttribute("class","img__caution");
@@ -101,12 +104,13 @@ function confirmDisconnect(){
 	
 	buttons_div.appendChild(yes_button);
 	buttons_div.appendChild(no_button);
-	delete_div.appendChild(close_button);
-	delete_div.appendChild(title_img);
-	delete_div.appendChild(content_div);
-	delete_div.appendChild(buttons_div);
+	except_button_div.appendChild(title_img);
+	except_button_div.appendChild(content_div);
+	except_button_div.appendChild(buttons_div);
+	close_div.appendChild(close_button);
+	close_div.appendChild(except_button_div);
 	modalArea.appendChild(overlay_div);
-	modalArea.appendChild(delete_div);
+	modalArea.appendChild(close_div);
 	
 }
 
@@ -150,17 +154,20 @@ function uploadRecording(){
 	
 	let overlay_div = document.createElement("div");
 	overlay_div.setAttribute("class","modal__overlay");
-	let delete_div = document.createElement("div");
-	delete_div.setAttribute("class","modal__delete");
+	let close_div = document.createElement("div");
+	close_div.setAttribute("class","modal__close");
+	let except_button_div = document.createElement("div");
+	except_button_div.setAttribute("class","close");
 	let title_img = document.createElement("img");
 	title_img.setAttribute("class","img__caution");
 	title_img.setAttribute("src","/timewizard/image/logo_star_accent.svg");
 	let content_div = document.createElement("div");
 	content_div.textContent = "잠시만 기다려주세요";
-	delete_div.appendChild(title_img);
-	delete_div.appendChild(content_div);
+	except_button_div.appendChild(title_img);
+	except_button_div.appendChild(content_div);
+	close_div.appendChild(except_button_div);
 	modalArea.appendChild(overlay_div);
-	modalArea.appendChild(delete_div);
+	modalArea.appendChild(close_div);
 	
 	window.recordRTC.stopRecording(function(url) {
 		convertStreams(window.recordRTC.getBlob());
@@ -314,7 +321,7 @@ connection.onstreamended = function(event) {
     }
 };
 
-enter_quit_button.addEventListener("click",()=>{
+enter_quit_button.addEventListener("click", () => {
 	if (enter_quit_button.textContent == 'Enter'){
 		startRecording();
 		enter_quit_button.textContent = "Quit";

@@ -22,6 +22,10 @@
 	--dark-color: #363636;
 }
 
+#enter-quit-button {
+	float: left !important;
+}
+
 .local__video__area {
 	width: 100%;
 	border: 1px solid red;
@@ -78,7 +82,7 @@
 	padding:0;
 }
  
-.modal__delete {
+.modal__close {
 	border-radius: 1rem;
 	background-color: #FFF; 
 	padding: 15px; 
@@ -95,6 +99,25 @@
 	-webkit-transform: translateY(-80%);
 	-moz-transform: translateY(-80%);
 }
+.modal__close button {
+	align-items: center;
+	border: 1px solid transparent;
+	border-radius: 4px;
+	box-shadow: none;
+	display: inline-flex;
+	font-size: 0.8em;
+	height: 1.5em;
+	justify-content: flex-start;
+	line-height: 1.5;
+	padding-bottom: calc(0.5em - 1px);
+	padding-left: calc(0.75em - 1px);
+	padding-right: calc(0.75em - 1px);
+	padding-top: calc(0.5em - 1px);
+	position: relative;
+	vertical-align: top;
+	font-weight: 400;
+}
+
 .button__times {
 	position: absolute !important;
     padding: 10px !important;
@@ -102,6 +125,23 @@
 	background-color: white;
     width: 2rem;
     height: 2rem !important;
+}
+
+div.close {
+	text-align: center;
+}
+div.close > * {
+	padding-bottom: 0.5rem;
+}
+
+.buttons__cell {
+    display: flex;
+    justify-content: center;
+}
+
+.buttons__cell button {
+    margin-left: 1rem;
+    margin-right: 1rem;
 }
 </style>
 </head>
@@ -114,10 +154,7 @@
 <body>
 	<div class="webrtc__part">
 		<div class="buttons__area">
-			<button type="button" id="enter-quit-button">Enter</button>
-			<!-- 채팅을 종료하지 않아도 웹캠을 끌 수 있게 하는 게 좋..겠죠?
-			버튼 누르면 enter <-> quit 전환되는 방식은 addEventListener로 하면 됨
-			자바스크립트 삽입 위치에 주의할 것(아니면 코드를 더 추가하거나) -->
+ 			<button type="button" id="enter-quit-button">Enter</button>
 		</div>
 		<div class="videos__area">
 			<div class="local__video__area"></div>
