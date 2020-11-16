@@ -65,7 +65,7 @@
 			if(UDto.getUser_role().equals("ADMIN")){
 	%>
 		<colgroup>
-			<col width="50" />
+			<col width="100" />
 			<col width="300" />
 			<col width="100" />
 			<col width="50" />
@@ -97,7 +97,7 @@
 		} else {
 	%>
 		<colgroup>
-			<col width="50" />
+			<col width="100" />
 			<col width="300" />
 			<col width="100" />
 		</colgroup>
