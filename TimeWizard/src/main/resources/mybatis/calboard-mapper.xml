@@ -42,15 +42,6 @@
 		
 	</select>
 	
-	
-	
-	<select id="selectOne" resultType="CalendarDto">
-		SELECT CAl_NO, CAl_TITLE, CAl_CONTENT, CAl_MDATE, CAl_REGDATE
-		FROM CALBOARD
-		WHERE CAl_NO = #{cal_no}
-	</select>
-	
-	
 	<select id="getView" resultType="CalendarDto">
 		SELECT CAl_TITLE, CAl_MDATE, CAl_NO
 		FROM CALBOARD
