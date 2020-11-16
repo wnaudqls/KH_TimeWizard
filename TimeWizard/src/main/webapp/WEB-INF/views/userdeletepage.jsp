@@ -33,7 +33,7 @@
 				</div>
 				<div class="deletebox">
 					<button class="btn btn-success" type="submit" id="submit">회원탈퇴</button>
-					<button class="cancle" type="button" onclick="location.href='mypage'">취소</button>
+					<button class="cancel" type="button" onclick="location.href='mypage'">취소</button>
 				</div>
 			<div>
 				<c:if test="${msg == false}">

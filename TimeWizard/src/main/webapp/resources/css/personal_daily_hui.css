@@ -558,7 +558,7 @@ div>.categories__div {
     }
 
     .contents__area {
-        display: flocke
+        display: flocke;
         width: 100%;
         float: left;
     }
