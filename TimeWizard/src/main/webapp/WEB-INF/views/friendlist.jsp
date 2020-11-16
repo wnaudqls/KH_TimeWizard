@@ -244,7 +244,7 @@ function friendlist(){
 	</aside>
 
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.5/sockjs.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/sockjs/latest/sockjs.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.js"></script>
 
 <script type="text/javascript">
@@ -388,7 +388,7 @@ var uno = ${login.user_no};
 	
 function alertsys(fno, mynum, fname){
 			var notification;
-		    var message = fname+"님에게 메세지를 전송했습니다.";
+		    var message = fname+"님에게 친구신청을 보냈습니다.";
 	        
 	        var options = {
 	            body: message,
@@ -398,7 +398,7 @@ function alertsys(fno, mynum, fname){
 	        var chk = confirm(fname+'님을 친구추가 하시겠습니까?');
 	        if(chk){
 	        	//데스크탑 알림 요청
-	       		notification = new Notification("알람" ,options);
+	       		notification = new Notification("친구신청" ,options);
 	       		alert("친구추가 메세지를 전송했습니다.");
 	       		client.send("/publish/alert/friend", {},JSON.stringify({friend_no: fno, user_no: mynum, user_name: fname}));
 	       	//알림 후 1초 뒤 친구목록 다시 불러옴
