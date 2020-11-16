@@ -4,6 +4,7 @@ function confirmUserDelete(){
 	
 	let modal__overlay = document.createElement("div");
 	modal__overlay.setAttribute("class","modal__overlay");
+	modal__overlay.setAttribute("onclick","closeFirstModal();");
 	let modal__delete = document.createElement("div");
 	modal__delete.setAttribute("class","modal__delete");
 	
@@ -16,7 +17,7 @@ function confirmUserDelete(){
 	input_hidden.setAttribute("value",userno);
 	form.appendChild(input_hidden);
 	
-	let div_deletebox1 = document.createElement("deletebox");
+	let div_deletebox1 = document.createElement("div");
 	div_deletebox1.setAttribute("class","deletebox");
 	let label1 = document.createElement("label");
 	label1.setAttribute("class","control-label");
@@ -27,12 +28,12 @@ function confirmUserDelete(){
 	input1.setAttribute("type","text");
 	input1.setAttribute("id","user_id");
 	input1.setAttribute("name","user_id");
-	input1.setAttribute("vlaue", userid);
+	input1.setAttribute("value", userid);
 	input1.setAttribute("readonly","readonly");
 	div_deletebox1.appendChild(label1);
 	div_deletebox1.appendChild(input1);
 	
-	let div_deletebox2 = document.createElement("deletebox");
+	let div_deletebox2 = document.createElement("div");
 	div_deletebox2.setAttribute("class","deletebox");
 	let label2 = document.createElement("label");
 	label2.setAttribute("class","control-label");
@@ -46,7 +47,7 @@ function confirmUserDelete(){
 	div_deletebox2.appendChild(label2);
 	div_deletebox2.appendChild(input2);
 	
-	let div_deletebox3 = document.createElement("deletebox");
+	let div_deletebox3 = document.createElement("div");
 	div_deletebox3.setAttribute("class","deletebox");
 	let label3 = document.createElement("label");
 	label3.setAttribute("class","control-label");
@@ -62,7 +63,7 @@ function confirmUserDelete(){
 	div_deletebox3.appendChild(label3);
 	div_deletebox3.appendChild(input3);
 	
-	let div_deletebox4 = document.createElement("deletebox");
+	let div_deletebox4 = document.createElement("div");
 	div_deletebox4.setAttribute("class","deletebox");
 	let button_success = document.createElement("button");
 	button_success.setAttribute("class","btn btn-success");
@@ -87,4 +88,8 @@ function confirmUserDelete(){
 	modal__delete.appendChild(form);
 	modal__area.appendChild(modal__overlay);
 	modal__area.appendChild(modal__delete);
+}
+function closeFirstModal(){
+	let modal__area = document.getElementsByClassName("modal__area")[0];
+	modal__area.innerHTML = "";
 }
