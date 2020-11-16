@@ -46,25 +46,11 @@ input[type=button]:hover {
 	color: var(--background-color);
 }
 
-#enter-quit-button {
-	background-color: var(--background-color);
-	color: white;
-	border-radius: 4px;
-	cursor: pointer;
-	float: right;
-	transition: 0.4s;
-}
 p>a{
 	color: black;
 }
 p>a:active{
 	color: skyblue;
-}
-
-
-#enter-quit-button:hover {
-	background-color: white;
-	color: var(--background-color);
 }
 
 .userlist {
