@@ -33,27 +33,28 @@ function downloadFile(file_no){
 				link.download = fileName + "." + item.extension;
 				link.click();
 				 */
-				return xhr.responseText;
+				if (timelapse > 0){
+					// timelapse 차감
+					return xhr.responseText;
+				} else {
+					return alert("타임랩스 다운로드 횟수가 부족합니다");
+				}
 			}
 		}
 	}
 }
 
 function selectList(user_no){
-	let filesArea = document.querySelector(".files__area");
-	filesArea.innerHTML = "";
+	let files_div = document.querySelector(".files");
+	files_div.innerHTML = "";
 	const xhr = new XMLHttpRequest();
 	xhr.open("POST","/timewizard/file/list/"+user_no);
 	xhr.send();
 	xhr.onreadystatechange = () => {
 		if (xhr.readyState == 4 && xhr.status == 200){
 			if (xhr.responseText != null && xhr.responseText != "" && xhr.responseText != '[]'){
-				console.log(JSON.parse(xhr.responseText));
 				let files = JSON.parse(xhr.responseText);
 				let i = 0;
-				
-				let files_div = document.createElement("div");
-				files_div.setAttribute("class","files");
 				
 				for (i = 0; i < files.length; i++){
 					let file_div = document.createElement("div");
@@ -106,10 +107,9 @@ function selectList(user_no){
 					file_div.appendChild(download_cell);
 					files_div.appendChild(file_div)
 				}
-				filesArea.appendChild(files_div);
 				
 			} else if (xhr.responseText == '[]'){
-				filesArea.textContent = "저장된 파일이 없습니다.";
+				files_div.textContent = "저장된 파일이 없습니다.";
 			}
 		}
 	}
