@@ -46,6 +46,13 @@ input[type=button]:hover {
 	color: var(--background-color);
 }
 
+p>a{
+	color: black;
+}
+p>a:active{
+	color: skyblue;
+}
+
 .userlist {
 	margin-left: 2px;
 	margin-right: 2px;
@@ -54,6 +61,10 @@ input[type=button]:hover {
 
 .friendlist {
 	font-size: 10pt;
+}
+
+p {
+	color: black;
 }
 
 #search_text {
