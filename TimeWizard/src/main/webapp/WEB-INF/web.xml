@@ -70,7 +70,7 @@
 	
 
 
-<security-constraint>
+<!-- <security-constraint>
 
 	    <web-resource-collection>
 	        <web-resource-name>SSL Forward</web-resource-name>
@@ -93,6 +93,6 @@
 	        <transport-guarantee>NONE</transport-guarantee>
 	    </user-data-constraint>
 	</security-constraint>
-
+ -->
 
 </web-app>
