@@ -34,11 +34,14 @@ input[type=button]:hover, button[type=button]:hover {
  * * * * * * * * * * */
 .buttons__area {
     display: flex;
-    justify-content: space-between;
 }
 
 .buttons__div {
-	
+	display: flex;
+}
+
+#button_right {
+	margin-left: 45%;
 }
 
 .buttons__div:first-child {
@@ -57,9 +60,11 @@ input[type=button]:hover, button[type=button]:hover {
 }
 
 .chattext__div {
-	display: inline-flex;
-	position: absolute;
-    padding-left: 3.3rem;
+	display: flex;
+}
+
+.message_div {
+	display: flex;
 }
 
 input#message {
@@ -71,7 +76,7 @@ input#message:focus {
 }
 
 .buttons__div:last-child {
-	display: inline-flex;
+	display: flex;
 }
 
 /* * * * * * * * * * *
@@ -85,3 +90,34 @@ input#message:focus {
 }
 
 /* video와 modal은 group-rtc.css 파일에 */
+
+
+
+@media screen and (max-width: 1140px) {
+	.buttons__area {
+		width: 100%;
+	}
+
+	.chattext__div {
+		width: 50%;
+	}
+
+	.message_div {
+		width: 10%;
+	}
+
+	#message {
+	}
+
+	.buttons__div {
+	}
+
+	#button_right {
+		margin-left: 30%;
+	}
+
+}
+
+
+
+

@@ -16,8 +16,22 @@ body {
 table{
 		border-collapse: collapse;
 		width : 100%;
-		margin-top : 10%;
-		margin-bottom: 10%;
+		margin-top : 1%;
 	}
 	
+h1{
+	margin-bottom: 1.5%;
+}
 	
+input[type=button] {
+	background-color: var(--background-color);
+	color: white;
+	border-radius: 4px;
+	cursor: pointer;
+	transition: 0.4s;
+}
+
+input[type=button]:hover {
+	background-color: white;
+	color: var(--background-color);
+}

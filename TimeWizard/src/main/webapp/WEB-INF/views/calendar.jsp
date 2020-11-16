@@ -23,7 +23,13 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.1.0/main.min.css">
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.1.0/main.min.js"></script>
  <style type="text/css">
-
+	:root {
+	    --text-color: #f0f4f5;
+	    --background-color: #263343;
+	    --accent-color: #ff6b6b;
+	    --point-color: #96DBE2;
+		--color: #E0E0E0;
+	}
 
 	a{ text-decoration : none;}
 	
@@ -32,12 +38,15 @@
 	
 	#calendar{
 		border-collapse : collapse;
-		border : 1px solid gray;
+		border : 1px solid var(--color);
+		width: 100%;
 	}
 	
 	#calendar th{
 		width : 80px;
-		border : 1px solid gray;
+		border : 1px solid var(--color);
+		background-color: var(--background-color);
+		color: var(--color);
 	}
 	
 	#calendar td{
@@ -66,6 +75,9 @@ body {
 	margin: 40px 10px;
 	padding: 0;
 	font-family: "Lucida Grande", Helvetica, Arial, Verdana, sans-serif;
+}
+
+@media screen and (max-width: 1140px) {
 }
 
 </style>
