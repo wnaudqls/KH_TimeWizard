@@ -20,7 +20,7 @@
 window.onpageshow = function (event)
 {
 	if (event.persisted || (window.performance && window.performance.navigation.type == 2)) {
-		alert("뒤로가기를 이용해서 재접속하실 수 없습니다.");
+		alert("잘못된 접근 입니다.");
 		location.href = "../grouplist";
 	}
 
@@ -30,9 +30,8 @@ window.onunload = function(event) {
 	disconnect();
 };
 </script>
-</script>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.5/sockjs.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/sockjs/latest/sockjs.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.js"></script>
 <meta charset="UTF-8">
 <title>채팅방: ${dto.group_title }</title>

@@ -22,6 +22,8 @@
 <link href="/timewizard/css/actionpage.css" rel="stylesheet">
 <script src="https://kit.fontawesome.com/3049a69bf8.js" crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+<script src="resources/js/userdeletepage.js" defer></script>
+<link rel="stylesheet" type="text/css" href="resources/css/userdeletepage.css">
 <script type="text/javascript">
 
 const elImage = document.querySelector("#reviewImageFileOpenInput");
@@ -41,8 +43,8 @@ function valideImageType(image) {
 }
 
 //결제 pay
-let user_no = ${login.user_no};
-let user_name = ${login.user_name};
+let userno = ${login.user_no};
+let username = ${login.user_name};
 let membership;
 
 function pay(e){
@@ -72,13 +74,20 @@ function pay(e){
 	});
 }
 	
+
+window.addEventListener("DOMContentLoaded", ()=>{
+	selectOne(userno);
+	selectList(userno)
+});
+
+
 </script>
 </head>
 
 <body>
 <%
 	UserInfoDto login = (UserInfoDto) session.getAttribute("login");
-	int user_no = login.getUser_no();
+
 	String user_photo = (login.getUser_photo() == null) ? "3J1kUZfY.jpg" : login.getUser_photo();
 %>
 	<div class="mypagebox">
@@ -88,7 +97,7 @@ function pay(e){
 			</div>
 			<form:form method="post" enctype="multipart/form-data" modelAttribute="UserInfoDto" action="profileupload">
 				<label><input type="file" name="file" class="mypagebtn" accept="image/*" id="image" name="user_photo" /></label>
-				<input type="hidden" name="user_no" value="<%=user_no%>" />
+				<input type="hidden" name="user_no" value="${login.user_no }" />
 				<label><input type="submit" class="mypagebtn" value="send" /></label>
 			</form:form>
 			
@@ -110,9 +119,9 @@ function pay(e){
 						</tr>
 						<tr>
 							<td colspan="2" align="right">
-								<input type="submit" class="submitbox" value="수정" /><br/>
-								<a href="userpwchange?user_no=${login.user_no }" class="btndesign">암호변경</a>
-								<a href="userdeletepage?user_no=${login.user_no }" class="btndesign">탈퇴</a>
+								<input type="submit" class="submitbox" value="수정" />
+								<input type="button" value="암호변경" class="btndesign" onclick="location.href='userpwchange?user_no=${login.user_no}'">
+								<input type="button" value="탈퇴" class="btndesign" onclick="confirmUserDelete();">
 							</td>
 						</tr>
 					</table>
@@ -158,14 +167,16 @@ function pay(e){
 		<div class="home"><a href="main"><i class="fas fa-arrow-circle-left" style="color:#263343;"></i></a></div>
 	</div>
 	
+		<div class="modals__area">
+		    <div class="modal__area"></div>
+		</div>
+	
 	<script type="text/javascript">
-	let uno = ${login.user_no};
-	window.addEventListener("DOMContentLoaded", ()=>{
-		selectOne(uno);
-		selectList(uno)
-	});
+	 let user_no = <%=login.getUser_no()%>;
+	 let user_id = "<%=login.getUser_id()%>";
+	 let user_name = "<%=login.getUser_name()%>";
+	 
 	</script>
-
 
 </body>
 </html>
