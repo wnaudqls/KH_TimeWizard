@@ -22,7 +22,6 @@
 <link href="/timewizard/css/actionpage.css" rel="stylesheet">
 <script src="https://kit.fontawesome.com/3049a69bf8.js" crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
-<script src="resources/js/userdeletepage.js" defer></script>
 <link rel="stylesheet" type="text/css" href="resources/css/userdeletepage.css">
 <script type="text/javascript">
 
@@ -44,8 +43,10 @@ function valideImageType(image) {
 
 //결제 pay
 let userno = ${login.user_no};
-let username = ${login.user_name};
+let username = ${login.user_name}; // 이 부분 되나여?
+let userid = "<%=login.getUser_id()%>";
 let membership;
+
 
 function pay(e){
 	var IMP = window.IMP;
@@ -166,17 +167,10 @@ window.addEventListener("DOMContentLoaded", ()=>{
 		</div>
 		<div class="home"><a href="main"><i class="fas fa-arrow-circle-left" style="color:#263343;"></i></a></div>
 	</div>
+	<div class="modals__area">
+	    <div class="modal__area"></div>
+	</div>
 	
-		<div class="modals__area">
-		    <div class="modal__area"></div>
-		</div>
-	
-	<script type="text/javascript">
-	 let user_no = <%=login.getUser_no()%>;
-	 let user_id = "<%=login.getUser_id()%>";
-	 let user_name = "<%=login.getUser_name()%>";
-	 
-	</script>
-
+	<script src="resources/js/userdeletepage.js" defer></script>
 </body>
 </html>
