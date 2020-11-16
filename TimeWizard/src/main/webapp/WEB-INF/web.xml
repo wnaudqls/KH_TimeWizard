@@ -69,7 +69,9 @@
 	</error-page>
 	
 
-<!--  <security-constraint>
+
+<security-constraint>
+
 	    <web-resource-collection>
 	        <web-resource-name>SSL Forward</web-resource-name>
 	        <url-pattern>/*</url-pattern>
@@ -90,7 +92,7 @@
 	    <user-data-constraint>
 	        <transport-guarantee>NONE</transport-guarantee>
 	    </user-data-constraint>
-	</security-constraint> -->
+	</security-constraint>
 
 
 </web-app>

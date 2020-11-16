@@ -173,7 +173,7 @@ a {
 		<div class="sign-up" id="sign-up-info">
 			<h1>Create Account</h1>
 			<p class="small"> check your information:
-			<form id="sign-up-form" action="./signupresult" method="post">
+			<form id="sign-up-form" action="signupresult" method="post">
 				<input type="hidden" name="user_id" value="${snsinfo.user_id}" />
 				<input type="hidden" name="user_pw" value="${snsinfo.user_pw}" />
 				<input type="email" placeholder="Email" name="user_email" value="${snsinfo.user_email}" required="required" />

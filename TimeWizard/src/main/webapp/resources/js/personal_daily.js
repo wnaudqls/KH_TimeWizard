@@ -734,6 +734,7 @@ function submitDeleteModal(todo_no){
 		}
 	}
 	closeFirstModal();
+	closeSecondModal();
 }
 
 function showDetailModal(todo_no){

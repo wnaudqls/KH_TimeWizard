@@ -14,6 +14,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.minibean.timewizard.model.biz.CalendarBiz;
@@ -21,7 +23,7 @@ import com.minibean.timewizard.model.dto.CalendarDto;
 import com.minibean.timewizard.model.dto.UserInfoDto;
 import com.minibean.timewizard.utils.calendar.CalendarUtils;
 
-@RestController
+@Controller
 @RequestMapping("/calendar")
 public class CalendarController {
 
@@ -73,20 +75,65 @@ public class CalendarController {
 		
 	}
 	
-	@RequestMapping("/timewizard/calendar/caldetail")
-	public String calendarForm(HttpSession session, Model model,@PathVariable int cal_no) {
+	@RequestMapping("/caldetail")
+	public String calUpdate(@PathVariable int cal_no, Model model) {
 		
-		UserInfoDto dto = (UserInfoDto) session.getAttribute("login");
-		CalendarDto calDto = new CalendarDto();
-		logger.info(" **********캘린더 리스트 -> 디테일로 넘어오는 user_no : "+dto.getUser_no());
-		logger.info(" < Calendar Detail > ");
+		logger.info(" --- < Caldetail > ---- ");
+		CalendarDto calDto = calBiz.selectOne(cal_no);
 		
-		calDto = calBiz.selectOne(cal_no);
 		model.addAttribute("calDto",calDto);
-
-		return "calendar_detail";
-
+		
+		
+		return "calendardetail";
+		
 	}
+
+	
+	  @RequestMapping(value="/calupdate",method = RequestMethod.POST) 
+	  public String calUpdate(@RequestParam int cal_no,
+			  				  @RequestParam String cal_title,
+			  				  @RequestParam String cal_content) {
+		  
+		  logger.info("< Cal Update > ");
+		  int res =0;
+		  	
+		  	res =calBiz.update(new CalendarDto(cal_no,cal_title, cal_content));
+		  try {
+			if(res>0) {
+				logger.info(" < Cal Update 성공 > " );
+				return "finalactionpage";
+			}
+		} catch (Exception e) {
+			logger.info(" [ Error : Cal Update ] ");
+			e.printStackTrace();
+		}
+		  return "";
+	  
+	  }
+	  
+	  
+	  @RequestMapping("/caldelete")
+	  public String calDelete(@PathVariable int cal_no) {
+		 logger.info(" < cal delete >");
+		
+		int res =  calBiz.delete(cal_no);
+		
+		try {
+			if(res>0) {
+				logger.info(" < Cal Delete 성공 >  ");
+				return "finalactionpage";
+			}
+		} catch (Exception e) {
+			logger.info(" [ Error : Cal Delete");
+			e.printStackTrace();
+		}
+		  
+		  return "";
+	  }
+	  
+	 
+	
+
 
 
 }
