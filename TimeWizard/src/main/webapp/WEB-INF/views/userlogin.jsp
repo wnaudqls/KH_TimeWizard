@@ -60,30 +60,25 @@ $(document).ready(function(){
 </script>
 
 <style type="text/css">
-:root{
+/* :root{
   --form-height:550px;
   --form-width: 900px;
-  /*  Sea Green */
   --left-color: #9fdeaf;
-  /*  Light Blue  */
   --right-color: #96dbe2;
   --text-color: #f0f4f5;
   --background-color: #263343;
 	--accent-color: #ff6b6b;
 	--color: #E0E0E0;
 }
-
 body, html{
   margin: 0;
   font-family: 'Helvetica Neue', sans-serif;
   letter-spacing: 0.5px;
   background-color: #263343;
 }
-
 .overlaybox {
 	height: 90vh;
 }
-
 .container{
   width: var(--form-width);
   height: var(--form-height);
@@ -93,9 +88,7 @@ body, html{
   border-radius: 10px;
   margin-top: 50px;
 }
-
 .overlay .sign-in, .overlay .sign-up{
-  /*  Width is 385px - padding  */
   --padding: 50px;
   width: calc(385px - var(--padding) * 2);
   height: 100%;
@@ -106,21 +99,15 @@ body, html{
   padding: 0px var(--padding);
   text-align: center;
 }
-
 .overlay h1{
   margin: 0px 5px;
   font-size: 2.1rem;
 }
-
 .overlay p{
   margin: 20px 0px 30px;
   font-weight: 200;
 }
-/* 
-------------------------
-      Buttons
-------------------------
-*/
+
 .switch-button, .control-button{
   cursor: pointer;
   display: block;
@@ -134,35 +121,28 @@ body, html{
   border-radius: 20px;
   color: white;
 }
-
 .switch-button{
   border: 2px solid;
 }
-
 .control-button{
   border: none;
   margin-top: 15px;
 }
-
 .switch-button:focus, .control-button:focus{
   outline:none;
 }
-
 .control-button.up{
   background-color: var(--left-color);
 }
-
 .control-button.in{
   background-color: var(--right-color);
 }
-
 .social-media-buttons{
   display: flex;
   justify-content: center;
   width: 100%;
   margin: 15px;
 }
-
 .social-media-buttons .icon{
   width: 40px;
   height: 40px;
@@ -173,19 +153,16 @@ body, html{
   align-items: center;
   margin: 10px 7px;
 }
-
 .small{
   font-size: 13px;
   color: grey;
   font-weight: 200;
   margin: 5px;
 }
-
 .social-media-buttons .icon svg{
   width: 25px;
   height: 25px;
 }
-
 #sign-in-form input, #sign-up-form input{
   margin: 12px;
   font-size: 14px;
@@ -198,27 +175,22 @@ body, html{
   letter-spacing: 1.5px;
   padding-left: 20px;
 }
-
 #sign-in-form input::placeholder{
   letter-spacing: 1px;
 }
-
 .forgot-password{
   font-size: 12px;
   display: inline-block;
   border-bottom: 2px solid #efebeb;
   padding-bottom: 3px;
 }
-
 .forgot-password:hover{
   cursor: pointer;
 }
-
 .sns {
 	display: flex;
 	padding: 12px;
 }
-
 .login_logo {
 	display: flex;
 	padding: 4px;
@@ -232,16 +204,13 @@ body, html{
 	justify-content: center;
 	align-items: center;
 }
-
 #naver {
 	font-family: 'Montserrat';
 	color: green;
 }
-
 .kakao {
 	color: #fed330;
 }
-
 .icon {
 	justify-content: space-around;
 	font-size: 18px;
@@ -263,6 +232,250 @@ a {
 	background-color: white;
 	border-radius: 10px;
 }
+@media screen and (max-width: 1140px) {
+	body, html {
+		background-color: white;
+	}
+}
+ */
+ 
+:root{
+  --form-height:550px;
+  --form-width: 900px;
+  /*  Sea Green */
+  --left-color: #9fdeaf;
+  /*  Light Blue  */
+  --right-color: #96dbe2;
+  --text-color: #f0f4f5;
+  --background-color: #263343;
+	--accent-color: #ff6b6b;
+	--color: #E0E0E0;
+}
+
+body, html{
+  margin: 0;
+  font-family: 'Helvetica Neue', sans-serif;
+  letter-spacing: 0.5px;
+  background-color: #263343;
+}
+
+a {
+	text-decoration: none;
+	color: inherit;
+}
+
+
+/* * * * * * * * * *  
+ *    overlay      *
+ * * * * * * * * * */
+
+.overlaybox {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	height: 90vh;
+}
+.overlay {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 7%;
+	width: 30%;
+	background-color: white;
+	border-radius: 10px;
+}
+
+/* .container{
+  width: var(--form-width);
+  height: var(--form-height);
+  position: relative;
+  margin: auto;
+  box-shadow: 2px 10px 40px rgba(22,20,19,0.4);
+  border-radius: 10px;
+  margin-top: 50px;
+} */
+
+.overlay .sign-in, .overlay .sign-up{
+  /*  Width is 385px - padding  */
+  --padding: 50px;
+  width: calc(385px - var(--padding) * 2);
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding: 0px var(--padding);
+  text-align: center;
+}
+
+.overlay h1{
+  margin: 0px 5px;
+  font-size: 2.1rem;
+  color: var(--dark-color);
+}
+
+.overlay p{
+  margin: 20px 0px 30px;
+  font-weight: 200;
+}
+
+#sign-in-form input {
+  margin: 12px;
+  font-size: 14px;
+  padding: 15px;
+  width: 260px;
+  font-weight: 300;
+  border: none;
+  background-color: #e4e4e494;
+  font-family: 'Helvetica Neue', sans-serif;
+  letter-spacing: 1.5px;
+  padding-left: 20px;
+}
+
+#sign-in-form input::placeholder{
+  letter-spacing: 1px;
+}
+
+
+.small{
+  font-size: 13px;
+  color: grey;
+  font-weight: 200;
+  margin: 5px;
+}
+
+.forgot-password{
+  font-size: 12px;
+  display: inline-block;
+  border-bottom: 2px solid #efebeb;
+  padding-bottom: 3px;
+}
+
+.forgot-password:hover{
+  cursor: pointer;
+}
+
+/* 
+------------------------
+      Buttons
+------------------------
+*/
+.buttons__div {
+	display: flex;
+}
+
+.control-button{
+  cursor: pointer;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 140px;
+  height: 40px;
+  font-size: 14px;
+  text-transform: uppercase;
+  background: none;
+  border-radius: 20px;
+  color: white;
+}
+
+.control-button{
+  border: none;
+  margin-top: 15px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.control-button:focus{
+  outline:none;
+}
+
+.control-button:hover{
+  outline:none;
+  box-shadow: 0 3.2px 4px rgba(0, 0, 0, 0.3)
+}
+
+.control-button.in {
+  background-color: var(--right-color);
+}
+.control-button.up {
+  background-color: white;
+  color: var(--right-color);
+}
+
+
+/* * * * * * * * * *  
+ *       sns       *
+ * * * * * * * * * */
+
+
+.sns {
+	display: flex;
+	padding: 12px;
+}
+
+.login_logo {
+	display: flex;
+	padding: 4px;
+	cursor: pointer;
+	border: 1px solid var(--color);
+	border-radius: 50%;
+	width: 30px;
+	height: 30px;
+	margin-left: 4px;
+	margin-right: 4px;
+	justify-content: center;
+	align-items: center;
+	transition: 0.2s ease-in-out;
+}
+.login_logo:hover {
+	border: 1px solid white;
+}
+
+.icon {
+	color: var(--dark-color);
+	justify-content: space-around;
+	font-size: 18px;
+}
+
+#google:hover {
+	/* background-color: #ea4335; */
+	background-color: #4285f4;
+}
+#google:hover i {
+	color: #ffffff;
+}
+
+#naver {
+	font-family: 'Montserrat';
+}
+#naver:hover {
+	background-color: #1ec800;
+}
+#naver:hover span {
+	color: #ffffff;
+}
+
+#kakao-login-btn i {
+	margin-left: 3px;
+    margin-top: -1px;
+}
+#kakao-login-btn:hover {
+	background-color: #ffeb00;
+}
+#kakao-login-btn:hover i {
+	color: #3c1e1e;
+}
+
+/* 이 범위 코드가 있는게 나을지 없는게 나을지? */
+
+#google i {
+	color: #4285f4;
+}
+#naver {
+	color: #1ec800;
+}
+#kakao-login-btn i {
+	color: #ffeb00;
+}
 
 @media screen and (max-width: 1140px) {
 	body, html {
@@ -277,16 +490,16 @@ a {
 	<div class="overlaybox">
 		<div class="overlay">
 			<div class="sign-in" id="sign-in-info">
-				<h1>Sign In</h1>
+				<div class="title"><h1>Sign In</h1></div>
 				<div class="sns">
-					<a href="${google_url}" class="login_logo" id="google">
+ 					<a href="${google_url}" class="login_logo" id="google">
 						<i class="fab fa-google icon google"></i>
 					</a>
 					<a href="${naver_url}" class="login_logo" id="naver">
 						<span class="naver_logo icon naver">N</span>
 					</a>
 					<a id="kakao-login-btn" class="login_logo" id="kakao">
-						<i class="fab fa-kickstarter icon kakao"></i>
+						<i class="fab fa-kaggle icon kakao"></i>
 					</a>
 				</div>
 				<p class="small"> or user your account:
@@ -297,9 +510,10 @@ a {
 					</div>
 					<div class="signbox">
 						<p class="forgot-password"><a href="/timewizard/findform">Forgot your id or password?</a></p>
-						<button id="submit_go" class="control-button in"
-							onclick="loginPrc()">Sign In</button>
-						<button class="control-button in"><a href="./signup" style="color:white;">sign up</a></button>
+						<div class="buttons__div">
+							<button id="submit_go" class="control-button in" onclick="loginPrc();">Sign In</button>
+							<button class="control-button up" onclick="location.href='./signup'">sign up</button>
+						</div>
 					</div>
 				</div>
 			</div>

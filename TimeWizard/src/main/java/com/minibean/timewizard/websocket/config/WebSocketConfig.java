@@ -16,7 +16,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 	public void registerStompEndpoints(StompEndpointRegistry registry) {
 		// SockJS로 돌리기 위해 withSockJS()를 붙혀줌
 		// setAllowedOrigins: 접근할 주소를 제한시킴 *는 제한없는듯함
-		registry.addEndpoint("/webserver").setAllowedOrigins("*").withSockJS();
+		registry.addEndpoint("/webserver").setAllowedOrigins("*").withSockJS().setClientLibraryUrl("https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.5/sockjs.min.js");
 	}
 	@Override
 	public void configureMessageBroker(MessageBrokerRegistry registry) {
