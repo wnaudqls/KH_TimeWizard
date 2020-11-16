@@ -18,9 +18,9 @@
 <meta charset="UTF-8">
 <title>Admin Page</title>
 <script src="http://code.jquery.com/jquery-3.5.1.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> -->
 <link href="/timewizard/css/actionpage.css" rel="stylesheet">
 <script src="https://kit.fontawesome.com/3049a69bf8.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" type="text/css" href="resources/css/adminpage.css">
@@ -31,8 +31,7 @@
 	<div class="adminbox">
 		<h1>관리자 페이지</h1>
 	</div>
-	
-	<form action="admindelete" method="post">
+	<form action="admindelete" method="post" name="userbye">
 	<div class="adminbox" id="userlist">
 		<table>
 		<colgroup>
@@ -75,17 +74,25 @@
 					<td align="center"><a href="adminrole?user_no=${dto.user_no }">등급변경</a></td>
 					<c:choose>
 						<c:when test="${dto.user_active eq 'N' }">
+						<td align="center"><input type="button" value="강제탈퇴" id="disablebtn" class="btn btn-primary" onclick="button_event();" data-value="${dto.user_no }" disabled="disabled" /></td>
+						</c:when>
+						<c:otherwise>
+						<td align="center"><input type="button" value="강제탈퇴" id="disablebtn" class="btn btn-primary" onclick="button_event();" data-value="${dto.user_no }" /></td>
+						</c:otherwise>
+					</c:choose>					
+					<!--<c:choose>
+						<c:when test="${dto.user_active eq 'N' }">
 						<td align="center"><button type="button" name="disablebtn" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-value="${dto.user_no }" disabled="disabled">강제탈퇴</button></td>
 						</c:when>
 						<c:otherwise>
 						<td align="center"><button type="button" name="disablebtn" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-value="${dto.user_no }">강제탈퇴</button></td>
 						</c:otherwise>
-					</c:choose>
+					</c:choose> -->
 				</tr>
 				</c:forEach>
 		</table>
 		
-		<!-- Modal -->
+		<!-- Modal
 		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		  <div class="modal-dialog" role="document">
 		    <div class="modal-content">
@@ -105,7 +112,7 @@
 		      </div>
 		    </div>
 		  </div>
-		</div>
+		</div> -->
 	</div>
 	</form>
 </body>
