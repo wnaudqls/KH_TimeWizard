@@ -20,6 +20,25 @@
 
 	<div id="fullpage">
 
+		<div class="section" id="p1">
+			<div class="textbox">
+				<span class="underline"><a>TIME WIZARD 1ST PLANNER</a></span>
+			</div>
+			<div class="bounce animated arrowbox">
+				<a><i class="fas fa-arrow-alt-circle-down"></i></a>
+			</div>
+		</div>
+		
+		<div class="section" id="p2" style="background-image:url(resources/image/bg1.jpg)">
+			<div class="start">
+				<a class="title">플래너의 시작, TIWI와 함께</a>
+				<a href="login/loginform" class="loginform">시작하러 가기</a>
+			</div>
+			<div class="middle">
+				<a>하루의 시작 일주일의 스케줄 한달의 계획 모두 TIWI에서 도와드립니다</a>
+			</div>
+		</div>
+		
 		<div class="section" id="p5">
 			<div class="backimg" style="background-image:url(resources/image/bg6.jpg)"></div>
 			<div class="p5container">
@@ -57,27 +76,6 @@
 				</div>
 			</div>
 		</div>
-		
-		<div class="section" id="p1">
-			<div class="textbox">
-				<span class="underline"><a>TIME WIZARD 1ST PLANNER</a></span>
-			</div>
-			<div class="bounce animated arrowbox">
-				<a><i class="fas fa-arrow-alt-circle-down"></i></a>
-			</div>
-		</div>
-		
-		<div class="section" id="p2" style="background-image:url(resources/image/bg1.jpg)">
-			<div class="start">
-				<a class="title">플래너의 시작, TIWI와 함께</a>
-				<a href="login/loginform" class="loginform">시작하러 가기</a>
-			</div>
-			<div class="middle">
-				<a>하루의 시작 일주일의 스케줄 한달의 계획 모두 TIWI에서 도와드립니다</a>
-			</div>
-		</div>
-		
-
 
 		<div class="section" id="p3">
 			<div class="backimg" style="background-image:url(resources/image/bg2.jpg)"></div>
@@ -100,14 +98,14 @@
 		
 		<div class="section" id="p4">
 			<div class="minibeanbox">
-				<div class="minibean"><a>박진희</a></div>
-				<div class="minibean"><a>배민경</a></div>
-				<div class="minibean"><a>김산희</a></div>
+				<a class="minibean" href="https://github.com/pomeloEater" style="background-image:url(resources/image/minibean2.png)"><span>박진희</span></a>
+				<a class="minibean" href="https://github.com/mingyeungAA" style="background-image:url(resources/image/minibean1.png)"><span>배민경</span></a>
+				<a class="minibean" href="https://github.com/sanheekim" style="background-image:url(resources/image/minibean6.png)"><span>김산희</span></a>
 			</div>
 			<div class="minibeanbox">
-				<div class="minibean"><a>정형빈</a></div>
-				<div class="minibean"><a>주명빈</a></div>
-				<div class="minibean"><a>윤용민</a></div>
+				<a class="minibean" href="https://github.com/AbelJung" style="background-image:url(resources/image/minibean5.png)"><span>정형빈</span></a>
+				<a class="minibean" href="https://github.com/wnaudqls" style="background-image:url(resources/image/minibean3.png)"><span>주명빈</span></a>
+				<a class="minibean" href="https://github.com/yoonyongmin" style="background-image:url(resources/image/minibean4.png)"><span>윤용민</span></a>
 			</div>
 
 		</div>
