@@ -351,8 +351,8 @@ function showTimeblock(items){
 		.attr("height", y.bandwidth() )
 		.style("opacity", function(d) { return d.fill/10 })
 		.style("fill", function(d) { return d.color } )
-		.attr("transform","translate(40,-12)");
-
+		.attr("transform","translate(40,-14)");
+		// rect 위치 조절
 }
 
 function selectCategoryClass(itemcategory){
@@ -734,6 +734,7 @@ function submitDeleteModal(todo_no){
 		}
 	}
 	closeFirstModal();
+	closeSecondModal();
 }
 
 function showDetailModal(todo_no){

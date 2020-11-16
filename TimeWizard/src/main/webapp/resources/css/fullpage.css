@@ -321,6 +321,7 @@ a {
 .minibeanbox {
 	display: flex;
 	margin-left: 15%;
+	font-weight: bold;
 }
 
 .minibean {
@@ -329,8 +330,10 @@ a {
 	height: 40vh;
 	margin: 1rem;
 	background-color: white;
+	color: black;
+	background-size: cover;
 	cursor: pointer;
-
+	
 	text-align: center;
 
 }
@@ -340,8 +343,7 @@ a {
 	color: white;
 }
 
-
-@media screen and (max-width: 1140px) {
+ock {
 	#p1 {
 		font-size: 18px;
 	}
@@ -366,13 +368,15 @@ a {
 		margin-top: 20vh;
 		margin-left: 1rem;
 	}
-		.minibeanbox {
+	
+	.minibeanbox {
 		margin-left: 0;
 	}
 
 	.minibean {
 		border: 1px solid black;
-		height: 40vh;
+		height: 20vh;
+		background-size: 100% 100%;
 	}
 
 
@@ -406,17 +410,31 @@ a {
 		display: block;
 		float: left;
 		width: 35%;
-		height: 30vh;
+		height: 35vh;
 		margin-left: 5%;
 		margin-top: 5vh;
 	}
 
 	.contentbox {
-		margin-top: 15vh;
+		margin-top: 20vh;
+		width: 50%;
+		font-size: 12px;
 	}
 
 	.hoverbox {
-		height: 20vh;
+		height: 10vh;
+	}
+
+	.hovertitle {
+		font-size: 12px;
+	}
+
+	.hovertext {
+		font-size: 8px;
+	}
+
+	.hoverbox p {
+		font-size: 8px;
 	}
 }
 

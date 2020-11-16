@@ -15,8 +15,8 @@
     	font-size: 5rem;
 	}
 	p:first-child {
-    font-weight: bold;
-}
+    	font-weight: bold;
+	}
 </style>
 </head>
 <body>
@@ -35,7 +35,7 @@
 			document.querySelector("div").appendChild(message);
 		}
 		function goToIndex(){
-			//location.href="http://localhost:8787/timewizard";
+			location.href="http://localhost:8787/timewizard";
 		}
 	</script>
 </body>

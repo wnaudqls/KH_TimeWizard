@@ -135,7 +135,7 @@ input[type=submit] {
 	}
 	
 	.signuptext {
-		font-size: 24px;
+		font-size: 20px;
 	}
 	
 	.signuptext2 {
@@ -146,16 +146,36 @@ input[type=submit] {
 		height: 1.5rem;
 	}
 	
+	.contentbox input[type=password] {
+		height: 1.5rem;
+	}
+	
+	.contentbox input[type=email] {
+		height: 1.5rem;
+	}
+	
 	.chkbox input[type=button] {
 		width: 50%;
-		height: 2rem;
+		height: 1.5rem;
 		margin-bottom: 0.5rem;
 	}
 	
 	.chkbox input[type=submit] {
 		width: 50%;
-		height: 2rem;
+		height: 1.5rem;
 		margin-top: 0;
+	}
+	
+	#email_auto_code {
+		height: 1.5rem;
+	}
+	
+	#idc {
+		font-size: 12px;
+	}
+	
+	#pw_text {
+		font-size: 12px;
 	}
 	
 }
