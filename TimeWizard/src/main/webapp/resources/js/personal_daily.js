@@ -340,6 +340,10 @@ function showTimeblock(items){
 		 g.selectAll(".tick text").attr("x", 4).attr("dy", -4);
 	 }
 	
+	 let svg_g_g = document.querySelector("svg > g:nth-child(1) > g:nth-child(2)");
+	 let g1 = document.getElementsByClassName("tick")[0];
+	 let g2 = document.getElementsByClassName("tick")[1];
+	 // transform안에서 split(",")하고 split(")") 해서 그 사이를 Number로 바꾸고 계산
 	// add the squares
 	svg.selectAll()
 		.data(d3Data.todo, function(d) { return d.hour + ":" + d.minute;})
@@ -619,7 +623,7 @@ function submitInsertModal(){
 	temp = input_endtime.split(":");
 	let endtime_minutes = temp[0] * 60 + temp[1];
 	if(input_complete.checked == true && (input_starttime == "" || input_endtime == "" ||(endtime_minutes - starttime_minutes < 0))){ 
-		alert("내용을 입력해주세요");
+		alert("시간을 올바르게 입력해주세요");
 		return false;
 	} else {
 		let input_date = document.getElementsByName("todo_date")[0].value;
