@@ -41,7 +41,7 @@ body {
 .logo_text {
     float: right;
     position: absolute;
-    top: 0 !important;
+    /* top: 0 !important; */
 }
 
 button[type=button] {
@@ -531,8 +531,8 @@ div>.categories__div {
 
 .share__down__btn {
     position: absolute;
-    left: 79rem;
-    top: 0.5rem;
+	left: 77rem;
+    /* top: 0.5rem; */
 }
 
 .share__down__btn>a {

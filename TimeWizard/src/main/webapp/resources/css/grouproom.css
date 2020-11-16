@@ -6,46 +6,82 @@
 	--color: #E0E0E0;
 }
 
+input[type=button], button[type=button] {
+	background-color: var(--background-color);
+	color: white;
+	border-radius: 4px;
+	cursor: pointer;
+	float: right;
+	transition: 0.4s;
+}
+
+input[type=button]:hover, button[type=button]:hover {
+	background-color: white;
+	color: var(--background-color);
+}
+
 .contentsection {
 	float: left;
 	width: 85%;
 }
 
-.viewbox {
-	width: 30%;
-	height: 60vh;
+.chat__area {
+	height: auto;
 }
 
-#localvideo>div>video {
-	width: 100%;
+/* * * * * * * * * * *
+ *      buttons      *
+ * * * * * * * * * * */
+.buttons__area {
+    display: flex;
+    justify-content: space-between;
 }
 
-#connect {
-	display: none;
+.buttons__div {
+	
 }
 
+.buttons__div:first-child {
+    z-index: 10;
+}
+#enter-quit-button {
+	background-color: var(--background-color);
+	color: white;
+	border-radius: 4px;
+	cursor: pointer;
+	transition: 0.4s;
+}
+#enter-quit-button:hover {
+	background-color: white;
+	color: var(--background-color);
+}
+
+.chattext__div {
+	display: inline-flex;
+	position: absolute;
+    padding-left: 3.3rem;
+}
+
+input#message {
+	width: 30rem;
+	border: 1px transparent;
+}
+input#message:focus {
+    outline: none;
+}
+
+.buttons__div:last-child {
+	display: inline-flex;
+}
+
+/* * * * * * * * * * *
+ *      chatting     *
+ * * * * * * * * * * */
 #textarea {
 	border-top: 1px solid var(--color);
 	width: 100%;
 	height: 25vh;
 	overflow: auto;
 }
-/* 
-#remotevideo>div>video{
-height:300px; 
-width:300px;
-}
-#remotevideo>div>h2{
-	width: 300px;
-	text-align: center;
-	font-size: 20pt;
-	border: 1px solid black;
-}
-#remotevideo>div{
-	margin: 0 auto;
-	float: left;
-}
-#connect{
-	display: none;
-} */
 
+/* video와 modal은 group-rtc.css 파일에 */
