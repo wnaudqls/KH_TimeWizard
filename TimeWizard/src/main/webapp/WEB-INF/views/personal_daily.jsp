@@ -33,13 +33,13 @@
 					<div class="date date__day">일</div>
 					<div class="date__change"><i class="far fa-caret-square-right"></i></div>
 					<div class="date__change"><i class="fas fa-caret-square-right"></i></div>
-				</div>
-				<div class="share__down__btn" align="right">
+					
 					<button id="kakao-link-btn" type="button" onclick="dailyLink()">kakao share</button>
 					<a id="download" download="daily_download.JPG">
-					<button id="downloadbtn" type="button" onClick="download()">daily download</button>
+						<button id="downloadbtn" type="button" onClick="download()">daily download</button>
 					</a>
 				</div>
+				
 			</div>
 			<div class="contents__area">
 				<div class="list__area">
