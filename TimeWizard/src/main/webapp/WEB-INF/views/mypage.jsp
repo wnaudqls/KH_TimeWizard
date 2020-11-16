@@ -26,6 +26,7 @@
 <link rel="stylesheet" type="text/css" href="resources/css/userdeletepage.css">
 <script type="text/javascript">
 
+
 const elImage = document.querySelector("#reviewImageFileOpenInput");
 elImage.addEventListener("change", (evt) => {
   const image = evt.target.files[0];
