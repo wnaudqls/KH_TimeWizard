@@ -92,7 +92,7 @@ body {
 }
 
 .signuptitle div {
-	padding: 8px;
+	padding: 6px;
 }
 
 input[type=button]{
@@ -112,28 +112,39 @@ input[type=button]{
 	}
 	
 	.signuptext {
-		font-size: 24px;
+		font-size: 20px;
 	}
 	
 	.signuptext2 {
-		font-size: 15px;
+		font-size: 12px;
 	}
 	
 	.contentbox input[type=text] {
-		height: 2rem;
+		height: 1.5rem;
 	}
-
+	
+	.contentbox input[type=email] {
+		height: 1.5rem;
+	}
 	
 	.chkbox input[type=button] {
 		width: 50%;
-		height: 2rem;
+		height: 1.5rem;
 
 	}
 	
 	.chkbox input[type=submit] {
 		width: 50%;
-		height: 2rem;
+		height: 1.5rem;
 		margin-top: 0;
+	}
+	
+	.email_check_id {
+		font-size: 12px;
+	}
+	
+	.id_check {
+		font-size: 12px;
 	}
 	
 }
