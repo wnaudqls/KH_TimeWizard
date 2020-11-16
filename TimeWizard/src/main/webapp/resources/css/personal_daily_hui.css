@@ -573,4 +573,12 @@ div>.categories__div {
         width: 100%;
     }
 
+    .modal__insert,
+    .modal__detail {
+        width: 90%;
+    }
+
+    #insert__form {
+        font-size: 12px;
+    }
 }
