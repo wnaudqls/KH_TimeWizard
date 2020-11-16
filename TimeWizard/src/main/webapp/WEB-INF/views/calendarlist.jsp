@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+   <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,9 +11,9 @@
 
 	<h1>일정 목록 보기</h1>
 	
-	<form action="cal.do" method="post">
+	<form action="timewizard/calendar" method="post">
 		<input type="hidden" name="command" value="muldel"/>
-		<jsp:useBean id="calendar" class="com.minibean.timewizard.utils"/>
+		<jsp:useBean id="calendar" class="com.minibean.timewizard.utils.calendar.CalendarUtils"/>
 	
 		<table border="1">
 			
@@ -38,12 +39,11 @@
 				<c:otherwise>
 					<c:forEach items="${list }" var="dto">
 						<tr>
-							<td><input type="checkbox" name="chk" value="${dto.seq }"/></td>
-							<td>${dto.seq }</td>
-							<td><a href="">${dto.cal_title }</a></td>
+							<td><input type="checkbox" name="chk" value="${dto.cal_no }"/></td>
+							<td><input class="text-center"><a style="color : orange;" href="timewizard/calendar/calendardetail?cal_no=${dto.cal_no }">${dto.cal_title }</a></td>
 							<td>
-								<jsp:setProperty property="toDates" name="utils" value="${dto.cal_mdate }"/>
-								<jsp:getProperty property="toDates" name="utils"/>
+								<jsp:setProperty property="toDates" name="calendar" value="${dto.cal_mdate }"/>
+								<jsp:getProperty property="toDates" name="calendar"/>
 							</td>
 							<td>
 								<fmt:formatDate value="${dto.cal_regdate }" pattern="yyyy:mm:dd"/>
