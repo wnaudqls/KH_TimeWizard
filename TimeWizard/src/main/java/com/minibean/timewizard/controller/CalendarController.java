@@ -30,6 +30,7 @@ public class CalendarController {
 	@Autowired
 	CalendarBiz calBiz;
 
+
 	@RequestMapping("/calendarlist/{year}/{month}/{date}")
 	public String calednarDetail(Model model,
 								@PathVariable String year,
@@ -71,5 +72,21 @@ public class CalendarController {
 		return "calendarinsert";
 		
 	}
+	
+	@RequestMapping("/timewizard/calendar/caldetail")
+	public String calendarForm(HttpSession session, Model model,@PathVariable int cal_no) {
+		
+		UserInfoDto dto = (UserInfoDto) session.getAttribute("login");
+		CalendarDto calDto = new CalendarDto();
+		logger.info(" **********캘린더 리스트 -> 디테일로 넘어오는 user_no : "+dto.getUser_no());
+		logger.info(" < Calendar Detail > ");
+		
+		calDto = calBiz.selectOne(cal_no);
+		model.addAttribute("calDto",calDto);
+
+		return "calendar_detail";
+
+	}
+
 
 }

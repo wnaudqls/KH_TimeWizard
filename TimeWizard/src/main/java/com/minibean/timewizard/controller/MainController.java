@@ -144,8 +144,7 @@ public class MainController {
 		session.setAttribute("linked", linked);
 		
 		
-		
-	
+
 		Calendar cal = Calendar.getInstance();
 		
 		
@@ -160,8 +159,6 @@ public class MainController {
 		int month = cal.get(Calendar.MONTH)+1;
 		//int dd = cal.get(Calendar.DATE);
 		
-	
-		
 		String yyyyMM = year +CalendarUtils.isTwo(month+"");
 		
 		
@@ -173,6 +170,7 @@ public class MainController {
 		List<CalendarDto>clist = calBiz.getViewList(user_no,yyyyMM);
 		
 		model.addAttribute("clist",clist);
+		
 		
 		
 		

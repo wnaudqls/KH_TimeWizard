@@ -43,6 +43,7 @@ public class CalendarBizImpl implements CalendarBiz{
 	}
 
 	@Override
+
 	public CalendarDto selectOne(int user_no) {
 			
 		return calendarDao.selectOne(user_no);
@@ -64,6 +65,7 @@ public class CalendarBizImpl implements CalendarBiz{
 	public int delete(int cal_no) {
 		
 		return calendarDao.delete(cal_no);
+
 	}
 
 	

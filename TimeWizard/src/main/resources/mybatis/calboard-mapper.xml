@@ -34,6 +34,15 @@
 				      WHERE RN BETWEEN 1 AND 3
 	</select>
 	
+	<select id="selectOne" resultType="CalendarDto">
+	
+		SELECT CAl_NO, CAl_TITLE, CAl_CONTENT, CAl_MDATE, CAl_REGDATE
+		FROM CALBOARD
+		WHERE CAL_NO = #{cal_no}
+		
+	</select>
+	
+	
 	
 	<select id="selectOne" resultType="CalendarDto">
 		SELECT CAl_NO, CAl_TITLE, CAl_CONTENT, CAl_MDATE, CAl_REGDATE

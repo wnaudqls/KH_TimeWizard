@@ -98,7 +98,6 @@ public class CalendarDaoImpl implements CalendarDao {
 		return count;
 	}
 
-	@Override
 	public CalendarDto selectOne(int user_no) {
 		CalendarDto dto = new CalendarDto();
 		logger.info("< Select One > ");

@@ -153,6 +153,7 @@ body {
 	List<CalendarDto> clist =(List<CalendarDto>)request.getAttribute("clist");
 	
 	
+	
 	int year = cal.get(Calendar.YEAR);
 	int month = cal.get(Calendar.MONTH)+1;
 
@@ -208,14 +209,14 @@ body {
 
 	<table id="calendar" border="1">
 		<caption><!-- 테이블 제목 만들어줌 -->
-			<a href="#?year=<%=year-1%>&month=<%=month%>">◀◀</a> <!-- 년도를 바꿈 -->
-			<a href="#?year=<%=year%>&month=<%=month-1 %>">◁</a>  <!-- 월을 바꿔줌 -->
+			<a href="calendar.jsp?year=<%=year-1%>&month=<%=month%>">◀◀</a> <!-- 년도를 바꿈 -->
+			<a href="calendar.jsp?year=<%=year%>&month=<%=month-1 %>">◁</a>  <!-- 월을 바꿔줌 -->
 		
 			<span class="y"><%=year %></span>년
 			<span class="m"><%=month %></span>월
 			
-			<a href="#?year=<%=year %>&month=<%=month+1%>">▷</a>
-			<a href="#?year=<%=year+1 %>&month=<%=month%>">▶▶</a>
+			<a href="calendar.jsp?year=<%=year %>&month=<%=month+1%>">▷</a>
+			<a href="calendar.jsp?year=<%=year+1 %>&month=<%=month%>">▶▶</a>
 		</caption>
 		<tr>
 			<th>일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th>토</th>
@@ -231,23 +232,21 @@ body {
 			
 %>
 			<td>
+
 					<!-- counterView는 에이작스 -->
 				<a class="" href="/timewizard/calendar/calendarlist&year=<%=year %>&month=<%=month %>&date=<%=i %>" style="color:<%=CalendarUtils.fontColor(i, dayOfweek)%>"><%=i %></a>
 				<a href="calinsert?year=<%=year %>&month=<%=month %>&date=<%=i%>&lastDay=<%=lastDay%>">
+
+				<!-- 마우스 커서를 갖다대면 일정 갯수를 띄어주는 기능을 구현 할  것임 -->
+				<a class="countview" href="cal.do?command=list&year=<%=year %>&month=<%=month %>&date=<%=i %>" style="color:<%=CalendarUtils.fontColor(i, dayOfweek)%>"><%=i %></a>
+				<a href="insertcalboard.jsp?year=<%=year %>&month=<%=month %>&date=<%=i%>&lastDay=<%=lastDay%>">
+
 					<i class="fas fa-pencil-alt"></i>
 				</a>
-				
-					<table>
-						<tr>
-							<td>
-							
-								<%=CalendarUtils.getViewTitle(i, clist) %>
-								
-							</td>
-						</tr>
-						
-					</table> 
 			
+				<div class="clist">
+					<a href="/timewizard/calendar/caldetail?cal_no=${calDto.cal_no }"><%=CalendarUtils.getViewTitle(i, clist) %></a><!-- p태그 생성 -->
+				</div>
 				
 			</td>
 <%
