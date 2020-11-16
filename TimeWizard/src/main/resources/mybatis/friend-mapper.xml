@@ -12,6 +12,7 @@
 			SELECT ui.USER_NO
 			FROM USER_INFO ui
 			WHERE ui.USER_NO = #{user_no})
+			AND USER_ACTIVE != 'N'
 	</select>
 
 	<!-- 친구가 아닌 리스트 출력 -->
@@ -28,6 +29,7 @@
 			ON fl.FRIEND_NO = fl2.USER_NO
 			AND fl.USER_NO = fl2.FRIEND_NO
 			WHERE fl.USER_NO = #{user_no})
+		AND USER_ACTIVE != 'N'
 	</select>
 	
 	<select id="searchList" resultType="UserInfoDto">
@@ -41,7 +43,7 @@
 			FROM USER_INFO
 			WHERE USER_NO = #{user_no}
 			)
-	
+	AND USER_ACTIVE != 'N'
 	
 	</select>
 	<select id="searchListN" resultType="UserInfoDto">
@@ -49,7 +51,7 @@
 		FROM USER_INFO ui
 		WHERE USER_NO != #{user_no}
 		AND LOWER(ui.USER_NAME) LIKE '%' || LOWER(#{user_name}) || '%'
-	
+		AND USER_ACTIVE != 'N'
 	</select>
 	
 	<!-- 친구 추가 -> 친구요청중 -> status:send -->

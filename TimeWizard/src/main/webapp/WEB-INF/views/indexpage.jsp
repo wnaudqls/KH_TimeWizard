@@ -13,33 +13,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.6.6/jquery.fullPage.js" crossorigin="anonymous"></script>
 <!-- <script src="resources/js/main.js"></script> -->
 <script src="https://kit.fontawesome.com/3049a69bf8.js" crossorigin="anonymous"></script>
+<script src="resources/js/indexpage.js" type="text/javascript" defer></script>
 
 </head>
 <body>
 
 	<div id="fullpage">
 	
-		<div class="section" id="p5">
-			<div class="p5container">
-				<div class="p5box" style="background-image: url(resources/image/indeximg5.jpg)">
-					<div class="contentbox"></div>
-					<div class="hoverbox"></div>
-				</div>
-				<div class="p5box" style="background-image: url(resources/image/indeximg6.jpg)">
-					<div class="contentbox"></div>
-					<div class="hoverbox"></div>
-				</div>
-				<div class="p5box" style="background-image: url(resources/image/indeximg8.jpg)">
-					<div class="contentbox"></div>
-					<div class="hoverbox"></div>
-				</div>
-				<div class="p5box" style="background-image: url(resources/image/indeximg7.jpg)">
-					<div class="contentbox"></div>
-					<div class="hoverbox"></div>
-				</div>
-			</div>
-		</div>
-		
 		<div class="section" id="p1">
 			<div class="textbox">
 				<span class="underline"><a>TIME WIZARD 1ST PLANNER</a></span>
@@ -59,7 +39,43 @@
 			</div>
 		</div>
 		
-		
+		<div class="section" id="p5">
+			<div class="backimg" style="background-image:url(resources/image/bg6.jpg)"></div>
+			<div class="p5container">
+				<div class="p5box" style="background-image: url(resources/image/indeximg5.jpg)">
+					<div class="contentbox">Daily</div>
+					<div class="hoverbox">
+						<span class="hovertitle">오늘의 일정</span>
+						<div class="hovertext"><p>하루의 일정을 계획하고 세워보세요<br>하루가 쌓여 목표를 이룰 수 있습니다!</p></div>
+						<p><i class="far fa-hand-point-right"></i> Daily 설정하러 가기</p>
+					</div>
+				</div>
+				<div class="p5box" style="background-image: url(resources/image/indeximg6.jpg)">
+					<div class="contentbox">Week & Mon</div>
+					<div class="hoverbox">
+						<span class="hovertitle">한 주 그리고 한 달</span>
+						<div class="hovertext"><p>주 단위, 달 단위로 목표를 설정하세요<br>당신의 장기적인 플랜을 응원합니다!</p></div>
+						<p><i class="far fa-hand-point-right"></i> Week & Mon 설정하러 가기</p>
+					</div>
+				</div>
+				<div class="p5box" style="background-image: url(resources/image/indeximg8.jpg)">
+					<div class="contentbox">Group cam</div>
+					<div class="hoverbox">
+						<span class="hovertitle">화상스터디</span>
+						<div class="hovertext"><p>집에서 혼자하는 공부가 지겨우신가요?<br>공간제약없이, 어디서든 함께 할 수 있는<br>TIWI만의 서비스를 누려보세요!</p></div>
+						<p><i class="far fa-hand-point-right"></i> 화상스터디 하러 가기</p>
+					</div>
+				</div>
+				<div class="p5box" style="background-image: url(resources/image/indeximg7.jpg)">
+					<div class="contentbox">Map</div>
+					<div class="hoverbox">
+						<span class="hovertitle">스터디 룸 찾기</span>
+						<div class="hovertext"><p>직접만나 스터디하고싶은 분들에게 추천!<br>스터디카페 위치를 알려드립니다</p></div>
+						<p><i class="far fa-hand-point-right"></i> 스터디 룸 찾으러 가기</p>
+					</div>
+				</div>
+			</div>
+		</div>
 
 		<div class="section" id="p3">
 			<div class="backimg" style="background-image:url(resources/image/bg2.jpg)"></div>
