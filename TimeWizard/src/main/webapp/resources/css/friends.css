@@ -54,6 +54,13 @@ input[type=button]:hover {
 	float: right;
 	transition: 0.4s;
 }
+p>a{
+	color: black;
+}
+p>a:active{
+	color: skyblue;
+}
+
 
 #enter-quit-button:hover {
 	background-color: white;
