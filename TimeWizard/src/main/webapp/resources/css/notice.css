@@ -11,7 +11,7 @@
 	}
 
 	.mainsection {
-		height: 90vh;
+		height: 100%;
 	}
 
 	.top {
@@ -169,10 +169,6 @@
 	}
 
 @media screen and (max-width: 1140px) {
-	
-	.mainsection {
-		height: 110vh;
-	}
 
 	#noticeBoard {
 		width: 90%;
@@ -181,6 +177,13 @@
 		border-bottom: 1px solid black;
 	}
 
+	.pagingdesign {
+		width: 90%;
+	}
+
+	td {
+		padding: 8px;
+	}
 }
 	
 	
