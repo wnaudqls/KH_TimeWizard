@@ -28,18 +28,15 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
-	<div class="adminbox">
-		<h1>관리자 페이지</h1>
-	</div>
 	
 	<form action="admindelete" method="post">
 	<div class="adminbox" id="userlist">
 		<table>
 		<colgroup>
 			<col width="50"/>
+			<col width="200"/>
 			<col width="100"/>
-			<col width="100"/>
-			<col width="100"/>
+			<col width="200"/>
 			<col width="200"/>
 			<col width="100"/>
 			<col width="200"/>

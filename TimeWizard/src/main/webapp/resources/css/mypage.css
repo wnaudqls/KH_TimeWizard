@@ -47,45 +47,42 @@ body {
 }
 
 input[type=button] {
-	background-color: var(--point-color);
+	background-color: var(--background-color);
 	color: white;
 	border-radius: 4px;
 	cursor: pointer;
 	transition: 0.4s;
-	border: 1px solid var(--color);
 }
 
 input[type=button]:hover {
 	background-color: white;
-	color: var(--point-color);
+	color: var(--background-color);
 }
 
 input[type=submit] {
-	background-color: var(--point-color);
+	background-color: var(--background-color);
 	color: white;
 	border-radius: 4px;
 	cursor: pointer;
 	transition: 0.4s;
-	border: 1px solid var(--color);
 }
 
 input[type=submit]:hover {
 	background-color: white;
-	color: var(--point-color);
+	color: var(--background-color);
 }
 
 .mypagebtn {
-	background-color: var(--point-color);
+	background-color: var(--background-color);
 	color: white;
 	border-radius: 4px;
 	cursor: pointer;
 	transition: 0.4s;
-	border: 1px solid var(--color);
 }
 
 .mypagebtn:hover {
 	background-color: white;
-	color: var(--point-color);
+	color: var(--background-color);
 }
 
 .save {
