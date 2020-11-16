@@ -204,8 +204,6 @@ a.label:focus, a.label:hover {
  	width: 100%;
  	justify-content: center;
  	padding-top: 1rem;
- 	padding-bottom: 0.5rem;
- 	position: relative;
  }
  
 .date__status{
@@ -214,10 +212,6 @@ a.label:focus, a.label:hover {
 }
 .date__change {
 	justify-content: space-around;
-}
-
-.date__change:not(:last-child), .date {
-    padding-right: 0.2rem;
 }
 
 .date__change i {
@@ -274,15 +268,13 @@ a.label:focus, a.label:hover {
  * * * * * * * * * * */
  
  .todo__items {
-    margin: 1rem 0.5rem;
+ 	margin: 1rem 0.5rem;
  }
 .todo__item {
-	width: 90%;
+	width: inherit;
 	display: flex;
 	height: 1.5rem;
 	justify-content: space-evenly;
-	margin: 0 auto;
-	padding-bottom: 0.2rem;
 }
 
 .checked__cell input[type=checkbox] {
@@ -501,25 +493,3 @@ div > .categories__div {
  width: 100%;
  height: 100%;
  }
- 
- 
-/* * * * * * * * * * *
- *        share      *
- * * * * * * * * * * */
- 
-.share__down__btn {
-    position: absolute;
-    left: 69.8rem;
-    top: 0.5rem;
-}
-
-.share__down__btn > a {
-	text-align: center;
-	font-size: inherit !important;
-    color: black;
-}
-
-#kakao-link-btn:hover {
-	background-color: #ffeb00;
-	color: #3c1e1e;
-}
