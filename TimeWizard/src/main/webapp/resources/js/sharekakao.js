@@ -14,7 +14,7 @@ function dailyLink(){
     imageUrl:
       'https://cdn.pixabay.com/photo/2016/06/01/06/26/open-book-1428428_1280.jpg',
     link: {
-      mobileWebUrl: 'https://developers.kakao.com',
+      mobileWebUrl: 'https://qclass.iptime.org:8443/timewizard',
       androidExecParams: 'test',
     },
   },
@@ -22,13 +22,13 @@ function dailyLink(){
     {
       title: '웹으로 이동',
       link: {
-        mobileWebUrl: 'https://developers.kakao.com',
+        mobileWebUrl: 'https://qclass.iptime.org:8443/timewizard',
       },
     },
     {
       title: '앱으로 이동',
       link: {
-        mobileWebUrl: 'https://developers.kakao.com',
+        mobileWebUrl: 'https://qclass.iptime.org:8443/timewizard',
       },
     },
   ]
