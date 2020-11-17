@@ -40,20 +40,16 @@ function downloadFile(file_no){
 }
 
 function selectList(user_no){
-	let filesArea = document.querySelector(".files__area");
-	filesArea.innerHTML = "";
+	let files_div = document.querySelector(".files");
+	files_div.innerHTML = "";
 	const xhr = new XMLHttpRequest();
 	xhr.open("POST","/timewizard/file/list/"+user_no);
 	xhr.send();
 	xhr.onreadystatechange = () => {
 		if (xhr.readyState == 4 && xhr.status == 200){
 			if (xhr.responseText != null && xhr.responseText != "" && xhr.responseText != '[]'){
-				console.log(JSON.parse(xhr.responseText));
 				let files = JSON.parse(xhr.responseText);
 				let i = 0;
-				
-				let files_div = document.createElement("div");
-				files_div.setAttribute("class","files");
 				
 				for (i = 0; i < files.length; i++){
 					let file_div = document.createElement("div");
@@ -93,11 +89,20 @@ function selectList(user_no){
 					download_cell.appendChild(file_download);
 					 */
 					let form = document.createElement("form");
-					form.setAttribute("action","/timewizard/file/download/"+files[i].file_no);
-					form.setAttribute("method","POST");
+					form.setAttribute("class","download__form");
+					if (timelapse != 0){
+						form.setAttribute("action","/timewizard/file/download/"+files[i].file_no);
+						form.setAttribute("method","POST");
+						form.setAttribute("onsubmit","setTimeout(function(){window.location.reload();},1000);");
+					}
 					let submit = document.createElement("input");
 					submit.setAttribute("type","submit");
+//					submit.setAttribute("type","button");
+					submit.setAttribute("class","download__button");
 					submit.setAttribute("value","download");
+					if (timelapse == 0){
+						submit.setAttribute("onclick","alertMessage();");
+					}
 					form.appendChild(submit);
 					download_cell.appendChild(form);
 					
@@ -106,13 +111,16 @@ function selectList(user_no){
 					file_div.appendChild(download_cell);
 					files_div.appendChild(file_div)
 				}
-				filesArea.appendChild(files_div);
 				
 			} else if (xhr.responseText == '[]'){
-				filesArea.textContent = "저장된 파일이 없습니다.";
+				files_div.textContent = "저장된 파일이 없습니다.";
 			}
 		}
 	}
+}
+
+function alertMessage(){
+	alert('다운로드 횟수가 부족합니다');
 }
 
 function selectOne(user_no){

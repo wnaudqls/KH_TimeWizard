@@ -284,7 +284,7 @@ function showTimeblock(items){
 	} /* for i */
 	
 	let d3Data = {"todo":array};
-	console.log(d3Data);
+//	console.log(d3Data);
 	
 	let margin = {top: 30, right: 30, bottom: 30, left: 30},
 	width = heatmap_area.clientWidth,
@@ -340,7 +340,13 @@ function showTimeblock(items){
 		 g.selectAll(".tick text").attr("x", 4).attr("dy", -4);
 	 }
 	
-	// add the squares
+	 let svg_g_g = document.querySelector("svg > g:nth-child(1) > g:nth-child(2)");
+	 let g1 = svg_g_g.getElementsByClassName("tick")[0];
+	 let g2 = svg_g_g.getElementsByClassName("tick")[1];
+	 let g1_number = Number(g1.getAttribute("transform").split(",")[1].split(")")[0]);
+	 let g2_number = Number(g2.getAttribute("transform").split(",")[1].split(")")[0]);
+	 let rect_translate = (g1_number - g2_number)/2;
+	 
 	svg.selectAll()
 		.data(d3Data.todo, function(d) { return d.hour + ":" + d.minute;})
 		.enter()
@@ -351,7 +357,7 @@ function showTimeblock(items){
 		.attr("height", y.bandwidth() )
 		.style("opacity", function(d) { return d.fill/10 })
 		.style("fill", function(d) { return d.color } )
-		.attr("transform","translate(40,-14)");
+		.attr("transform","translate(40, -" + rect_translate + ")");
 		// rect 위치 조절
 }
 
@@ -619,7 +625,7 @@ function submitInsertModal(){
 	temp = input_endtime.split(":");
 	let endtime_minutes = temp[0] * 60 + temp[1];
 	if(input_complete.checked == true && (input_starttime == "" || input_endtime == "" ||(endtime_minutes - starttime_minutes < 0))){ 
-		alert("내용을 입력해주세요");
+		alert("시간을 올바르게 입력해주세요");
 		return false;
 	} else {
 		let input_date = document.getElementsByName("todo_date")[0].value;

@@ -19,8 +19,8 @@ body {
 
 .friendsbar {
 	float: left;
-	width: 14.93%;
-	height: 90vh;
+	width: 15%;
+	height: 100%;
 	border-left: 1px solid black;
 	overflow: auto;
 }

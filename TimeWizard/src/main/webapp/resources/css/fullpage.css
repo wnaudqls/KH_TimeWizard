@@ -343,7 +343,7 @@ a {
 	color: white;
 }
 
-ock {
+@media screen and (max-width: 1140px) {
 	#p1 {
 		font-size: 18px;
 	}

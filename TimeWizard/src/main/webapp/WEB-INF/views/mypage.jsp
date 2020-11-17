@@ -16,71 +16,20 @@
 <title>mypage</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&family=Source+Sans+Pro:wght@200;400&family=Staatliches&display=swap" rel="stylesheet">
-<link href="resources/css/mypage.css" rel="stylesheet">
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="resources/js/mypage.js" defer></script>
-<link href="/timewizard/css/actionpage.css" rel="stylesheet">
-<script src="https://kit.fontawesome.com/3049a69bf8.js" crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
-<script type="text/javascript">
-
-const elImage = document.querySelector("#reviewImageFileOpenInput");
-elImage.addEventListener("change", (evt) => {
-  const image = evt.target.files[0];
-  if(!validImageType(image)) { 
-    console.warn("invalide image file type");
-    return;
-  }
-});
-
-function valideImageType(image) {
-  const result = ([ 'image/jpeg',
-                    'image/png',
-                    'image/jpg' ].indexOf(image.type) > -1);
-  return result;
-}
-
-//결제 pay
-let user_no = ${login.user_no};
-let user_name = ${login.user_name};
-let membership;
-
-function pay(e){
-	var IMP = window.IMP;
-	IMP.init('imp26998959');
-	let name = $(e).attr("name");
-	let price = $(e).val();
-	IMP.request_pay({
-	    pg : 'inicis', // version 1.1.0부터 지원.
-	    pay_method : 'card',
-	    merchant_uid : "timewizard-" + new Date().getTime(),
-	    name : name, //상품이름
-	    amount : price, //판매 가격
-	    buyer_email : '${login.user_email}',
-	    buyer_name : '${login.user_name}',
-	}, function(rsp) {
-	    if ( rsp.success ) {
-	    	
-	    	location.href="/timewizard/pay?user_no="+${login.user_no}+"&pay_name="+rsp.name+"&price="+rsp.paid_amount;
-	        var msg = '결제가 완료되었습니다.';
-	       
-	    } else {
-	        var msg = '결제에 실패하였습니다.';
-	        msg += '에러내용 : ' + rsp.error_msg;
-	    }
-	    alert(msg);
-	});
-}
-	
-</script>
+<script src="https://kit.fontawesome.com/3049a69bf8.js" crossorigin="anonymous"></script>
+<link href="/timewizard/css/actionpage.css" rel="stylesheet">
+<link href="/timewizard/css/mypage.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/timewizard/css/userdeletepage.css">
+<script src="/timewizard/js/mypage.js" defer></script>
+<script type="text/javascript" src="/timewizard/js/file_upload.js"></script>
 </head>
-
-<body>
 <%
 	UserInfoDto login = (UserInfoDto) session.getAttribute("login");
-	int user_no = login.getUser_no();
 	String user_photo = (login.getUser_photo() == null) ? "3J1kUZfY.jpg" : login.getUser_photo();
 %>
+<body>
 	<div class="mypagebox">
 		<div class="mypagemenu" align="center">
 			<div class="preview">
@@ -88,7 +37,7 @@ function pay(e){
 			</div>
 			<form:form method="post" enctype="multipart/form-data" modelAttribute="UserInfoDto" action="profileupload">
 				<label><input type="file" name="file" class="mypagebtn" accept="image/*" id="image" name="user_photo" /></label>
-				<input type="hidden" name="user_no" value="<%=user_no%>" />
+				<input type="hidden" name="user_no" value="${login.user_no }" />
 				<label><input type="submit" class="mypagebtn" value="send" /></label>
 			</form:form>
 			
@@ -110,17 +59,19 @@ function pay(e){
 						</tr>
 						<tr>
 							<td colspan="2" align="right">
-								<input type="submit" class="submitbox" value="수정" /><br/>
-								<a href="userpwchange?user_no=${login.user_no }" class="btndesign">암호변경</a>
-								<a href="userdeletepage?user_no=${login.user_no }" class="btndesign">탈퇴</a>
+								<input type="submit" class="submitbox" value="수정" />
+								<input type="button" value="암호변경" class="btndesign" onclick="location.href='userpwchange?user_no=${login.user_no}'">
+								<input type="button" value="탈퇴" class="btndesign" onclick="confirmUserDelete();">
 							</td>
 						</tr>
 					</table>
 				</div>
 			</form>
 		</div>
-	
-		<div class="files__area" align="center"></div>
+		<div class="files__area" align="center">
+			<h3>타임랩스 내역</h3>
+			<div class="files" align="center"></div>
+		</div>
 		
 		<div class="mypagemenu" align="center">
 			<form>
@@ -157,15 +108,63 @@ function pay(e){
 		</div>
 		<div class="home"><a href="main"><i class="fas fa-arrow-circle-left" style="color:#263343;"></i></a></div>
 	</div>
-	
+	<div class="modals__area">
+	    <div class="modal__area"></div>
+	</div>
 	<script type="text/javascript">
-	let uno = ${login.user_no};
-	window.addEventListener("DOMContentLoaded", ()=>{
-		selectOne(uno);
-		selectList(uno)
-	});
+		let userno = <%=login.getUser_no()%>;
+		let username = "<%=login.getUser_name()%>";
+		let userid = "<%=login.getUser_id()%>";
+		let membership;
+		let timelapse = ${dto.timelapse };
+		
+		function valideImageType(image) {
+		  const result = ([ 'image/jpeg',
+		                    'image/png',
+		                    'image/jpg' ].indexOf(image.type) > -1);
+		  return result;
+		}
+		
+		//결제 pay
+		function pay(e){
+			var IMP = window.IMP;
+			IMP.init('imp26998959');
+			let name = $(e).attr("name");
+			let price = $(e).val();
+			IMP.request_pay({
+			    pg : 'inicis', // version 1.1.0부터 지원.
+			    pay_method : 'card',
+			    merchant_uid : "timewizard-" + new Date().getTime(),
+			    name : name, //상품이름
+			    amount : price, //판매 가격
+			    buyer_email : '${login.user_email}',
+			    buyer_name : '${login.user_name}',
+			}, function(rsp) {
+			    if ( rsp.success ) {
+			    	
+			    	location.href="/timewizard/pay?user_no="+${login.user_no}+"&pay_name="+rsp.name+"&price="+rsp.paid_amount;
+			        var msg = '결제가 완료되었습니다.';
+			       
+			    } else {
+			        var msg = '결제에 실패하였습니다.';
+			        msg += '에러내용 : ' + rsp.error_msg;
+			    }
+			    alert(msg);
+			});
+		}
+		
+		window.addEventListener("DOMContentLoaded", ()=>{
+			selectList(userno);
+ 			let elImage = document.getElementById("reviewImageFileOpenInput");
+			elImage.addEventListener("change", (evt) => {
+			  let image = evt.target.files[0];
+			  if(!validImageType(image)) { 
+			    console.warn("invalide image file type");
+			    return;
+			  }
+			});
+		});
 	</script>
-
-
+	<script src="/timewizard/js/userdeletepage.js" defer></script>
 </body>
 </html>

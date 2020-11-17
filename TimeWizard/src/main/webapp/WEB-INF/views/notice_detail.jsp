@@ -102,14 +102,12 @@
 			<col width="500" />
 			<col width="100" />
 			<col width="200" />
-			<col width="100" />
 			<col width="50" />
 		</colgroup>
 		<tr>
 			<th>${dto.notice_title }</th>
 			<th>운영자 YM</th>	
 			<th>${dto.notice_regdate }</th>
-			<th>(조회수)</th>
 			<th class="update" onclick="location.href='update?notice_no=${dto.notice_no }'"><i class="fas fa-wrench"></i></th>
 		</tr>
 	<%
@@ -119,13 +117,11 @@
 			<col width="500" />
 			<col width="100" />
 			<col width="200" />
-			<col width="100" />
 		</colgroup>
 		<tr>
 			<th>${dto.notice_title }</th>
 			<th>운영자 YM</th>
 			<th>${dto.notice_regdate }</th>
-			<th>(조회수)</th>
 		</tr>
 	<%
 			}
