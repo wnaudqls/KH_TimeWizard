@@ -57,7 +57,7 @@ SET USER_PW = 'user1234'
 WHERE USER_ID = 'user';
 
 UPDATE USER_INFO
-SET USER_PHOTO = NULL
+SET USER_PHOTO = NULL;
 
 
 --------------------------------
