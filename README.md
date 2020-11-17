@@ -45,7 +45,7 @@
 
 <br>
 
-### Menu
+### 🚩Menu
 
 - [📃daily](#📃Daily)
 - [📈weekly,monthly](#📈Weekly,Monthly)
