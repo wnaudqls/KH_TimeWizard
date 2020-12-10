@@ -225,14 +225,12 @@ function recntfriend(bool){
 	$(".friendsbar").append("<p>연결이 끊겼습니다.</p>");
 	console.log("bool: "+bool)
 	if(bool == true){
-		if(count ++ <=10){
-			setTimeout(function(){
+		setTimeout(function(){
 			count += 1;
 			friendlist();
 			$('.friendlist').empty();
 			$(".friendsbar").append("<p>연결이 끊겼습니다. 재시도 횟수: "+count+"</p>");
 			}, 2*1000);
-		}
 	}
 }
 
